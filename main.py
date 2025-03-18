@@ -1,2 +1,2 @@
-# YEHAHH
+# YEAHHH
 print("Hello world")
