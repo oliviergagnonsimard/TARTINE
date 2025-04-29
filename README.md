@@ -4,7 +4,7 @@
 - Faire l'épicerie, planifier les repas en utilisant les circulaires.
 - Nutrition
 
-## 3 ÉTAPES DU PROJET
+## 4 ÉTAPES DU PROJET
 - 1: MVP dans le terminal
 - 2: UI de base simple
 - 3: Application plus poussée (mobile, web?)
