@@ -38,6 +38,24 @@
 - Système d'abonnement et de clients avec des privilèges
 
 ## PROCHAINES OBJECTIFS
-- Faire une TODO List
 - Planification éclairée du MVP
+- Faire une TODO List
 - Travailler sur le MVP
+
+
+## MVP
+- avoir une db pour enregistrer c recette
+    - pourvoir entrer cahque recette avec les incrédient et portion 
+    - c une google sheet
+- api google sheet
+- avoir un systeme de recommendatino des repas en fonction des rabais circulaire
+    - ramener les data des circulaire (api ou scraping a voir)
+
+
+## Idée +
+- systeme de compte
+- calorie macro proteine
+- systeme de chat bot opur parler avec lia des repas a planifier
+- systeme d,ami pour importer le repas des autre
+- partonaria ricardeau
+

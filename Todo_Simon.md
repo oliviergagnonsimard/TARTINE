@@ -1,0 +1,6 @@
+- etre un project manager lol
+    - faire freeze et requirement
+    - trouver une facon de pas faire un spaguetti
+        - faire une plan de code ?
+    - coder vite avec de l'ia
+        - lire mon mail
