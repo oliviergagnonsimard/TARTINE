@@ -70,9 +70,9 @@ GROCERY_STORE = "MAXI"
 
 EXTRACT_CIRCULAIRE_PROMPT = f"""You have a very important and critical job to do. You need to get ALL of the discounts from the: 
 {GROCERY_STORE} grocery store and need to extract all of the information precisely, otherwise, customers using my service will 
-get frustrated. Children may also die of hunger if you don't do your job right. EXTRACT EVERY SINGLE DISCOUNT THERE IS THIS GROCERY STORE
-in a STRICT and readable JSON format and give NO OTHER TEXT, because you're answer will be used for a database. IMPORTANT PART: EACH JSON 
-OBJECT MUST CONTAIN THE FOLLOWING ATTRIBUTES:
+get very angry. Children may also die of hunger if you don't do your job right. EXTRACT EVERY SINGLE DISCOUNT THERE IS THIS GROCERY
+STORE in a STRICT and readable JSON format and give NO OTHER TEXT IN YOUR ANSWER, because you're answer will be used for a database. 
+IMPORTANT PART: EACH JSON OBJECT MUST CONTAIN THE FOLLOWING ATTRIBUTES:
 1) The name of the product
 2) Original pricing
 3) Discounted pricing
