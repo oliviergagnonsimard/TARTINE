@@ -1,4 +1,4 @@
-# TARTINE
+# TARTINE™
 
 ## BUT DE L'APPLICATION:
 - Faire l'épicerie, planifier les repas en utilisant les circulaires.
