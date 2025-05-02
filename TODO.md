@@ -22,3 +22,4 @@ V = Victor O= Oli S = Simon
             - trouver une systeme pour creer une menu en fonction des rabais
                 - le systeme a oli
             - donner le menu a l'utisateur et lui montrer les rabais
+             
