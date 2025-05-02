@@ -7,9 +7,10 @@
 # =======================================================
 
 import os
-import google.generativeai as genai
+import google.generativeai as generativeAI
 import json
 import platform
+from google import genai
 
 # ======================================================================== FONCTIONS
 def createConfigFile():
@@ -46,6 +47,22 @@ def loadAPIKey():
 
         return config["API_KEY"]
     
+def sendPDF():
+    client = genai.Client(api_key=apKey)
+
+    myFile = client.files.upload(file=f"{DIR_PATH}{SLASHS}circulaire.pdf")  
+
+    with open(f"{DIR_PATH}{SLASHS}circulaire.pdf", "rb") as f:
+         contenu = f.read()
+
+    ans = model.generate_content(
+         [EXTRACT_CIRCULAIRE_PROMPT, {"mime_type": "application/pdf", "data": contenu}]
+         )
+
+    print(ans.text)
+
+    
+    
 # ======================================================================== DÉBUT DU PROGRAMME
 
 # --- Gestion des slashs en fonction de l'OS
@@ -60,9 +77,9 @@ DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 
 # --- Gestion de la clé API
 configFile = "config.json"
-model = genai.GenerativeModel("gemini-2.5-pro-exp-03-25")
+model = generativeAI.GenerativeModel("gemini-2.5-pro-exp-03-25")
 apKey = loadAPIKey()
-genai.configure(api_key=apKey)
+generativeAI.configure(api_key=apKey)
 
 
 # --- Début de l'extraction
@@ -73,12 +90,17 @@ EXTRACT_CIRCULAIRE_PROMPT = f"""You have a very important and critical job to do
 get very angry. Children may also die of hunger if you don't do your job right. EXTRACT EVERY SINGLE DISCOUNT THERE IS THIS GROCERY
 STORE in a STRICT and readable JSON format and give NO OTHER TEXT IN YOUR ANSWER, because you're answer will be used for a database. 
 IMPORTANT PART: EACH JSON OBJECT MUST CONTAIN THE FOLLOWING ATTRIBUTES:
-1) The name of the product
-2) Original pricing
-3) Discounted pricing
+1) The name of the product: "Name"
+2) Original pricing: "OriginalPrice"
+3) Discounted pricing: "DiscountedPrice"
 """
 
 chat_session = model.start_chat(history=[])
+
+client = genai.Client(api_key=apKey)
+
+myFile = client.files.upload(file=f"{DIR_PATH}{SLASHS}circulaire.pdf")
+
 
 while True:
     print("----------------------------------")
@@ -86,6 +108,9 @@ while True:
 
     if ask == "/q":
         exit()
+    if ask == "/g":
+         sendPDF()
+         continue
     if ask == "":
         continue
     if ask == "/":
