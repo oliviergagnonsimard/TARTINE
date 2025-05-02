@@ -79,7 +79,9 @@ DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 configFile = "config.json"
 model = generativeAI.GenerativeModel("gemini-2.5-pro-exp-03-25")
 apKey = loadAPIKey()
+
 generativeAI.configure(api_key=apKey)
+
 
 
 # --- Début de l'extraction
@@ -97,11 +99,6 @@ IMPORTANT PART: EACH JSON OBJECT MUST CONTAIN THE FOLLOWING ATTRIBUTES:
 
 chat_session = model.start_chat(history=[])
 
-client = genai.Client(api_key=apKey)
-
-myFile = client.files.upload(file=f"{DIR_PATH}{SLASHS}circulaire.pdf")
-
-
 while True:
     print("----------------------------------")
     ask = input("ask: ")
@@ -117,5 +114,11 @@ while True:
         help()
         continue
 
-    ans = chat_session.send_message(ask)
+    try:
+        ans = chat_session.send_message(ask)
+    except Exception as e:
+        print("=--ERROR--= Clé API invalide.")
+        exit()
+
+
     print(f"Gemini: {ans.text}")
