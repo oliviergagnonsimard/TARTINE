@@ -11,6 +11,7 @@ import google.generativeai as generativeAI
 import json
 import platform
 from google import genai
+from database import *
 
 # ======================================================================== FONCTIONS
 def createConfigFile():
@@ -47,19 +48,30 @@ def loadAPIKey():
 
         return config["API_KEY"]
     
-def sendPDF():
-    client = genai.Client(api_key=apKey)
-
-    myFile = client.files.upload(file=f"{DIR_PATH}{SLASHS}circulaire.pdf")  
-
+def sendPDF(GROCERY):
     with open(f"{DIR_PATH}{SLASHS}circulaire.pdf", "rb") as f:
          contenu = f.read()
 
     ans = model.generate_content(
-         [EXTRACT_CIRCULAIRE_PROMPT, {"mime_type": "application/pdf", "data": contenu}]
-         )
+         [scrappingPDFText(GROCERY), {"mime_type": "application/pdf", "data": contenu}]
+         ).text
 
-    print(ans.text)
+    return parseSQL(ans)
+
+def scrappingPDFText(GROCERY):
+    EXTRACT_CIRCULAIRE_PROMPT = f"""You have a very important and critical job to do. You need to get ALL of the discounts from the: 
+    {GROCERY} grocery store and need to extract all of the information precisely, otherwise, customers using my service will 
+    get very angry. Children may also die of hunger if you don't do your job right. YOUR JOB IS TO SEND AND CREATE AN SQL STATEMENT THAT FILLS
+    EVERY SINGLE DISCOUNT FROM THE GROCERY STORE IN THE 'discount' TABLE. DO NOT ANSWER ANYTHING OTHER THAN THE SQL STATEMENT ITSELF! JUST SEND THE
+    SQL STATEMENT, NO OTHER TEXT IS ALLOWED IN YOU ANSWER. YOU NEED TO BE EXTREMELY PRECISE WITH EVERY PRICING AND DISCOUNT.
+    NOTE THAT IF YOU CAN'T FIND THE ORIGINAL PRICING, CALCULATE IT WITH THE DiscountPercent. The 'discount' table has the following attributes:
+    discountID			INT,
+	ProductName			VARCHAR(255),
+	DiscountPercent		NUMERIC,
+	OriginalPrice		NUMERIC,
+	DiscountedPrice		NUMERIC,
+    """
+    return EXTRACT_CIRCULAIRE_PROMPT
 
     
     
@@ -81,45 +93,3 @@ model = generativeAI.GenerativeModel("gemini-2.5-pro-exp-03-25")
 apKey = loadAPIKey()
 
 generativeAI.configure(api_key=apKey)
-
-
-
-# --- Début de l'extraction
-GROCERY_STORE = "MAXI"
-
-EXTRACT_CIRCULAIRE_PROMPT = f"""You have a very important and critical job to do. You need to get ALL of the discounts from the: 
-{GROCERY_STORE} grocery store and need to extract all of the information precisely, otherwise, customers using my service will 
-get very angry. Children may also die of hunger if you don't do your job right. EXTRACT EVERY SINGLE DISCOUNT THERE IS THIS GROCERY
-STORE in a STRICT and readable JSON format and give NO OTHER TEXT IN YOUR ANSWER, because you're answer will be used for a database.
-ALSO NOTE: If you can't find the original price of the product, calculate it with the discounted price and percentage of reduction.
-IMPORTANT PART: EACH JSON OBJECT MUST CONTAIN THE FOLLOWING ATTRIBUTES:
-1) The name of the product: "Name"
-2) Original pricing: "OriginalPrice"
-3) Discounted pricing: "DiscountedPrice"
-"""
-
-chat_session = model.start_chat(history=[])
-
-# while True:
-#     print("----------------------------------")
-#     ask = input("ask: ")
-
-#     if ask == "/q":
-#         exit()
-#     if ask == "/g":
-#          sendPDF()
-#          continue
-#     if ask == "":
-#         continue
-#     if ask == "/":
-#         help()
-#         continue
-
-#     try:
-#         ans = chat_session.send_message(ask)
-#     except Exception as e:
-#         print("=--ERROR--= Clé API invalide.")
-#         exit()
-
-
-#     print(f"Gemini: {ans.text}")
