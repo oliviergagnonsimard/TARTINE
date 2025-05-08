@@ -1,16 +1,5 @@
 from database import *
 from scrapping import *
-import os
-import psycopg2
-import google.generativeai
-
-message = """
-Give me only an SQL statement as an answer to add 3 example values to the given table.
-My table 'client' has the following columns:
-1. name
-2. age
-3. email
-"""
 
 conn = connectToDB()
 with conn.cursor() as curs:
