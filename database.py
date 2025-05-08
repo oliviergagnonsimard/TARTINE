@@ -54,3 +54,8 @@ with conn.cursor() as curs:
     row = curs.fetchall()
 
     print(row)
+
+
+a = input("commit to db? (y/n): ")
+if a == "y":
+    conn.commit()
