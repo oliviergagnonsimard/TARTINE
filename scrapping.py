@@ -100,26 +100,26 @@ IMPORTANT PART: EACH JSON OBJECT MUST CONTAIN THE FOLLOWING ATTRIBUTES:
 
 chat_session = model.start_chat(history=[])
 
-while True:
-    print("----------------------------------")
-    ask = input("ask: ")
+# while True:
+#     print("----------------------------------")
+#     ask = input("ask: ")
 
-    if ask == "/q":
-        exit()
-    if ask == "/g":
-         sendPDF()
-         continue
-    if ask == "":
-        continue
-    if ask == "/":
-        help()
-        continue
+#     if ask == "/q":
+#         exit()
+#     if ask == "/g":
+#          sendPDF()
+#          continue
+#     if ask == "":
+#         continue
+#     if ask == "/":
+#         help()
+#         continue
 
-    try:
-        ans = chat_session.send_message(ask)
-    except Exception as e:
-        print("=--ERROR--= Clé API invalide.")
-        exit()
+#     try:
+#         ans = chat_session.send_message(ask)
+#     except Exception as e:
+#         print("=--ERROR--= Clé API invalide.")
+#         exit()
 
 
-    print(f"Gemini: {ans.text}")
+#     print(f"Gemini: {ans.text}")

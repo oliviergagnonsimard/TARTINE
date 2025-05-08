@@ -38,24 +38,28 @@ def connectToDB():
             password=   dbinfo["password"]
         )
 
+def parseSQL(text):
+    text = text[6:-3]
+    text = text.replace("\n", "")
+    return text
+
 #DÉBUT DU CODE -----------------------------------------------------------------------------------
-if not os.path.isfile(configFile):
-    createDBFile()
+# if not os.path.isfile(configFile):
+#     createDBFile()
 
-conn = connectToDB()
+# conn = connectToDB()
+
+# with conn.cursor() as curs:
+#     print("==============================")
+#     curs.execute("INSERT INTO client VALUES ('Olivier', 21), ('Victor', 34), ('Simon', 29)")
+
+#     curs.execute("SELECT * FROM client")
+
+#     row = curs.fetchall()
+
+#     print(row)
 
 
-with conn.cursor() as curs:
-    print("==============================")
-    curs.execute("INSERT INTO client VALUES ('Olivier', 21), ('Victor', 34), ('Simon', 29)")
-
-    curs.execute("SELECT * FROM client")
-
-    row = curs.fetchall()
-
-    print(row)
-
-
-a = input("commit to db? (y/n): ")
-if a == "y":
-    conn.commit()
+# a = input("commit to db? (y/n): ")
+# if a == "y":
+#     conn.commit()
