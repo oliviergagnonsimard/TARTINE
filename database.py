@@ -43,23 +43,18 @@ def parseSQL(text):
     text = text.replace("\n", "")
     return text
 
-#DÉBUT DU CODE -----------------------------------------------------------------------------------
-# if not os.path.isfile(configFile):
-#     createDBFile()
+def confirmCommitToDB(conn):
+    a = input("Are you sure you want to push your changes to the database? (y/n) ")
+    if a == "y":
+        conn.commit()
 
-# conn = connectToDB()
+def clearDiscountDB():
+    conn = connectToDB()
 
-# with conn.cursor() as curs:
-#     print("==============================")
-#     curs.execute("INSERT INTO client VALUES ('Olivier', 21), ('Victor', 34), ('Simon', 29)")
+    with conn.cursor() as curs:
+        curs.execute("DELETE FROM discount")
 
-#     curs.execute("SELECT * FROM client")
-
-#     row = curs.fetchall()
-
-#     print(row)
+    confirmCommitToDB(conn)
 
 
-# a = input("commit to db? (y/n): ")
-# if a == "y":
-#     conn.commit()
+clearDiscountDB()
