@@ -15,7 +15,7 @@ from google import genai
 # ======================================================================== FONCTIONS
 def createConfigFile():
     with open(configFile, "w") as f:
-        api_text = { "API_KEY": "null" }
+        api_text = { "API_KEY": "null"}
 
         jsonObject = json.dumps(api_text, indent=4)
         f.write(jsonObject)
@@ -30,7 +30,7 @@ def noConfigFile():
 def noApiKey():
         # Si la clé API est nulle ou vide, on demande à l'utilisateur de la mettre dans le fichier de config.
         print("ERROR: Please add your GeminiAPI key in the 'config.json' file.")
-        print("You can get your key at: https://console.cloud.google.com/apis/credentials?project=gemini-api-keys")
+        print("You can get your key at: https://ai.google.dev/gemini-api/docs/api-key")
         exit()
 
 def loadAPIKey():
@@ -76,7 +76,7 @@ if PLATFORM == "Linux":
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 
 # --- Gestion de la clé API
-configFile = "config.json"
+configFile = DIR_PATH + SLASHS + "config.json"
 model = generativeAI.GenerativeModel("gemini-2.5-pro-exp-03-25")
 apKey = loadAPIKey()
 
@@ -90,7 +90,8 @@ GROCERY_STORE = "MAXI"
 EXTRACT_CIRCULAIRE_PROMPT = f"""You have a very important and critical job to do. You need to get ALL of the discounts from the: 
 {GROCERY_STORE} grocery store and need to extract all of the information precisely, otherwise, customers using my service will 
 get very angry. Children may also die of hunger if you don't do your job right. EXTRACT EVERY SINGLE DISCOUNT THERE IS THIS GROCERY
-STORE in a STRICT and readable JSON format and give NO OTHER TEXT IN YOUR ANSWER, because you're answer will be used for a database. 
+STORE in a STRICT and readable JSON format and give NO OTHER TEXT IN YOUR ANSWER, because you're answer will be used for a database.
+ALSO NOTE: If you can't find the original price of the product, calculate it with the discounted price and percentage of reduction.
 IMPORTANT PART: EACH JSON OBJECT MUST CONTAIN THE FOLLOWING ATTRIBUTES:
 1) The name of the product: "Name"
 2) Original pricing: "OriginalPrice"
