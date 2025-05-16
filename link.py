@@ -1,18 +1,17 @@
 from database import *
 from scrapping import *
 
-
-
 conn = connectToDB()
-with conn.cursor() as curs:
-    curs.execute("SELECT * FROM discount")
-    print(curs.fetchall())
 
+def SendOneIMGDiscountsToDB(filename):
+    with conn.cursor() as curs:
+        ans = sendIMG(filename)
 
-    print("--------------------------")
+        curs.execute(ans)
 
-    ans = sendPDF("MAXI")
+    confirmCommitToDB(conn)
 
-    curs.execute(ans)
+downloaded_pngs_path = DIR_PATH + SLASHS + "downloaded_pdfs"
+downloadedFile = downloaded_pngs_path + SLASHS + "downloaded_pdf_0.png"
 
-confirmCommitToDB(conn)
+SendOneIMGDiscountsToDB(downloadedFile)

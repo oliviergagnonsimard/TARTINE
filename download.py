@@ -53,6 +53,9 @@ def DownloadIMGFromWeb(url, differentiator):
 
         Compteur += 1
 
+def DownloadAllIMGFromCirculaire(url, differentiator):
+    print("A FAIRE")
 
-DownloadIMGFromWeb("https://www.circulaires.com/maxi/circulaire/?ref=circulaires.com&n=&p=&sname=maxi&region=&sttr=1747281600&str=4368204",
-                   "/maxi/circulaire/")
+
+DownloadIMGFromWeb(url="https://www.circulaires.com/maxi/circulaire/?ref=circulaires.com&n=&p=&sname=maxi&region=&sttr=1747281600&str=4368204",
+                   differentiator="/maxi/circulaire/")

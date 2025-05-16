@@ -47,19 +47,19 @@ def loadAPIKey():
 
         return config["API_KEY"]
     
-def sendPDF(GROCERY):
-    with open(f"{DIR_PATH}{SLASHS}circulaire.pdf", "rb") as f:
+def sendIMG(filename):
+    with open(f"{DIR_PATH}{SLASHS}{filename}", "rb") as f:
          contenu = f.read()
 
     ans = model.generate_content(
-         [scrappingPDFText(GROCERY), {"mime_type": "application/pdf", "data": contenu}]
+         [scrappingIMGText(), {"mime_type": "application/pdf", "data": contenu}]
          ).text
 
     return parseSQL(ans)
 
-def scrappingPDFText(GROCERY):
+def scrappingIMGText():
     EXTRACT_CIRCULAIRE_PROMPT = f"""You have a very important and critical job to do. You need to get ALL of the discounts from the: 
-    {GROCERY} grocery store and need to extract all of the information precisely, otherwise, customers using my service will 
+    grocery store and need to extract all of the information precisely, otherwise, customers using my service will 
     get very angry. Children may also die of hunger if you don't do your job right. YOUR JOB IS TO SEND AND CREATE AN SQL STATEMENT THAT FILLS
     EVERY SINGLE DISCOUNT FROM THE GROCERY STORE IN THE 'discount' TABLE. DO NOT ANSWER ANYTHING OTHER THAN THE SQL STATEMENT ITSELF! JUST SEND THE
     SQL STATEMENT, NO OTHER TEXT IS ALLOWED IN YOU ANSWER. YOU NEED TO BE EXTREMELY PRECISE WITH EVERY PRICING AND DISCOUNT.
