@@ -1,6 +1,8 @@
 from database import *
 from scrapping import *
 
+
+
 conn = connectToDB()
 with conn.cursor() as curs:
     curs.execute("SELECT * FROM discount")

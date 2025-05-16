@@ -10,7 +10,6 @@ import os
 import google.generativeai as generativeAI
 import json
 import platform
-from google import genai
 from database import *
 
 # ======================================================================== FONCTIONS
