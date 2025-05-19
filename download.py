@@ -14,7 +14,7 @@ if PLATFORM == "Linux":
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 
 
-downloaded_pngs_path = DIR_PATH + SLASHS + "downloaded_pdfs"
+downloaded_pngs_path = DIR_PATH + SLASHS + "downloaded_pngs"
 if not os.path.exists(downloaded_pngs_path):
     os.makedirs(downloaded_pngs_path)
 
@@ -46,7 +46,7 @@ def DownloadIMGFromWeb(url, differentiator):
 
         ans = requests.get(url)
 
-        downloadedFile = downloaded_pngs_path + SLASHS + "downloaded_pdf_" + Compteur.__str__() + ".png"
+        downloadedFile = downloaded_pngs_path + SLASHS + "downloaded_pngs_" + Compteur.__str__() + ".png"
 
         with open(downloadedFile, "wb") as f:
             f.write(ans.content)
@@ -57,5 +57,5 @@ def DownloadAllIMGFromCirculaire(url, differentiator):
     print("A FAIRE")
 
 
-DownloadIMGFromWeb(url="https://www.circulaires.com/maxi/circulaire/?ref=circulaires.com&n=&p=&sname=maxi&region=&sttr=1747281600&str=4368204",
+DownloadIMGFromWeb(url="https://www.circulaires.com/maxi/circulaire/?ref=circulaires.com&n=&p=&sname=maxi&region=&sttr=1747627200&str=4369068",
                    differentiator="/maxi/circulaire/")
