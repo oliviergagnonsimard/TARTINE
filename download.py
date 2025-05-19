@@ -2,8 +2,7 @@ import requests
 import os
 import platform
 from bs4 import BeautifulSoup
-from urllib.parse import urljoin, urlparse
-
+from urllib.parse import urljoin
 PLATFORM = platform.system()
 
 SLASHS = "\\"
@@ -33,6 +32,7 @@ def DownloadIMGFromWeb(url, differentiator):
         print(tag)
         img_src = tag.get("src")
 
+        # On join l'URL de base du site + le src de l'image
         full_url = urljoin(url, img_src)
         print(full_url)
 
