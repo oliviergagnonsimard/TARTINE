@@ -17,7 +17,7 @@ downloaded_pngs_path = DIR_PATH + SLASHS + "downloaded_pngs"
 if not os.path.exists(downloaded_pngs_path):
     os.makedirs(downloaded_pngs_path)
 
-def DownloadIMGFromWeb(url, differentiator):
+def DownloadIMGFromWeb(url, filter):
     response = requests.get(url)
 
     if response.status_code != 200:
@@ -28,20 +28,21 @@ def DownloadIMGFromWeb(url, differentiator):
     img_tags = parsedHTML.find_all("img")
     image_urls = []
 
+    print("URL DE TOUTES LES IMAGES =========================================================================")    
+
     for tag in img_tags:
-        print(tag)
         img_src = tag.get("src")
 
         # On join l'URL de base du site + le src de l'image
         full_url = urljoin(url, img_src)
         print(full_url)
 
-        if full_url.lower().__contains__(differentiator):
+        if full_url.lower().__contains__(filter):
             image_urls.append(full_url)
 
     Compteur = 0
-    # MAINTENANT QU'ON A LES URLS ON LES TÉLÉCHARGES
-    print("VOICI LES URLS =========================================================================")    
+    # MAINTENANT QU'ON A LES URLS, ON LES TÉLÉCHARGES
+    print("URLS AVEC filter =========================================================================")    
     for url in image_urls:
 
         ans = requests.get(url)
@@ -49,13 +50,14 @@ def DownloadIMGFromWeb(url, differentiator):
         downloadedFile = downloaded_pngs_path + SLASHS + "downloaded_pngs_" + Compteur.__str__() + ".png"
 
         with open(downloadedFile, "wb") as f:
+            print(url)
             f.write(ans.content)
 
         Compteur += 1
 
-def DownloadAllIMGFromCirculaire(url, differentiator):
+def DownloadAllIMGFromCirculaire(url, filter):
     print("A FAIRE")
 
 
 DownloadIMGFromWeb(url="https://www.circulaires.com/maxi/circulaire/?ref=circulaires.com&n=&p=&sname=maxi&region=&sttr=1747627200&str=4369068",
-                   differentiator="/maxi/circulaire/")
+                   filter="/maxi/circulaire/")
