@@ -42,7 +42,7 @@ def DownloadIMGFromWeb(url, filter):
 
     Compteur = 0
     # MAINTENANT QU'ON A LES URLS, ON LES TÉLÉCHARGES
-    print("URLS AVEC filter =========================================================================")    
+    print("URL AVEC filter =========================================================================")    
     for url in image_urls:
 
         ans = requests.get(url)
