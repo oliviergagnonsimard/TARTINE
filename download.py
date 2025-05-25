@@ -28,21 +28,19 @@ def DownloadIMGFromWeb(url, filter, compteur):
     img_tags = parsedHTML.find_all("img")
     image_urls = []
 
-    print("URL DE TOUTES LES IMAGES =========================================================================")    
 
     for tag in img_tags:
         img_src = tag.get("src")
 
         # On join l'URL de base du site + le src de l'image
         full_url = urljoin(url, img_src)
-        print(full_url)
 
         if full_url.lower().__contains__(filter):
+            print(full_url)
             image_urls.append(full_url)
 
 
     # MAINTENANT QU'ON A LES URLS, ON LES TÉLÉCHARGES
-    print("URL AVEC filter =========================================================================")    
     for url in image_urls:
 
         ans = requests.get(url)
@@ -50,7 +48,6 @@ def DownloadIMGFromWeb(url, filter, compteur):
         downloadedFile = downloaded_pngs_path + SLASHS + "downloaded_pngs_" + str(compteur) + ".png"
 
         with open(downloadedFile, "wb") as f:
-            print(url)
             f.write(ans.content)
 
         compteur += 1
@@ -77,6 +74,8 @@ def DownloadAllIMGFromCirculaire(url, filter):
     for this_url in all_urls:
         DownloadIMGFromWeb(this_url, filter, compteur)
         compteur +=2
+        print("======================================================================")
+
 
 
 
