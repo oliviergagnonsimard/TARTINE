@@ -17,7 +17,7 @@ downloaded_pngs_path = DIR_PATH + SLASHS + "downloaded_pngs"
 if not os.path.exists(downloaded_pngs_path):
     os.makedirs(downloaded_pngs_path)
 
-def DownloadIMGFromWeb(url, filter):
+def DownloadIMGFromWeb(url, filter, compteur):
     response = requests.get(url)
 
     if response.status_code != 200:
@@ -40,24 +40,45 @@ def DownloadIMGFromWeb(url, filter):
         if full_url.lower().__contains__(filter):
             image_urls.append(full_url)
 
-    Compteur = 0
+
     # MAINTENANT QU'ON A LES URLS, ON LES TÉLÉCHARGES
     print("URL AVEC filter =========================================================================")    
     for url in image_urls:
 
         ans = requests.get(url)
 
-        downloadedFile = downloaded_pngs_path + SLASHS + "downloaded_pngs_" + Compteur.__str__() + ".png"
+        downloadedFile = downloaded_pngs_path + SLASHS + "downloaded_pngs_" + str(compteur) + ".png"
 
         with open(downloadedFile, "wb") as f:
             print(url)
             f.write(ans.content)
 
-        Compteur += 1
+        compteur += 1
 
 def DownloadAllIMGFromCirculaire(url, filter):
-    print("A FAIRE")
+    response = requests.get(url)
+
+    if response.status_code != 200:
+        print(f"Failed to fetch the following URL: {url}")
+
+    parsedHTML = BeautifulSoup(response.text, "html.parser")
+
+    url_tags = parsedHTML.find_all("a")
+    all_urls = []
+
+    for tag in url_tags:
+        tag_href = tag.get("href")
+        full_url = urljoin(url, tag_href)
+
+        if full_url.lower().__contains__(filter) and not full_url in all_urls:
+            all_urls.append(full_url)
+
+    compteur = 0
+    for this_url in all_urls:
+        DownloadIMGFromWeb(this_url, filter, compteur)
+        compteur +=2
 
 
-DownloadIMGFromWeb(url="https://www.circulaires.com/maxi/circulaire/?ref=circulaires.com&n=&p=&sname=maxi&region=&sttr=1747627200&str=4369068",
+
+DownloadAllIMGFromCirculaire(url="https://www.circulaires.com/maxi/circulaire/?ref=circulaires.com&n=&p=&sname=maxi&region=&sttr=1748059200&str=4370148",
                    filter="/maxi/circulaire/")
