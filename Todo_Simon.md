@@ -1,7 +1,0 @@
-- etre un project manager lol
-    - mettre les todo dans un google sheet
-    - faire freeze et requirement
-    - trouver une facon de pas faire un spaguetti
-        - faire une plan de code ?
-    - coder vite avec de l'ia
-        - lire mon mail
