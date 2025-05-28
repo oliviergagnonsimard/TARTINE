@@ -78,6 +78,10 @@ def DownloadAllIMGFromCirculaire(url, filter):
 
 
 
+#Maxi
+#DownloadAllIMGFromCirculaire(url="https://www.circulaires.com/supermarche-iga/circulaire/?ref=circulaires.com&n=&p=&sname=iga&region=&sttr=1748145600&str=4370364",
+                   #filter="/maxi/circulaire/")
 
-DownloadAllIMGFromCirculaire(url="https://www.circulaires.com/maxi/circulaire/?ref=circulaires.com&n=&p=&sname=maxi&region=&sttr=1748059200&str=4370148",
-                   filter="/maxi/circulaire/")
+#IGA              
+DownloadAllIMGFromCirculaire(url="https://www.circulaires.com/supermarche-iga/circulaire/?ref=circulaires.com&n=&p=&sname=iga&region=&sttr=1748145600&str=4370364",
+                   filter="/supermarche-iga/circulaire/")

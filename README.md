@@ -23,10 +23,10 @@
 ### SIMON
 - Marketing
 - Design de UI
-- Planification d'architecture de code
+- Planification d'architecture de code et base de données
 - Gestion de projet (decision making et autres)
 - Documentation
-- Python, Google sheet
+- Python
 
 
 ## FONCTIONNALITÉS VOULUES
@@ -37,25 +37,20 @@
 - Calculateur pour calories et valeurs nutritives
 - Système d'abonnement et de clients avec des privilèges
 
-## PROCHAINES OBJECTIFS
-- Planification éclairée du MVP
-- Faire une TODO List
-- Travailler sur le MVP
-
-
 ## MVP
-- avoir une db pour enregistrer c recette
-    - pourvoir entrer cahque recette avec les incrédient et portion 
-    - c une google sheet
-- api google sheet
-- avoir un systeme de recommendatino des repas en fonction des rabais circulaire
-    - ramener les data des circulaire (api ou scraping a voir)
-
+- Avoir une DB pour enregistrer ses recettes
+    - Pouvoir choisir ingrédients et leur quantité quand on créé une recette
+- Système de recommandation de repas en fonction des rabais du circulaire
+    - Ramener les data des circulaires (api ou scrapping a voir)
 
 ## Idée +
-- systeme de compte
-- calorie macro proteine
-- systeme de chat bot opur parler avec lia des repas a planifier
-- systeme d,ami pour importer le repas des autre
-- partonaria ricardeau
+- Système de compte
+- Calcul des calories, macros, protéines pour les gym rats
+- Chat bot intégré pour l'utilisateur pour aider à planifier repas
+- Système d'amis pour importer les repas des autres
+- Recommandations de livres de cuisines (Ricardo ou autres)
 
+## PROCHAINES OBJECTIFS
+- Trouver un moyen de télécharger les circulaires récurremment et mettre automatiquement la BD à jour
+- Créer un programme de base avec les fondements de l'app dans le terminal (créer recettes, ajouter ingrédients et check si tt va dans la BD dans le cloud)
+- Programme ou fonction détectant les repas les plus économiques en fonction de ses ingrédients et des rabais d'épicerie
