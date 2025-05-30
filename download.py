@@ -17,7 +17,7 @@ downloaded_pngs_path = DIR_PATH + SLASHS + "downloaded_pngs"
 if not os.path.exists(downloaded_pngs_path):
     os.makedirs(downloaded_pngs_path)
 
-def DownloadIMGFromWeb(url, filter, compteur):
+def DownloadIMGFromWeb(url, filter, compteur, epicerie):
     response = requests.get(url)
 
     if response.status_code != 200:
@@ -45,14 +45,17 @@ def DownloadIMGFromWeb(url, filter, compteur):
 
         ans = requests.get(url)
 
-        downloadedFile = downloaded_pngs_path + SLASHS + "downloaded_pngs_" + str(compteur) + ".png"
+        downloadedFileDIR = downloaded_pngs_path + SLASHS + epicerie
+        if not os.path.exists(downloadedFileDIR):
+            os.makedirs(downloadedFileDIR)
+        downloadedFile = downloadedFileDIR + SLASHS + "downloaded_pngs_" + str(compteur) + ".png"
 
         with open(downloadedFile, "wb") as f:
             f.write(ans.content)
 
         compteur += 1
 
-def DownloadAllIMGFromCirculaire(url, filter):
+def DownloadAllIMGFromCirculaire(url, filter, epicerie):
     response = requests.get(url)
 
     if response.status_code != 200:
@@ -72,16 +75,28 @@ def DownloadAllIMGFromCirculaire(url, filter):
 
     compteur = 0
     for this_url in all_urls:
-        DownloadIMGFromWeb(this_url, filter, compteur)
+        DownloadIMGFromWeb(this_url, filter, compteur, epicerie)
         compteur +=2
         print("======================================================================")
 
 
 
 #Maxi
-#DownloadAllIMGFromCirculaire(url="https://www.circulaires.com/supermarche-iga/circulaire/?ref=circulaires.com&n=&p=&sname=iga&region=&sttr=1748145600&str=4370364",
-                   #filter="/maxi/circulaire/")
+DownloadAllIMGFromCirculaire(url="https://www.circulaires.com/maxi/circulaire/?ref=circulaires.com&n=&p=&sname=maxi&region=&sttr=1748577600&str=4371444",
+                   filter="/maxi/circulaire/",
+                   epicerie="Maxi")
 
 #IGA              
 DownloadAllIMGFromCirculaire(url="https://www.circulaires.com/supermarche-iga/circulaire/?ref=circulaires.com&n=&p=&sname=iga&region=&sttr=1748145600&str=4370364",
-                   filter="/supermarche-iga/circulaire/")
+                   filter="/supermarche-iga/circulaire/",
+                   epicerie="IGA")
+
+#Metro
+DownloadAllIMGFromCirculaire(url="https://www.circulaires.com/metro/circulaire/?ref=circulaires.com&n=&p=&pr=&sname=metro&region=&sttr=1748577600&str=4371444",
+                   filter="/metro/circulaire/",
+                   epicerie="Metro")
+
+#SuperC
+DownloadAllIMGFromCirculaire(url="https://www.circulaires.com/superc/circulaire/?ref=circulaires.com&n=&p=&sname=superc&region=&sttr=1748577600&str=4371444",
+                   filter="/superc/circulaire/",
+                   epicerie="SuperC")
