@@ -8,12 +8,16 @@ helpChat = """
 ================
 """
 
+def clearConsole():
+    os.system('cls')
+
 conn = connectToDB()
 
 def showClients():
     with conn.cursor() as curs:
         curs.execute(f"SELECT * FROM client")
         rows = curs.fetchall()
+        clearConsole()
         print("===================================")
         for row in rows:
             print(row)
@@ -23,6 +27,7 @@ def showRecipes(idClient: int):
     with conn.cursor() as curs:
         curs.execute(f"SELECT * FROM recette WHERE \"idClient\" = {idClient}")
         rows = curs.fetchall()
+        clearConsole()
         print("===================================")
         for row in rows:
             print(row)
@@ -36,6 +41,7 @@ def SeeRecipes():
         rows = curs.fetchall()
         curs.execute(f"SELECT name FROM client WHERE \"idClient\" = {id}")
         name = curs.fetchone()[0]
+        clearConsole()
         print("===================================")
         print(f"Voici les recettes enregistrées de {name}:")
         for row in rows:
@@ -67,9 +73,11 @@ while True:
 
     if ask == "1":
         addRecipe()
+        continue
 
     if ask == "2":
         SeeRecipes()
+        continue
 
     if ask == "3":
         exit()
