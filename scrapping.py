@@ -68,7 +68,7 @@ def scrappingIMGText():
 	ProductName			VARCHAR(255),
 	DiscountPercent		NUMERIC,
 	OriginalPrice		NUMERIC,
-	DiscountedPrice		NUMERIC,
+	DiscountedPrice		NUMERIC
     """
     return EXTRACT_CIRCULAIRE_PROMPT
 

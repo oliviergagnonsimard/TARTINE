@@ -19,6 +19,15 @@ def showClients():
             print(row)
         print("===================================")
 
+def showRecipes(idClient: int):
+    with conn.cursor() as curs:
+        curs.execute(f"SELECT * FROM recette WHERE \"idClient\" = {idClient}")
+        rows = curs.fetchall()
+        print("===================================")
+        for row in rows:
+            print(row)
+        print("===================================")
+
 def SeeRecipes():
     with conn.cursor() as curs:
         showClients()
@@ -39,12 +48,17 @@ def addRecipe():
         id = input("idClient: ")
         desc = input("Description de la recette: ")
 
+        curs.execute(f"SELECT * FROM recette WHERE \"idClient\" = {id}")
+
         curs.execute(f"SELECT * FROM recette WHERE \"idClient\" = {id} ORDER BY \"idRecette\" DESC")
         newRecipeId = curs.fetchone()[1]
         newRecipeId += 1
 
         curs.execute(f"INSERT INTO recette VALUES({id}, {newRecipeId}, \'{desc}\')")
         confirmCommitToDB(conn)
+        print(f"New recipe ({newRecipeId}) added to UserID: {id}")
+        showRecipes(id)
+
     
 
 while True:
