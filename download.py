@@ -100,3 +100,9 @@ DownloadAllIMGFromCirculaire(url="https://www.circulaires.com/metro/circulaire/?
 DownloadAllIMGFromCirculaire(url="https://www.circulaires.com/superc/circulaire/?ref=circulaires.com&n=&p=&sname=superc&region=&sttr=1748577600&str=4371444",
                    filter="/superc/circulaire/",
                    epicerie="SuperC")
+
+#Walmart
+DownloadIMGFromWeb(url="https://circulaires.com/d/?sname=walmart&dpage=11&sttr=1748577600&str=4371444",
+                   filter="/walmart/",
+                   epicerie="Walmart",
+                   compteur=0)
