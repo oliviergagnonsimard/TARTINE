@@ -55,6 +55,3 @@ def clearDiscountDB():
         curs.execute("DELETE FROM discount")
 
     confirmCommitToDB(conn)
-
-
-clearDiscountDB()
