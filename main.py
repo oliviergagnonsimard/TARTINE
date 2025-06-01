@@ -96,12 +96,15 @@ def deleteRecipe():
     with conn.cursor() as curs:
         curs.execute(f"SELECT * FROM recette WHERE \"idClient\" = {idC} AND \"idRecette\" = {idR}")
         row = curs.fetchone()
+        print(row)
         ask = input("Are you sure you want to delete this recipe? (y/n) ")
-        curs.execute(f"DELETE FROM recette WHERE \"idClient\" = {idC} AND \"idRecette\" = {idR}")
-    clearConsole()
-    showRecipes(idC)
-    print(f"Recipe {idR} from User {idC} has been deleted")
-    confirmCommitToDB(conn)
+        if ask == "y":
+            curs.execute(f"DELETE FROM recette WHERE \"idClient\" = {idC} AND \"idRecette\" = {idR}")
+            clearConsole()
+            showRecipes(idC)
+            print(f"Recipe {idR} from User {idC} has been deleted")
+            confirmCommitToDB(conn)
+        clearConsole()
     
 clearConsole()
 while True:
