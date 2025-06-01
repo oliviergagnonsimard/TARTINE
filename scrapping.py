@@ -15,7 +15,7 @@ from database import *
 # ======================================================================== FONCTIONS
 def createConfigFile():
     with open(configFile, "w") as f:
-        api_text = { "API_KEY": "null"}
+        api_text = { "API_KEY": "null" }
 
         jsonObject = json.dumps(api_text, indent=4)
         f.write(jsonObject)
@@ -88,7 +88,7 @@ DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 
 # --- Gestion de la clé API
 configFile = DIR_PATH + SLASHS + "config.json"
-model = generativeAI.GenerativeModel("gemini-2.5-pro-exp-03-25")
+model = generativeAI.GenerativeModel("gemini-2.5-pro-preview-05-06")
 apKey = loadAPIKey()
 
 generativeAI.configure(api_key=apKey)

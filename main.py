@@ -4,7 +4,8 @@ helpChat = """
 ================
 1) Create recipe
 2) Modify recipe
-3) See recipes
+3) Delete recipe
+4) See recipes
 0) Quit
 ================
 """
@@ -86,6 +87,21 @@ def modifyRecipe():
     print(f"Recipe {idR} from User {idC} has been modified")
     confirmCommitToDB(conn)
 
+def deleteRecipe():
+    showClients()
+    idC = input("idClient: ")
+    clearConsole()
+    showRecipes(idC)
+    idR = input("idRecette: ")
+    with conn.cursor() as curs:
+        curs.execute(f"SELECT * FROM recette WHERE \"idClient\" = {idC} AND \"idRecette\" = {idR}")
+        row = curs.fetchone()
+        ask = input("Are you sure you want to delete this recipe? (y/n) ")
+        curs.execute(f"DELETE FROM recette WHERE \"idClient\" = {idC} AND \"idRecette\" = {idR}")
+    clearConsole()
+    showRecipes(idC)
+    print(f"Recipe {idR} from User {idC} has been deleted")
+    confirmCommitToDB(conn)
     
 clearConsole()
 while True:
@@ -101,6 +117,10 @@ while True:
         continue
 
     if ask == "3":
+        deleteRecipe()
+        continue
+
+    if ask == "4":
         SeeRecipes()
         continue
 
