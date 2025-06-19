@@ -106,33 +106,33 @@ def deleteRecipe():
             confirmCommitToDB(conn)
         clearConsole()
 
-if __name__ == "__main__":
-    if len(sys.argv) > 0:
-        data = showRecipes(sys.argv[1])
-        with open("output.json", 'w', encoding='utf-8') as f:
-            json.dump(data, f, indent=4)
-        exit()
+# if __name__ == "__main__":
+#     if len(sys.argv) > 0:
+#         data = showRecipes(sys.argv[1])
+#         with open("output.json", 'w', encoding='utf-8') as f:
+#             json.dump(data, f, indent=4)
+#         exit()
 
 
-while True:
-    print(helpChat)
-    ask = input("Choice: ")
+# while True:
+#     print(helpChat)
+#     ask = input("Choice: ")
 
-    if ask == "1":
-        addRecipe()
-        continue
+#     if ask == "1":
+#         addRecipe()
+#         continue
 
-    if ask == "2":
-        modifyRecipe()
-        continue
+#     if ask == "2":
+#         modifyRecipe()
+#         continue
 
-    if ask == "3":
-        deleteRecipe()
-        continue
+#     if ask == "3":
+#         deleteRecipe()
+#         continue
 
-    if ask == "4":
-        SeeRecipes()
-        continue
+#     if ask == "4":
+#         SeeRecipes()
+#         continue
 
-    if ask == "0":
-        exit()
+#     if ask == "0":
+#         exit()
