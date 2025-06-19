@@ -1,4 +1,6 @@
 from database import *
+import sys
+import json
 
 helpChat = """
 ================
@@ -29,10 +31,8 @@ def showRecipes(idClient: int):
     with conn.cursor() as curs:
         curs.execute(f"SELECT * FROM recette WHERE \"idClient\" = {idClient}")
         rows = curs.fetchall()
-        print("===================================")
-        for row in rows:
-            print(row)
-        print("===================================")
+        print(rows)
+        return rows
 
 def SeeRecipes():
     with conn.cursor() as curs:
@@ -105,8 +105,15 @@ def deleteRecipe():
             print(f"Recipe {idR} from User {idC} has been deleted")
             confirmCommitToDB(conn)
         clearConsole()
-    
-clearConsole()
+
+if __name__ == "__main__":
+    if len(sys.argv) > 0:
+        data = showRecipes(sys.argv[1])
+        with open("output.json", 'w', encoding='utf-8') as f:
+            json.dump(data, f, indent=4)
+        exit()
+
+
 while True:
     print(helpChat)
     ask = input("Choice: ")
