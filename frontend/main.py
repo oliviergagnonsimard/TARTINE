@@ -19,8 +19,12 @@ conn = connectToDB()
 
 def showClients():
     with conn.cursor() as curs:
-        curs.execute(f"SELECT * FROM client")
-        rows = curs.fetchall()
+        try:
+            curs.execute(f"SELECT * FROM client")
+            rows = curs.fetchall()
+        except Exception as e:
+            print(f"SQL ERROR: {e}")
+            conn.rollback()
         clearConsole()
         print("===================================")
         for row in rows:
