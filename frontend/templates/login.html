@@ -14,7 +14,7 @@
     <form id="Login" action="/login" method="POST">
       <div class="form-group" style="display:flex; align-items: center; flex-direction: column;">
         <div style="margin-bottom: 10px;">
-          <label for="inputUsername">Username (pas de mdp pour l'instant)</label>
+          <label for="inputUsername">Username</label>
         </div>
         <div style="margin-bottom: 20px;">
           <input type="text" id="userID" name="userID">
@@ -26,8 +26,8 @@
       </div>
     </form>
 
-    <div>
-      <table style="border: 2px solid white">
+    <div style="align-items: center;">
+      <table style="border: 2px solid white; margin: auto;">
         <tr style="border: 2px solid white">
           {% for header in headings %}
           <th>{{ header }}</th>
