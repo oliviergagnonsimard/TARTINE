@@ -31,6 +31,16 @@ def showClients():
             print(row)
         print("===================================")
 
+def getNameFromId(idClient):
+    with conn.cursor() as curs:
+        try:
+            curs.execute(f"SELECT name FROM client WHERE \"idClient\" = {idClient}")
+            name = curs.fetchone()[0]
+        except Exception as e:
+            print(f"SQL ERROR: {e}")
+            conn.rollback()
+    return name
+
 def showRecipes(idClient: int):
     with conn.cursor() as curs:
         curs.execute(f"SELECT * FROM recette WHERE \"idClient\" = {idClient}")

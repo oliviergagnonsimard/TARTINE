@@ -19,27 +19,10 @@
         <input type="text" id="userID" name="userID" autocomplete="off">
       </div>
       <div style="margin-bottom: 20px;">
-        <button type="submit" class="btn btn-primary">Soumettre</button>
+        <button href="{{ url_for('home') }}" type="submit" class="btn btn-primary">Connexion</button>
       </div>
       
     </div>
   </form>
-  
-  <div style="align-items: center;">
-    <table style="border: 2px solid white; margin: auto;">
-      <tr style="border: 2px solid white">
-        {% for header in headings %}
-        <th class="cell">{{ header }}</th>
-        {% endfor %}
-      </tr>
-      {% for row in data %}
-      <tr>
-        {% for cell in row %}
-        <td class="cell">{{ cell }}</td>
-        {% endfor %}
-      </tr>
-      {% endfor %}
-    </table>
-  </div>
   
   {% endblock %}

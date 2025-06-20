@@ -1,7 +1,7 @@
 from flask import Flask, render_template, url_for, request
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-from main import showRecipes
+from main import getNameFromId, showRecipes
 
 DB_URL = "postgresql://postgres:2nvvhejBwQF62eroQzA9@tartinedb.cdwy0g0205gp.us-east-2.rds.amazonaws.com/postgres"
 
@@ -15,6 +15,8 @@ data = (
     ("1", "2", "3"),
     ("4", "5", "6")
 )
+
+name = ""
 
 class Todo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -37,9 +39,18 @@ def login():
     if request.method == 'POST':
         userID = request.form['userID']
         data = showRecipes(userID)
-        return render_template('login.html', headings=headings, data=data)
+        name = getNameFromId(userID)
+        return render_template('home.html', idUser=userID, data=data, name=name)
     else:
         return render_template('login.html')
+    
+@app.route('/addRecipee')
+def addRecipee():
+    return render_template('addRecipee.html')
+    
+@app.route('/home')
+def home():
+    return render_template('home.html')
 
 if __name__ == "__main__":
     app.run(debug=True)
