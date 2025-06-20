@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request
+from flask import Flask, render_template, url_for, request, redirect, session
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from main import getNameFromId, showRecipes
@@ -7,6 +7,7 @@ DB_URL = "postgresql://postgres:2nvvhejBwQF62eroQzA9@tartinedb.cdwy0g0205gp.us-e
 
 app = Flask(__name__, template_folder='templates')
 app.config['SQLALCHEMY_DATABASE_URI'] = DB_URL
+app.secret_key = "secret"
 db = SQLAlchemy(app)
 
 headings = ("idClient", "idRecette", "Description")
@@ -38,9 +39,10 @@ def about():
 def login():
     if request.method == 'POST':
         userID = request.form['userID']
-        data = showRecipes(userID)
-        name = getNameFromId(userID)
-        return render_template('home.html', idUser=userID, data=data, name=name)
+        session["userID"] = userID
+        session["data"] = showRecipes(userID)
+        session["name"] = getNameFromId(userID)
+        return redirect(url_for('dashboard'))
     else:
         return render_template('login.html')
     
@@ -48,9 +50,12 @@ def login():
 def addRecipee():
     return render_template('addRecipee.html')
     
-@app.route('/home')
-def home():
-    return render_template('home.html')
+@app.route('/dashboard')
+def dashboard():
+    userID = session.get("userID")
+    data = session.get("data")
+    name = session.get("name")
+    return render_template('dashboard.html', userID=userID, data=data, name=name)
 
 if __name__ == "__main__":
     app.run(debug=True)

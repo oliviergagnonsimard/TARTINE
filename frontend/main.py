@@ -1,6 +1,4 @@
 from database import *
-import sys
-import json
 
 helpChat = """
 ================
@@ -34,7 +32,7 @@ def showClients():
 def getNameFromId(idClient):
     with conn.cursor() as curs:
         try:
-            curs.execute(f"SELECT name FROM client WHERE \"idClient\" = {idClient}")
+            curs.execute("SELECT name FROM client WHERE \"idClient\" = %s", (idClient,))
             name = curs.fetchone()[0]
         except Exception as e:
             print(f"SQL ERROR: {e}")
@@ -43,26 +41,9 @@ def getNameFromId(idClient):
 
 def showRecipes(idClient: int):
     with conn.cursor() as curs:
-        curs.execute(f"SELECT * FROM recette WHERE \"idClient\" = {idClient}")
+        curs.execute(f"SELECT * FROM recette WHERE \"idClient\" = %s", (idClient,))
         rows = curs.fetchall()
-        print(rows)
         return rows
-
-def SeeRecipes():
-    with conn.cursor() as curs:
-        showClients()
-        id = input("idClient: ")
-        curs.execute(f"SELECT * FROM recette WHERE \"idClient\" = {id}")
-        rows = curs.fetchall()
-        curs.execute(f"SELECT name FROM client WHERE \"idClient\" = {id}")
-        name = curs.fetchone()[0]
-        clearConsole()
-        print("===================================")
-        print(f"Voici les recettes enregistrées de {name}:")
-        print()
-        for row in rows:
-            print(row)
-
 
 def addRecipe():
     with conn.cursor() as curs:
