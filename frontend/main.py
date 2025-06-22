@@ -45,24 +45,19 @@ def showRecipes(idClient: int):
         rows = curs.fetchall()
         return rows
 
-def addRecipe():
+def addRecipe(idClient, desc):
     with conn.cursor() as curs:
-        showClients()
-        id = input("idClient: ")
-        desc = input("Description de la recette: ")
-
-        curs.execute(f"SELECT * FROM recette WHERE \"idClient\" = {id}")
-
-        curs.execute(f"SELECT * FROM recette WHERE \"idClient\" = {id} ORDER BY \"idRecette\" DESC")
+        curs.execute(f"SELECT * FROM recette WHERE \"idClient\" = {idClient} ORDER BY \"idRecette\" DESC")
         newRecipeId = curs.fetchone()[1]
         newRecipeId += 1
 
-        curs.execute(f"INSERT INTO recette VALUES({id}, {newRecipeId}, \'{desc}\')")
-        clearConsole()
-        showRecipes(id)
-        print(f"New recipe ({newRecipeId}) added to UserID: {id}")
-        confirmCommitToDB(conn)
-        clearConsole()
+        try:
+            curs.execute("INSERT INTO recette VALUES(%s, %s, %s)", (idClient, newRecipeId, desc))
+            print(f"New recipe ({newRecipeId}) added to UserID: {idClient}")
+            conn.commit()
+        except Exception as e:
+            print(f"SQL ERROR: {e}")
+            conn.rollback()
 
 def modifyRecipe():
     showClients()

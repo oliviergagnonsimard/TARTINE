@@ -4,4 +4,25 @@
 {% endblock %}
 
 {% block body %}
+<!-- Page Content -->
+<div class="w3-padding-large" id="main">
+  <!-- Header/Home -->
+   <h3 style="font-weight: bold; font-size: 60px; text-align: center; padding-bottom: 30px;">Ajouter une recette</h3> 
+
+  <!-- FORM A COMPLETER POUR ACCES A LA DATABASE -->
+  <form id="addRecipee" action="/addRecipee" method="POST">
+    <div class="form-group" style="display:flex; align-items: center; flex-direction: column;">
+      <div style="margin-bottom: 10px;">
+        <label for="inputDesc">Description</label>
+      </div>
+      <div style="margin-bottom: 20px;">
+        <input type="text" id="desc" name="desc" autocomplete="off">
+      </div>
+      <div style="margin-bottom: 20px;">
+        <button type="submit" class="btn btn-primary">Ajouter</button>
+        <button href="{{ url_for('dashboard') }}" class="btn btn-primary">Retour</button>
+    </div>
+</div>
+</form>
+
 {% endblock %}
