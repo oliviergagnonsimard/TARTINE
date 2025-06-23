@@ -39,7 +39,7 @@ def getNameFromId(idClient):
             conn.rollback()
     return name
 
-def showRecipes(idClient: int):
+def getUserRecipes(idClient: int):
     with conn.cursor() as curs:
         curs.execute(f"SELECT * FROM recette WHERE \"idClient\" = %s", (idClient,))
         rows = curs.fetchall()
@@ -63,7 +63,7 @@ def modifyRecipe():
     showClients()
     idC = input("idClient: ")
     clearConsole()
-    showRecipes(idC)
+    getUserRecipes(idC)
     idR = input("idRecette: ")
     with conn.cursor() as curs:
         curs.execute(f"SELECT description FROM recette WHERE \"idClient\" = {idC} AND \"idRecette\" = {idR}")
@@ -73,7 +73,7 @@ def modifyRecipe():
         newDesc = input("New description: ")
         curs.execute(f"UPDATE recette SET description = \'{newDesc}\' WHERE \"idClient\" = {idC} AND \"idRecette\" = {idR}")
     clearConsole()
-    showRecipes(idC)
+    getUserRecipes(idC)
     print(f"Recipe {idR} from User {idC} has been modified")
     confirmCommitToDB(conn)
 
@@ -81,7 +81,7 @@ def deleteRecipe():
     showClients()
     idC = input("idClient: ")
     clearConsole()
-    showRecipes(idC)
+    getUserRecipes(idC)
     idR = input("idRecette: ")
     with conn.cursor() as curs:
         curs.execute(f"SELECT * FROM recette WHERE \"idClient\" = {idC} AND \"idRecette\" = {idR}")
@@ -91,14 +91,14 @@ def deleteRecipe():
         if ask == "y":
             curs.execute(f"DELETE FROM recette WHERE \"idClient\" = {idC} AND \"idRecette\" = {idR}")
             clearConsole()
-            showRecipes(idC)
+            getUserRecipes(idC)
             print(f"Recipe {idR} from User {idC} has been deleted")
             confirmCommitToDB(conn)
         clearConsole()
-
+        
 # if __name__ == "__main__":
 #     if len(sys.argv) > 0:
-#         data = showRecipes(sys.argv[1])
+#         data = getUserRecipes(sys.argv[1])
 #         with open("output.json", 'w', encoding='utf-8') as f:
 #             json.dump(data, f, indent=4)
 #         exit()

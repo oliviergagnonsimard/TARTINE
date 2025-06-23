@@ -1,6 +1,6 @@
 from flask import Flask, render_template, url_for, request, redirect, session
 from flask_sqlalchemy import SQLAlchemy
-from main import getNameFromId, showRecipes, addRecipe
+from main import getNameFromId, getUserRecipes, addRecipe
 
 DB_URL = "postgresql://postgres:2nvvhejBwQF62eroQzA9@tartinedb.cdwy0g0205gp.us-east-2.rds.amazonaws.com/postgres"
 
@@ -29,7 +29,7 @@ def login():
     if request.method == 'POST':
         userID = request.form['userID']
         session["userID"] = userID
-        session["data"] = showRecipes(userID)
+        session["data"] = getUserRecipes(userID)
         session["name"] = getNameFromId(userID)
         return redirect(url_for('dashboard'))
     else:
