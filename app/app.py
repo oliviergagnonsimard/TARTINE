@@ -1,6 +1,6 @@
 from flask import Flask, render_template, url_for, request, redirect, session
 from flask_sqlalchemy import SQLAlchemy
-from main import getNameFromId, getUserRecipes, addRecipe
+from main import getNameFromId, getUserRecipes, addRecipe, delRecipe
 
 DB_URL = "postgresql://postgres:2nvvhejBwQF62eroQzA9@tartinedb.cdwy0g0205gp.us-east-2.rds.amazonaws.com/postgres"
 
@@ -39,13 +39,28 @@ def login():
 def addRecipee():
     userID = session.get("userID")
     if request.method == 'POST':
-        addRecipe(session["userID"], request.form["desc"])
+        addRecipe(session["userID"], request.form["idRecette"])
         session["userID"] = userID
         session["data"] = getUserRecipes(userID)
         session["name"] = getNameFromId(userID)
         return redirect(url_for('dashboard'))
     else:
         return render_template('addRecipee.html')
+    
+@app.route('/delRecipee', methods=['POST', 'GET'])
+def delRecipee():
+    userID = session.get("userID")
+    if request.method == 'POST':
+        delRecipe(session["userID"], request.form["idRecette"])
+        session["userID"] = userID
+        session["data"] = getUserRecipes(userID)
+        session["name"] = getNameFromId(userID)
+        return redirect(url_for('dashboard'))
+    else:
+        userID = session.get("userID")
+        data = session.get("data")
+        name = session.get("name")
+        return render_template('delRecipee.html', userID=userID, headings=headings, data=data, name=name)
     
 @app.route('/dashboard')
 def dashboard():

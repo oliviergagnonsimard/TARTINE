@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+<!-- Page Content -->
+<div class="w3-padding-large" id="main">
+  <!-- Header/Home -->
+   <h3 style="font-weight: bold; font-size: 60px; text-align: center; padding-bottom: 30px;">Supprimer une recette</h3> 
+
+  <!-- FORM A COMPLETER POUR ACCES A LA DATABASE -->
+  <form id="addRecipee" action="/delRecipee" method="POST">
+    <div class="form-group" style="display:flex; align-items: center; flex-direction: column;">
+      <div style="margin-bottom: 10px;">
+        <label for="inputDesc">idRecette</label>
+      </div>
+      <div style="margin-bottom: 20px;">
+        <input type="text" id="idRecette" name="idRecette" autocomplete="off">
+      </div>
+      <div style="margin-bottom: 20px; display:flex; justify-content:center;">
+        <button type="submit" class="btn btn-primary" style="margin-right:10px;">Confirmer</button>
+        <a href="{{ url_for('dashboard') }}" class="btn btn-primary">Retour</a>
+      </div>
+    </div>
+  </form>
+
+  <table style="border: 2px solid white; margin: auto; margin-top: 2%; width: 80%; text-align: center;">
+    <tr style="border: 2px solid white">
+      {% for header in headings %}
+      <th class="cell">{{ header }}</th>
+      {% endfor %}
+    </tr>
+    {% for row in data %}
+    <tr>
+      {% for cell in row %}
+      <td class="cell">{{ cell }}</td>
+      {% endfor %}
+    </tr>
+    {% endfor %}
+  </table>
+
+{% endblock %}

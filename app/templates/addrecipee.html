@@ -19,12 +19,12 @@
         <input type="text" id="desc" name="desc" autocomplete="off">
       </div>
       <div style="margin-bottom: 20px;">
-        <button type="submit" class="btn btn-primary">Ajouter</button>
+        <div style="margin-bottom: 20px; display:flex; justify-content:center;">
+          <button type="submit" class="btn btn-primary" style="margin-right:10px;">Confirmer</button>
+          <a href="{{ url_for('dashboard') }}" class="btn btn-primary">Retour</a>
+        </div>
       </div>
     </div>
   </form>
-  <div style="display:flex; justify-content:center;">
-    <a href="{{ url_for('dashboard') }}" class="btn btn-primary">Retour</a>
-  </div>
 
 {% endblock %}

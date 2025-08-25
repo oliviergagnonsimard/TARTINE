@@ -59,6 +59,19 @@ def addRecipe(idClient, desc):
             print(f"SQL ERROR: {e}")
             conn.rollback()
 
+def delRecipe(idClient, idRecette):
+    with conn.cursor() as curs:
+        curs.execute(f"SELECT \"idRecette\" FROM recette WHERE \"idClient\" = {idClient} AND \"idRecette\" = {idRecette}")
+        RecipeId = curs.fetchone()[0]
+
+        try:
+            curs.execute("DELETE FROM recette WHERE \"idClient\" = %s AND \"idRecette\" = %s", (idClient, idRecette))
+            print(f"New recipe ({RecipeId}) added to UserID: {idClient}")
+            conn.commit()
+        except Exception as e:
+            print(f"SQL ERROR: {e}")
+            conn.rollback()
+
 def modifyRecipe():
     showClients()
     idC = input("idClient: ")
@@ -77,24 +90,6 @@ def modifyRecipe():
     print(f"Recipe {idR} from User {idC} has been modified")
     confirmCommitToDB(conn)
 
-def deleteRecipe():
-    showClients()
-    idC = input("idClient: ")
-    clearConsole()
-    getUserRecipes(idC)
-    idR = input("idRecette: ")
-    with conn.cursor() as curs:
-        curs.execute(f"SELECT * FROM recette WHERE \"idClient\" = {idC} AND \"idRecette\" = {idR}")
-        row = curs.fetchone()
-        print(row)
-        ask = input("Are you sure you want to delete this recipe? (y/n) ")
-        if ask == "y":
-            curs.execute(f"DELETE FROM recette WHERE \"idClient\" = {idC} AND \"idRecette\" = {idR}")
-            clearConsole()
-            getUserRecipes(idC)
-            print(f"Recipe {idR} from User {idC} has been deleted")
-            confirmCommitToDB(conn)
-        clearConsole()
         
 # if __name__ == "__main__":
 #     if len(sys.argv) > 0:

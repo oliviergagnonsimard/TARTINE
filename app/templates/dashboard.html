@@ -28,9 +28,11 @@
       </tr>
       {% endfor %}
     </table>
-    <a href="{{ url_for('addRecipee') }}" type="submit" class="btn btn-primary" style="margin-top: 2%;">Nouvelle recette</a>
-    <a href="{{ url_for('delRecipee') }}" type="submit" class="btn btn-primary" style="margin-top: 2%;">Supprimer recette</a>
-    <a href="{{ url_for('login') }}" type="submit" class="btn btn-primary" style="margin-top: 2%;">Retour</a>
+    <div style="margin-top: 2%;">
+      <a href="{{ url_for('addRecipee') }}" type="submit" class="btn btn-primary">Ajouter</a>
+      <a href="{{ url_for('delRecipee') }}" type="submit" class="btn btn-primary">Supprimer</a>
+      <a href="{{ url_for('login') }}" type="submit" class="btn btn-primary">Retour</a>
+    </div>
       </div>
     </div>
 
