@@ -61,7 +61,7 @@ def addRecipe(idClient, desc):
 
 def delRecipe(idClient, idRecette):
     with conn.cursor() as curs:
-        curs.execute(f"SELECT \"idRecette\" FROM recette WHERE \"idClient\" = {idClient} AND \"idRecette\" = {idRecette}")
+        curs.execute(f"SELECT \"idRecette\" FROM recette WHERE \"idClient\" = %s AND \"idRecette\" = %s", (idClient, idRecette))
         RecipeId = curs.fetchone()[0]
 
         try:
