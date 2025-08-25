@@ -35,11 +35,15 @@ def login():
     else:
         return render_template('login.html')
     
-@app.route('/addRecipee')
-def addRecipee():  
+@app.route('/addRecipee', methods=['POST', 'GET'])
+def addRecipee():
+    userID = session.get("userID")
     if request.method == 'POST':
         addRecipe(session["userID"], request.form["desc"])
-        return redirect('dashboard.html', userID=session["userID"], headings=headings, data=data, name=session["name"])
+        session["userID"] = userID
+        session["data"] = getUserRecipes(userID)
+        session["name"] = getNameFromId(userID)
+        return redirect(url_for('dashboard'))
     else:
         return render_template('addRecipee.html')
     

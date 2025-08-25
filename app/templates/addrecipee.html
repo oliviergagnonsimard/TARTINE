@@ -20,9 +20,11 @@
       </div>
       <div style="margin-bottom: 20px;">
         <button type="submit" class="btn btn-primary">Ajouter</button>
-        <button href="{{ url_for('dashboard') }}" class="btn btn-primary">Retour</button>
+      </div>
     </div>
-</div>
-</form>
+  </form>
+  <div style="display:flex; justify-content:center;">
+    <a href="{{ url_for('dashboard') }}" class="btn btn-primary">Retour</a>
+  </div>
 
 {% endblock %}
