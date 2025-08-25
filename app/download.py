@@ -48,7 +48,7 @@ def DownloadIMGFromWeb(url, filter, compteur, epicerie):
         downloadedFileDIR = downloaded_pngs_path + SLASHS + epicerie
         if not os.path.exists(downloadedFileDIR):
             os.makedirs(downloadedFileDIR)
-        downloadedFile = downloadedFileDIR + SLASHS + "circulaires" + str(compteur) + ".png"
+        downloadedFile = downloadedFileDIR + SLASHS + epicerie + str(compteur) + ".png"
 
         with open(downloadedFile, "wb") as f:
             f.write(ans.content)
