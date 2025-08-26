@@ -15,13 +15,13 @@
       </div>
     </div>
     <table style="border: 2px solid white; margin: auto; margin-top: 2%; width: 80%; text-align: center;">
-      <tr style="border: 2px solid white">
+      <tr class="header-row" style="border: 2px solid white">
         {% for header in headings %}
         <th class="cell">{{ header }}</th>
         {% endfor %}
       </tr>
       {% for row in data %}
-      <tr>
+      <tr style="cursor:pointer" onclick="window.location.href='/modRecipee?idRecette={{ row[1] }}'">
         {% for cell in row %}
         <td class="cell">{{ cell }}</td>
         {% endfor %}

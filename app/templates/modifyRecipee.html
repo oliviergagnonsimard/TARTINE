@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+<!-- Page Content -->
+<div class="w3-padding-large" id="main">
+  <!-- Header/Home -->
+   <h3 style="font-weight: bold; font-size: 60px; text-align: center; padding-bottom: 30px;">Modifier une recette</h3> 
+
+  <!-- FORM A COMPLETER POUR ACCES A LA DATABASE -->
+  <form id="modRecipee" action="/modRecipee" method="POST">
+    <div class="form-group" style="display:flex; align-items: center; flex-direction: column;">
+      <table style="border: 2px solid white; margin: auto; margin-top: 2%; width: 80%; text-align: center;">
+        <tr style="border: 2px solid white">
+          {% for header in headings %}
+          <th class="cell">{{ header }}</th>
+          {% endfor %}
+        </tr>
+        {% for row in data %}
+        <tr>
+          {% for cell in row %}
+          <td class="cell">{{ cell }}</td>
+          {% endfor %}
+        </tr>
+        {% endfor %}
+      </table>
+      <div style="display:flex; margin-top:2%">
+      {% if not showDesc %}
+        <div style="margin-bottom: 10px;">
+          <label for="idRecette">idRecette: </label>
+        </div>
+        <div style="margin-bottom: 20px; margin-left:10px">
+          <input type="text" id="idRecette" name="idRecette" autocomplete="off" autofocus>
+        </div>
+        {% endif %}
+        
+        {% if showDesc %}
+        <input type="hidden" name="idRecette" value="{{ idRecette }}">
+        <div style="margin-bottom: 10px;"style="margin-right: 1%;">
+          <label for="inputDesc" style="font-size:24px">Nouvelle <br> description: </label>
+        </div>
+        <div style="margin-bottom: 20px; margin-left:10px">
+          <textarea id="desc" name="desc" autocomplete="off" style="width: 700px; height: 200px; resize: both;" autofocus>{{ data[0][2] }}</textarea>
+        </div>
+        {% endif %}
+        
+        
+      </div>
+      <div style="margin-bottom: 20px;">
+        <div style="margin-bottom: 20px; display:flex; justify-content:center;">
+          <button type="submit" class="btn btn-primary" style="margin-right:10px; margin-left:10px">Confirmer</button>
+          <a href="{{ url_for('dashboard') }}" class="btn btn-primary">Retour</a>
+        </div>
+      </div>
+    </div>
+  </form>
+
+
+{% endblock %}

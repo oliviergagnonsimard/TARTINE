@@ -34,3 +34,17 @@ tr:nth-child(even) {
   tr:nth-child(odd) {
     background-color: #000000;
   }
+
+table {
+    border-collapse: collapse;
+}
+
+table tr {
+    transition: background-color 0.2s ease;
+    transition: transform 0.5s ease;
+}
+
+table tr:not(.header-row):hover {
+    background-color: #555555;
+    transform: scale(1.005);
+}

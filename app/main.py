@@ -23,11 +23,8 @@ def showClients():
         except Exception as e:
             print(f"SQL ERROR: {e}")
             conn.rollback()
-        clearConsole()
-        print("===================================")
-        for row in rows:
-            print(row)
-        print("===================================")
+    
+    return rows
 
 def getNameFromId(idClient):
     with conn.cursor() as curs:
@@ -41,13 +38,13 @@ def getNameFromId(idClient):
 
 def getUserRecipes(idClient: int):
     with conn.cursor() as curs:
-        curs.execute(f"SELECT * FROM recette WHERE \"idClient\" = %s", (idClient,))
+        curs.execute("SELECT * FROM recette WHERE \"idClient\" = %s ORDER BY \"idRecette\"", (idClient,))
         rows = curs.fetchall()
         return rows
 
 def addRecipe(idClient, desc):
     with conn.cursor() as curs:
-        curs.execute(f"SELECT * FROM recette WHERE \"idClient\" = {idClient} ORDER BY \"idRecette\" DESC")
+        curs.execute("SELECT * FROM recette WHERE \"idClient\" = %s ORDER BY \"idRecette\" DESC", (idClient,))
         newRecipeId = curs.fetchone()[1]
         newRecipeId += 1
 
@@ -61,7 +58,7 @@ def addRecipe(idClient, desc):
 
 def delRecipe(idClient, idRecette):
     with conn.cursor() as curs:
-        curs.execute(f"SELECT \"idRecette\" FROM recette WHERE \"idClient\" = %s AND \"idRecette\" = %s", (idClient, idRecette))
+        curs.execute("SELECT \"idRecette\" FROM recette WHERE \"idClient\" = %s AND \"idRecette\" = %s", (idClient, idRecette))
         RecipeId = curs.fetchone()[0]
 
         try:
@@ -72,23 +69,20 @@ def delRecipe(idClient, idRecette):
             print(f"SQL ERROR: {e}")
             conn.rollback()
 
-def modifyRecipe():
-    showClients()
-    idC = input("idClient: ")
-    clearConsole()
-    getUserRecipes(idC)
-    idR = input("idRecette: ")
+def modifyRecipe(idClient, idRecette, newDesc):
+    print(f"Modifying recipe {idRecette} from User {idClient}... to: {newDesc}")
     with conn.cursor() as curs:
-        curs.execute(f"SELECT description FROM recette WHERE \"idClient\" = {idC} AND \"idRecette\" = {idR}")
-        row = curs.fetchone()[0]
-        print("Old description:")
-        print(f"\"{row}\"")
-        newDesc = input("New description: ")
-        curs.execute(f"UPDATE recette SET description = \'{newDesc}\' WHERE \"idClient\" = {idC} AND \"idRecette\" = {idR}")
-    clearConsole()
-    getUserRecipes(idC)
-    print(f"Recipe {idR} from User {idC} has been modified")
-    confirmCommitToDB(conn)
+        curs.execute("SELECT description FROM recette WHERE \"idClient\" = %s AND \"idRecette\" = %s", (idClient, idRecette))
+        row = curs.fetchone()
+        curs.execute("UPDATE recette SET description = %s WHERE \"idClient\" = %s AND \"idRecette\" = %s", (newDesc, idClient, idRecette))
+    conn.commit()
+    print(f"Recipe {idRecette} from User {idClient} has been modified")
+
+def getRecipe(idClient, idRecette):
+    with conn.cursor() as curs:
+        curs.execute("SELECT * FROM recette WHERE \"idClient\" = %s AND \"idRecette\" = %s", (idClient, idRecette))
+        row = curs.fetchall()
+    return row
 
         
 # if __name__ == "__main__":
