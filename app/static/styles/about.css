@@ -45,6 +45,20 @@ table tr {
 }
 
 table tr:not(.header-row):hover {
+    transition: background-color 0.2s ease;
+    transition: transform 0.5s ease;
     background-color: #555555;
     transform: scale(1.01);
+}
+
+.circulaires-background:hover {
+  transition: all 0.5s ease;
+  transform: scale(1.05);
+}
+.circulaires-background {
+  transition: all 0.5s ease;
+  background-color: #222;
+  width:300px;
+  height:200px;
+  border-radius: 20px;
 }

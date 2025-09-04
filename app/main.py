@@ -1,4 +1,5 @@
 from database import *
+import datetime
 
 helpChat = """
 ================
@@ -84,7 +85,18 @@ def getRecipe(idClient, idRecette):
         row = curs.fetchall()
     return row
 
-        
+def getAllEpiceries():
+    with conn.cursor() as curs:
+        curs.execute("SELECT * FROM epicerie ORDER BY \"idEpicerie\"")
+        rows = curs.fetchall()
+    return rows
+
+def getFlyerWeek():
+    current_date = datetime.datetime.now().weekday()
+    last_thursday = datetime.datetime.now() - datetime.timedelta(days=(current_date - 3) % 7)
+    next_wednesday = last_thursday + datetime.timedelta(days=6)
+    return last_thursday, next_wednesday
+
 # if __name__ == "__main__":
 #     if len(sys.argv) > 0:
 #         data = getUserRecipes(sys.argv[1])

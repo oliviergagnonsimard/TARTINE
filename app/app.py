@@ -1,7 +1,7 @@
 from flask import Flask, render_template, url_for, request, redirect, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
-from main import getNameFromId, getUserRecipes, addRecipe, delRecipe, modifyRecipe, getRecipe
+from main import getNameFromId, getUserRecipes, addRecipe, delRecipe, modifyRecipe, getRecipe, getAllEpiceries, getFlyerWeek
 
 DB_URL = "postgresql://postgres:2nvvhejBwQF62eroQzA9@tartinedb.cdwy0g0205gp.us-east-2.rds.amazonaws.com/postgres"
 
@@ -120,6 +120,33 @@ def dashboard():
     data = getUserRecipes(userID)
     name = session.get("name")
     return render_template('dashboard.html', userID=userID, headings=headings, data=data, name=name)
+
+@app.route('/flyers')
+def flyers():
+    epiceries = getAllEpiceries()
+    week = getFlyerWeek()
+    return render_template('flyers.html', epiceries=epiceries, week=week)
+
+@app.route('/flyers/maxi')
+def maxi():
+    return render_template('flyers/maxi.html')
+
+@app.route('/flyers/metro')
+def metro():
+    return render_template('flyers/metro.html')
+
+@app.route('/flyers/iga')
+def iga():
+    return render_template('flyers/iga.html')
+
+@app.route('/flyers/superc')
+def superc():
+    return render_template('flyers/superc.html')
+
+@app.route('/flyers/provigo')
+def provigo():
+    return render_template('flyers/provigo.html')
+
 
 if __name__ == "__main__":
     app.run(debug=True)
