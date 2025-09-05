@@ -8,8 +8,13 @@
 <h3 style="font-weight: bold; font-size: 60px; text-align: center; padding-bottom: 30px;">Circulaires</h3>
 <h3 style="font-weight: bold; font-size: 28px; text-align: center; padding-bottom: 30px;">{{ week[0].date() }} au {{ week[1].date() }}</h3>
 <div style="display: flex; justify-content: space-evenly; align-items: center; margin: auto; width: 100%;">
+    <div class="loading-indicator" id="downloading-msg">
+        <p style="font-size: 20px; font-weight: bold; text-align: center;">Téléchargement des circulaires en cours...</p>
+        <div class="spinner" style="margin: auto;"></div>
+    </div>
+
     {% for epicerie in epiceries %}
-    <div class="circulaires-background" style="justify-content: space-evenly;">
+    <div class="circulaires-background flyers-content" style="justify-content: space-evenly;">
         <a href="{{ url_for(epicerie[1].lower()) }}">
             <div style="justify-content: center; display: flex; align-items: center; height: 100%;">
                 <img src="{{ url_for('static', filename='logos-epiceries/' + epicerie[1] + '.png') }}" 
@@ -19,5 +24,38 @@
     </div>
     {% endfor %}
 </div>
+<div style="display: flex; justify-content: space-evenly; align-items: center; margin: auto; width: 100%; padding-top: 50px;">
+    
+</div>
+
+<script>
+async function checkFlyersStatus() {
+    try {
+        const response = await fetch('/flyers/status');
+        const data = await response.json();
+        const flyers = document.getElementsByClassName("flyers-content"); 
+        if (data.downloading) {
+            // Flyers are still downloading
+            document.getElementById("downloading-msg").style.display = "block";
+            for (let i = 0; i < flyers.length; i++) {
+                flyers[i].style.display = "none";
+            }
+            setTimeout(checkFlyersStatus, 3000); // check again in 3 sec
+        } else {
+            // Flyers are ready
+            document.getElementById("downloading-msg").style.display = "none";
+            for (let i = 0; i < flyers.length; i++) {
+                flyers[i].style.display = "block";
+            }
+        }
+    } catch (err) {
+        console.error("Error checking status:", err);
+        setTimeout(checkFlyersStatus, 10000);
+    }
+}
+
+// Start checking when page loads
+window.onload = checkFlyersStatus;
+</script>
 
 {% endblock %}

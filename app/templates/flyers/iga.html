@@ -5,9 +5,20 @@
 
 {% block body %}
 
-<h3 style="font-weight: bold; font-size: 60px; text-align: center; padding-bottom: 30px;">Circulaires</h3>
-<div style="display: flex; justify-content: space-evenly; align-items: center; margin: auto; width: 100%;">
-    
+<div style="justify-content: center; display: flex; align-items: center; height: 150px; margin-bottom: 20px;">
+    <img style="width: 250px; height: auto" src="{{ url_for('static', filename='logos-epiceries/' + 'iga' + '.png') }}">
 </div>
+{% for page in range(nbPages // 2) %}
+<div style="display: flex; justify-content: space-evenly; align-items: center; width: 100%; height: 100%;">
+    <div style="justify-content: center; display: flex; align-items: center;">
+        <img style="width:90%; border-radius: 30px;" src="{{ url_for('static', filename='circulaires/iga_' ~ week_start ~ '/iga' ~ page ~ '.png') }}">
+    </div>
+    {% if page + 1 <= nbPages %}
+    <div style="justify-content: center; display: flex; align-items: center;">
+        <img style="width:90%; border-radius: 30px;" src="{{ url_for('static', filename='circulaires/iga_' ~ week_start ~ '/iga' ~ (page + 1) ~ '.png') }}">
+    </div>
+    {% endif %}
+</div>
+{% endfor %}
 
 {% endblock %}

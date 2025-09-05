@@ -1,7 +1,8 @@
 from flask import Flask, render_template, url_for, request, redirect, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
-from main import getNameFromId, getUserRecipes, addRecipe, delRecipe, modifyRecipe, getRecipe, getAllEpiceries, getFlyerWeek
+from main import getNameFromId, getUserRecipes, addRecipe, delRecipe, modifyRecipe, getRecipe, getAllEpiceries, getFlyerWeek,  getNbPagesFlyer, checkIfFlyersAlreadyDownloaded, getFlyerStartWeekStr
+import threading
 
 DB_URL = "postgresql://postgres:2nvvhejBwQF62eroQzA9@tartinedb.cdwy0g0205gp.us-east-2.rds.amazonaws.com/postgres"
 
@@ -28,6 +29,20 @@ def resetSessionData(userID):
     session["data"] = getUserRecipes(userID)
     session["name"] = getNameFromId(userID)
 
+@app.route('/downloadFlyers')
+def downloadFlyers():
+        if checkIfFlyersAlreadyDownloaded():
+            print("Flyers are already downloaded for this week.")
+            return "Flyers are already downloaded for this week."
+        print("Downloading new flyers...")
+        from download import DownloadAllCirculaires
+        DownloadAllCirculaires()
+        print("Flyers have been downloaded.")
+
+
+@app.route('/refreshFlyers')
+def refreshFlyers():
+     print()
 
 @app.route('/')
 def index():
@@ -123,29 +138,49 @@ def dashboard():
 
 @app.route('/flyers')
 def flyers():
+    areFlyersDownloaded = checkIfFlyersAlreadyDownloaded()
+    if not areFlyersDownloaded:
+        threading.Thread(target=downloadFlyers).start()
     epiceries = getAllEpiceries()
     week = getFlyerWeek()
-    return render_template('flyers.html', epiceries=epiceries, week=week)
+    if request.args.get("ready") == "1":
+        areFlyersDownloaded = True
+    return render_template('flyers.html', epiceries=epiceries, week=week, downloading=not areFlyersDownloaded)
+
+@app.route('/flyers/status')
+def flyers_status():
+    downloading = checkIfFlyersAlreadyDownloaded()
+    return {"downloading": not downloading}
 
 @app.route('/flyers/maxi')
 def maxi():
-    return render_template('flyers/maxi.html')
+    nbPages = getNbPagesFlyer()[0]
+    week_start = getFlyerStartWeekStr()
+    return render_template('flyers/maxi.html', nbPages=nbPages, week_start=week_start)
 
 @app.route('/flyers/metro')
 def metro():
-    return render_template('flyers/metro.html')
+    nbPages = getNbPagesFlyer()[1]
+    week_start = getFlyerStartWeekStr()
+    return render_template('flyers/metro.html', nbPages=nbPages, week_start=week_start)
 
 @app.route('/flyers/iga')
 def iga():
-    return render_template('flyers/iga.html')
+    nbPages = getNbPagesFlyer()[2]
+    week_start = getFlyerStartWeekStr()
+    return render_template('flyers/iga.html', nbPages=nbPages, week_start=week_start)
 
 @app.route('/flyers/superc')
 def superc():
-    return render_template('flyers/superc.html')
+    nbPages = getNbPagesFlyer()[3]
+    week_start = getFlyerStartWeekStr()
+    return render_template('flyers/superc.html', nbPages=nbPages, week_start=week_start)
 
 @app.route('/flyers/provigo')
 def provigo():
-    return render_template('flyers/provigo.html')
+    nbPages = getNbPagesFlyer()[4]
+    week_start = getFlyerStartWeekStr()
+    return render_template('flyers/provigo.html', nbPages=nbPages, week_start=week_start)
 
 
 if __name__ == "__main__":

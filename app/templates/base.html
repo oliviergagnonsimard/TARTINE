@@ -31,10 +31,10 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 
     <!-- Avatar image in top left corner -->
     <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='logo.png') }}" style="width:100%"></a>
-    <a href="{{ url_for('about') }}" class="w3-bar-item w3-button w3-padding-large w3-hover-black" style="display: flex; flex-direction: column; align-items: center;">
+    <!-- <a href="{{ url_for('about') }}" class="w3-bar-item w3-button w3-padding-large w3-hover-black" style="display: flex; flex-direction: column; align-items: center;">
       <i class="bi bi-info-circle-fill" style="font-size:30px"></i>
       <span style="font-size: 16px; margin-top: 6px;">À propos</span>
-    </a>
+    </a> -->
     {% if current_user.is_authenticated %}
     <a href="{{ url_for('flyers') }}" class="w3-bar-item w3-button w3-padding-large w3-hover-black" style="display: flex; flex-direction: column; align-items: center;">
       <i class="bi bi-book-fill" style="font-size:30px"></i>

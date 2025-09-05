@@ -3,6 +3,7 @@ import os
 import platform
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
+from main import getFlyerWeek, getFlyerStartWeekStr, checkIfFlyersAlreadyDownloaded
 PLATFORM = platform.system()
 
 SLASHS = "\\"
@@ -13,7 +14,7 @@ if PLATFORM == "Linux":
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 
 
-downloaded_pngs_path = DIR_PATH + SLASHS + "circulaires"
+downloaded_pngs_path = DIR_PATH + SLASHS + "static" + SLASHS + "circulaires"
 if not os.path.exists(downloaded_pngs_path):
     os.makedirs(downloaded_pngs_path)
 
@@ -36,7 +37,7 @@ def DownloadIMGFromWeb(url, filter, compteur, epicerie):
         full_url = urljoin(url, img_src)
 
         if full_url.lower().__contains__(filter):
-            print(full_url)
+            # print(full_url)
             image_urls.append(full_url)
 
 
@@ -45,7 +46,7 @@ def DownloadIMGFromWeb(url, filter, compteur, epicerie):
 
         ans = requests.get(url)
 
-        downloadedFileDIR = downloaded_pngs_path + SLASHS + epicerie
+        downloadedFileDIR = downloaded_pngs_path + SLASHS + epicerie + "_" + getFlyerStartWeekStr()
         if not os.path.exists(downloadedFileDIR):
             os.makedirs(downloadedFileDIR)
         downloadedFile = downloadedFileDIR + SLASHS + epicerie + str(compteur) + ".png"
@@ -77,7 +78,7 @@ def DownloadAllIMGFromCirculaire(url, filter, epicerie):
     for this_url in all_IMGurls:
         DownloadIMGFromWeb(this_url, filter, compteur, epicerie)
         compteur +=2
-        print("======================================================================") 
+        # print("======================================================================") 
 
 def getAllNewUrls():
     urlsDebase = ["https://www.circulaires.com/maxi/",
@@ -101,7 +102,7 @@ def getAllNewUrls():
             tag_href = tag.get("href")
             full_url = urljoin(url, tag_href)
 
-            if full_url.__contains__("/circulaire/") and not full_url in all_urls:
+            if full_url.__contains__("circulaire/") and not full_url in all_urls:
                 all_urls.append(full_url)
         
     return all_urls
@@ -112,9 +113,10 @@ def DownloadAllCirculaires():
         lastSlash = this_url.rfind("/")
         filtre = this_url[28:lastSlash]
         name = filtre[0:filtre.rfind("/")]
+        if name == "supermarche-iga":
+            name = "iga"
+        print(f"Downloading flyers from {name}...")
         DownloadAllIMGFromCirculaire(url=this_url,
                                filter=filtre,
                                epicerie=name)
-
-
-DownloadAllCirculaires()
+    print("All flyers have been successfully downloaded.")

@@ -1,16 +1,6 @@
 from database import *
 import datetime
 
-helpChat = """
-================
-1) Create recipe
-2) Modify recipe
-3) Delete recipe
-4) See recipes
-0) Quit
-================
-"""
-
 def clearConsole():
     os.system('cls')
 
@@ -97,33 +87,39 @@ def getFlyerWeek():
     next_wednesday = last_thursday + datetime.timedelta(days=6)
     return last_thursday, next_wednesday
 
-# if __name__ == "__main__":
-#     if len(sys.argv) > 0:
-#         data = getUserRecipes(sys.argv[1])
-#         with open("output.json", 'w', encoding='utf-8') as f:
-#             json.dump(data, f, indent=4)
-#         exit()
+def getFlyerStartWeekStr():
+    week = getFlyerWeek()
+    return str(week[0].date())
 
+def getNbPagesFlyer():
+    nbPages = []
+    dir_path = ["app/static/circulaires/maxi_" + getFlyerStartWeekStr(),
+                "app/static/circulaires/metro_" + getFlyerStartWeekStr(),
+                "app/static/circulaires/iga_" + getFlyerStartWeekStr(),
+                "app/static/circulaires/superc_" + getFlyerStartWeekStr(),
+                "app/static/circulaires/provigo_" + getFlyerStartWeekStr()]
 
-# while True:
-#     print(helpChat)
-#     ask = input("Choice: ")
+    for path in dir_path:
+        try:
+            nbPages.append(len([name for name in os.listdir(path) if os.path.isfile(os.path.join(path, name))]))
+        except Exception as e:
+            print(f"Error accessing directory {path}: {e}")
+            nbPages.append(0)  # Append 0 if there's an error accessing the directory
 
-#     if ask == "1":
-#         addRecipe()
-#         continue
+    return nbPages
 
-#     if ask == "2":
-#         modifyRecipe()
-#         continue
+def checkIfFlyersAlreadyDownloaded():
+    epiceries = getAllEpiceries()
+    weekStr = getFlyerStartWeekStr()
+    dir_path = os.path.dirname(os.path.realpath(__file__))
 
-#     if ask == "3":
-#         deleteRecipe()
-#         continue
-
-#     if ask == "4":
-#         SeeRecipes()
-#         continue
-
-#     if ask == "0":
-#         exit()
+    compteur = 0
+    for epicerie in epiceries:
+        nom = epicerie[1].lower()
+        path = dir_path + SLASHS + "static" + SLASHS + "circulaires" + SLASHS + f"{nom}" + "_" + weekStr
+        print(path)
+        if not os.path.exists(path):
+            return False
+        compteur +=1
+    return True
+    
