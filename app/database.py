@@ -38,6 +38,11 @@ def connectToDB():
             password=   dbinfo["password"]
         )
 
+def getURI():
+    with open(configFile, "r") as f:
+        dbinfo = json.load(f)
+        return dbinfo["uri"]
+
 def parseSQL(text):
     text = text[6:-3]
     text = text.replace("\n", "")

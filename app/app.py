@@ -1,10 +1,11 @@
 from flask import Flask, render_template, url_for, request, redirect, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
-from main import getNameFromId, getUserRecipes, addRecipe, delRecipe, modifyRecipe, getRecipe, getAllEpiceries, getFlyerWeek,  getNbPagesFlyer, checkIfFlyersAlreadyDownloaded, getFlyerStartWeekStr
+from main import getNameFromId, getUserRecipes, addRecipe, delRecipe, modifyRecipe, getRecipe,getAllEpiceries, getFlyerWeek, getNbPagesFlyer, checkIfFlyersAlreadyDownloaded, getFlyerStartWeekStr, getUserInfo
+from main import getURI
 import threading
 
-DB_URL = "postgresql://postgres:2nvvhejBwQF62eroQzA9@tartinedb.cdwy0g0205gp.us-east-2.rds.amazonaws.com/postgres"
+DB_URL = getURI()
 
 app = Flask(__name__, template_folder='templates')
 login_manager = LoginManager()
@@ -134,7 +135,8 @@ def dashboard():
     userID = session.get("userID")
     data = getUserRecipes(userID)
     name = session.get("name")
-    return render_template('dashboard.html', userID=userID, headings=headings, data=data, name=name)
+    clientInfo = getUserInfo(userID)
+    return render_template('dashboard.html', userID=userID, headings=headings, data=data, name=name, clientInfo=clientInfo)
 
 @app.route('/flyers')
 def flyers():
@@ -181,6 +183,16 @@ def provigo():
     nbPages = getNbPagesFlyer()[4]
     week_start = getFlyerStartWeekStr()
     return render_template('flyers/provigo.html', nbPages=nbPages, week_start=week_start)
+
+@app.route('/recipes')
+def recipes():
+    if not current_user.is_authenticated:
+        return redirect(url_for("login"))
+    
+    userID = session.get("userID")
+    data = getUserRecipes(userID)
+    name = session.get("name")
+    return render_template('recipes.html', userID=userID, headings=headings, data=data, name=name)
 
 
 if __name__ == "__main__":

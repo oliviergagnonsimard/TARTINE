@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+<div style="align-items: center;">
+    <table style="border: 2px solid white; margin: auto; margin-top: 2%; width: 80%; text-align: center;">
+        <tr class="header-row" style="border: 2px solid white">
+            {% for header in headings %}
+            <th class="cell">{{ header }}</th>
+            {% endfor %}
+        </tr>
+        {% for row in data %}
+        <tr style="cursor:pointer" onclick="window.location.href='/modRecipee?idRecette={{ row[1] }}'">
+            {% for cell in row %}
+            <td class="cell">{{ cell }}</td>
+        {% endfor %}
+    </tr>
+      {% endfor %}
+    </table>
+    <div style="margin-top: 2%; align-items: center; text-align: center;">
+        <div>
+            <a href="{{ url_for('addRecipee') }}" type="submit" class="btn btn-primary">Ajouter</a>
+            <a href="{{ url_for('delRecipee') }}" type="submit" class="btn btn-primary">Supprimer</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

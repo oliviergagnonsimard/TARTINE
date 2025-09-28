@@ -14,25 +14,15 @@
         <h3 style="font-weight: bold; font-size: 32px;">Bonjour, {{ name }}!</h3>
       </div>
     </div>
-    <table style="border: 2px solid white; margin: auto; margin-top: 2%; width: 80%; text-align: center;">
-      <tr class="header-row" style="border: 2px solid white">
-        {% for header in headings %}
-        <th class="cell">{{ header }}</th>
-        {% endfor %}
-      </tr>
-      {% for row in data %}
-      <tr style="cursor:pointer" onclick="window.location.href='/modRecipee?idRecette={{ row[1] }}'">
-        {% for cell in row %}
-        <td class="cell">{{ cell }}</td>
-        {% endfor %}
-      </tr>
-      {% endfor %}
-    </table>
-    <div style="margin-top: 2%;">
-      <a href="{{ url_for('addRecipee') }}" type="submit" class="btn btn-primary">Ajouter</a>
-      <a href="{{ url_for('delRecipee') }}" type="submit" class="btn btn-primary">Supprimer</a>
-    </div>
-      </div>
+    <div style="margin-top: 20px;">
+      <h4 style="font-weight: bold; font-size: 28px;">Informations du compte</h4>
+      <p><strong>Nom d'utilisateur:</strong> {{ clientInfo[1] }}</p>
+      <p><strong>Age:</strong> {{ clientInfo[2] }}</p>
+      <p><strong>Courriel:</strong> {{ clientInfo[3] }}</p>
     </div>
 
+    <a href="{{ url_for('recipes') }}">Modifier mes informations</a>
+  </div>
+  <a href="{{ url_for('recipes') }}">Voir mes recettes</a>
+</div>
 {% endblock %}

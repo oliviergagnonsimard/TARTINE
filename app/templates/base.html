@@ -37,8 +37,12 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
     </a> -->
     {% if current_user.is_authenticated %}
     <a href="{{ url_for('flyers') }}" class="w3-bar-item w3-button w3-padding-large w3-hover-black" style="display: flex; flex-direction: column; align-items: center;">
-      <i class="bi bi-book-fill" style="font-size:30px"></i>
+      <i class="bi bi-book" style="font-size:30px"></i>
       <span style="font-size: 16px; margin-top: 6px;">Circulaires</span>
+    </a>
+    <a href="{{ url_for('recipes') }}" class="w3-bar-item w3-button w3-padding-large w3-hover-black" style="display: flex; flex-direction: column; align-items: center;">
+      <i class="bi bi-journal" style="font-size:30px"></i>
+      <span style="font-size: 16px; margin-top: 6px;">Recettes</span>
     </a>
     {% endif %}
   </div>
@@ -46,7 +50,7 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
     {% if current_user.is_authenticated %}
     <a href="{{ url_for('dashboard') }}" class="w3-bar-item w3-button w3-padding-large w3-hover-black"
      style="display: flex; flex-direction: column; align-items: center;">
-      <i class="bi bi-person-fill" style="font-size: 36px;"></i>
+      <i class="bi bi-person" style="font-size: 36px;"></i>
       <span style="font-size: 16px; margin-top: -10px;">Compte</span>
     </a>
     <a href="{{ url_for('logout') }}" class="w3-bar-item w3-button w3-padding-large w3-hover-black"

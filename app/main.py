@@ -81,6 +81,12 @@ def getAllEpiceries():
         rows = curs.fetchall()
     return rows
 
+def getUserInfo(idClient):
+    with conn.cursor() as curs:
+        curs.execute("SELECT * FROM client WHERE \"idClient\" = %s", (idClient,))
+        row = curs.fetchone()
+    return row
+
 def getFlyerWeek():
     current_date = datetime.datetime.now().weekday()
     last_thursday = datetime.datetime.now() - datetime.timedelta(days=(current_date - 3) % 7)
