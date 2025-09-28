@@ -2,7 +2,7 @@ from flask import Flask, render_template, url_for, request, redirect, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from main import getNameFromId, getUserRecipes, addRecipe, delRecipe, modifyRecipe, getRecipe,getAllEpiceries, getFlyerWeek, getNbPagesFlyer, checkIfFlyersAlreadyDownloaded, getFlyerStartWeekStr, getUserInfo
-from main import getURI
+from database import getURI
 import threading
 
 DB_URL = getURI()
