@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from main import getNameFromId, getUserRecipes, addRecipe, delRecipe, modifyRecipe, getRecipe,getAllEpiceries, getFlyerWeek, getNbPagesFlyer, checkIfFlyersAlreadyDownloaded, getFlyerStartWeekStr, getUserInfo
 from database import getURI
+from download import clearCirculairesFolder
 import threading
 
 DB_URL = getURI()
@@ -35,6 +36,7 @@ def downloadFlyers():
         if checkIfFlyersAlreadyDownloaded():
             print("Flyers are already downloaded for this week.")
             return "Flyers are already downloaded for this week."
+        clearCirculairesFolder()
         print("Downloading new flyers...")
         from download import DownloadAllCirculaires
         DownloadAllCirculaires()

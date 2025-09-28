@@ -1,5 +1,5 @@
 import requests
-import os
+import os, shutil
 import platform
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
@@ -119,4 +119,12 @@ def DownloadAllCirculaires():
         DownloadAllIMGFromCirculaire(url=this_url,
                                filter=filtre,
                                epicerie=name)
-    print("All flyers have been successfully downloaded.")
+
+def clearCirculairesFolder():
+    if os.path.exists(downloaded_pngs_path):
+        for filename in os.listdir(downloaded_pngs_path):
+            file_path = os.path.join(downloaded_pngs_path, filename)
+            if os.path.isdir(file_path):
+                shutil.rmtree(file_path)   # supprime le dossier et tout son contenu
+            else:
+                os.remove(file_path)       # supprime un fichier
