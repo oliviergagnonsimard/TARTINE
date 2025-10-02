@@ -21,8 +21,10 @@
       <p><strong>Courriel:</strong> {{ clientInfo[3] }}</p>
     </div>
 
-    <a href="{{ url_for('recipes') }}">Modifier mes informations</a>
+    <a href="{{ url_for('dashboard') }}">Modifier mes informations</a>
+    <div style="align-items: center; text-align: center;">
+      <a href="{{ url_for('recipes') }}">Voir mes recettes</a>
+    </div>
   </div>
-  <a href="{{ url_for('recipes') }}">Voir mes recettes</a>
 </div>
 {% endblock %}
