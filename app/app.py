@@ -2,13 +2,15 @@ from flask import Flask, render_template, url_for, request, redirect, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from database import getURI, createDBFile
-from download import clearCirculairesFolder
+from download import clearCirculairesFolder, DownloadAllCirculaires
+from apscheduler.schedulers.background import BackgroundScheduler
 import threading
 import os
 from main import *
 from datetime import datetime
 from r2 import imageExists, getImageUrl
 
+STORES = ['maxi', 'metro', 'iga', 'superc', 'provigo']
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -40,19 +42,13 @@ def resetSessionData(userID):
     session["data"] = getUserRecipes(userID)
     session["name"] = getNameFromId(userID)
 
-
-STORES = ['maxi', 'metro', 'iga', 'superc', 'provigo']
-
-@app.route('/downloadFlyers')
-def downloadFlyers():
-        if checkIfFlyersAlreadyDownloaded():
-            print("Flyers are already downloaded for this week.")
-            return "Flyers are already downloaded for this week."
-        clearCirculairesFolder()
-        print("Downloading new flyers...")
-        from download import DownloadAllCirculaires
-        DownloadAllCirculaires()
-        print("Flyers have been downloaded.")
+def triggerDownloadFlyers():
+    if checkIfFlyersAlreadyDownloaded():
+        print("Flyers already downloaded.")
+        return
+    clearCirculairesFolder()
+    DownloadAllCirculaires()
+    print("Flyers downloaded.")
 
 
 @app.route('/refreshFlyers')
@@ -165,11 +161,9 @@ def dashboard():
 def flyers():
     areFlyersDownloaded = checkIfFlyersAlreadyDownloaded()
     if not areFlyersDownloaded:
-        threading.Thread(target=downloadFlyers).start()
+        threading.Thread(target=triggerDownloadFlyers).start()
     epiceries = getAllEpiceries()
     week = getFlyerWeek()
-    if request.args.get("ready") == "1":
-        areFlyersDownloaded = True
     return render_template('flyers.html', epiceries=epiceries, week=week, downloading=not areFlyersDownloaded)
 
 @app.route('/flyers/status')
@@ -220,6 +214,24 @@ def leaderboard(page=1):
 
     return render_template('leaderboard.html', leaderboard=leaderboard, headings=headings, page=page)
 
+def downloadFlyersJob():
+    print("⏰ Téléchargement automatique des circulaires...")
+    if not checkIfFlyersAlreadyDownloaded():
+        DownloadAllCirculaires()
+        print("✅ Circulaires téléchargées et uploadées sur R2 !")
+    else:
+        print("✅ Circulaires déjà à jour !")
+
+scheduler = BackgroundScheduler()
+scheduler.add_job(
+    downloadFlyersJob,
+    'cron',
+    day_of_week='thu',  # jeudi
+    hour=3,
+    minute=0,
+    timezone='America/Montreal'  # ← important !
+)
+scheduler.start()
 
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0')
+    app.run(debug=True, host='0.0.0.0', port=5000)
