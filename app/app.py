@@ -1,13 +1,12 @@
 from flask import Flask, render_template, url_for, request, redirect, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
-from database import getURI, createDBFile
-from download import clearCirculairesFolder, DownloadAllCirculaires
+from database import getURI
+from download import DownloadAllCirculaires
 from apscheduler.schedulers.background import BackgroundScheduler
 import threading
 import os
 from main import *
-from datetime import datetime
 from r2 import imageExists, getImageUrl
 
 STORES = ['maxi', 'metro', 'iga', 'superc', 'provigo']

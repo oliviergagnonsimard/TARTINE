@@ -1,10 +1,10 @@
 import requests
-import os, shutil
+import os
 import platform
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
-from main import getFlyerWeek, getFlyerStartWeekStr, checkIfFlyersAlreadyDownloaded
-from r2 import uploadImage, imageExists
+from main import getFlyerStartWeekStr
+from r2 import uploadImage
 PLATFORM = platform.system()
 
 SLASHS = "\\"
