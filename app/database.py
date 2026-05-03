@@ -7,11 +7,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-print(f"DB_HOST: {os.environ.get('DB_HOST')}", flush=True)
-print(f"DB_PORT: {os.environ.get('DB_PORT')}", flush=True)
-print(f"DB_NAME: {os.environ.get('DB_NAME')}", flush=True)
-print(f"DB_USER: {os.environ.get('DB_USER')}", flush=True)
-
 connection_pool = pool.SimpleConnectionPool(
     1,  # min connections
     10, # max connections
@@ -66,3 +61,5 @@ def clearDiscountDB():
 
     confirmCommitToDB(conn)
     releaseConn(conn)
+
+print("database.py done.")

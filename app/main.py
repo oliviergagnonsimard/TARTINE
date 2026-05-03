@@ -162,3 +162,5 @@ def getLeaderboard(page=1, limit=20):
         rows = curs.fetchall()
     releaseConn(conn)
     return rows
+
+print("main.py done.")

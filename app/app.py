@@ -1,24 +1,13 @@
-print("=== STARTING APP 1===", flush=True)
 from flask import Flask, render_template, url_for, request, redirect, session
-print("=== STARTING APP 2===", flush=True)
 from flask_sqlalchemy import SQLAlchemy
-print("=== STARTING APP 3===", flush=True)
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
-print("=== STARTING APP 4===", flush=True)
 from database import getURI
-print("=== STARTING APP 5===", flush=True)
 from download import DownloadAllCirculaires
-print("=== STARTING APP 6===", flush=True)
 from apscheduler.schedulers.background import BackgroundScheduler
-print("=== STARTING APP 7===", flush=True)
 import threading
-print("=== STARTING APP 8===", flush=True)
 import os
-print("=== STARTING APP 9===", flush=True)
 from main import *
-print("=== STARTING APP 10===", flush=True)
 from r2 import imageExists, getImageUrl
-print("=== STARTING APP 11===", flush=True)
 
 STORES = ['maxi', 'metro', 'iga', 'superc', 'provigo']
 
