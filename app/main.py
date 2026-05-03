@@ -146,19 +146,21 @@ def calculate_age(born):
     # The comparison returns True (1) if today is before the birthday, else False (0)
     return today.year - born.year - ((today.month, today.day) < (born.month, born.day))  
 
-def getLeaderboard(page=1, limit=20):
+def getLeaderboard(page=1, limit=50):
     conn = connectToDB()
     offset = (page - 1) * limit
     with conn.cursor() as curs:
         curs.execute("""
-            SELECT ROW_NUMBER() OVER (ORDER by COUNT(*) DESC) AS "classement",
-	 		c."firstName"|| ' ' || c."lastName" AS Name,
-			COUNT(*) AS "nbRecettes"
-            FROM recette AS r
-			LEFT JOIN client AS c ON c."idClient" = r."idClient"
-            GROUP BY r."idClient", c."firstName", c."lastName"
-            ORDER BY "nbRecettes" DESC
-            LIMIT %s OFFSET %s
+            SELECT 
+                ROW_NUMBER() OVER (ORDER BY COUNT(r."idClient") DESC) AS "classement",
+                c."firstName" || ' ' || c."lastName" AS "Name",
+                c."idClient",
+                COUNT(r."idClient") AS "nbRecettes"
+                FROM client AS c
+                LEFT JOIN recette AS r ON c."idClient" = r."idClient"
+                GROUP BY c."idClient", c."firstName", c."lastName"
+                ORDER BY "nbRecettes" DESC
+                LIMIT %s OFFSET %s
         """, (limit, offset))
         rows = curs.fetchall()
     releaseConn(conn)

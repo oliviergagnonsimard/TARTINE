@@ -203,7 +203,7 @@ def recipes():
 @app.route('/leaderboard/<int:page>')
 def leaderboard(page=1):
     leaderboard = getLeaderboard(page=page)
-    headings = ("Classement", "Nom", "Score")
+    headings = ( "Classement", "Nom", "ID", "Score")
 
     return render_template('leaderboard.html', leaderboard=leaderboard, headings=headings, page=page)
 

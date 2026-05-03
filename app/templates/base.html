@@ -14,6 +14,45 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 <link rel="stylesheet" href="{{ url_for('static',filename='styles/about.css') }}">
 <style>
+  .w3-sidebar {
+    width: 120px;
+    background: #222;
+    transition: width 0.3s ease;
+    overflow: hidden;
+}
+
+.w3-sidebar.closed {
+    width: 0px;
+}
+
+#main {
+    margin-left: 120px;
+    transition: margin-left 0.3s ease;
+}
+
+#main.expanded {
+    margin-left: 0px;
+}
+
+#toggle-btn {
+    position: fixed;
+    top: 50%;
+    left: 120px;
+    transform: translateY(-50%);
+    z-index: 999;
+    background: #222;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 8px 4px;
+    border-radius: 0 6px 6px 0;
+    transition: left 0.3s ease;
+}
+
+#toggle-btn.closed {
+    left: 0px;
+}
 body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 .w3-row-padding img {margin-bottom: 12px}
 /* Set the width of the sidebar to 120px */
@@ -71,10 +110,24 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
     {% endif %}
   </div>
 </nav>
+<button id="toggle-btn" onclick="toggleSidebar()">❮</button>
 
 <div class="w3-padding-large" id="main">
     {% block body %}{% endblock %}
 </div>
 
+<script>
+function toggleSidebar() {
+    const sidebar = document.querySelector('.w3-sidebar');
+    const main = document.getElementById('main');
+    const btn = document.getElementById('toggle-btn');
+
+    sidebar.classList.toggle('closed');
+    main.classList.toggle('expanded');
+    btn.classList.toggle('closed');
+
+    btn.innerText = sidebar.classList.contains('closed') ? '❯' : '❮';
+}
+</script>
 </body>
 </html>
