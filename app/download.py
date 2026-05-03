@@ -118,12 +118,3 @@ def DownloadAllCirculaires():
         DownloadAllIMGFromCirculaire(url=this_url,
                                filter=filtre,
                                epicerie=name)
-
-def clearCirculairesFolder():
-    if os.path.exists(downloaded_pngs_path):
-        for filename in os.listdir(downloaded_pngs_path):
-            file_path = os.path.join(downloaded_pngs_path, filename)
-            if os.path.isdir(file_path):
-                shutil.rmtree(file_path)   # supprime le dossier et tout son contenu
-            else:
-                os.remove(file_path)       # supprime un fichier

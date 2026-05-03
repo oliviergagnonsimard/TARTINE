@@ -14,8 +14,6 @@ STORES = ['maxi', 'metro', 'iga', 'superc', 'provigo']
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-
-createDBFile()
 DB_URL = getURI()
 
 app = Flask(__name__, template_folder='templates')
@@ -46,7 +44,6 @@ def triggerDownloadFlyers():
     if checkIfFlyersAlreadyDownloaded():
         print("Flyers already downloaded.")
         return
-    clearCirculairesFolder()
     DownloadAllCirculaires()
     print("Flyers downloaded.")
 

@@ -1,8 +1,10 @@
 # Librairie pour intéragir avec notre database
 import psycopg2
-import json
 import os
 import platform
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # --- Gestion des slashs en fonction de l'OS
 PLATFORM = platform.system()
@@ -15,44 +17,23 @@ DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 configFile = DIR_PATH + SLASHS + "dbinfo.json"
 
 # FONCTIONS ------------------------------------------------------------------------------------------
-def createDBFile():
-    if os.path.exists(configFile):
-        return
-    with open(configFile, "w") as f:
-        api_text = { "hostname": "null",
-                    "port": "null",
-                    "dbname": "null",
-                    "user": "null",
-                    "password": "null",
-                }
-
-        jsonObject = json.dumps(api_text, indent=4)
-        f.write(jsonObject)
-
 def connectToDB():
-    if not os.path.exists(configFile):
-        print("File 'dbinfo.json' does not exist")
-        return
-
-    with open(configFile, "r") as f:
-        dbinfo = json.load(f)
-        return psycopg2.connect(
-                    host=       dbinfo["hostname"],
-                    port=       dbinfo["port"],
-                    dbname=     dbinfo["dbname"],
-                    user=       dbinfo["user"],
-                    password=   dbinfo["password"]
-                    )
-
+    return psycopg2.connect(
+        host=     os.environ.get("DB_HOST"),
+        port=     os.environ.get("DB_PORT"),
+        dbname=   os.environ.get("DB_NAME"),
+        user=     os.environ.get("DB_USER"),
+        password= os.environ.get("DB_PASSWORD")
+    )
 
 def getURI():
-    with open(configFile, "r") as r:
-        data = json.load(r)
-        user = data["user"]
-        pwd = data["password"]
-        port = data["port"]
-        dbName = data["dbname"]
-        return f"postgresql://{user}:{pwd}@endpoint:{port}/{dbName}" 
+    user =     os.environ.get("DB_USER")
+    pwd =      os.environ.get("DB_PASSWORD")
+    host =     os.environ.get("DB_HOST")
+    port =     os.environ.get("DB_PORT")
+    dbName =   os.environ.get("DB_NAME")
+    return f"postgresql://{user}:{pwd}@{host}:{port}/{dbName}"
+
 
 def parseSQL(text):
     text = text[6:-3]
