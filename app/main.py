@@ -1,5 +1,5 @@
 from database import *
-import datetime
+from datetime import date, datetime, timedelta
 import os
 
 def clearConsole():
@@ -21,8 +21,9 @@ def showClients():
 def getNameFromId(idClient):
     with conn.cursor() as curs:
         try:
-            curs.execute("SELECT name FROM client WHERE \"idClient\" = %s", (idClient,))
-            name = curs.fetchone()[0]
+            curs.execute("SELECT \"firstName\", \"lastName\" FROM client WHERE \"idClient\" = %s", (idClient,))
+            row = curs.fetchone()
+            name = f"{row[0]} {row[1]}"
             return name
         except Exception as e:
             print(f"SQL ERROR: {e}")
@@ -84,21 +85,21 @@ def getAllEpiceries():
 
 def getUserInfo(idClient):
     with conn.cursor() as curs:
-        curs.execute("SELECT * FROM client WHERE \"idClient\" = %s", (idClient,))
+        curs.execute("SELECT *, EXTRACT(YEAR FROM AGE(\"birthDate\")) AS age FROM client WHERE \"idClient\" = %s", (idClient,))
         row = curs.fetchone()
     conn.commit()
     return row
 
-def setUserInfo(idClient, Courriel, Nom, Birthday):
+def setUserInfo(idClient, Courriel, Prénom, Nom, Birthday):
     with conn.cursor() as curs:
-        curs.execute("UPDATE client SET email = %s, name = %s, \"birthDate\" = %s WHERE \"idClient\" = %s",
-                      (Courriel, Nom, Birthday, idClient))
+        curs.execute("UPDATE client SET \"email\" = %s, \"firstName\" = %s, \"lastName\" = %s, \"birthDate\" = %s WHERE \"idClient\" = %s",
+                      (Courriel, Prénom, Nom, Birthday, idClient))
     conn.commit()
 
 def getFlyerWeek():
-    current_date = datetime.datetime.now().weekday()
-    last_thursday = datetime.datetime.now() - datetime.timedelta(days=(current_date - 3) % 7)
-    next_wednesday = last_thursday + datetime.timedelta(days=6)
+    current_date = datetime.now().weekday()
+    last_thursday = datetime.now() - timedelta(days=(current_date - 3) % 7)
+    next_wednesday = last_thursday + timedelta(days=6)
     return last_thursday, next_wednesday
 
 def getFlyerStartWeekStr():
@@ -136,4 +137,24 @@ def checkIfFlyersAlreadyDownloaded():
             return False
         compteur +=1
     return True
-    
+
+def calculate_age(born):
+    today = date.today()
+    # The comparison returns True (1) if today is before the birthday, else False (0)
+    return today.year - born.year - ((today.month, today.day) < (born.month, born.day))  
+
+def getLeaderboard(page=1, limit=20):
+    offset = (page - 1) * limit
+    with conn.cursor() as curs:
+        curs.execute("""
+            SELECT ROW_NUMBER() OVER (ORDER by COUNT(*) DESC) AS "classement",
+	 		c."firstName"|| ' ' || c."lastName" AS Name,
+			COUNT(*) AS "nbRecettes"
+            FROM recette AS r
+			LEFT JOIN client AS c ON c."idClient" = r."idClient"
+            GROUP BY r."idClient", c."firstName", c."lastName"
+            ORDER BY "nbRecettes" DESC
+            LIMIT %s OFFSET %s
+        """, (limit, offset))
+        rows = curs.fetchall()
+    return rows

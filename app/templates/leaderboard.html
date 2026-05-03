@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<style>
+    .gold   { background-color: #FFD700 !important; color: black !important; font-weight: bold; }
+    .silver { background-color: #C0C0C0 !important; color: black !important; font-weight: bold; }
+    .bronze { background-color: #CD7F32 !important; color: black !important; font-weight: bold; }
+    .cell   { padding: 10px 20px; border: 1px solid white; }
+</style>
+{% endblock %}
+
+{% block body %}
+
+<div style="align-items: center;">
+<h3 style="font-weight: bold; font-size: 60px; text-align: center; padding-bottom: 30px;">Classement</h3>
+
+    <table style="border: 2px solid white; margin: auto; margin-top: 2%; width: 80%; text-align: center;">
+        <tr class="header-row" style="border: 2px solid white">
+            {% for header in headings %}
+            <th class="cell">{{ header }}</th>
+            {% endfor %}
+        </tr>
+        {% for row in leaderboard %}
+            {% set position = row[0] | int %}
+                    <tr class="{% if position == 1 %}gold{% elif position == 2 %}silver{% elif position == 3 %}bronze{% endif %}">
+                        {% for cell in row %}
+                            <td class="cell">{{ cell }}</td>
+                        {% endfor %}
+                    </tr>
+        {% endfor %}    
+    </table>
+</div>
+{% endblock %}

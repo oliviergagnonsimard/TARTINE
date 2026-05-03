@@ -147,10 +147,11 @@ def dashboard():
     
     if request.method == 'POST':
         email = request.form['email']
-        username = request.form['username']
+        firstname = request.form['firstname']
+        lastname = request.form['lastname']
         birthday = request.form['birthday']
 
-        setUserInfo(userID, email, username, birthday)
+        setUserInfo(userID, email, firstname, lastname, birthday)
         return redirect(url_for('dashboard'))
     
     data = getUserRecipes(userID)
@@ -195,6 +196,17 @@ def recipes():
     name = session.get("name")
     return render_template('recipes.html', userID=userID, headings=headings, data=data, name=name)
 
+@app.route('/leaderboard')
+@app.route('/leaderboard/<int:page>')
+def leaderboard(page=1):
+    if not current_user.is_authenticated:
+        return redirect(url_for("login"))
+
+    leaderboard = getLeaderboard(page=page)
+    headings = ("Classement", "Nom", "Score")
+
+    return render_template('leaderboard.html', leaderboard=leaderboard, headings=headings, page=page)
+
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')

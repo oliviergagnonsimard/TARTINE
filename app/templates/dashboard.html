@@ -5,6 +5,10 @@
     #edit-form input {
         width: 300px;
     }
+
+    #info-form td:last-child {
+        width: 300px;
+    }
 </style>
 {% endblock %}
 
@@ -16,7 +20,7 @@
         <h3 style="font-weight: bold; font-size: 60px; text-decoration: underline;">Dashboard</h3> 
       </div>
       <div>
-        <h3 style="font-weight: bold; font-size: 32px;">Bonjour, {{ clientInfo[1] }}!</h3>
+        <h3 style="font-weight: bold; font-size: 32px;">Bonjour, {{ clientInfo[2] }} {{ clientInfo[3] }}!</h3>
       </div>
     </div>
     <h4 style="font-weight: bold; font-size: 28px; padding-bottom: 2%;">Informations du compte</h4>
@@ -24,15 +28,23 @@
       <table style="margin: 0 auto;">
           <tr>
               <td><label>Courriel:</label></td>
-              <td><p name="email">{{ clientInfo[2] }}</p></td>
+              <td><p name="email">{{ clientInfo[1] }}</p></td>
           </tr>
           <tr>
-              <td><label>Nom d'utilisateur:</label></td>
-              <td><p name="username">{{ clientInfo[1] }}</p></td>
+              <td><label>Prénom:</label></td>
+              <td><p name="firstname">{{ clientInfo[2] }}</p></td>
+          </tr>
+          <tr>
+              <td><label>Nom:</label></td>
+              <td><p name="lastname">{{ clientInfo[3] }}</p></td>
           </tr>
           <tr>
                <td><label>Date de naissance:</label></td>
-              <td><p id="birthday" name="birthday">{{ clientInfo[3] }}</p></td>
+              <td><p id="birthday" name="birthday">{{ clientInfo[4] }}</p></td>
+          </tr>
+          <tr>
+               <td><label>Âge:</label></td>
+              <td><p id="age" name="birthday">{{ clientInfo[-1] }}</p></td>
           </tr>
         </table>
     </div>
@@ -42,15 +54,19 @@
         <table style="margin: 0 auto;">
           <tr>
               <td><label>Courriel:</label></td>
-              <td><input type="email" name="email" value="{{ clientInfo[2] }}"></td>
+              <td><input type="email" name="email" value="{{ clientInfo[1] }}"></td>
           </tr>
           <tr>
-              <td><label>Nom d'utilisateur:</label></td>
-              <td><input type="text" name="username" value="{{ clientInfo[1] }}"></td>
+              <td><label>Prénom:</label></td>
+              <td><input type="text" name="firstname" value="{{ clientInfo[2] }}"></td>
+          </tr>
+          <tr>
+              <td><label>Nom:</label></td>
+              <td><input type="text" name="lastname" value="{{ clientInfo[3] }}"></td>
           </tr>
           <tr>
                <td><label>Date de naissance:</label></td>
-              <td><input type="date" id="birthday" name="birthday" value="{{ clientInfo[3] }}"></td>
+              <td><input type="date" id="birthday" name="birthday" value="{{ clientInfo[4] }}"></td>
           </tr>
         </table>
         <div style="padding-top: 1%;">
