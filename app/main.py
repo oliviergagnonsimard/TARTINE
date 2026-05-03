@@ -1,5 +1,6 @@
 from database import *
 from datetime import date, datetime, timedelta
+from r2 import imageExists
 import os
 
 def clearConsole():
@@ -126,16 +127,11 @@ def getNbPagesFlyer():
 def checkIfFlyersAlreadyDownloaded():
     epiceries = getAllEpiceries()
     weekStr = getFlyerStartWeekStr()
-    dir_path = os.path.dirname(os.path.realpath(__file__))
 
-    compteur = 0
     for epicerie in epiceries:
-        nom = epicerie.lower()
-        path = dir_path + SLASHS + "static" + SLASHS + "circulaires" + SLASHS + f"{nom}" + "_" + weekStr
-        print(path)
-        if not os.path.exists(path):
+        r2Path = f"circulaires/{epicerie}_{weekStr}/{epicerie}0.png"
+        if not imageExists(r2Path):
             return False
-        compteur +=1
     return True
 
 def calculate_age(born):

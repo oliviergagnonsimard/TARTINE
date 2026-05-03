@@ -1,5 +1,6 @@
 config.json
 dbinfo.json
+.env
 __pycache__
 tartine-venv
 circulaires

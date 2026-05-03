@@ -4,6 +4,7 @@ import platform
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 from main import getFlyerWeek, getFlyerStartWeekStr, checkIfFlyersAlreadyDownloaded
+from r2 import uploadImage, imageExists
 PLATFORM = platform.system()
 
 SLASHS = "\\"
@@ -25,34 +26,32 @@ def DownloadIMGFromWeb(url, filter, compteur, epicerie):
         print(f"Failed to fetch the following URL: {url}")
 
     parsedHTML = BeautifulSoup(response.text, "html.parser")
-
     img_tags = parsedHTML.find_all("img")
     image_urls = []
 
-
     for tag in img_tags:
         img_src = tag.get("src")
-
-        # On join l'URL de base du site + le src de l'image
         full_url = urljoin(url, img_src)
-
         if full_url.lower().__contains__(filter):
-            # print(full_url)
             image_urls.append(full_url)
 
-
-    # MAINTENANT QU'ON A LES URLS, ON LES TÉLÉCHARGES
     for url in image_urls:
-
         ans = requests.get(url)
 
         downloadedFileDIR = downloaded_pngs_path + SLASHS + epicerie + "_" + getFlyerStartWeekStr()
         if not os.path.exists(downloadedFileDIR):
             os.makedirs(downloadedFileDIR)
-        downloadedFile = downloadedFileDIR + SLASHS + epicerie + str(compteur) + ".png"
+        
+        fileName = epicerie + str(compteur) + ".png"
+        downloadedFile = downloadedFileDIR + SLASHS + fileName
 
         with open(downloadedFile, "wb") as f:
             f.write(ans.content)
+
+        # ← Upload vers R2 après le téléchargement
+        r2Path = f"circulaires/{epicerie}_{getFlyerStartWeekStr()}/{fileName}"
+        uploadImage(downloadedFile, r2Path)
+        print(f"Uploaded {fileName} to R2")
 
         compteur += 1
 

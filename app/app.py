@@ -7,6 +7,8 @@ import threading
 import os
 from main import *
 from datetime import datetime
+from r2 import imageExists, getImageUrl
+
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -175,16 +177,27 @@ def flyers_status():
     downloading = checkIfFlyersAlreadyDownloaded()
     return {"downloading": not downloading}
 
+from r2 import imageExists, getImageUrl
+
 @app.route('/flyers/<store>')
 def flyer(store):
     if store not in STORES:
         return 404
     
     week_start = getFlyerStartWeekStr()
-    circulaires_path = os.path.join(BASE_DIR, "static", "circulaires", f"{store}_{week_start}")
-    nbPages = len(os.listdir(circulaires_path))
     
-    return render_template('flyer.html', store=store, nbPages=nbPages, week_start=week_start)
+    # Compte les pages disponibles dans R2
+    nbPages = 0
+    while imageExists(f"circulaires/{store}_{week_start}/{store}{nbPages}.png"):
+        nbPages += 1
+    
+    # Génère les URLs R2 pour chaque page
+    image_urls = [
+        getImageUrl(f"circulaires/{store}_{week_start}/{store}{i}.png")
+        for i in range(0, nbPages, 2)  # ton compteur va de 2 en 2
+    ]
+    
+    return render_template('flyer.html', store=store, image_urls=image_urls, week_start=week_start)
 
 @app.route('/recipes')
 def recipes():
