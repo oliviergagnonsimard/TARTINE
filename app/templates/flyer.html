@@ -4,7 +4,11 @@
 {% endblock %}
 
 {% block body %}
-<div style="justify-content: center; display: flex; align-items: center; height: 150px; margin-bottom: 20px;">
+
+<div style="justify-content: center; display: flex; align-items: center; height: 150px; margin-bottom: 20px; position: relative;">
+    <a href="{{ url_for('flyers') }}" style="position: absolute; left: 0; font-size: 36px; color:inherit">
+        <i class="bi bi-arrow-left-circle"></i>
+    </a>
     <img style="width: 250px; height: auto" src="{{ url_for('static', filename='logos-epiceries/' ~ store ~ '.png') }}">
 </div>
 
