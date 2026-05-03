@@ -23,10 +23,10 @@ def getNameFromId(idClient):
         try:
             curs.execute("SELECT name FROM client WHERE \"idClient\" = %s", (idClient,))
             name = curs.fetchone()[0]
+            return name
         except Exception as e:
             print(f"SQL ERROR: {e}")
             conn.rollback()
-    return name
 
 def getUserRecipes(idClient: int):
     with conn.cursor() as curs:
@@ -86,7 +86,14 @@ def getUserInfo(idClient):
     with conn.cursor() as curs:
         curs.execute("SELECT * FROM client WHERE \"idClient\" = %s", (idClient,))
         row = curs.fetchone()
+    conn.commit()
     return row
+
+def setUserInfo(idClient, Courriel, Nom, Birthday):
+    with conn.cursor() as curs:
+        curs.execute("UPDATE client SET email = %s, name = %s, \"birthDate\" = %s WHERE \"idClient\" = %s",
+                      (Courriel, Nom, Birthday, idClient))
+    conn.commit()
 
 def getFlyerWeek():
     current_date = datetime.datetime.now().weekday()

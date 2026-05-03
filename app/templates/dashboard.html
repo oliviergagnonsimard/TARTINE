@@ -16,44 +16,58 @@
         <h3 style="font-weight: bold; font-size: 60px; text-decoration: underline;">Dashboard</h3> 
       </div>
       <div>
-        <h3 style="font-weight: bold; font-size: 32px;">Bonjour, {{ name }}!</h3>
+        <h3 style="font-weight: bold; font-size: 32px;">Bonjour, {{ clientInfo[1] }}!</h3>
       </div>
     </div>
-    <h4 style="font-weight: bold; font-size: 28px;">Informations du compte</h4>
+    <h4 style="font-weight: bold; font-size: 28px; padding-bottom: 2%;">Informations du compte</h4>
     <div id="info-form" style="margin-top: 20px; display: initial">
-      <p><strong>Id:</strong> {{ clientInfo[0] }}</p>
-      <p><strong>Courriel:</strong> {{ clientInfo[3] }}</p>
-      <p><strong>Nom d'utilisateur:</strong> {{ clientInfo[1] }}</p>
-      <p><strong>Age:</strong> {{ clientInfo[2] }}</p>
+      <table style="margin: 0 auto;">
+          <tr>
+              <td><label>Courriel:</label></td>
+              <td><p name="email">{{ clientInfo[2] }}</p></td>
+          </tr>
+          <tr>
+              <td><label>Nom d'utilisateur:</label></td>
+              <td><p name="username">{{ clientInfo[1] }}</p></td>
+          </tr>
+          <tr>
+               <td><label>Date de naissance:</label></td>
+              <td><p id="birthday" name="birthday">{{ clientInfo[3] }}</p></td>
+          </tr>
+        </table>
     </div>
 
     <div id="edit-form" style="display:none; margin-top: 20px;">
     <form method="POST" action="{{ url_for('dashboard') }}">
-        <table style="margin: 0 auto">
-            <tr>
-                <td><label>Nom d'utilisateur:</label></td>
-                <td><input type="text" name="username" value="{{ clientInfo[1] }}"></td>
-            </tr>
-            <tr>
-                <td><label>Age:</label></td>
-                <td><input type="number" name="age" value="{{ clientInfo[2] }}"></td>
-            </tr>
-            <tr>
-                <td><label>Courriel:</label></td>
-                <td><input type="email" name="email" value="{{ clientInfo[3] }}"></td>
-            </tr>
+        <table style="margin: 0 auto;">
+          <tr>
+              <td><label>Courriel:</label></td>
+              <td><input type="email" name="email" value="{{ clientInfo[2] }}"></td>
+          </tr>
+          <tr>
+              <td><label>Nom d'utilisateur:</label></td>
+              <td><input type="text" name="username" value="{{ clientInfo[1] }}"></td>
+          </tr>
+          <tr>
+               <td><label>Date de naissance:</label></td>
+              <td><input type="date" id="birthday" name="birthday" value="{{ clientInfo[3] }}"></td>
+          </tr>
         </table>
-        <button type="submit">Sauvegarder</button>
-        <button type="button" onclick="document.getElementById('edit-form').style.display='none'; document.getElementById('info-form').style.display='initial'
-        document.getElementById('modif').style.display='initial'">Annuler</button>
+        <div style="padding-top: 1%;">
+          <button type="submit">Sauvegarder</button>
+          <button id="btnAnnuler" type="button" href="window.location.reload()">Annuler</button>
+        </div>
     </form>
 </div>
 
     <a id="modif" href="#" onclick="document.getElementById('edit-form').style.display='block'; this.style.display='none'; document.getElementById('info-form').style.display='none'">
       Modifier mes informations</a>
-    <div style="align-items: center; text-align: center;">
-      <a href="{{ url_for('recipes') }}">Voir mes recettes</a>
-    </div>
   </div>
 </div>
+
+<script>
+  document.getElementById("btnAnnuler").addEventListener("click", function() {
+    window.location.reload();
+  });
+</script>
 {% endblock %}

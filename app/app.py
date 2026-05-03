@@ -1,11 +1,12 @@
 from flask import Flask, render_template, url_for, request, redirect, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
-from main import getNameFromId, getUserRecipes, addRecipe, delRecipe, modifyRecipe, getRecipe, getAllEpiceries, getFlyerWeek, getNbPagesFlyer, checkIfFlyersAlreadyDownloaded, getFlyerStartWeekStr, getUserInfo
 from database import getURI, createDBFile
 from download import clearCirculairesFolder
 import threading
 import os
+from main import *
+from datetime import datetime
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -142,16 +143,16 @@ def modRecipee():
 def dashboard():
     if not current_user.is_authenticated:
         return redirect(url_for("login"))
+    userID = session.get("userID")
     
     if request.method == 'POST':
-        username = request.form['username']
-        age = request.form['age']
         email = request.form['email']
+        username = request.form['username']
+        birthday = request.form['birthday']
 
-        # TODO: Mettre à jour dans ta DB ici
+        setUserInfo(userID, email, username, birthday)
         return redirect(url_for('dashboard'))
     
-    userID = session.get("userID")
     data = getUserRecipes(userID)
     name = session.get("name")
     clientInfo = getUserInfo(userID)
