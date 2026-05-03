@@ -15,9 +15,9 @@
 
     {% for epicerie in epiceries %}
     <div class="circulaires-background flyers-content" style="justify-content: space-between; width: 20%;">
-        <a href="{{ url_for(epicerie[1].lower()) }}">
+        <a href="{{ url_for('flyer', store=epicerie) }}">
             <div style="justify-content: center; display: flex; align-items: center; height: 100%">
-                <img src="{{ url_for('static', filename='logos-epiceries/' + epicerie[1] + '.png') }}" 
+                <img src="{{ url_for('static', filename='logos-epiceries/' + epicerie + '.png') }}" 
                 style="width: 100%; justify-content: center; height: auto;"/>
             </div>
         </a>

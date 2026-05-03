@@ -1,5 +1,6 @@
 from database import *
 import datetime
+import os
 
 def clearConsole():
     os.system('cls')
@@ -77,9 +78,9 @@ def getRecipe(idClient, idRecette):
 
 def getAllEpiceries():
     with conn.cursor() as curs:
-        curs.execute("SELECT * FROM epicerie ORDER BY \"idEpicerie\"")
+        curs.execute("SELECT nom FROM epicerie ORDER BY \"idEpicerie\"")
         rows = curs.fetchall()
-    return rows
+    return [row[0].lower() for row in rows]
 
 def getUserInfo(idClient):
     with conn.cursor() as curs:
@@ -121,7 +122,7 @@ def checkIfFlyersAlreadyDownloaded():
 
     compteur = 0
     for epicerie in epiceries:
-        nom = epicerie[1].lower()
+        nom = epicerie.lower()
         path = dir_path + SLASHS + "static" + SLASHS + "circulaires" + SLASHS + f"{nom}" + "_" + weekStr
         print(path)
         if not os.path.exists(path):

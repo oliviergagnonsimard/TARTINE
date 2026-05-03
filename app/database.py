@@ -16,32 +16,43 @@ configFile = DIR_PATH + SLASHS + "dbinfo.json"
 
 # FONCTIONS ------------------------------------------------------------------------------------------
 def createDBFile():
+    if os.path.exists(configFile):
+        return
     with open(configFile, "w") as f:
         api_text = { "hostname": "null",
                     "port": "null",
                     "dbname": "null",
                     "user": "null",
-                    "password": "null"
+                    "password": "null",
                 }
 
         jsonObject = json.dumps(api_text, indent=4)
         f.write(jsonObject)
 
 def connectToDB():
+    if not os.path.exists(configFile):
+        print("File 'dbinfo.json' does not exist")
+        return
+
     with open(configFile, "r") as f:
         dbinfo = json.load(f)
         return psycopg2.connect(
-            host=       dbinfo["hostname"],
-            port=       dbinfo["port"],
-            dbname=     dbinfo["dbname"],
-            user=       dbinfo["user"],
-            password=   dbinfo["password"]
-        )
+                    host=       dbinfo["hostname"],
+                    port=       dbinfo["port"],
+                    dbname=     dbinfo["dbname"],
+                    user=       dbinfo["user"],
+                    password=   dbinfo["password"]
+                    )
+
 
 def getURI():
-    with open(configFile, "r") as f:
-        dbinfo = json.load(f)
-        return dbinfo["uri"]
+    with open(configFile, "r") as r:
+        data = json.load(r)
+        user = data["user"]
+        pwd = data["password"]
+        port = data["port"]
+        dbName = data["dbname"]
+        return f"postgresql://{user}:{pwd}@endpoint:{port}/{dbName}" 
 
 def parseSQL(text):
     text = text[6:-3]

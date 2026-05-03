@@ -1,11 +1,16 @@
 from flask import Flask, render_template, url_for, request, redirect, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
-from main import getNameFromId, getUserRecipes, addRecipe, delRecipe, modifyRecipe, getRecipe,getAllEpiceries, getFlyerWeek, getNbPagesFlyer, checkIfFlyersAlreadyDownloaded, getFlyerStartWeekStr, getUserInfo
-from database import getURI
+from main import getNameFromId, getUserRecipes, addRecipe, delRecipe, modifyRecipe, getRecipe, getAllEpiceries, getFlyerWeek, getNbPagesFlyer, checkIfFlyersAlreadyDownloaded, getFlyerStartWeekStr, getUserInfo
+from database import getURI, createDBFile
 from download import clearCirculairesFolder
 import threading
+import os
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+
+createDBFile()
 DB_URL = getURI()
 
 app = Flask(__name__, template_folder='templates')
@@ -14,6 +19,7 @@ login_manager.init_app(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = DB_URL
 app.secret_key = "secret"
 db = SQLAlchemy(app)
+
 
 class User(UserMixin):
     def __init__(self, id):
@@ -30,6 +36,9 @@ def resetSessionData(userID):
     session["userID"] = userID
     session["data"] = getUserRecipes(userID)
     session["name"] = getNameFromId(userID)
+
+
+STORES = ['maxi', 'metro', 'iga', 'superc', 'provigo']
 
 @app.route('/downloadFlyers')
 def downloadFlyers():
@@ -156,35 +165,16 @@ def flyers_status():
     downloading = checkIfFlyersAlreadyDownloaded()
     return {"downloading": not downloading}
 
-@app.route('/flyers/maxi')
-def maxi():
-    nbPages = getNbPagesFlyer()[0]
+@app.route('/flyers/<store>')
+def flyer(store):
+    if store not in STORES:
+        return 404
+    
     week_start = getFlyerStartWeekStr()
-    return render_template('flyers/maxi.html', nbPages=nbPages, week_start=week_start)
-
-@app.route('/flyers/metro')
-def metro():
-    nbPages = getNbPagesFlyer()[1]
-    week_start = getFlyerStartWeekStr()
-    return render_template('flyers/metro.html', nbPages=nbPages, week_start=week_start)
-
-@app.route('/flyers/iga')
-def iga():
-    nbPages = getNbPagesFlyer()[2]
-    week_start = getFlyerStartWeekStr()
-    return render_template('flyers/iga.html', nbPages=nbPages, week_start=week_start)
-
-@app.route('/flyers/superc')
-def superc():
-    nbPages = getNbPagesFlyer()[3]
-    week_start = getFlyerStartWeekStr()
-    return render_template('flyers/superc.html', nbPages=nbPages, week_start=week_start)
-
-@app.route('/flyers/provigo')
-def provigo():
-    nbPages = getNbPagesFlyer()[4]
-    week_start = getFlyerStartWeekStr()
-    return render_template('flyers/provigo.html', nbPages=nbPages, week_start=week_start)
+    circulaires_path = os.path.join(BASE_DIR, "static", "circulaires", f"{store}_{week_start}")
+    nbPages = len(os.listdir(circulaires_path))
+    
+    return render_template('flyer.html', store=store, nbPages=nbPages, week_start=week_start)
 
 @app.route('/recipes')
 def recipes():
