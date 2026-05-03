@@ -14,14 +14,38 @@
         <h3 style="font-weight: bold; font-size: 32px;">Bonjour, {{ name }}!</h3>
       </div>
     </div>
-    <div style="margin-top: 20px;">
-      <h4 style="font-weight: bold; font-size: 28px;">Informations du compte</h4>
+    <h4 style="font-weight: bold; font-size: 28px;">Informations du compte</h4>
+    <div id="info-form" style="margin-top: 20px; display: initial">
+      <p><strong>Id:</strong> {{ clientInfo[0] }}</p>
+      <p><strong>Courriel:</strong> {{ clientInfo[3] }}</p>
       <p><strong>Nom d'utilisateur:</strong> {{ clientInfo[1] }}</p>
       <p><strong>Age:</strong> {{ clientInfo[2] }}</p>
-      <p><strong>Courriel:</strong> {{ clientInfo[3] }}</p>
     </div>
 
-    <a href="{{ url_for('dashboard') }}">Modifier mes informations</a>
+    <div id="edit-form" style="display:none; margin-top: 20px;">
+    <form method="POST" action="{{ url_for('dashboard') }}">
+        <table style="margin: 0 auto">
+            <tr>
+                <td><label>Nom d'utilisateur:</label></td>
+                <td><input type="text" name="username" value="{{ clientInfo[1] }}"></td>
+            </tr>
+            <tr>
+                <td><label>Age:</label></td>
+                <td><input type="number" name="age" value="{{ clientInfo[2] }}"></td>
+            </tr>
+            <tr>
+                <td><label>Courriel:</label></td>
+                <td><input type="email" name="email" value="{{ clientInfo[3] }}"></td>
+            </tr>
+        </table>
+        <button type="submit">Sauvegarder</button>
+        <button type="button" onclick="document.getElementById('edit-form').style.display='none'; document.getElementById('info-form').style.display='initial'
+        document.getElementById('modif').style.display='initial'">Annuler</button>
+    </form>
+</div>
+
+    <a id="modif" href="#" onclick="document.getElementById('edit-form').style.display='block'; this.style.display='none'; document.getElementById('info-form').style.display='none'">
+      Modifier mes informations</a>
     <div style="align-items: center; text-align: center;">
       <a href="{{ url_for('recipes') }}">Voir mes recettes</a>
     </div>

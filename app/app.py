@@ -138,10 +138,18 @@ def modRecipee():
                                )
     
     
-@app.route('/dashboard')
+@app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
     if not current_user.is_authenticated:
         return redirect(url_for("login"))
+    
+    if request.method == 'POST':
+        username = request.form['username']
+        age = request.form['age']
+        email = request.form['email']
+
+        # TODO: Mettre à jour dans ta DB ici
+        return redirect(url_for('dashboard'))
     
     userID = session.get("userID")
     data = getUserRecipes(userID)
