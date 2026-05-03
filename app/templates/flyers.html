@@ -4,9 +4,14 @@
 {% endblock %}
 
 {% block body %}
-
-<h3 style="font-weight: bold; font-size: 60px; text-align: center; padding-bottom: 30px;">Circulaires</h3>
-<h3 style="font-weight: bold; font-size: 28px; text-align: center; padding-bottom: 30px;">{{ week[0].date() }} au {{ week[1].date() }}</h3>
+<div>
+    <div style="position: relative; text-align: center; padding: 20px 0; min-height: 320px;">
+        <h3 style="font-weight: bold; font-size: 60px;">Circulaires</h3>
+        <h3 id="week-display" style="font-weight: bold; font-size: 28px;"></h3>
+        <div id="calendar" style="position: absolute; top: 0; right: 20px;">
+    </div>
+</div>
+</div>
 <div style="display: flex; justify-content: space-evenly; align-items: center; margin: auto; width: 100%;">
     <div class="loading-indicator" id="downloading-msg" style="display: none;">
         <p style="font-size: 20px; font-weight: bold; text-align: center;">Téléchargement des circulaires en cours...</p>
@@ -18,8 +23,9 @@
         <a href="{{ url_for('flyer', store=epicerie) }}">
             <div style="justify-content: center; display: flex; align-items: center; height: 100%">
                 <img src="{{ url_for('static', filename='logos-epiceries/' + epicerie + '.png') }}" 
-                style="width: 100%; justify-content: center; height: auto;"/>
+                style="width: 80%; height: 150px; object-fit: contain;"/>
             </div>
+            <p style="text-align: center; font-weight: bold; text-transform: capitalize;">{{ epicerie }}</p>
         </a>
     </div>
     {% endfor %}
@@ -56,6 +62,78 @@ async function checkFlyersStatus() {
 
 // Start checking when page loads
 window.onload = checkFlyersStatus;
+</script>
+
+<script>
+// Script du calendrier
+const [y1, m1, d1] = "{{ week[0].date() }}".split('-').map(Number);
+const [y2, m2, d2] = "{{ week[1].date() }}".split('-').map(Number);
+const dateDebut = new Date(y1, m1 - 1, d1);
+const dateFin = new Date(y2, m2 - 1, d2);
+const today = new Date()
+
+const options = { day: 'numeric', month: 'long', year: 'numeric' };
+document.getElementById("week-display").innerText = 
+    dateDebut.toLocaleDateString('fr-CA', options) + 
+    " au " + 
+    dateFin.toLocaleDateString('fr-CA', options);
+
+let currentMonth = today.getMonth();
+let currentYear = today.getFullYear();
+
+const jours = ['Di', 'Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa'];
+const moisFR = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+
+function generateCalendar(month, year) {
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    let html = `
+        <table style="border-collapse: collapse; text-align: center;">
+            <tr>
+                <th><button onclick="changeMonth(-1)" style="background:none; border:none; color:white; font-size:18px; cursor:pointer;">◀</button></th>
+                <th colspan="5" style="font-size: 16px; padding: 8px; color: white;">${moisFR[month]} ${year}</th>
+                <th><button onclick="changeMonth(1)" style="background:none; border:none; color:white; font-size:18px; cursor:pointer;">▶</button></th>
+            </tr>
+            <tr>${jours.map(j => `<th style="padding: 6px; color: #aaa;">${j}</th>`).join('')}</tr>
+            <tr>
+    `;
+
+    for (let i = 0; i < firstDay; i++) html += '<td></td>';
+
+    for (let day = 1; day <= daysInMonth; day++) {
+    const current = new Date(year, month, day);
+    const isHighlighted = current >= dateDebut && current <= dateFin;
+    const isToday = current.toDateString() === new Date().toDateString(); // ← manquait
+
+    html += `<td><div style="
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: ${isHighlighted ? '#e91e8c' : 'transparent'};
+    color: ${isHighlighted ? 'white' : '#ccc'};
+    font-weight: ${isHighlighted || isToday ? 'bold' : 'normal'};
+    border: ${isToday ? '2px solid white' : '2px solid transparent'};
+    ">${day}</div></td>`;
+
+    if ((firstDay + day) % 7 === 0) html += '</tr><tr>';
+}
+
+    html += '</tr></table>';
+    document.getElementById("calendar").innerHTML = html;
+}
+
+function changeMonth(direction) {
+    currentMonth += direction;
+    if (currentMonth > 11) { currentMonth = 0; currentYear++; }
+    if (currentMonth < 0)  { currentMonth = 11; currentYear--; }
+    generateCalendar(currentMonth, currentYear);
+}
+
+generateCalendar(currentMonth, currentYear);
 </script>
 
 {% endblock %}

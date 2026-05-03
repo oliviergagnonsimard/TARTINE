@@ -121,8 +121,9 @@ def setUserInfo(idClient, Courriel, Prénom, Nom, Birthday):
     releaseConn(conn)
 
 def getFlyerWeek():
-    current_date = datetime.now().weekday()
-    last_thursday = datetime.now() - timedelta(days=(current_date - 3) % 7)
+    today = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
+    current_day = today.weekday()
+    last_thursday = today - timedelta(days=(current_day - 3) % 7)
     next_wednesday = last_thursday + timedelta(days=6)
     return last_thursday, next_wednesday
 

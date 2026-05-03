@@ -202,9 +202,6 @@ def recipes():
 @app.route('/leaderboard')
 @app.route('/leaderboard/<int:page>')
 def leaderboard(page=1):
-    if not current_user.is_authenticated:
-        return redirect(url_for("login"))
-
     leaderboard = getLeaderboard(page=page)
     headings = ("Classement", "Nom", "Score")
 
@@ -231,4 +228,4 @@ scheduler.start()
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
-    app.run(host='0.0.0.0', port=port)
+    app.run(debug=True, host='0.0.0.0', port=port)
