@@ -107,23 +107,6 @@ def getFlyerStartWeekStr():
     week = getFlyerWeek()
     return str(week[0].date())
 
-def getNbPagesFlyer():
-    nbPages = []
-    dir_path = ["app/static/circulaires/maxi_" + getFlyerStartWeekStr(),
-                "app/static/circulaires/metro_" + getFlyerStartWeekStr(),
-                "app/static/circulaires/iga_" + getFlyerStartWeekStr(),
-                "app/static/circulaires/superc_" + getFlyerStartWeekStr(),
-                "app/static/circulaires/provigo_" + getFlyerStartWeekStr()]
-
-    for path in dir_path:
-        try:
-            nbPages.append(len([name for name in os.listdir(path) if os.path.isfile(os.path.join(path, name))]))
-        except Exception as e:
-            print(f"Error accessing directory {path}: {e}")
-            nbPages.append(0)  # Append 0 if there's an error accessing the directory
-
-    return nbPages
-
 def checkIfFlyersAlreadyDownloaded():
     epiceries = getAllEpiceries()
     weekStr = getFlyerStartWeekStr()
