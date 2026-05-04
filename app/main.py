@@ -112,11 +112,11 @@ def getUserInfo(idClient):
     releaseConn(conn)
     return row
 
-def setUserInfo(idClient, Courriel, Prénom, Nom, Birthday):
+def setUserInfo(idClient, Courriel, Prénom, Nom, Birthday, participe):
     conn = connectToDB()
     with conn.cursor() as curs:
-        curs.execute("UPDATE client SET \"email\" = %s, \"firstName\" = %s, \"lastName\" = %s, \"birthDate\" = %s WHERE \"idClient\" = %s",
-                      (Courriel, Prénom, Nom, Birthday, idClient))
+        curs.execute("UPDATE client SET \"email\" = %s, \"firstName\" = %s, \"lastName\" = %s, \"birthDate\" = %s, \"ranked\" = %s WHERE \"idClient\" = %s",
+                      (Courriel, Prénom, Nom, Birthday, participe, idClient))
     conn.commit()
     releaseConn(conn)
 
@@ -158,6 +158,7 @@ def getLeaderboard(page=1, limit=50):
                 COUNT(r."idClient") AS "nbRecettes"
                 FROM client AS c
                 LEFT JOIN recette AS r ON c."idClient" = r."idClient"
+				WHERE c.ranked = true
                 GROUP BY c."idClient", c."firstName", c."lastName"
                 ORDER BY "nbRecettes" DESC
                 LIMIT %s OFFSET %s

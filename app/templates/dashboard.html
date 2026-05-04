@@ -9,6 +9,72 @@
     #info-form td:last-child {
         width: 300px;
     }
+
+    #info-form td:first-child, #edit-form td:first-child {
+        text-align: right;
+        padding-right: 15px;
+        white-space: nowrap;
+        vertical-align: middle;
+
+    }
+
+    #info-form td:last-child, #edit-form td:last-child {
+        text-align: left;
+        vertical-align: middle;
+    }
+
+    #info-form td, #edit-form td {
+    vertical-align: middle;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+
+  #info-form p {
+  margin: 0;
+  padding: 0;
+}
+
+  .toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 26px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #555;
+    border-radius: 26px;
+    transition: 0.3s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+input:checked + .slider {
+    background-color: #e91e8c;
+}
+
+input:checked + .slider:before {
+    transform: translateX(24px);
+}
 </style>
 {% endblock %}
 
@@ -48,7 +114,11 @@
           </tr>
           <tr>
                <td><label>Âge:</label></td>
-              <td><p id="age" name="birthday">{{ clientInfo[-1] }}</p></td>
+              <td><p id="age">{{ clientInfo[-1] }}</p></td>
+          </tr>
+          <tr>
+               <td><label>Participe au classement:</label></td>
+              <td><p id="participe">{{ clientInfo[5] }}</p></td>
           </tr>
         </table>
     </div>
@@ -71,6 +141,15 @@
           <tr>
                <td><label>Date de naissance:</label></td>
               <td><input type="date" id="birthday" name="birthday" value="{{ clientInfo[4] }}"></td>
+          </tr>
+          <tr>
+               <td><label>Participe au classement:</label></td>
+               <td>
+                <label class="toggle-switch">
+                <input type="checkbox" id="participe" name="participe" {{ 'checked' if clientInfo[5] else '' }}>
+                <span class="slider"></span>
+                </label>
+              </td>
           </tr>
         </table>
         <div style="padding-top: 1%;">

@@ -144,8 +144,9 @@ def dashboard():
         firstname = request.form['firstname']
         lastname = request.form['lastname']
         birthday = request.form['birthday']
+        participe = request.form.get('participe') == 'on'
 
-        setUserInfo(userID, email, firstname, lastname, birthday)
+        setUserInfo(userID, email, firstname, lastname, birthday, participe)
         return redirect(url_for('dashboard'))
     
     data = getUserRecipes(userID)
@@ -204,8 +205,9 @@ def recipes():
 def leaderboard(page=1):
     leaderboard = getLeaderboard(page=page)
     headings = ( "Classement", "Nom", "ID", "Score")
+    userId = session.get("userID")
 
-    return render_template('leaderboard.html', leaderboard=leaderboard, headings=headings, page=page)
+    return render_template('leaderboard.html', leaderboard=leaderboard, headings=headings, page=page, current_Id=userId)
 
 def downloadFlyersJob():
     print("⏰ Téléchargement automatique des circulaires...")

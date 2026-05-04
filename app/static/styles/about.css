@@ -97,3 +97,9 @@ table tr:not(.header-row):hover {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+/* .current-user { 
+    background-color: #e91e8c !important; 
+    outline: 2px solid #FFFF; 
+    font-weight: bold !important; 
+} */
