@@ -158,4 +158,41 @@ def getLeaderboard(page=1, limit=50):
     releaseConn(conn)
     return rows
 
+def createNotification(idClient, title, message):
+    conn = connectToDB()
+    with conn.cursor() as curs:
+        try:
+            curs.execute(
+                'INSERT INTO notification ("idClient", title, message) VALUES (%s, %s, %s)',
+                (idClient, title, message)
+            )
+            conn.commit()
+        except Exception as e:
+            print(f"SQL ERROR (createNotification): {e}")
+            conn.rollback()
+    releaseConn(conn)
+
+def getNotifications(idClient):
+    conn = connectToDB()
+    with conn.cursor() as curs:
+        curs.execute(
+            'SELECT id, title, message, "isRead", "creationDate" AT TIME ZONE \'America/Montreal\' FROM notification '
+            'WHERE "idClient" = %s ORDER BY "creationDate" DESC LIMIT 20',
+            (idClient,)
+        )
+        rows = curs.fetchall()
+    releaseConn(conn)
+    return rows
+
+def readNotification(idClient, idNotif):
+    conn = connectToDB()
+
+    with conn.cursor() as curs:
+        curs.execute("UPDATE notification SET \"isRead\" = TRUE WHERE \"idClient\" = %s AND id = %s;", (idClient, idNotif))
+        conn.commit()
+
+    releaseConn(conn)
+
+
+
 print("main.py done.")

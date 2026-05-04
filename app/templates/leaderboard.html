@@ -2,63 +2,75 @@
 
 {% block head %}
 <style>
-    .gold   { background-color: #FFD700 !important; color: black !important; font-weight: bold; }
-    .silver { background-color: #C0C0C0 !important; color: black !important; font-weight: bold; }
-    .bronze { background-color: #CD7F32 !important; color: black !important; font-weight: bold; }
-    .cell   { padding: 10px 20px; border: 1px solid white; }
+    .gold        { background-color: #FFD700 !important; color: black !important; font-weight: bold; }
+    .silver      { background-color: #C0C0C0 !important; color: black !important; font-weight: bold; }
+    .bronze      { background-color: #CD7F32 !important; color: black !important; font-weight: bold; }
+    .cell        { padding: 10px 20px; border: 1px solid white; }
 </style>
 {% endblock %}
 
 {% block body %}
 
 <div style="align-items: center;">
-    <div style="display: flex; position: relative">
+
+    <!-- Title + User Badge Row -->
+    <div style="display: flex; position: relative;">
+
         <div style="width: 100%; text-align: center;">
             <h3 style="font-weight: bold; font-size: 60px; text-align: center;">Classement</h3>
             <h3 style="font-weight: bold; font-size: 28px; text-align: center; padding-bottom: 30px;">du nombre de recettes!</h3>
         </div>
+
+        <!-- Current user badge (top-right) -->
         <div style="position: absolute; top: 20px; right: 20px; text-align: right;">
             {% for row in leaderboard %}
                 {% if row[2] | int == current_Id | int %}
                     <p style="font-size: 22px; font-weight: bold; margin: 0;">
-                    {% if row[0] == 1 %}🥇
-                    {% elif row[0] == 2 %}🥈
-                    {% elif row[0] == 3 %}🥉
-                    {% else %}<i class="bi bi-award"></i>
+                        {% if row[0] == 1 %}🥇
+                        {% elif row[0] == 2 %}🥈
+                        {% elif row[0] == 3 %}🥉
+                        {% else %}<i class="bi bi-award"></i>
+                        {% endif %}
+                        {{ row[0] }}{% if row[0] == 1 %}ère{% else %}e{% endif %} place
+                    </p>
+                    <p style="font-size: 14px; margin: 0; color: #aaa;">{{ row[1] }}</p>
+                    <p style="font-size: 14px; margin: 0; color: #aaa;">{{ row[3] }} recettes</p>
                 {% endif %}
-                
-                {{ row[0] }}{% if row[0] == 1 %}ère{% else %}e{% endif %} place
-        </p>
-        <p style="font-size: 14px; margin: 0; color: #aaa;">{{ row[1] }}</p>
-        <p style="font-size: 14px; margin: 0; color: #aaa;">{{ row[3] }} recettes</p>
-    {% endif %}
-{% endfor %}
-    </div>
-</div>
+            {% endfor %}
+        </div>
 
+    </div>
+    <!-- End Title + User Badge Row -->
+
+    <!-- Leaderboard Table -->
     <table style="border: 2px solid white; margin: auto; margin-top: 2%; width: 80%; text-align: center;">
-        <tr class="header-row" style="border: 2px solid white">
+
+        <tr class="header-row" style="border: 2px solid white;">
             {% for header in headings %}
-            <th class="cell">{{ header }}</th>
+                <th class="cell">{{ header }}</th>
             {% endfor %}
         </tr>
-        {% for row in leaderboard %}
 
+        {% for row in leaderboard %}
             {% set position = row[0] | int %}
             <tr class="
                 {% if position == 1 %}gold{% elif position == 2 %}silver{% elif position == 3 %}bronze{% endif %}
                 {% if row[2] | int == current_Id | int %}current-user{% endif %}
             ">
-            {% for cell in row %}
-        <td class="cell">
-            {% if loop.index == 2 and row[2] | int == current_Id | int %}
-                <i class="bi bi-person-vcard" style="margin-right: 8px; color: #FFFF;"></i>
-            {% endif %}
-            {{ cell }}
-        </td>
-{% endfor %}
-                </tr>
-        {% endfor %}   
+                {% for cell in row %}
+                    <td class="cell">
+                        {% if loop.index == 2 and row[2] | int == current_Id | int %}
+                            <i class="bi bi-person-vcard" style="margin-right: 8px; color: #FFFF;"></i>
+                        {% endif %}
+                        {{ cell }}
+                    </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+
     </table>
+    <!-- End Leaderboard Table -->
+
 </div>
+
 {% endblock %}

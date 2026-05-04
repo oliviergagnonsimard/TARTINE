@@ -104,7 +104,7 @@ function generateCalendar(month, year) {
     for (let day = 1; day <= daysInMonth; day++) {
     const current = new Date(year, month, day);
     const isHighlighted = current >= dateDebut && current <= dateFin;
-    const isToday = current.toDateString() === new Date().toDateString(); // ← manquait
+    const isToday = current.toDateString() === new Date().toDateString();
 
     html += `<td><div style="
     width: 32px;

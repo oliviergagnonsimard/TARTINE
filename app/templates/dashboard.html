@@ -3,11 +3,11 @@
 {% block head %}
 <style>
     #edit-form input {
-        width: 300px;
+        width: 350px;
     }
 
     #info-form td:last-child {
-        width: 300px;
+        width: 350px;
     }
 
     #info-form td:first-child, #edit-form td:first-child {
@@ -75,6 +75,10 @@ input:checked + .slider {
 input:checked + .slider:before {
     transform: translateX(24px);
 }
+
+.notif-desc {
+    transition: max-height 0.4s ease, margin-top 0.4s ease;
+}
 </style>
 {% endblock %}
 
@@ -89,84 +93,142 @@ input:checked + .slider:before {
         <h3 style="font-weight: bold; font-size: 32px;">Bonjour, {{ clientInfo[2] }} {{ clientInfo[3] }}!</h3>
       </div>
     </div>
-    <h4 style="font-weight: bold; font-size: 28px; padding-bottom: 2%;">Informations du compte</h4>
-    <div id="info-form" style="margin-top: 20px; display: initial">
-      <table style="margin: 0 auto;">
-        <tr>
-              <td><label>Id:</label></td>
-              <td><p name="id">{{ clientInfo[0] }}</p></td>
-          </tr>
-          <tr>
-              <td><label>Courriel:</label></td>
-              <td><p name="email">{{ clientInfo[1] }}</p></td>
-          </tr>
-          <tr>
-              <td><label>Prénom:</label></td>
-              <td><p name="firstname">{{ clientInfo[2] }}</p></td>
-          </tr>
-          <tr>
-              <td><label>Nom:</label></td>
-              <td><p name="lastname">{{ clientInfo[3] }}</p></td>
-          </tr>
-          <tr>
-               <td><label>Date de naissance:</label></td>
-              <td><p id="birthday" name="birthday">{{ clientInfo[4] }}</p></td>
-          </tr>
-          <tr>
-               <td><label>Âge:</label></td>
-              <td><p id="age">{{ clientInfo[-1] }}</p></td>
-          </tr>
-          <tr>
-               <td><label>Participe au classement:</label></td>
-              <td><p id="participe">{{ clientInfo[5] }}</p></td>
-          </tr>
-        </table>
-    </div>
 
-    <div id="edit-form" style="display:none; margin-top: 20px;">
-    <form method="POST" action="{{ url_for('dashboard') }}">
-        <table style="margin: 0 auto;">
-          <tr>
-              <td><label>Courriel:</label></td>
-              <td><input type="email" name="email" value="{{ clientInfo[1] }}"></td>
-          </tr>
-          <tr>
-              <td><label>Prénom:</label></td>
-              <td><input type="text" name="firstname" value="{{ clientInfo[2] }}"></td>
-          </tr>
-          <tr>
-              <td><label>Nom:</label></td>
-              <td><input type="text" name="lastname" value="{{ clientInfo[3] }}"></td>
-          </tr>
-          <tr>
-               <td><label>Date de naissance:</label></td>
-              <td><input type="date" id="birthday" name="birthday" value="{{ clientInfo[4] }}"></td>
-          </tr>
-          <tr>
-               <td><label>Participe au classement:</label></td>
-               <td>
-                <label class="toggle-switch">
-                <input type="checkbox" id="participe" name="participe" {{ 'checked' if clientInfo[5] else '' }}>
-                <span class="slider"></span>
-                </label>
-              </td>
-          </tr>
-        </table>
-        <div style="padding-top: 1%;">
-          <button type="submit">Sauvegarder</button>
-          <button id="btnAnnuler" type="button" href="window.location.reload()">Annuler</button>
+    <!--COLONNE DE GAUCHE, INFOS CLIENT-->
+    <div style="display: flex; gap: 40px; align-items: flex-start; flex: 1; text-align: center; padding-left:10%">
+        <div id="info-form" style="margin-top: 20px; display: initial">
+            <h4 style="font-weight: bold; font-size: 28px; padding-bottom: 2%;">Informations du compte</h4>
+            <table style="margin: 0 auto;">
+                <tr>
+                    <td><label>Id:</label></td>
+                    <td><p name="id">{{ clientInfo[0] }}</p></td>
+                </tr>
+                <tr>
+                    <td><label>Courriel:</label></td>
+                    <td><p name="email">{{ clientInfo[1] }}</p></td>
+                </tr>
+                <tr>
+                    <td><label>Prénom:</label></td>
+                    <td><p name="firstname">{{ clientInfo[2] }}</p></td>
+                </tr>
+                <tr>
+                    <td><label>Nom:</label></td>
+                    <td><p name="lastname">{{ clientInfo[3] }}</p></td>
+                </tr>
+                <tr>
+                    <td><label>Date de naissance:</label></td>
+                    <td><p id="birthday" name="birthday">{{ clientInfo[4] }}</p></td>
+                </tr>
+                <tr>
+                    <td><label>Âge:</label></td>
+                    <td><p id="age">{{ clientInfo[-1] }}</p></td>
+                </tr>
+                <tr>
+                    <td><label>Participe au classement:</label></td>
+                    <td><p id="participe">{{ clientInfo[5] }}</p></td>
+                </tr>
+            </table>
+            
+            <a id="modif" href="#" onclick="document.getElementById('edit-form').style.display='block'; this.style.display='none'; document.getElementById('info-form').style.display='none'">
+                Modifier mes informations</a>
         </div>
-    </form>
+        
+        <div id="edit-form" style="display:none; margin-top: 20px;">
+            <form method="POST" action="{{ url_for('dashboard') }}">
+                <table style="margin: 0 auto;">
+                    <tr>
+                        <td><label>Courriel:</label></td>
+                        <td><input type="email" name="email" value="{{ clientInfo[1] }}"></td>
+                    </tr>
+                    <tr>
+                        <td><label>Prénom:</label></td>
+                        <td><input type="text" name="firstname" value="{{ clientInfo[2] }}"></td>
+                    </tr>
+                    <tr>
+                        <td><label>Nom:</label></td>
+                        <td><input type="text" name="lastname" value="{{ clientInfo[3] }}"></td>
+                    </tr>
+                    <tr>
+                        <td><label>Date de naissance:</label></td>
+                        <td><input type="date" id="birthday" name="birthday" value="{{ clientInfo[4] }}"></td>
+                    </tr>
+                    <tr>
+                        <td><label>Participe au classement:</label></td>
+                        <td>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="participe" name="participe" {{ 'checked' if clientInfo[5] else '' }}>
+                                <span class="slider"></span>
+                            </label>
+                        </td>
+                    </tr>
+                </table>
+                <div style="padding-top: 1%;">
+                    <button type="submit">Sauvegarder</button>
+                    <button id="btnAnnuler" type="button" href="window.location.reload()">Annuler</button>
+                </div>
+            </form>
+        </div>
+
+
+        <!--COLONNE DE DROITE, NOTIFICATIONS-->
+        <div style="margin-top: 40px; flex:1">
+            <h4 style="font-weight: bold; font-size: 28px; text-align: center; padding-bottom: 2%;">Notifications</h4>
+            
+            {% if notifications %}
+            <ul style="list-style: none; padding: 0; width: 40%; margin: auto;">
+                {% for notif in notifications %}
+                <li id="notif-{{ notif[0] }}"
+                    onclick="toggleNotif({{ notif[0] }}, this)"
+                    style="
+                    padding: 15px 20px;
+                    margin-bottom: 10px;
+                    border-radius: 10px;
+                    cursor: pointer;
+                    background-color: {% if not notif[3] %}#3a1a2e{% else %}#2a2a2a{% endif %};
+                    border-left: 4px solid {% if not notif[3] %}#e91e8c{% else %}#555{% endif %};
+                ">
+                    <strong>{{ notif[1] }}</strong>
+                    <div class="notif-desc" style="
+                        max-height: 0;
+                        overflow: hidden;
+                        transition: max-height 0.4s ease;
+                        margin-top: 0;
+                    ">
+                        {{ notif[2] }}
+                        <br>
+                    </div>
+                    <small style="color: #aaa;">{{ notif[4].strftime('%Y-%m-%d %H:%M') }}</small>
+                </li>
+                {% endfor %}
+            {% else %}
+            <p style="text-align: center; color: #aaa;">Aucune notification</p>
+            {% endif %}
+        </div>
+    </div>
 </div>
 
-    <a id="modif" href="#" onclick="document.getElementById('edit-form').style.display='block'; this.style.display='none'; document.getElementById('info-form').style.display='none'">
-      Modifier mes informations</a>
-  </div>
 </div>
-
 <script>
-  document.getElementById("btnAnnuler").addEventListener("click", function() {
+    document.getElementById("btnAnnuler").addEventListener("click", function() {
     window.location.reload();
   });
+
+  function toggleNotif(id, el) {
+    const desc = el.querySelector('.notif-desc');
+    const isOpen = el.classList.contains('open');
+
+    if (!isOpen) {
+        el.classList.add('open');
+        desc.style.maxHeight = desc.scrollHeight + 'px';
+        fetch(`/notifications/read/${id}`, { method: 'POST' })
+            .then(() => {
+                el.style.backgroundColor = '#2a2a2a';
+                el.style.borderLeftColor = '#555';
+            });
+    } else {
+        el.classList.remove('open');
+        desc.style.maxHeight = '0';
+    }
+}
 </script>
 {% endblock %}

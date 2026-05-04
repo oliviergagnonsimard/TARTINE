@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request, redirect, session
+from flask import Flask, render_template, url_for, request, redirect, session, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from database import getURI
@@ -10,6 +10,7 @@ from main import *
 from r2 import imageExists, getImageUrl
 
 STORES = ['maxi', 'metro', 'iga', 'superc', 'provigo']
+headings = ("idClient", "idRecette", "Description")
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -41,7 +42,26 @@ def load_user(user_id):
                 break
     return user
 
-headings = ("idClient", "idRecette", "Description")
+
+# FONCTIONS HELPER -----------------------------
+
+def downloadFlyersJob():
+    print("⏰ Téléchargement automatique des circulaires...")
+    if not checkIfFlyersAlreadyDownloaded():
+        DownloadAllCirculaires()
+        print("✅ Circulaires téléchargées et uploadées sur R2 !")
+    else:
+        print("✅ Circulaires déjà à jour !")
+
+def updateUserRank():
+    userId = session.get("userID")
+    if userId:
+        leaderboard = getLeaderboard(limit=999)  # tous les users
+        for row in leaderboard:
+            if int(row[2]) == int(userId):
+                session["userRank"] = int(row[0])
+                return
+        session["userRank"] = None
 
 def resetSessionData(userID):
     session["userID"] = userID
@@ -56,9 +76,13 @@ def triggerDownloadFlyers():
     print("Flyers downloaded.")
 
 
-@app.route('/refreshFlyers')
-def refreshFlyers():
-     print()
+# ROUTES HTML --------------------------------
+
+
+@app.route('/test-notif')
+def test_notif():
+    createNotification(1, "Hey!", "Test de notification #2")
+    return "OK"
 
 @app.route('/')
 def index():
@@ -162,7 +186,9 @@ def dashboard():
     data = getUserRecipes(userID)
     name = session.get("name")
     clientInfo = getUserInfo(userID)
-    return render_template('dashboard.html', userID=userID, headings=headings, data=data, name=name, clientInfo=clientInfo)
+
+    notifications = getNotifications(userID)
+    return render_template('dashboard.html', userID=userID, headings=headings, data=data, name=name, clientInfo=clientInfo, notifications=notifications)
 
 @app.route('/flyers')
 def flyers():
@@ -219,23 +245,13 @@ def leaderboard(page=1):
 
     return render_template('leaderboard.html', leaderboard=leaderboard, headings=headings, page=page, current_Id=userId)
 
-def downloadFlyersJob():
-    print("⏰ Téléchargement automatique des circulaires...")
-    if not checkIfFlyersAlreadyDownloaded():
-        DownloadAllCirculaires()
-        print("✅ Circulaires téléchargées et uploadées sur R2 !")
-    else:
-        print("✅ Circulaires déjà à jour !")
-
-def updateUserRank():
+@app.route('/notifications/read/<int:id>', methods=['POST'])
+def read_notification(id):
     userId = session.get("userID")
-    if userId:
-        leaderboard = getLeaderboard(limit=999)  # tous les users
-        for row in leaderboard:
-            if int(row[2]) == int(userId):
-                session["userRank"] = int(row[0])
-                return
-        session["userRank"] = None
+    readNotification(userId, id)
+    return jsonify({"success": True})
+
+# Automatic download des circulaires -------------------------------
 
 scheduler = BackgroundScheduler()
 scheduler.add_job(
