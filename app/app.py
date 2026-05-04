@@ -30,7 +30,16 @@ class User(UserMixin):
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User(user_id)
+    user = User(user_id)
+
+    # Met à jour le rank à chaque requête
+    with app.app_context():
+        leaderboard = getLeaderboard(limit=999)
+        for row in leaderboard:
+            if int(row[2]) == int(user_id):
+                session["userRank"] = int(row[0])
+                break
+    return user
 
 headings = ("idClient", "idRecette", "Description")
 
@@ -67,11 +76,12 @@ def login():
     if request.method == 'POST':
         userID = request.form['userID']
 
-        login_user(User(userID))        
+        login_user(User(userID))    
 
         session["userID"] = userID
         session["data"] = getUserRecipes(userID)
         session["name"] = getNameFromId(userID)
+        updateUserRank()  # Mettre à jour le classement de l'utilisateur
         return redirect(url_for('dashboard'))
     else:
         return render_template('login.html')
@@ -216,6 +226,16 @@ def downloadFlyersJob():
         print("✅ Circulaires téléchargées et uploadées sur R2 !")
     else:
         print("✅ Circulaires déjà à jour !")
+
+def updateUserRank():
+    userId = session.get("userID")
+    if userId:
+        leaderboard = getLeaderboard(limit=999)  # tous les users
+        for row in leaderboard:
+            if int(row[2]) == int(userId):
+                session["userRank"] = int(row[0])
+                return
+        session["userRank"] = None
 
 scheduler = BackgroundScheduler()
 scheduler.add_job(

@@ -151,16 +151,7 @@ def getLeaderboard(page=1, limit=50):
     offset = (page - 1) * limit
     with conn.cursor() as curs:
         curs.execute("""
-            SELECT 
-                ROW_NUMBER() OVER (ORDER BY COUNT(r."idClient") DESC) AS "classement",
-                c."firstName" || ' ' || c."lastName" AS "Name",
-                c."idClient",
-                COUNT(r."idClient") AS "nbRecettes"
-                FROM client AS c
-                LEFT JOIN recette AS r ON c."idClient" = r."idClient"
-				WHERE c.ranked = true
-                GROUP BY c."idClient", c."firstName", c."lastName"
-                ORDER BY "nbRecettes" DESC
+            SELECT * FROM classement
                 LIMIT %s OFFSET %s
         """, (limit, offset))
         rows = curs.fetchall()

@@ -12,10 +12,29 @@
 {% block body %}
 
 <div style="align-items: center;">
-    <div>
-        <h3 style="font-weight: bold; font-size: 60px; text-align: center;">Classement</h3>
-        <h3 style="font-weight: bold; font-size: 28px; text-align: center; padding-bottom: 30px;">du nombre de recettes!</h3>
+    <div style="display: flex; position: relative">
+        <div style="width: 100%; text-align: center;">
+            <h3 style="font-weight: bold; font-size: 60px; text-align: center;">Classement</h3>
+            <h3 style="font-weight: bold; font-size: 28px; text-align: center; padding-bottom: 30px;">du nombre de recettes!</h3>
+        </div>
+        <div style="position: absolute; top: 20px; right: 20px; text-align: right;">
+            {% for row in leaderboard %}
+                {% if row[2] | int == current_Id | int %}
+                    <p style="font-size: 22px; font-weight: bold; margin: 0;">
+                    {% if row[0] == 1 %}🥇
+                    {% elif row[0] == 2 %}🥈
+                    {% elif row[0] == 3 %}🥉
+                    {% else %}<i class="bi bi-award"></i>
+                {% endif %}
+                
+                {{ row[0] }}{% if row[0] == 1 %}ère{% else %}e{% endif %} place
+        </p>
+        <p style="font-size: 14px; margin: 0; color: #aaa;">{{ row[1] }}</p>
+        <p style="font-size: 14px; margin: 0; color: #aaa;">{{ row[3] }} recettes</p>
+    {% endif %}
+{% endfor %}
     </div>
+</div>
 
     <table style="border: 2px solid white; margin: auto; margin-top: 2%; width: 80%; text-align: center;">
         <tr class="header-row" style="border: 2px solid white">
