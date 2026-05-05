@@ -103,12 +103,18 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
     <a href="{{ url_for('dashboard') }}" class="w3-bar-item w3-button w3-padding-large w3-hover-black"
      style="display: flex; flex-direction: column; align-items: center;">
       <i class="bi bi-person" style="font-size: 36px;"></i>
-      <span style="font-size: 16px; margin-top: -10px;">Mon compte</span>
+      <span style="font-size: 16px; margin-top: -10px; max-width: 120px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+        {{ session.get('firstName') }}</span>
+      <span style="font-size: 16px; margin-top: -10px; max-width: 120px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+        {{ session.get('lastName') }}</span>
     </a>
     <a href="{{ url_for('logout') }}" class="w3-bar-item w3-button w3-padding-large w3-hover-black"
      style="display: flex; flex-direction: column; align-items: center;">
       <span style="font-size: 16px; margin-top: -10px; border-top: 2px solid white">Déconnexion</span>
     </a>
+
+
+    <!--PAS CONNECTÉ-->
     {% else %}
     <a href="{{ url_for('register') }}" class="w3-bar-item w3-button w3-padding-large w3-hover-black"
      style="display: flex; flex-direction: column; align-items: center;">

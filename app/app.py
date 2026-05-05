@@ -34,14 +34,18 @@ class User(UserMixin):
         self.name = getNameFromId(id)
 
 @login_manager.user_loader
-def load_user(user_id):
-    user = User(user_id)
+def load_user(userID):
+    user = User(userID)
+
+    info = getUserInfo(userID)
+    session["firstName"] = info[2]
+    session["lastName"] = info[3]
 
     # Met à jour le rank à chaque requête
     with app.app_context():
         leaderboard = getLeaderboard(limit=999)
         for row in leaderboard:
-            if int(row[0]) == int(user_id):
+            if int(row[0]) == int(userID):
                 session["userRank"] = int(row[2])
                 break
     return user
