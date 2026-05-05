@@ -179,14 +179,6 @@ def register():
         # Pas de login automatique avant confirmation
         return render_template('register.html', success="Vérifie ton courriel pour confirmer ton compte!")
 
-        # # LOGIN AUTO
-        # login_user(User(userID))
-        # resetSessionData(userID)
-        # updateUserRank()
-        # createNotification(userID, "Bienvenue!", "Merci de vous être inscrit à TARTINE!")
-
-        # return redirect(url_for('dashboard'))
-
     return render_template('register.html')
 
 
@@ -234,56 +226,7 @@ def logout():
     logout_user()
     session.clear()
     return redirect(url_for('login'))
-    
-@app.route('/addRecipee', methods=['POST', 'GET'])
-def addRecipee():
-    userID = session.get("userID")
-    if request.method == 'POST':
-        addRecipe(session["userID"], request.form["desc"])
-        session["userID"] = userID
-        session["data"] = getUserRecipes(userID)
-        session["name"] = getNameFromId(userID)
-        return redirect(url_for('dashboard'))
-    else:
-        return render_template('addRecipee.html')
-    
-@app.route('/delRecipee', methods=['POST', 'GET'])
-def delRecipee():
-    userID = session.get("userID")
-    if request.method == 'POST':
-        delRecipe(session["userID"], request.form["idRecette"])
-        session["userID"] = userID
-        session["data"] = getUserRecipes(userID)
-        session["name"] = getNameFromId(userID)
-        return redirect(url_for('dashboard'))
-    else:
-        userID = session.get("userID")
-        data = session.get("data")
-        name = session.get("name")
-        return render_template('delRecipee.html', userID=userID, headings=headings, data=data, name=name)
-    
-@app.route('/modRecipee', methods=['POST', 'GET'])
-def modRecipee():
-    userID = session.get("userID")
-    session["userID"] = userID
-    session["name"] = getNameFromId(userID)
 
-    if request.method == "POST":
-        desc = request.form.get("desc")
-        idRecette = request.form.get("idRecette")
-        modifyRecipe(userID, idRecette, desc)
-        session["data"] = getUserRecipes(userID)  # actualise la liste complète
-        return redirect(url_for("dashboard"))
-
-    idRecetteArg = request.args.get("idRecette")
-    recipe = getRecipe(userID, idRecetteArg)
-    print(recipe)
-    return render_template('modifyRecipee.html', userID=userID, headings=headings, data=recipe,
-                                name=session["name"],
-                                showDesc=True,
-                                idRecette=idRecetteArg
-                               )
-    
     
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
