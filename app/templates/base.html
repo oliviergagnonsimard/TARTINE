@@ -110,9 +110,14 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
       <span style="font-size: 16px; margin-top: -10px; border-top: 2px solid white">Déconnexion</span>
     </a>
     {% else %}
+    <a href="{{ url_for('register') }}" class="w3-bar-item w3-button w3-padding-large w3-hover-black"
+     style="display: flex; flex-direction: column; align-items: center;">
+      <i class="bi bi-person-square" style="font-size: 30px;"></i>
+      <span style="font-size: 16px; margin-top: -3px; ">Créer un compte</span>
+    </a>
     <a href="{{ url_for('login') }}" class="w3-bar-item w3-button w3-padding-large w3-hover-black"
      style="display: flex; flex-direction: column; align-items: center;">
-      <i class="bi bi-box-arrow-in-right" style="font-size: 36px; margin-right:5%;"></i>
+      <i class="bi bi-box-arrow-in-right" style="font-size: 30px; margin-right:5%;"></i>
       <span style="font-size: 16px; margin-top: -3px; ">Connexion</span>
     </a>
     {% endif %}

@@ -4,28 +4,33 @@
 {% endblock %}
 
 {% if current_user.is_authenticated %}
-
+<script>window.location.href = "/dashboard";</script>
 {% endif %}
 
 {% block body %}
-<!-- Page Content -->
-<div class="w3-padding-large" id="main">
-  <!-- Header/Home -->
-   <h3 style="font-weight: bold; font-size: 60px; text-align: center; padding-bottom: 30px;">Login</h3> 
+<h3 style="text-align:center; font-size:50px;">Se connecter</h3>
 
-  <!-- FORM A COMPLETER POUR ACCES A LA DATABASE -->
-  <form id="Login" action="/login" method="POST">
-    <div class="form-group" style="display:flex; align-items: center; flex-direction: column;">
-      <div style="margin-bottom: 10px;">
-        <label for="inputUsername" style="font-size: 20px;">Numéro d'identification</label>
-      </div>
-      <div style="margin-bottom: 20px;">
-        <input type="text" id="userID" name="userID" autocomplete="off">
-      </div>
-      <div style="margin-bottom: 20px;">
-        <button type="submit" class="btn btn-primary">Connexion</button>
-      </div>
-      
+<form action="/register" method="POST">
+  <div style="display:flex; flex-direction: column; align-items: center; gap: 15px;">
+
+    <div style="display:flex; gap:10px;">
+      <label style="width:150px;">Courriel</label>
+      <input type="email" name="email" style="width: 300px;" required>
     </div>
-  </form>
-  {% endblock %}
+
+    <div style="display:flex; gap:10px;">
+      <label style="width:150px;">Mot de passe</label>
+      <input type="password" name="password" style="width: 300px;" required>
+    </div>
+
+    <div>
+      <button type="submit" class="btn btn-primary">Créer</button>
+    </div>
+
+    {% if error %}
+      <p style="color:red;">{{ error }}</p>
+    {% endif %}
+
+  </div>
+</form>
+{% endblock %}

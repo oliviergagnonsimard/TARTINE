@@ -1,13 +1,15 @@
 from flask import Flask, render_template, url_for, request, redirect, session, jsonify
+from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
-from database import getURI
 from download import DownloadAllCirculaires
 from apscheduler.schedulers.background import BackgroundScheduler
 import threading
 import os
 from main import *
+from database import *
 from r2 import imageExists, getImageUrl
+
 
 STORES = ['maxi', 'metro', 'iga', 'superc', 'provigo']
 headings = ("idClient", "idRecette", "Description")
@@ -16,11 +18,13 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 DB_URL = getURI()
 
+BCRYPT = Bcrypt()
+
 app = Flask(__name__, template_folder='templates')
 login_manager = LoginManager()
 login_manager.init_app(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = DB_URL
-app.secret_key = "secret"
+app.secret_key = os.environ.get("SECRET_KEY")
 db = SQLAlchemy(app)
 
 
@@ -92,23 +96,78 @@ def index():
 def about():
     return render_template('about.html')
 
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if current_user.is_authenticated:
+        return redirect(url_for("dashboard"))
+
+    if request.method == 'POST':
+        firstName = request.form.get('firstName')
+        lastName = request.form.get('lastName')
+        email = request.form.get('email', '').strip().lower()
+        password = request.form.get('password')
+        confirm = request.form.get('confirm')
+        birthday = request.form.get('birthday')
+
+        if not email or not password:
+            return render_template('register.html', error="Champs manquants")
+
+        if password != confirm:
+            return render_template('register.html', error="Les mots de passe ne match pas")
+
+        existing = getUserByEmail(email)
+        if existing:
+            return render_template('register.html', error="Compte déjà existant")
+
+        # hash
+        password_hash = BCRYPT.generate_password_hash(password).decode('utf-8')
+
+        # créer user
+        userID = createUser(firstName, lastName, email, password_hash, birthday)
+
+        # LOGIN AUTO
+        login_user(User(userID))
+        resetSessionData(userID)
+        updateUserRank()
+        createNotification(userID, "Bienvenue!", "Merci de vous être inscrit à TARTINE!")
+
+        return redirect(url_for('dashboard'))
+
+    return render_template('register.html')
+
+
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     if current_user.is_authenticated:
         return redirect(url_for("dashboard"))
 
     if request.method == 'POST':
-        userID = request.form['userID']
+        email = request.form.get('email', '').strip().lower()
+        password = request.form.get('password')
 
-        login_user(User(userID))    
+        if not email or not password:
+            return render_template('login.html', error="Champs manquants")
 
-        session["userID"] = userID
-        session["data"] = getUserRecipes(userID)
-        session["name"] = getNameFromId(userID)
-        updateUserRank()  # Mettre à jour le classement de l'utilisateur
-        return redirect(url_for('dashboard'))
-    else:
-        return render_template('login.html')
+        user = getUserByEmail(email)
+
+        if not user:
+            return render_template('login.html', error="Login invalide")
+
+        userId = user[0]
+        password_hash = user[1]
+
+        try:
+            if BCRYPT.check_password_hash(password_hash, password):
+                login_user(User(userId))
+                resetSessionData(userId)
+                updateUserRank()
+                return redirect(url_for('dashboard'))
+        except ValueError:
+            return render_template('login.html', error="Compte invalide")
+
+        return render_template('login.html', error="Login invalide")
+
+    return render_template('login.html')
     
 @app.route('/logout')
 @login_required

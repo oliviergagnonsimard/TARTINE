@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% endblock %}
+
+{% if current_user.is_authenticated %}
+<script>window.location.href = "/dashboard";</script>
+{% endif %}
+
+{% block body %}
+<h3 style="text-align:center; font-size:50px;">Créer un compte</h3>
+
+<form action="/register" method="POST" style="padding-right: 5%;">
+  <div style="display:flex; flex-direction: column; align-items: center; gap: 15px;">
+
+    <div style="display:flex; gap:10px;">
+      <label style="width:200px; text-align: right;">Prénom</label>
+      <input type="text" name="firstName" style="width: 300px;" required>
+    </div>
+
+    <div style="display:flex; gap:10px;">
+      <label style="width:200px; text-align: right;">Nom</label>
+      <input type="text" name="lastName" style="width: 300px;" required>
+    </div>
+
+    <div style="display:flex; gap:10px;">
+      <label style="width:200px; text-align: right;">Date de naissance</label>
+      <input type="date" id="birthday" name="birthday" style="width: 300px;" required>
+    </div>
+
+    <div style="display:flex; gap:10px;">
+      <label style="width:200px; text-align: right;">Courriel</label>
+      <input type="email" name="email" style="width: 300px;" required>
+    </div>
+
+    <div style="display:flex; gap:10px;">
+      <label style="width:200px; text-align: right;">Mot de passe</label>
+      <input type="password" name="password" style="width: 300px;" required>
+    </div>
+
+    <div style="display:flex; gap:10px;">
+      <label style="width:200px; text-align: right;">Confirmer le mot de passe</label>
+      <input type="password" name="confirm" style="width: 300px;" required>
+    </div>
+
+    <div>
+      <button type="submit" class="btn btn-primary">Créer</button>
+    </div>
+
+    {% if error %}
+      <p style="color:red;">{{ error }}</p>
+    {% endif %}
+
+  </div>
+</form>
+{% endblock %}
