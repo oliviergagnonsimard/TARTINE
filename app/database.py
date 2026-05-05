@@ -56,6 +56,16 @@ def createUser(firstName, lastName, email, password_hash, birthday=None):
 
     return userID
 
+def updatePassword(idClient, password_hash):
+    conn = connectToDB()
+    with conn.cursor() as curs:
+        curs.execute(
+            'UPDATE client SET password_hash = %s, reset_token = NULL, reset_token_expiry = NULL WHERE "idClient" = %s',
+            (password_hash, idClient)
+        )
+        conn.commit()
+    releaseConn(conn)
+
 def createNotification(idClient, title, message):
     conn = connectToDB()
     with conn.cursor() as curs:

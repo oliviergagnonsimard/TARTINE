@@ -9,7 +9,7 @@ import os
 from main import *
 from database import *
 from r2 import imageExists, getImageUrl
-from email_service import createVerificationToken, sendConfirmationEmail, verifyUserToken
+from email_service import *
 from datetime import date
 import re
 
@@ -193,6 +193,9 @@ def register():
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for("dashboard"))
+    
     if request.method == 'POST':
         email = request.form.get('email', '').strip().lower()
         password = request.form.get('password')
@@ -207,14 +210,12 @@ def login():
         
 
         userId = user[0]
-        password_hash = user[1]
+        password_hash = user[7]
         hasVerifiedEmail = user[11]
 
         if not hasVerifiedEmail:
             return render_template('login.html', error="Confirme ton courriel avant de te connecter")
         
-        if current_user.is_authenticated:
-            return redirect(url_for("dashboard"))
         
         try:
             if BCRYPT.check_password_hash(password_hash, password):
@@ -320,6 +321,33 @@ def read_notification(id):
     userId = session.get("userID")
     readNotification(userId, id)
     return jsonify({"success": True})
+
+@app.route('/forgot-password', methods=['GET', 'POST'])
+def forgot_password():
+    if request.method == 'POST':
+        email = request.form.get('email', '').strip().lower()
+        user = getUserByEmail(email)
+        if user:
+            token = createResetToken(user[0])
+            sendResetEmail(email, token)
+        # Toujours afficher le même message pour pas révéler si l'email existe
+        return render_template('forgot_password.html', success="Si ce courriel existe, un lien a été envoyé.")
+    return render_template('forgot_password.html')
+
+@app.route('/reset-password/<token>', methods=['GET', 'POST'])
+def reset_password(token):
+    if request.method == 'POST':
+        password = request.form.get('password')
+        confirm = request.form.get('confirm')
+        if password != confirm:
+            return render_template('reset_password.html', token=token, error="Les mots de passe ne matchent pas")
+        idClient = verifyResetToken(token)
+        if idClient is None:
+            return render_template('reset_password.html', token=token, error="Lien invalide ou expiré")
+        password_hash = BCRYPT.generate_password_hash(password).decode('utf-8')
+        updatePassword(idClient, password_hash)
+        return render_template('login.html', success="Mot de passe changé! Tu peux te connecter.")
+    return render_template('reset_password.html', token=token)
 
 # Automatic download des circulaires -------------------------------
 
