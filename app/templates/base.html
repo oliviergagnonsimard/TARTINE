@@ -68,6 +68,19 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 <!-- Icon Bar (Sidebar - hidden on small screens) -->
 <nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center" style="display: flex; flex-direction: column; justify-content: space-between;">
   <div>
+    <div id="toast" style="
+    position: fixed;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 15px 30px;
+    border-radius: 10px;
+    font-weight: bold;
+    z-index: 9999;
+    transition: top 0.6s ease;
+    min-width: 300px;
+    text-align: center;
+"></div>
 
     <!-- Avatar image in top left corner -->
     <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='logo.png') }}" style="width:100%"></a>
@@ -154,3 +167,22 @@ function toggleSidebar() {
 </script>
 </body>
 </html>
+
+<script>
+function showToast(message, type) {
+    const toast = document.getElementById('toast');
+    toast.innerText = message;
+    toast.style.backgroundColor = type === 'error' ? '#c0392b' : '#27ae60';
+    toast.style.color = 'white';
+    toast.style.top = '30px';
+    
+    setTimeout(() => {
+        toast.style.top = '-100px';
+    }, 3500);
+}
+
+// Auto-déclenche si ya un message dans l'URL
+const params = new URLSearchParams(window.location.search);
+if (params.get('error')) showToast(params.get('error'), 'error');
+if (params.get('success')) showToast(params.get('success'), 'success');
+</script>

@@ -2,7 +2,7 @@ import resend
 import os
 import secrets
 from dotenv import load_dotenv
-from database import connectToDB, releaseConn
+from database import connectToDB, releaseConn, createNotification, getUserByEmail
 
 load_dotenv()
 
@@ -58,6 +58,7 @@ def sendConfirmationEmail(toEmail, token):
     })
 
 
+
 def createResetToken(idClient):
     token = secrets.token_urlsafe(32)
     conn = connectToDB()
@@ -89,8 +90,8 @@ def sendResetEmail(toEmail, token):
         "to": toEmail,
         "subject": "Réinitialisation de votre mot de passe Tartine",
         "html": f"""
-            <h2>Bienvenue sur Tartine!</h2>
-            <p>Clique sur le lien ci-dessous pour confirmer ton compte :</p>
+            <h2>Problème de connexion?</h2>
+            <p>Clique sur le lien ci-dessous afin de réinitialiser ton mot de passe</p>
             <a href="{confirmUrl}" style="
                 background-color: #e91e8c;
                 color: white;
@@ -98,9 +99,8 @@ def sendResetEmail(toEmail, token):
                 border-radius: 8px;
                 text-decoration: none;
                 font-weight: bold;
-            ">Confirmer mon compte</a>
-            <p style="color: #aaa; font-size: 12px; margin-top: 20px;">
-                Si tu n'as pas créé de compte, ignore ce courriel.
-            </p>
+            ">Continuer</a>
         """
     })
+
+    createNotification(getUserByEmail(toEmail)[0], "Changement de mot de passe", "Nous vous avons envoyé un courriel pour réinitialiser votre mot de passe")

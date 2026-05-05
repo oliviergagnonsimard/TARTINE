@@ -10,7 +10,7 @@ from main import *
 from database import *
 from r2 import imageExists, getImageUrl
 from email_service import *
-from datetime import date
+from datetime import date, timezone
 import re
 
 STORES = ['maxi', 'metro', 'iga', 'superc', 'provigo']
@@ -37,8 +37,6 @@ class User(UserMixin):
 
 @login_manager.user_loader
 def load_user(userID):
-    user = User(userID)
-
     info = getUserInfo(userID)
     if info is None:
         return None
@@ -46,13 +44,7 @@ def load_user(userID):
     session["firstName"] = info[2]
     session["lastName"] = info[3]
 
-    # Met à jour le rank à chaque requête
-    with app.app_context():
-        leaderboard = getLeaderboard(limit=999)
-        for row in leaderboard:
-            if int(row[0]) == int(userID):
-                session["userRank"] = int(row[2])
-                break
+    user = User(userID)
     return user
 
 
@@ -63,6 +55,11 @@ def downloadFlyersJob():
     if not checkIfFlyersAlreadyDownloaded():
         DownloadAllCirculaires()
         print("✅ Circulaires téléchargées et uploadées sur R2 !")
+        
+        # Envoyer une notif à tous les users
+        users = getAllUsers()  # à créer dans main.py
+        for user in users:
+            createNotification(user[0], "Nouveaux circulaires!", "Les circulaires de la semaine sont disponibles!")
     else:
         print("✅ Circulaires déjà à jour !")
 
@@ -80,6 +77,14 @@ def resetSessionData(userID):
     session["userID"] = userID
     session["data"] = getUserRecipes(userID)
     session["name"] = getNameFromId(userID)
+    
+    # Rank ici au lieu de load_user
+    leaderboard = getLeaderboard(limit=999)
+    for row in leaderboard:
+        if int(row[2]) == int(userID):
+            session["userRank"] = int(row[0])
+            return
+    session["userRank"] = None
 
 def triggerDownloadFlyers():
     if checkIfFlyersAlreadyDownloaded():
@@ -257,8 +262,8 @@ def dashboard():
     data = getUserRecipes(userID)
     name = session.get("name")
     clientInfo = getUserInfo(userID)
-
     notifications = getNotifications(userID)
+
     return render_template('dashboard.html', userID=userID, headings=headings, data=data, name=name, clientInfo=clientInfo, notifications=notifications)
 
 @app.route('/flyers')
@@ -336,18 +341,56 @@ def forgot_password():
 
 @app.route('/reset-password/<token>', methods=['GET', 'POST'])
 def reset_password(token):
+
     if request.method == 'POST':
         password = request.form.get('password')
         confirm = request.form.get('confirm')
+
         if password != confirm:
             return render_template('reset_password.html', token=token, error="Les mots de passe ne matchent pas")
+        
         idClient = verifyResetToken(token)
-        if idClient is None:
+        
+        if idClient is None:  # ← ici en premier
             return render_template('reset_password.html', token=token, error="Lien invalide ou expiré")
+
+        clientInfo = getUserInfo(idClient)
+        last_change = clientInfo[15]
+        if passwordTimeLimitRespected(idClient):
+            return render_template('reset_password.html', token=token, error="Vous devez attendre 24h entre chaque changement de mot de passe")
+
         password_hash = BCRYPT.generate_password_hash(password).decode('utf-8')
         updatePassword(idClient, password_hash)
-        return render_template('login.html', success="Mot de passe changé! Tu peux te connecter.")
+        return render_template('dashboard.html', success="Mot de passe changé avec succès.")
+    
+
     return render_template('reset_password.html', token=token)
+
+@app.route('/change-password', methods=['POST'])
+@login_required
+def change_password():
+    userID = session.get("userID")
+    clientInfo = getUserInfo(userID)
+
+    old_password = request.form.get('old_password')
+    new_password = request.form.get('new_password')
+    confirm = request.form.get('confirm')
+
+    if not passwordTimeLimitRespected(userID):
+            return redirect(url_for('dashboard') + '?error=Attendez 24h entre chaque changement!')
+
+    if not BCRYPT.check_password_hash(clientInfo[7], old_password):
+        return redirect(url_for('dashboard') + '?error=Ancien mot de passe incorrect')
+
+    if new_password != confirm:
+        return redirect(url_for('dashboard') + '?error=Les mots de passe ne matchent pas')
+
+    if len(new_password) < 6:
+        return redirect(url_for('dashboard') + '?error=Minimum 6 caractères')
+
+    password_hash = BCRYPT.generate_password_hash(new_password).decode('utf-8')
+    updatePassword(userID, password_hash)
+    return redirect(url_for('dashboard') + '?success=Mot de passe changé!')
 
 # Automatic download des circulaires -------------------------------
 

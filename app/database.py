@@ -3,12 +3,13 @@ from psycopg2 import pool
 import os
 import platform
 from dotenv import load_dotenv
+from datetime import timezone
 
 load_dotenv()
 
 connection_pool = pool.SimpleConnectionPool(
     1,  # min connections
-    10, # max connections
+    20, # max connections
     host=     os.environ.get("DB_HOST"),
     port=     os.environ.get("DB_PORT"),
     dbname=   os.environ.get("DB_NAME"),
@@ -32,7 +33,6 @@ def connectToDB():
 
 def releaseConn(conn):
     connection_pool.putconn(conn)
-
 def getURI():
     user =     os.environ.get("DB_USER")
     pwd =      os.environ.get("DB_PASSWORD")
@@ -58,13 +58,16 @@ def createUser(firstName, lastName, email, password_hash, birthday=None):
 
 def updatePassword(idClient, password_hash):
     conn = connectToDB()
-    with conn.cursor() as curs:
-        curs.execute(
-            'UPDATE client SET password_hash = %s, reset_token = NULL, reset_token_expiry = NULL WHERE "idClient" = %s',
-            (password_hash, idClient)
-        )
-        conn.commit()
-    releaseConn(conn)
+    try:
+        with conn.cursor() as curs:
+            curs.execute(
+                'UPDATE client SET password_hash = %s, reset_token = NULL, reset_token_expiry = NULL, '
+                '"last_password_change" = NOW() WHERE "idClient" = %s',
+                (password_hash, idClient)
+            )
+            conn.commit()
+    finally:
+        releaseConn(conn)
 
 def createNotification(idClient, title, message):
     conn = connectToDB()
@@ -115,12 +118,22 @@ def getLeaderboard(page=1, limit=50):
 
 def getUserInfo(idClient):
     conn = connectToDB()
-    with conn.cursor() as curs:
-        curs.execute("SELECT *, EXTRACT(YEAR FROM AGE(\"birthDate\")) AS age FROM client WHERE \"idClient\" = %s", (idClient,))
-        row = curs.fetchone()
-    conn.commit()
-    releaseConn(conn)
-    return row
+    try:
+        with conn.cursor() as curs:
+            curs.execute("""
+                            SELECT "idClient", email, "firstName", "lastName", "birthDate", ranked,
+                                username, password_hash, "created_at", "last_login", role,
+                                is_verified, verification_token, reset_token, reset_token_expiry,
+                                "last_password_change" AT TIME ZONE 'America/Montreal',
+                                EXTRACT(YEAR FROM AGE("birthDate")) AS age
+                            FROM client 
+                            WHERE "idClient" = %s
+                        """, (idClient,))
+            row = curs.fetchone()
+        conn.commit()
+        return row
+    finally:
+        releaseConn(conn)
 
 def setUserInfo(idClient, Courriel, Prénom, Nom, Birthday, participe):
     conn = connectToDB()
@@ -245,5 +258,36 @@ def deleteUnverifiedAccounts():
         )
         conn.commit()
     releaseConn(conn)
+
+def getAllUsers():
+    conn = connectToDB()
+    try:
+        with conn.cursor() as curs:
+            curs.execute('SELECT "idClient" FROM client WHERE is_verified = TRUE')
+            rows = curs.fetchall()
+        return rows
+    finally:
+        releaseConn(conn)
+
+def passwordTimeLimitRespected(userID):
+    # Vérifier le délai de 24h
+    clientInfo = getUserInfo(userID)
+    last_change = clientInfo[15]
+    if last_change:
+        from datetime import datetime
+        now = datetime.now(timezone.utc)
+        diff = now - last_change.astimezone(timezone.utc)
+        if diff.total_seconds() < 86400:
+            return False
+    return True
+
+def passwordTimeLimitRemove(userID):
+    conn = connectToDB()
+
+    with conn.cursor() as curs:
+        curs.execute('UPDATE client SET last_password_change = NULL WHERE \"userID\" = %s', (userID,))            
+        rows = curs.fetchall()
+        
+    return rows
 
 print("database.py done.")
