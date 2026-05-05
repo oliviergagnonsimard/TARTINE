@@ -54,18 +54,25 @@
         {% for row in leaderboard %}
             {% set position = row[0] | int %}
             <tr class="
-                {% if position == 1 %}gold{% elif position == 2 %}silver{% elif position == 3 %}bronze{% endif %}
-                {% if row[2] | int == current_Id | int %}current-user{% endif %}
-            ">
-                {% for cell in row %}
+                    {% if row[0] | int == 1 %}gold{% elif row[0] | int == 2 %}silver{% elif row[0] | int == 3 %}bronze{% endif %}
+                    {% if row[2] | int == current_Id | int %}current-user{% endif %}
+                ">
+
+                    <!-- Position -->
+                    <td class="cell">{{ row[0] }}</td>
+
+                    <!-- Nom -->
                     <td class="cell">
-                        {% if loop.index == 2 and row[2] | int == current_Id | int %}
-                            <i class="bi bi-person-vcard" style="margin-right: 8px; color: #FFFF;"></i>
+                        {% if row[2] | int == current_Id | int %}
+                            <i class="bi bi-person-vcard" style="margin-right: 8px;"></i>
                         {% endif %}
-                        {{ cell }}
+                        {{ row[1] }}
                     </td>
-                {% endfor %}
-            </tr>
+
+                    <!-- Score -->
+                    <td class="cell">{{ row[3] }}</td>
+
+                </tr>
         {% endfor %}
 
     </table>

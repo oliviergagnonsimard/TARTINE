@@ -41,8 +41,8 @@ def load_user(user_id):
     with app.app_context():
         leaderboard = getLeaderboard(limit=999)
         for row in leaderboard:
-            if int(row[2]) == int(user_id):
-                session["userRank"] = int(row[0])
+            if int(row[0]) == int(user_id):
+                session["userRank"] = int(row[2])
                 break
     return user
 
@@ -299,7 +299,7 @@ def recipes():
 @app.route('/leaderboard/<int:page>')
 def leaderboard(page=1):
     leaderboard = getLeaderboard(page=page)
-    headings = ( "Classement", "Nom", "ID", "Score")
+    headings = ( "Classement", "Nom", "Score")
     userId = session.get("userID")
 
     return render_template('leaderboard.html', leaderboard=leaderboard, headings=headings, page=page, current_Id=userId)
