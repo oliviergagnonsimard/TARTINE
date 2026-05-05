@@ -235,5 +235,15 @@ def getAllEpiceries():
     releaseConn(conn)
     return [row[0].lower() for row in rows]
 
+def deleteUnverifiedAccounts():
+    conn = connectToDB()
+    with conn.cursor() as curs:
+        curs.execute(
+            """DELETE FROM client 
+               WHERE is_verified = FALSE 
+               AND "creationDate" < NOW() - INTERVAL '24 hours'"""
+        )
+        conn.commit()
+    releaseConn(conn)
 
 print("database.py done.")

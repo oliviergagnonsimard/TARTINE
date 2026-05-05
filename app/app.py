@@ -360,6 +360,12 @@ scheduler.add_job(
     minute=0,
     timezone='America/Montreal'  # ← important !
 )
+scheduler.add_job(
+    deleteUnverifiedAccounts,
+    'interval',
+    hours=1,
+    timezone='America/Montreal'
+)
 scheduler.start()
 
 if __name__ == "__main__":
