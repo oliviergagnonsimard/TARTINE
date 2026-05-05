@@ -138,6 +138,12 @@ def register():
                                                     lastName=lastName, 
                                                     email=email, 
                                                     birthday=isoBirthday)
+        if len(password) < 6:
+            return render_template('register.html', error="Le mot de passe doit avoir minimum 6 caractères" , 
+                                                    firstName=firstName, 
+                                                    lastName=lastName, 
+                                                    email=email, 
+                                                    birthday=isoBirthday)
 
         if password != confirm:
             return render_template('register.html', error="Les mots de passe ne match pas" , 
