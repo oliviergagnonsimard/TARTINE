@@ -178,6 +178,9 @@ def register():
         # créer user
         userID = createUser(firstName, lastName, email, password_hash, birthday)
 
+        # send notif
+        createNotification(userID, "Bienvenue!", "Merci de vous être inscrit à Tartine!")
+
         # Générer et envoyer le token de confirmation
         token = createVerificationToken(userID)
         sendConfirmationEmail(email, token)
