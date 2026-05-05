@@ -3,10 +3,6 @@
 {% block head %}
 {% endblock %}
 
-{% if current_user.is_authenticated %}
-<script>window.location.href = "/dashboard";</script>
-{% endif %}
-
 {% block body %}
 <h3 style="text-align:center; font-size:50px;">Créer un compte</h3>
 
@@ -15,22 +11,22 @@
 
     <div style="display:flex; gap:10px;">
       <label style="width:200px; text-align: right;">Prénom</label>
-      <input type="text" name="firstName" style="width: 300px;" required>
+      <input type="text" name="firstName" style="width: 300px;" value="{{ firstName or '' }}" required>
     </div>
 
     <div style="display:flex; gap:10px;">
       <label style="width:200px; text-align: right;">Nom</label>
-      <input type="text" name="lastName" style="width: 300px;" required>
+      <input type="text" name="lastName" style="width: 300px;" value="{{ lastName or '' }}" required>
     </div>
 
     <div style="display:flex; gap:10px;">
       <label style="width:200px; text-align: right;">Date de naissance</label>
-      <input type="date" id="birthday" name="birthday" style="width: 300px;" required>
+      <input type="date" id="birthday" name="birthday" style="width: 300px;" value="{{ birthday or '' }}" required>
     </div>
 
     <div style="display:flex; gap:10px;">
       <label style="width:200px; text-align: right;">Courriel</label>
-      <input type="email" name="email" style="width: 300px;" required>
+      <input type="email" name="email" style="width: 300px;" value="{{ email or '' }}" required>
     </div>
 
     <div style="display:flex; gap:10px;">
@@ -49,6 +45,9 @@
 
     {% if error %}
       <p style="color:red;">{{ error }}</p>
+    {% endif %}
+    {% if success %}
+    <p style="color: lightgreen;">{{ success }}</p>
     {% endif %}
 
   </div>

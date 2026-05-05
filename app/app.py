@@ -9,7 +9,9 @@ import os
 from main import *
 from database import *
 from r2 import imageExists, getImageUrl
-
+from email_service import createVerificationToken, sendConfirmationEmail, verifyUserToken
+from datetime import date
+import re
 
 STORES = ['maxi', 'metro', 'iga', 'superc', 'provigo']
 headings = ("idClient", "idRecette", "Description")
@@ -38,6 +40,9 @@ def load_user(userID):
     user = User(userID)
 
     info = getUserInfo(userID)
+    if info is None:
+        return None
+
     session["firstName"] = info[2]
     session["lastName"] = info[3]
 
@@ -100,6 +105,18 @@ def index():
 def about():
     return render_template('about.html')
 
+@app.route('/confirm/<token>')
+def confirm_email(token):
+    row = verifyUserToken(token)
+    if row is None:
+        return render_template('login.html', error="Lien invalide ou déjà utilisé")
+    
+    idClient = row[0]
+    login_user(User(idClient))
+    resetSessionData(idClient)
+    updateUserRank()
+    return redirect(url_for('dashboard'))
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
@@ -112,16 +129,42 @@ def register():
         password = request.form.get('password')
         confirm = request.form.get('confirm')
         birthday = request.form.get('birthday')
+        isoBirthday = date.fromisoformat(request.form.get('birthday'))
+        age = calculate_age(isoBirthday)
 
         if not email or not password:
-            return render_template('register.html', error="Champs manquants")
+            return render_template('register.html', error="Champs manquants" , 
+                                                    firstName=firstName, 
+                                                    lastName=lastName, 
+                                                    email=email, 
+                                                    birthday=isoBirthday)
 
         if password != confirm:
-            return render_template('register.html', error="Les mots de passe ne match pas")
+            return render_template('register.html', error="Les mots de passe ne match pas" , 
+                                                    firstName=firstName, 
+                                                    lastName=lastName, 
+                                                    email=email, 
+                                                    birthday=isoBirthday)
+        
+        if age < 13 or age > 100:
+            return render_template('register.html', error="L'âge n'est pas valide" , 
+                                                    firstName=firstName, 
+                                                    lastName=lastName, 
+                                                    email=email, 
+                                                    birthday=isoBirthday)
+        
+        email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+        if not re.match(email_regex, email):
+            return render_template('register.html', error="Courriel invalide", 
+                firstName=firstName, lastName=lastName, email=email, birthday=isoBirthday)
 
         existing = getUserByEmail(email)
         if existing:
-            return render_template('register.html', error="Compte déjà existant")
+            return render_template('register.html', error="Compte déjà existant" , 
+                                                    firstName=firstName, 
+                                                    lastName=lastName, 
+                                                    email=email, 
+                                                    birthday=isoBirthday)
 
         # hash
         password_hash = BCRYPT.generate_password_hash(password).decode('utf-8')
@@ -129,22 +172,26 @@ def register():
         # créer user
         userID = createUser(firstName, lastName, email, password_hash, birthday)
 
-        # LOGIN AUTO
-        login_user(User(userID))
-        resetSessionData(userID)
-        updateUserRank()
-        createNotification(userID, "Bienvenue!", "Merci de vous être inscrit à TARTINE!")
+        # Générer et envoyer le token de confirmation
+        token = createVerificationToken(userID)
+        sendConfirmationEmail(email, token)
 
-        return redirect(url_for('dashboard'))
+        # Pas de login automatique avant confirmation
+        return render_template('register.html', success="Vérifie ton courriel pour confirmer ton compte!")
+
+        # # LOGIN AUTO
+        # login_user(User(userID))
+        # resetSessionData(userID)
+        # updateUserRank()
+        # createNotification(userID, "Bienvenue!", "Merci de vous être inscrit à TARTINE!")
+
+        # return redirect(url_for('dashboard'))
 
     return render_template('register.html')
 
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
-    if current_user.is_authenticated:
-        return redirect(url_for("dashboard"))
-
     if request.method == 'POST':
         email = request.form.get('email', '').strip().lower()
         password = request.form.get('password')
@@ -156,10 +203,18 @@ def login():
 
         if not user:
             return render_template('login.html', error="Login invalide")
+        
 
         userId = user[0]
         password_hash = user[1]
+        hasVerifiedEmail = user[11]
 
+        if not hasVerifiedEmail:
+            return render_template('login.html', error="Confirme ton courriel avant de te connecter")
+        
+        if current_user.is_authenticated:
+            return redirect(url_for("dashboard"))
+        
         try:
             if BCRYPT.check_password_hash(password_hash, password):
                 login_user(User(userId))

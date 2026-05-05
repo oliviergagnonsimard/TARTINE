@@ -151,7 +151,7 @@ def getNameFromId(idClient):
 def getUserByEmail(Email):
     conn = connectToDB()
     with conn.cursor() as curs:
-        curs.execute("SELECT \"idClient\", password_hash FROM client WHERE \"email\" = %s", (Email,))
+        curs.execute("SELECT * FROM client WHERE \"email\" = %s", (Email,))
         row = curs.fetchone()
 
     releaseConn(conn)
