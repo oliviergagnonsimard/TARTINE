@@ -115,7 +115,7 @@ def about():
 def confirm_email(token):
     row = verifyUserToken(token)
     if row is None:
-        return render_template('login.html', error="Lien invalide ou déjà utilisé")
+        return render_template('auth/login.html', error="Lien invalide ou déjà utilisé")
     
     idClient = row[0]
     login_user(User(idClient))
@@ -139,27 +139,27 @@ def register():
         age = calculate_age(isoBirthday)
 
         if not email or not password:
-            return render_template('register.html', error="Champs manquants" , 
+            return render_template('auth/register.html', error="Champs manquants" , 
                                                     firstName=firstName, 
                                                     lastName=lastName, 
                                                     email=email, 
                                                     birthday=isoBirthday)
         if len(password) < 6:
-            return render_template('register.html', error="Le mot de passe doit avoir minimum 6 caractères" , 
+            return render_template('auth/register.html', error="Le mot de passe doit avoir minimum 6 caractères" , 
                                                     firstName=firstName, 
                                                     lastName=lastName, 
                                                     email=email, 
                                                     birthday=isoBirthday)
 
         if password != confirm:
-            return render_template('register.html', error="Les mots de passe ne match pas" , 
+            return render_template('auth/register.html', error="Les mots de passe ne match pas" , 
                                                     firstName=firstName, 
                                                     lastName=lastName, 
                                                     email=email, 
                                                     birthday=isoBirthday)
         
         if age < 13 or age > 100:
-            return render_template('register.html', error="L'âge n'est pas valide" , 
+            return render_template('auth/register.html', error="L'âge n'est pas valide" , 
                                                     firstName=firstName, 
                                                     lastName=lastName, 
                                                     email=email, 
@@ -167,12 +167,12 @@ def register():
         
         email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
         if not re.match(email_regex, email):
-            return render_template('register.html', error="Courriel invalide", 
+            return render_template('auth/register.html', error="Courriel invalide", 
                 firstName=firstName, lastName=lastName, email=email, birthday=isoBirthday)
 
         existing = getUserByEmail(email)
         if existing:
-            return render_template('register.html', error="Compte déjà existant" , 
+            return render_template('auth/register.html', error="Compte déjà existant" , 
                                                     firstName=firstName, 
                                                     lastName=lastName, 
                                                     email=email, 
@@ -192,9 +192,9 @@ def register():
         sendConfirmationEmail(email, token)
 
         # Pas de login automatique avant confirmation
-        return render_template('register.html', success="Vérifie ton courriel pour confirmer ton compte!")
+        return render_template('auth/register.html', success="Vérifie ton courriel pour confirmer ton compte!")
 
-    return render_template('register.html')
+    return render_template('auth/register.html')
 
 
 @app.route('/login', methods=['POST', 'GET'])
@@ -207,12 +207,12 @@ def login():
         password = request.form.get('password')
 
         if not email or not password:
-            return render_template('login.html', error="Champs manquants")
+            return render_template('auth/login.html', error="Champs manquants")
 
         user = getUserByEmail(email)
 
         if not user:
-            return render_template('login.html', error="Login invalide")
+            return render_template('auth/login.html', error="Login invalide")
         
 
         userId = user[0]
@@ -220,7 +220,7 @@ def login():
         hasVerifiedEmail = user[11]
 
         if not hasVerifiedEmail:
-            return render_template('login.html', error="Confirme ton courriel avant de te connecter")
+            return render_template('auth/login.html', error="Confirme ton courriel avant de te connecter")
         
         
         try:
@@ -231,11 +231,11 @@ def login():
                 updateLastLogin(userId)
                 return redirect(url_for('dashboard'))
         except ValueError:
-            return render_template('login.html', error="Compte invalide")
+            return render_template('auth/login.html', error="Compte invalide")
 
-        return render_template('login.html', error="Login invalide")
+        return render_template('auth/login.html', error="Login invalide")
 
-    return render_template('login.html')
+    return render_template('auth/login.html')
     
 @app.route('/logout')
 @login_required
@@ -275,7 +275,7 @@ def flyers():
         threading.Thread(target=triggerDownloadFlyers).start()
     epiceries = getAllEpiceries()
     week = getFlyerWeek()
-    return render_template('flyers.html', epiceries=epiceries, week=week, downloading=not areFlyersDownloaded)
+    return render_template('flyers/flyers.html', epiceries=epiceries, week=week, downloading=not areFlyersDownloaded)
 
 @app.route('/flyers/status')
 def flyers_status():
@@ -302,7 +302,13 @@ def flyer(store):
         for i in range(0, nbPages, 2)  # ton compteur va de 2 en 2
     ]
     
-    return render_template('flyer.html', store=store, image_urls=image_urls, week_start=week_start)
+    return render_template('flyers/flyer.html', store=store, image_urls=image_urls, week_start=week_start)
+
+# ====================================
+# ====================================
+#               RECETTES
+# ====================================
+# ====================================
 
 @app.route('/recipes')
 def recipes():
@@ -312,7 +318,32 @@ def recipes():
     userID = session.get("userID")
     data = getUserRecipes(userID)
     name = session.get("name")
-    return render_template('recipes.html', userID=userID, headings=headings, data=data, name=name)
+    return render_template('recipes/recipes.html', userID=userID, headings=headings, data=data, name=name)
+
+@app.route('/recipes/create', methods=['GET', 'POST'])
+@login_required
+def create_recipe():
+    if request.method == 'POST':
+        userID = session.get("userID")
+        nom = request.form.get('nom')
+        portions = request.form.get('portions', 4)
+        instructions = request.form.get('instructions')
+
+        # Créer la recette
+        idRecette = createRecette(userID, nom, portions, instructions)
+
+        # Ajouter les ingrédients — le formulaire envoie des listes
+        noms = request.form.getlist('ingredient_nom')
+        quantites = request.form.getlist('ingredient_quantite')
+        unites = request.form.getlist('ingredient_unite')
+
+        for nom_ing, quantite, unite in zip(noms, quantites, unites):
+            if nom_ing.strip():
+                addIngredientToRecette(idRecette, nom_ing, quantite, unite)
+
+        return redirect(url_for('recipes') + '?success=Recette créée!')
+    
+    return render_template('recipes/recipes_create.html')
 
 @app.route('/leaderboard')
 @app.route('/leaderboard/<int:page>')
@@ -338,8 +369,8 @@ def forgot_password():
             token = createResetToken(user[0])
             sendResetEmail(email, token)
         # Toujours afficher le même message pour pas révéler si l'email existe
-        return render_template('forgot_password.html', success="Si ce courriel existe, un lien a été envoyé.")
-    return render_template('forgot_password.html')
+        return render_template('auth/password_forgot.html', success="Si ce courriel existe, un lien a été envoyé.")
+    return render_template('auth/password_forgot.html')
 
 @app.route('/reset-password/<token>', methods=['GET', 'POST'])
 def reset_password(token):
@@ -349,24 +380,24 @@ def reset_password(token):
         confirm = request.form.get('confirm')
 
         if password != confirm:
-            return render_template('reset_password.html', token=token, error="Les mots de passe ne matchent pas")
+            return render_template('auth/password_forgot.html', token=token, error="Les mots de passe ne matchent pas")
         
         idClient = verifyResetToken(token)
         
         if idClient is None:  # ← ici en premier
-            return render_template('reset_password.html', token=token, error="Lien invalide ou expiré")
+            return render_template('auth/password_forgot.html', token=token, error="Lien invalide ou expiré")
 
         clientInfo = getUserInfo(idClient)
         last_change = clientInfo[15]
         if passwordTimeLimitRespected(idClient):
-            return render_template('reset_password.html', token=token, error="Vous devez attendre 24h entre chaque changement de mot de passe")
+            return render_template('auth/password_forgot.html', token=token, error="Vous devez attendre 24h entre chaque changement de mot de passe")
 
         password_hash = BCRYPT.generate_password_hash(password).decode('utf-8')
         updatePassword(idClient, password_hash)
         return render_template('dashboard.html', success="Mot de passe changé avec succès.")
     
 
-    return render_template('reset_password.html', token=token)
+    return render_template('auth/password_forgot.html', token=token)
 
 @app.route('/change-password', methods=['POST'])
 @login_required

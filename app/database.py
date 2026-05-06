@@ -356,5 +356,62 @@ def getAdminStats():
         
     return rows
 
+#================
+# Ingrédients
+#================
+
+def getOrCreateIngredient(nom):
+    conn = connectToDB()
+    try:
+        with conn.cursor() as curs:
+            # Cherche si l'ingrédient existe déjà
+            curs.execute(
+                'SELECT "idIngredient" FROM ingredient WHERE LOWER(nom) = LOWER(%s)',
+                (nom,)
+            )
+            row = curs.fetchone()
+            if row:
+                return row[0]
+            
+            # Sinon on le crée
+            curs.execute(
+                'INSERT INTO ingredient (nom) VALUES (%s) RETURNING "idIngredient"',
+                (nom,)
+            )
+            idIngredient = curs.fetchone()[0]
+            conn.commit()
+            return idIngredient
+    finally:
+        releaseConn(conn)
+
+def createRecette(idClient, nom, portions, instructions):
+    conn = connectToDB()
+    try:
+        with conn.cursor() as curs:
+            curs.execute(
+                """INSERT INTO recette ("idClient", nom, portions, instructions) 
+                   VALUES (%s, %s, %s, %s) RETURNING "idRecette" """,
+                (idClient, nom, portions, instructions)
+            )
+            idRecette = curs.fetchone()[0]
+            conn.commit()
+            return idRecette
+    finally:
+        releaseConn(conn)
+
+def addIngredientToRecette(idRecette, nom, quantite, unite):
+    idIngredient = getOrCreateIngredient(nom)
+    conn = connectToDB()
+    try:
+        with conn.cursor() as curs:
+            curs.execute(
+                """INSERT INTO recette_ingredient ("idRecette", "idIngredient", quantite, unite)
+                   VALUES (%s, %s, %s, %s)""",
+                (idRecette, idIngredient, quantite, unite)
+            )
+            conn.commit()
+    finally:
+        releaseConn(conn)
+
 
 print("database.py done.")

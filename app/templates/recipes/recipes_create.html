@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+
+<div style="align-items: center;">
+<h3 style="font-weight: bold; font-size: 60px; text-align: center; padding-bottom: 30px;">Créer une recette</h3>
+
+    <table style="border: 2px solid white; margin: auto; margin-top: 2%; width: 80%; text-align: center;">
+        <tr class="header-row" style="border: 2px solid white">
+            {% for header in headings %}
+            <th class="cell">{{ header }}</th>
+            {% endfor %}
+        </tr>
+        {% for row in data %}
+        <tr style="cursor:pointer">
+            {% for cell in row %}
+            <td class="cell">{{ cell }}</td>
+        {% endfor %}
+    </tr>
+      {% endfor %}
+    </table>
+</div>
+{% endblock %}
