@@ -415,6 +415,40 @@ def admin(page=1):
     total_users = countAllUsers(search=search)
     total_pages = (total_users + 19) // 20
     return render_template('admin.html', users=users, page=page, total_pages=total_pages, search=search)
+
+@app.route('/admin/notify', methods=['POST'])
+@admin_required
+def admin_notify():
+    title = request.form.get('title')
+    message = request.form.get('message')
+    target = request.form.get('target')
+
+    if target == 'all':
+        users = getAllUsers(limit=9999)
+        for user in users:
+            createNotification(user[0], title, message)
+    
+    elif target == 'specific':
+        user_ids = request.form.get('user_ids', '')
+        ids = [uid.strip() for uid in user_ids.split(',') if uid.strip().isdigit()]
+        for uid in ids:
+            createNotification(int(uid), title, message)
+
+    return redirect(url_for('admin') + '?success=Notification envoyée!')
+
+@app.route('/admin/reset-timer/<int:idClient>', methods=['POST'])
+@admin_required
+def admin_reset_timer(idClient):
+    passwordTimeLimitRemove(idClient)
+    return redirect(url_for('admin') + '?success=Timer reset!')
+
+@app.route('/admin/notify-user/<int:idClient>', methods=['POST'])
+@admin_required
+def admin_notify_user(idClient):
+    title = request.form.get('title', 'Message de l\'administration')
+    message = request.form.get('message', '')
+    createNotification(idClient, title, message)
+    return redirect(url_for('admin') + '?success=Notification envoyée!')
 # Automatic download des circulaires -------------------------------
 
 scheduler = BackgroundScheduler()
