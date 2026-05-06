@@ -2,73 +2,126 @@
 <html>
 <head>
   <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.ico') }}">
-<title>Tartine</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-{% block head %}{% endblock %}
+  <title>TARTINE</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% block head %}{% endblock %}
 
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-<link rel="stylesheet" href="{{ url_for('static',filename='styles/about.css') }}">
-<style>
-  .w3-sidebar {
-    width: 120px;
-    background: #222;
-    transition: width 0.3s ease;
-    overflow: hidden;
-}
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/about.css') }}">
 
-.w3-sidebar.closed {
-    width: 0px;
-}
+  <style>
+    body, h1, h2, h3, h4, h5, h6 { font-family: "Montserrat", sans-serif; }
 
-#main {
-    margin-left: 120px;
-    transition: margin-left 0.3s ease;
-}
+    .navbar {
+      background-color: #222;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 30px;
+      border-bottom: 2px solid #333;
+    }
 
-#main.expanded {
-    margin-left: 0px;
-}
+    .navbar-left {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
 
-#toggle-btn {
-    position: fixed;
-    top: 50%;
-    left: 120px;
-    transform: translateY(-50%);
-    z-index: 999;
-    background: #222;
-    border: none;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    padding: 8px 4px;
-    border-radius: 0 6px 6px 0;
-    transition: left 0.3s ease;
-}
+    .navbar-right {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
 
-#toggle-btn.closed {
-    left: 0px;
-}
-body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
-.w3-row-padding img {margin-bottom: 12px}
-/* Set the width of the sidebar to 120px */
-.w3-sidebar {width: 120px;background: #222;}
-/* Add a left margin to the "page content" that matches the width of the sidebar (120px) */
-#main {margin-left: 120px}
-/* Remove margins from "page content" on small screens */
-@media only screen and (max-width: 600px) {main {margin-left: 0}}
-</style>
+    .nav-link-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: white;
+      text-decoration: none;
+      font-size: 15px;
+      padding: 6px 10px;
+      border-radius: 6px;
+      transition: background 0.2s;
+    }
+
+    .nav-link-item:hover {
+      background-color: #333;
+      color: white;
+    }
+
+    .nav-link-item i {
+      font-size: 20px;
+    }
+
+    #main {
+      padding: 30px;
+    }
+  </style>
 </head>
 <body class="w3-black">
 
-<!-- Icon Bar (Sidebar - hidden on small screens) -->
-<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center" style="display: flex; flex-direction: column; justify-content: space-between;">
-  <div>
-    <div id="toast" style="
+<nav class="navbar">
+  <!-- GAUCHE : logo + liens principaux -->
+  <div class="navbar-left">
+    <a href="{{ url_for('index') }}">
+      <img src="{{ url_for('static', filename='logo.png') }}" style="height: 40px; border-radius: 15px;">
+    </a>
+
+    <a href="{{ url_for('flyers') }}" class="nav-link-item">
+      <i class="bi bi-book"></i> Circulaires
+    </a>
+
+    <a href="{{ url_for('leaderboard') }}" class="nav-link-item">
+      {% if current_user.is_authenticated %}
+        {% if session.get('userRank') == 1 %}🥇
+        {% elif session.get('userRank') == 2 %}🥈
+        {% elif session.get('userRank') == 3 %}🥉
+        {% else %}<i class="bi bi-award"></i>
+        {% endif %}
+      {% else %}
+        <i class="bi bi-award"></i>
+      {% endif %}
+      Classement
+    </a>
+
+    {% if session.get('role') == 'admin' %}
+    <a href="{{ url_for('admin') }}" class="nav-link-item">
+      <i class="bi bi-shield"></i> Admin
+    </a>
+    {% endif %}
+  </div>
+
+  <!-- DROITE : compte + auth -->
+  <div class="navbar-right">
+    {% if current_user.is_authenticated %}
+      <a href="{{ url_for('recipes') }}" class="nav-link-item">
+        <i class="bi bi-journal"></i> Recettes
+      </a>
+      <a href="{{ url_for('dashboard') }}" class="nav-link-item">
+        <i class="bi bi-person"></i> {{ session.get('firstName') }} {{ session.get('lastName') }}
+      </a>
+      <a href="{{ url_for('logout') }}" class="nav-link-item" style="border-top: 1px solid white;">
+        <i class="bi bi-box-arrow-right"></i> Déconnexion
+      </a>
+    {% else %}
+      <a href="{{ url_for('register') }}" class="nav-link-item">
+        <i class="bi bi-person-square"></i> Créer un compte
+      </a>
+      <a href="{{ url_for('login') }}" class="nav-link-item">
+        <i class="bi bi-box-arrow-in-right"></i> Connexion
+      </a>
+    {% endif %}
+  </div>
+</nav>
+
+<!-- TOAST -->
+<div id="toast" style="
     position: fixed;
     top: -100px;
     left: 50%;
@@ -77,96 +130,14 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
     border-radius: 10px;
     font-weight: bold;
     z-index: 9999;
-    transition: top 0.6s ease;
+    transition: top 0.4s ease;
     min-width: 300px;
     text-align: center;
 "></div>
 
-    <!-- Avatar image in top left corner -->
-    <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='logo.png') }}" style="width:100%"></a>
-    <!-- <a href="{{ url_for('about') }}" class="w3-bar-item w3-button w3-padding-large w3-hover-black" style="display: flex; flex-direction: column; align-items: center;">
-      <i class="bi bi-info-circle-fill" style="font-size:30px"></i>
-      <span style="font-size: 16px; margin-top: 6px;">À propos</span>
-    </a> -->
-    <a href="{{ url_for('flyers') }}" class="w3-bar-item w3-button w3-padding-large w3-hover-black" style="display: flex; flex-direction: column; align-items: center;">
-      <i class="bi bi-book" style="font-size:30px"></i>
-      <span style="font-size: 16px; margin-top: 6px;">Circulaires</span>
-    </a>
-    <a href="{{ url_for('leaderboard') }}" class="w3-bar-item w3-button w3-padding-large w3-hover-black" style="display: flex; flex-direction: column; align-items: center;">
-    {% if current_user.is_authenticated %}
-        {% if session.get('userRank') == 1 %}
-            <span style="font-size: 28px;">🥇</span>
-        {% elif session.get('userRank') == 2 %}
-            <span style="font-size: 28px;">🥈</span>
-        {% elif session.get('userRank') == 3 %}
-            <span style="font-size: 28px;">🥉</span>
-        {% else %}
-            <i class="bi bi-award" style="font-size:30px"></i>
-        {% endif %}
-    {% else %}
-        <i class="bi bi-award" style="font-size:30px"></i>
-    {% endif %}
-    <span style="font-size: 16px; margin-top: 6px;">Classement</span>
-</a>
-    {% if current_user.is_authenticated %}
-    {% endif %}
-  </div>
-  <div>
-    {% if current_user.is_authenticated %}
-    <a href="{{ url_for('recipes') }}" class="w3-bar-item w3-button w3-padding-large w3-hover-black" style="display: flex; flex-direction: column; align-items: center;">
-      <i class="bi bi-journal" style="font-size:30px"></i>
-      <span style="font-size: 16px; margin-top: 6px;">Recettes</span>
-    </a>
-    <a href="{{ url_for('dashboard') }}" class="w3-bar-item w3-button w3-padding-large w3-hover-black"
-     style="display: flex; flex-direction: column; align-items: center;">
-      <i class="bi bi-person" style="font-size: 36px;"></i>
-      <span style="font-size: 16px; margin-top: -10px; max-width: 120px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-        {{ session.get('firstName') }}</span>
-      <span style="font-size: 16px; margin-top: -10px; max-width: 120px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-        {{ session.get('lastName') }}</span>
-    </a>
-    <a href="{{ url_for('logout') }}" class="w3-bar-item w3-button w3-padding-large w3-hover-black"
-     style="display: flex; flex-direction: column; align-items: center;">
-      <span style="font-size: 16px; margin-top: -10px; border-top: 2px solid white">Déconnexion</span>
-    </a>
-
-
-    <!--PAS CONNECTÉ-->
-    {% else %}
-    <a href="{{ url_for('register') }}" class="w3-bar-item w3-button w3-padding-large w3-hover-black"
-     style="display: flex; flex-direction: column; align-items: center;">
-      <i class="bi bi-person-square" style="font-size: 30px;"></i>
-      <span style="font-size: 16px; margin-top: -3px; ">Créer un compte</span>
-    </a>
-    <a href="{{ url_for('login') }}" class="w3-bar-item w3-button w3-padding-large w3-hover-black"
-     style="display: flex; flex-direction: column; align-items: center;">
-      <i class="bi bi-box-arrow-in-right" style="font-size: 30px; margin-right:5%;"></i>
-      <span style="font-size: 16px; margin-top: -3px; ">Connexion</span>
-    </a>
-    {% endif %}
-  </div>
-</nav>
-<button id="toggle-btn" onclick="toggleSidebar()">❮</button>
-
-<div class="w3-padding-large" id="main">
-    {% block body %}{% endblock %}
+<div id="main">
+  {% block body %}{% endblock %}
 </div>
-
-<script>
-function toggleSidebar() {
-    const sidebar = document.querySelector('.w3-sidebar');
-    const main = document.getElementById('main');
-    const btn = document.getElementById('toggle-btn');
-
-    sidebar.classList.toggle('closed');
-    main.classList.toggle('expanded');
-    btn.classList.toggle('closed');
-
-    btn.innerText = sidebar.classList.contains('closed') ? '❯' : '❮';
-}
-</script>
-</body>
-</html>
 
 <script>
 function showToast(message, type) {
@@ -175,14 +146,13 @@ function showToast(message, type) {
     toast.style.backgroundColor = type === 'error' ? '#c0392b' : '#27ae60';
     toast.style.color = 'white';
     toast.style.top = '30px';
-    
-    setTimeout(() => {
-        toast.style.top = '-100px';
-    }, 3500);
+    setTimeout(() => { toast.style.top = '-100px'; }, 3500);
 }
 
-// Auto-déclenche si ya un message dans l'URL
 const params = new URLSearchParams(window.location.search);
 if (params.get('error')) showToast(params.get('error'), 'error');
 if (params.get('success')) showToast(params.get('success'), 'success');
 </script>
+
+</body>
+</html>
