@@ -374,6 +374,19 @@ def read_notification(id):
     readNotification(userId, id)
     return jsonify({"success": True})
 
+@app.route('/notifications')
+@login_required
+def get_notifications():
+    userID = session.get("userID")
+    notifs = getNotifications(userID)
+    return jsonify([{
+        "id": n[0],
+        "title": n[1],
+        "message": n[2],
+        "isread": n[3],
+        "created_at": n[4].strftime('%d/%m/%Y %Hh%M')
+    } for n in notifs])
+
 @app.route('/forgot-password', methods=['GET', 'POST'])
 def forgot_password():
     if request.method == 'POST':

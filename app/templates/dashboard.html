@@ -91,12 +91,14 @@ input:checked + .slider:before {
 {% endblock %}
 
 {% block body %}
+
 <div style="align-items: center;">
   <div style="text-align: center; padding-bottom: 30px;">
+    
     <div style="display:flex; justify-content: space-between; align-items: center;">
-      <div>
-        <h3 style="font-weight: bold; font-size: 60px; text-decoration: underline;">Dashboard</h3> 
-      </div>
+        <div style="display:flex; justify-content: space-between; align-items: center;">
+            <h3 style="font-weight: bold; font-size: 60px; text-decoration: underline;">Dashboard</h3>
+        </div>
     <div style="display: flex; gap: 20px">
         {% if clientInfo[10] == 'admin' %}
             <a href="{{ url_for('admin') }}" style="color: #e91e8c; display: flex; padding-bottom: 5px">
@@ -107,9 +109,12 @@ input:checked + .slider:before {
         <h3 style="font-weight: bold; font-size: 32px;">Bonjour, {{ clientInfo[2] }} {{ clientInfo[3] }}!</h3>
       </div>
     </div>
+    <button onclick="toggleNotifSidebar()" style="background:none; border:none; color:white; font-size:30px; cursor:pointer; margin-left: auto; display: block;">
+    <i class="bi bi-bell"></i>
+</button>
 
     <!--COLONNE DE GAUCHE, INFOS CLIENT-->
-    <div style="display: flex; gap: 40px; align-items: flex-start; flex: 1; text-align: center; padding-left:10%">
+    <div style="display: flex; gap: 40px; align-items: center; text-align: center; padding-left:10%">
         <div id="info-form" style="margin-top: 20px;">
             <h4 style="font-weight: bold; font-size: 28px; padding-bottom: 2%;">Informations du compte</h4>
             <table style="margin: 0 auto;">
@@ -223,46 +228,35 @@ input:checked + .slider:before {
                 </div>
             </form>
         </div>
-
-
-        <!--COLONNE DE DROITE, NOTIFICATIONS-->
-        <div style="margin-top: 40px; flex:1">
-            <h4 style="font-weight: bold; font-size: 28px; text-align: center; padding-bottom: 2%;">Notifications</h4>
-            
-            {% if notifications %}
-            <ul style="list-style: none; padding: 0; width: 40%; margin: auto;">
-                {% for notif in notifications %}
-                <li id="notif-{{ notif[0] }}"
-                    onclick="toggleNotif({{ notif[0] }}, this)"
-                    style="
-                    padding: 15px 20px;
-                    margin-bottom: 10px;
-                    border-radius: 10px;
-                    cursor: pointer;
-                    background-color: {% if not notif[3] %}#3a1a2e{% else %}#2a2a2a{% endif %};
-                    border-left: 4px solid {% if not notif[3] %}#e91e8c{% else %}#555{% endif %};
-                ">
-                    <strong>{{ notif[1] }}</strong>
-                    <div class="notif-desc" style="
-                        max-height: 0;
-                        overflow: hidden;
-                        transition: max-height 0.4s ease;
-                        margin-top: 0;
-                    ">
-                        {{ notif[2] }}
-                        <br>
-                    <small style="color: #aaa;">ID: {{ notif[0] }}</small>
-
-                    </div>
-                    <small style="color: #aaa;">{{ notif[4].strftime('%Y-%m-%d %H:%M') }}</small>
-                </li>
-                {% endfor %}
-            {% else %}
-            <p style="text-align: center; color: #aaa;">Aucune notification</p>
-            {% endif %}
-        </div>
     </div>
 </div>
+
+<!-- SIDEBAR -->
+<div id="notif-sidebar" style="
+    position: fixed;
+    top: 0; right: -400px;
+    width: 380px; height: 100%;
+    background: #1a1a1a;
+    z-index: 9998;
+    transition: right 0.3s ease;
+    overflow-y: auto;
+    padding: 20px;
+    box-shadow: -5px 0 20px rgba(0,0,0,0.5);
+">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+        <h4 style="font-weight:bold; margin:0;">🔔 Notifications</h4>
+        <button onclick="toggleNotifSidebar()" style="background:none; border:none; color:white; font-size:24px; cursor:pointer;">✕</button>
+    </div>
+    <div id="notif-content"></div>
+</div>
+
+<div id="notif-overlay" onclick="toggleNotifSidebar()" style="
+    display:none;
+    position:fixed; top:0; left:0;
+    width:100%; height:100%;
+    background:rgba(0,0,0,0.5);
+    z-index:9997;
+"></div>
 
 </div>
 <script>
@@ -270,21 +264,65 @@ input:checked + .slider:before {
     window.location.reload();
   });
 
-  function toggleNotif(id, el) {
+  function toggleNotifSidebar() {
+    const sidebar = document.getElementById('notif-sidebar');
+    const overlay = document.getElementById('notif-overlay');
+    const isOpen = sidebar.style.right === '0px';
+    sidebar.style.right = isOpen ? '-400px' : '0px';
+    overlay.style.display = isOpen ? 'none' : 'block';
+    if (!isOpen) loadNotifications();
+}
+
+function loadNotifications() {
+    const content = document.getElementById('notif-content');
+    
+    // Spinner pendant le chargement
+    content.innerHTML = `
+        <div style="text-align: center; padding: 40px;">
+            <div class="spinner-border text-light" role="status"></div>
+            <p style="color: #aaa; margin-top: 15px;">Chargement...</p>
+        </div>
+    `;
+
+    fetch('/notifications')
+        .then(r => r.json())
+        .then(notifs => {
+            if (notifs.length === 0) {
+                content.innerHTML = '<p style="color:#aaa; text-align:center;">Aucune notification</p>';
+                return;
+            }
+            content.innerHTML = notifs.map(n => `
+                <div id="notif-${n.id}" onclick="toggleNotif(${n.id}, this)" style="
+                    padding: 15px;
+                    margin-bottom: 10px;
+                    border-radius: 10px;
+                    cursor: pointer;
+                    background-color: ${n.isread ? '#2a2a2a' : '#3a1a2e'};
+                    border-left: 4px solid ${n.isread ? '#555' : '#e91e8c'};
+                ">
+                    <strong>${n.title}</strong>
+                    <div class="notif-desc" style="max-height:0; overflow:hidden; transition:max-height 0.4s ease;">
+                        <p style="margin-top:8px;">${n.message}</p>
+                        <small style="color:#aaa;">${n.created_at}</small>
+                    </div>
+                </div>
+            `).join('');
+
+
+        });
+}
+
+function toggleNotif(id, el) {
     const desc = el.querySelector('.notif-desc');
     const isOpen = el.classList.contains('open');
-
+    el.classList.toggle('open');
+    desc.style.maxHeight = isOpen ? '0' : desc.scrollHeight + 'px';
     if (!isOpen) {
-        el.classList.add('open');
-        desc.style.maxHeight = desc.scrollHeight + 'px';
         fetch(`/notifications/read/${id}`, { method: 'POST' })
             .then(() => {
                 el.style.backgroundColor = '#2a2a2a';
                 el.style.borderLeftColor = '#555';
             });
-    } else {
-        el.classList.remove('open');
-        desc.style.maxHeight = '0';
     }
 }
 </script>
