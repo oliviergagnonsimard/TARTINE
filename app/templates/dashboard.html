@@ -109,7 +109,22 @@ input:checked + .slider:before {
         <h3 style="font-weight: bold; font-size: 32px;">Bonjour, {{ clientInfo[2] }} {{ clientInfo[3] }}!</h3>
       </div>
     </div>
-    <button onclick="toggleNotifSidebar()" style="background:none; border:none; color:white; font-size:30px; cursor:pointer; margin-left: auto; display: block;">
+    <button onclick="toggleNotifSidebar()" style="background:none; border:none; color:white; font-size:30px; cursor:pointer; margin-left: auto; display:block; position: relative;">
+    <i class="bi bi-bell"></i>
+    <span id="notif-badge" style="
+        display: none;
+        position: absolute;
+        top: -5px; right: -5px;
+        background: #e91e8c;
+        color: white;
+        border-radius: 50%;
+        width: 20px; height: 20px;
+        font-size: 11px;
+        font-weight: bold;
+        line-height: 20px;
+        text-align: center;
+    "></span>
+</button>
     <i class="bi bi-bell"></i>
 </button>
 
@@ -264,6 +279,18 @@ input:checked + .slider:before {
     window.location.reload();
   });
 
+  // Au chargement de la page, juste mettre à jour la pastille sans ouvrir la sidebar
+window.addEventListener('load', () => {
+    fetch('/notifications')
+        .then(r => r.json())
+        .then(notifs => {
+            const unread = notifs.filter(n => !n.isread).length;
+            const badge = document.getElementById('notif-badge');
+            badge.innerText = unread;
+            badge.style.display = unread > 0 ? 'block' : 'none';
+        });
+});
+
   function toggleNotifSidebar() {
     const sidebar = document.getElementById('notif-sidebar');
     const overlay = document.getElementById('notif-overlay');
@@ -287,6 +314,16 @@ function loadNotifications() {
     fetch('/notifications')
         .then(r => r.json())
         .then(notifs => {
+            // Pastille
+            const unread = notifs.filter(n => !n.isread).length;
+            const badge = document.getElementById('notif-badge');
+            if (unread > 0) {
+                badge.innerText = unread;
+                badge.style.display = 'block';
+            } else {
+                badge.style.display = 'none';
+            }
+
             if (notifs.length === 0) {
                 content.innerHTML = '<p style="color:#aaa; text-align:center;">Aucune notification</p>';
                 return;
