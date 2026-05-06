@@ -15,7 +15,6 @@ import re
 from functools import wraps
 
 STORES = ['maxi', 'metro', 'iga', 'superc', 'provigo']
-headings = ("idClient", "idRecette", "Description")
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -266,7 +265,7 @@ def dashboard():
     clientInfo = getUserInfo(userID)
     notifications = getNotifications(userID)
 
-    return render_template('dashboard.html', userID=userID, headings=headings, data=data, name=name, clientInfo=clientInfo, notifications=notifications)
+    return render_template('dashboard.html', userID=userID, data=data, name=name, clientInfo=clientInfo, notifications=notifications)
 
 @app.route('/flyers')
 def flyers():
@@ -312,13 +311,27 @@ def flyer(store):
 
 @app.route('/recipes')
 def recipes():
+
     if not current_user.is_authenticated:
         return redirect(url_for("login"))
     
     userID = session.get("userID")
     data = getUserRecipes(userID)
     name = session.get("name")
+    headings = ["ID", "Nom", "Instructions", "Portions", "Date de création"]
+
     return render_template('recipes/recipes.html', userID=userID, headings=headings, data=data, name=name)
+
+@app.route('/recipes/<int:idRecette>')
+@login_required
+def recipe_detail(idRecette):
+    userID = session.get("userID")
+    recette, ingredients = getRecetteWithIngredients(idRecette, userID)
+    
+    if recette is None:
+        return redirect(url_for('recipes') + '?error=Recette introuvable')
+    
+    return render_template('recipes/recipes_detail.html', recette=recette, ingredients=ingredients)
 
 @app.route('/recipes/create', methods=['GET', 'POST'])
 @login_required
@@ -344,6 +357,7 @@ def create_recipe():
         return redirect(url_for('recipes') + '?success=Recette créée!')
     
     return render_template('recipes/recipes_create.html')
+
 
 @app.route('/leaderboard')
 @app.route('/leaderboard/<int:page>')

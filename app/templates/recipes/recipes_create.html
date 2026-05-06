@@ -1,26 +1,75 @@
 {% extends 'base.html' %}
-
-{% block head %}
-{% endblock %}
-
 {% block body %}
 
-<div style="align-items: center;">
-<h3 style="font-weight: bold; font-size: 60px; text-align: center; padding-bottom: 30px;">Créer une recette</h3>
-
-    <table style="border: 2px solid white; margin: auto; margin-top: 2%; width: 80%; text-align: center;">
-        <tr class="header-row" style="border: 2px solid white">
-            {% for header in headings %}
-            <th class="cell">{{ header }}</th>
-            {% endfor %}
-        </tr>
-        {% for row in data %}
-        <tr style="cursor:pointer">
-            {% for cell in row %}
-            <td class="cell">{{ cell }}</td>
-        {% endfor %}
-    </tr>
-      {% endfor %}
-    </table>
+<div>
+    
+    <a href="{{ url_for('recipes') }}" style="font-size: 28px; color: white;">
+        <i class="bi bi-arrow-left-circle"></i>
+    </a>
+    
+    <h3 style="font-weight: bold; font-size: 60px; text-align: center; padding-bottom: 30px;">Créer une recette</h3>
 </div>
+
+<form action="/recipes/create" method="POST">
+    <div style="display:flex; flex-direction: column; align-items: center; gap: 15px;">
+
+            <div style="display:flex; gap:10px; padding-right: 7%;">
+                <label style="width:200px; text-align: right;">Nom de recette</label>
+                <input type="text" name="nom" style="width: 300px;" required>
+            </div>
+            
+            <div style="display:flex; gap:10px; padding-right: 7%;">
+                <label style="width:200px; text-align: right;">Portions</label>
+                <input type="number" name="portions" value="4" min="1" style="width: 300px;" required>
+            </div>
+            
+            <div style="display:flex; gap:10px; padding-right: 7%;">
+                <label style="width:200px; text-align: right;">Instructions</label>
+                <textarea name="instructions" style="width: 300px; height: 150px; resize: vertical;"></textarea>
+            </div>
+            
+        <!-- SECTION INGRÉDIENTS -->
+        <div style="width: 500px;">
+            <h5 style="text-align: center; padding-bottom: 10px;">Ingrédients</h5>
+            <div id="ingredients-list" style="display: flex; flex-direction: column; gap: 8px;">
+                <!-- Les lignes s'ajoutent ici dynamiquement -->
+            </div>
+            <div style="text-align: center; margin-top: 10px;">
+                <button type="button" onclick="addIngredient()" class="btn btn-secondary">+ Ajouter un ingrédient</button>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Créer la recette</button>
+        {% if error %}<p style="color:red;">{{ error }}</p>{% endif %}
+    </div>
+</form>
+
+<script>
+function addIngredient() {
+    const list = document.getElementById('ingredients-list');
+    const div = document.createElement('div');
+    div.style.cssText = 'display:flex; gap:8px; align-items:center;';
+    div.innerHTML = `
+        <input type="text" name="ingredient_nom" placeholder="Nom" style="width: 250px; padding: 6px; border-radius: 5px;">
+        <input type="number" name="ingredient_quantite" placeholder="Quantité" style="width: 90px; padding: 6px; border-radius: 5px;" step="0.1">
+        <select name="ingredient_unite" style="padding: 6px; border-radius: 5px;">
+            <option value="kg">kg</option>
+            <option value="g">g</option>
+            <option value="L">L</option>
+            <option value="ml">ml</option>
+            <option value="tasse">tasse</option>
+            <option value="c. à soupe">c. à soupe</option>
+            <option value="c. à thé">c. à thé</option>
+            <option value="unité">unité</option>
+            <option value="pincée">pincée</option>
+        </select>
+        <button type="button" onclick="this.parentElement.remove()" style="background:none; border:none; color:#e91e8c; font-size:20px; cursor:pointer;">✕</button>
+    `;
+    list.appendChild(div);
+}
+
+// Ajoute une ligne par défaut au chargement
+addIngredient();
+</script>
+
 {% endblock %}

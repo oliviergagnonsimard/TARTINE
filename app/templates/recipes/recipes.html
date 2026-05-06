@@ -8,6 +8,12 @@
 <div style="align-items: center;">
 <h3 style="font-weight: bold; font-size: 60px; text-align: center; padding-bottom: 30px;">Mes recettes</h3>
 
+<div style="text-align: right; width: 80%; margin: auto; margin-bottom: 15px; text-align: center;">
+    <a href="{{ url_for('create_recipe') }}" class="btn btn-primary">
+        <i class="bi bi-plus-circle"></i> Créer une recette
+    </a>
+</div>
+
     <table style="border: 2px solid white; margin: auto; margin-top: 2%; width: 80%; text-align: center;">
         <tr class="header-row" style="border: 2px solid white">
             {% for header in headings %}
@@ -15,7 +21,7 @@
             {% endfor %}
         </tr>
         {% for row in data %}
-        <tr style="cursor:pointer">
+        <tr style="cursor:pointer" onclick="window.location.href='/recipes/{{ row[0] }}'">
             {% for cell in row %}
             <td class="cell">{{ cell }}</td>
         {% endfor %}

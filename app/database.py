@@ -147,10 +147,36 @@ def getUserByEmail(Email):
     return row
     
 
+def getRecetteWithIngredients(idRecette, idClient):
+    conn = connectToDB()
+    try:
+        with conn.cursor() as curs:
+            # La recette
+            curs.execute("""
+                SELECT "idRecette", nom, portions, instructions, "createdAt"
+                FROM recette
+                WHERE "idRecette" = %s AND "idClient" = %s
+            """, (idRecette, idClient))
+            recette = curs.fetchone()
+
+            # Les ingrédients
+            curs.execute("""
+                SELECT i.nom, ri.quantite, ri.unite
+                FROM recette_ingredient ri
+                JOIN ingredient i ON ri."idIngredient" = i."idIngredient"
+                WHERE ri."idRecette" = %s
+            """, (idRecette,))
+            ingredients = curs.fetchall()
+
+        return recette, ingredients
+    finally:
+        releaseConn(conn)
+
 def getUserRecipes(idClient: int):
     conn = connectToDB()
     with conn.cursor() as curs:
-        curs.execute("SELECT * FROM recette WHERE \"idClient\" = %s ORDER BY \"idRecette\"", (idClient,))
+        curs.execute("""SELECT \"idRecette\", nom, instructions, portions, TO_CHAR(\"createdAt\" AT TIME ZONE 'America/Montreal', 'DD/MM/YYYY HH24hMI') FROM recette
+                      WHERE \"idClient\" = %s ORDER BY \"idRecette\" """, (idClient,))
         rows = curs.fetchall()
         releaseConn(conn)
         return rows
@@ -201,7 +227,7 @@ def modifyRecipe(idClient, idRecette, newDesc):
 def getRecipe(idClient, idRecette):
     conn = connectToDB()
     with conn.cursor() as curs:
-        curs.execute("SELECT * FROM recette WHERE \"idClient\" = %s AND \"idRecette\" = %s", (idClient, idRecette))
+        curs.execute("SELECT idRecette, nom, instructions, portions, createdAt AT TIME ZONE \'America/Montreal\' FROM recette WHERE \"idClient\" = %s AND \"idRecette\" = %s", (idClient, idRecette))
         row = curs.fetchall()
     releaseConn(conn)
     return row
