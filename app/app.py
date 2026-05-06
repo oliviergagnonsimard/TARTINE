@@ -10,8 +10,9 @@ from main import *
 from database import *
 from r2 import imageExists, getImageUrl
 from email_service import *
-from datetime import date, timezone
+from datetime import date
 import re
+from functools import wraps
 
 STORES = ['maxi', 'metro', 'iga', 'superc', 'provigo']
 headings = ("idClient", "idRecette", "Description")
@@ -227,6 +228,7 @@ def login():
                 login_user(User(userId))
                 resetSessionData(userId)
                 updateUserRank()
+                updateLastLogin(userId)
                 return redirect(url_for('dashboard'))
         except ValueError:
             return render_template('login.html', error="Compte invalide")
@@ -392,6 +394,27 @@ def change_password():
     updatePassword(userID, password_hash)
     return redirect(url_for('dashboard') + '?success=Mot de passe changé!')
 
+def admin_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not current_user.is_authenticated:
+            return redirect(url_for('login'))
+        userID = session.get("userID")
+        clientInfo = getUserInfo(userID)
+        if clientInfo[10] != 'admin':  # index 10 = role
+            return redirect(url_for('index'))
+        return f(*args, **kwargs)
+    return decorated_function
+
+@app.route('/admin')
+@app.route('/admin/<int:page>')
+@admin_required
+def admin(page=1):
+    search = request.args.get('search', '').strip()
+    users = getAllUsers(page=page, limit=20, search=search)
+    total_users = countAllUsers(search=search)
+    total_pages = (total_users + 19) // 20
+    return render_template('admin.html', users=users, page=page, total_pages=total_pages, search=search)
 # Automatic download des circulaires -------------------------------
 
 scheduler = BackgroundScheduler()

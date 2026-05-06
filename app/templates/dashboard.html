@@ -34,6 +34,14 @@
   padding: 0;
 }
 
+#change-password-form table tr {
+    background-color: black !important;
+}
+
+#change-password-form table td {
+    background-color: black !important;
+}
+
   .toggle-switch {
     position: relative;
     display: inline-block;
@@ -89,7 +97,12 @@ input:checked + .slider:before {
       <div>
         <h3 style="font-weight: bold; font-size: 60px; text-decoration: underline;">Dashboard</h3> 
       </div>
-      <div>
+    <div style="display: flex; gap: 20px">
+        {% if clientInfo[10] == 'admin' %}
+            <a href="{{ url_for('admin') }}" style="color: #e91e8c;">
+                <i class="bi bi-person-square" style="font-size:30px; padding-bottom: 5px; color:#e91e8c"></i>
+            </a>
+        {% endif %}
         <h3 style="font-weight: bold; font-size: 32px;">Bonjour, {{ clientInfo[2] }} {{ clientInfo[3] }}!</h3>
       </div>
     </div>
@@ -117,11 +130,11 @@ input:checked + .slider:before {
                 </tr>
                 <tr>
                     <td><label>Date de naissance:</label></td>
-                    <td><p id="birthday" name="birthday">{{ clientInfo[4] }}</p></td>
+                    <td><p id="birthday" name="birthday">{{ clientInfo[4] }} ({{ clientInfo[-1] }} ans)</p></td>
                 </tr>
                 <tr>
-                    <td><label>Âge:</label></td>
-                    <td><p id="age">{{ clientInfo[-1] }}</p></td>
+                    <td><label>Type d'utilisateur:</label></td>
+                    <td><p id="age">{{ clientInfo[10] }}</p></td>
                 </tr>
                 <tr>
                     <td><label>Participe au classement:</label></td>
@@ -132,14 +145,25 @@ input:checked + .slider:before {
                 <td><label>Dernier changement de mot de passe:</label></td>
                 <td><p>{{ clientInfo[15].strftime('%d/%m/%Y %Hh%M') if clientInfo[15] else 'N/A' }}</p></td>
             </div>
+            <div style="display:flex; font-size: 13px; gap: 5px; color:grey;">
+                <td><label>Dernier login:</label></td>
+                <td><p>{{ clientInfo[9].strftime('%d/%m/%Y %Hh%M') if clientInfo[9] else 'N/A' }}</p></td>
+            </div>
             
             <div style="display: flex; flex-direction: column;">
-                <a id="modif" href="#" onclick="document.getElementById('edit-form').style.display='block'; this.style.display='none'; document.getElementById('info-form').style.display='none'">
+
+                <!-- BOUTONS POUR CHANGER INFOS-->
+                <a id="modif" href="#" style="color: #e91e8c;"
+                onclick="document.getElementById('edit-form').style.display='block'; this.style.display='none'; document.getElementById('info-form').style.display='none'">
                     Modifier mes informations</a>
-                    <a id="changePasswordText" href="#" onclick="document.getElementById('change-password-form').style.display='block'; this.style.display='none'">Changer mon mot de passe</a>
+                    
+                <a id="changePasswordText" href="#" style="color:#e91e8c"
+                    onclick="document.getElementById('change-password-form').style.display='block'; this.style.display='none'">Changer mon mot de passe</a>
+
+
                     <div id="change-password-form" style="display:none; margin-top: 20px;">
                         <form method="POST" action="/change-password">
-                            <table style="margin: 0 auto;">
+                            <table style="margin: 0 auto; background-color: black !important;">
                                 <tr>
                                     <td><label>Ancien mot de passe:</label></td>
                                     <td><input type="password" name="old_password"></td>
@@ -226,6 +250,8 @@ input:checked + .slider:before {
                     ">
                         {{ notif[2] }}
                         <br>
+                    <small style="color: #aaa;">ID: {{ notif[0] }}</small>
+
                     </div>
                     <small style="color: #aaa;">{{ notif[4].strftime('%Y-%m-%d %H:%M') }}</small>
                 </li>

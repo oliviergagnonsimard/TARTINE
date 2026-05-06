@@ -1,0 +1,105 @@
+
+{% extends 'base.html' %}
+{% block body %}
+
+<h3 style="font-weight: bold; font-size: 60px; text-align: center;">Admin Panel</h3>
+
+<!-- SECTION NOTIFICATION GÉNÉRALE -->
+<div style="margin: 30px auto; width: 80%; background: #2a2a2a; padding: 20px; border-radius: 10px;">
+    <h4 style="font-weight: bold;">Envoyer une notification</h4>
+    <form method="POST" action="/admin/notify">
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+            <input type="text" name="title" placeholder="Titre" style="padding: 8px; border-radius: 5px;">
+            <textarea name="message" placeholder="Message" style="padding: 8px; border-radius: 5px; height: 80px;"></textarea>
+            <div>
+                <label>Destinataires:</label>
+                <select name="target" style="padding: 8px; border-radius: 5px; margin-left: 10px;">
+                    <option value="all">Tous les users</option>
+                    <option value="specific">Users spécifiques</option>
+                </select>
+            </div>
+            <div id="specific-users" style="display:none;">
+                <textarea name="user_ids" placeholder="IDs séparés par des virgules (ex: 1,2,3)" 
+                    style="padding: 8px; border-radius: 5px; width: 100%;"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: fit-content;">Envoyer</button>
+        </div>
+    </form>
+</div>
+
+<div style="background: #2a2a2a; padding: 20px; border-radius: 10px;">
+
+    <div style="margin: auto; text-align: center;">
+        <form method="GET" action="/admin" style="text-align: center;">
+            <input type="text" name="search" value="{{ search }}" 
+                placeholder="Rechercher un user..."
+                style="padding: 8px; border-radius: 5px; width: 60%; margin-bottom: 15px;">
+                <button type="submit" class="btn btn-primary">Rechercher</button>
+                {% if search %}
+                    <a href="/admin" class="btn btn-secondary">Effacer</a>
+                {% endif %}
+        </form>
+    </div>
+    
+    <!-- SECTION LISTE DES USERS -->
+    <div style="margin: 30px auto; width: 80%;">
+        <h4 style="font-weight: bold;">Utilisateurs ({{ users|length }})</h4>
+        <table style="border: 2px solid white; width: 100%; text-align: center;">
+            <tr>
+                <th class="cell">ID</th>
+                <th class="cell">Prénom</th>
+                <th class="cell">Nom</th>
+                <th class="cell">Email</th>
+                <th class="cell">Role</th>
+                <th class="cell">Vérifié</th>
+                <th class="cell">Actions</th>
+            </tr>
+            {% for user in users %}
+            <tr>
+                <td class="cell">{{ user[0] }}</td>
+                <td class="cell">{{ user[2] }}</td>
+                <td class="cell">{{ user[3] }}</td>
+                <td class="cell">{{ user[1] }}</td>
+                <td class="cell">{{ user[4] }}</td>
+                <td class="cell">{{ '✅' if user[5] else '❌' }}</td>
+                <td class="cell" style="display: flex; gap: 5px; justify-content: center; padding: 10px;">
+                    <form method="POST" action="/admin/reset-timer/{{ user[0] }}">
+                        <button type="submit" class="btn btn-primary btn-sm">Reset timer MDP</button>
+                    </form>
+                    <form method="POST" action="/admin/notify-user/{{ user[0] }}">
+                        <button type="submit" class="btn btn-secondary btn-sm">Notifier</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div style="text-align: center; margin-top: 20px; display: flex; justify-content: center; gap: 10px;">
+        {% if page > 1 %}
+            <a href="/admin/{{ page - 1 }}?search={{ search }}" class="btn btn-primary">← Précédent</a>
+        {% endif %}
+        <span style="padding: 8px 16px;">Page {{ page }} / {{ total_pages }}</span>
+        {% if page < total_pages %}
+            <a href="/admin/{{ page + 1 }}?search={{ search }}" class="btn btn-primary">Suivant →</a>
+        {% endif %}
+    </div>
+</div>
+    
+    <script>
+document.querySelector('select[name="target"]').addEventListener('change', function() {
+    document.getElementById('specific-users').style.display = 
+        this.value === 'specific' ? 'block' : 'none';
+});
+
+function filterUsers() {
+    const query = document.getElementById('search').value.toLowerCase();
+    const rows = document.querySelectorAll('table tr:not(:first-child)');
+    
+    rows.forEach(row => {
+        const text = row.innerText.toLowerCase();
+        row.style.display = text.includes(query) ? '' : 'none';
+    });
+}
+</script>
+
+{% endblock %}

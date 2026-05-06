@@ -69,41 +69,6 @@ def updatePassword(idClient, password_hash):
     finally:
         releaseConn(conn)
 
-def createNotification(idClient, title, message):
-    conn = connectToDB()
-    with conn.cursor() as curs:
-        try:
-            curs.execute(
-                'INSERT INTO notification ("idClient", title, message) VALUES (%s, %s, %s)',
-                (idClient, title, message)
-            )
-            conn.commit()
-        except Exception as e:
-            print(f"SQL ERROR (createNotification): {e}")
-            conn.rollback()
-    releaseConn(conn)
-
-def getNotifications(idClient):
-    conn = connectToDB()
-    with conn.cursor() as curs:
-        curs.execute(
-            'SELECT id, title, message, "isRead", "creationDate" AT TIME ZONE \'America/Montreal\' FROM notification '
-            'WHERE "idClient" = %s ORDER BY "creationDate" DESC LIMIT 20',
-            (idClient,)
-        )
-        rows = curs.fetchall()
-    releaseConn(conn)
-    return rows
-
-def readNotification(idClient, idNotif):
-    conn = connectToDB()
-
-    with conn.cursor() as curs:
-        curs.execute("UPDATE notification SET \"isRead\" = TRUE WHERE \"idClient\" = %s AND id = %s;", (idClient, idNotif))
-        conn.commit()
-
-    releaseConn(conn)
-
 def getLeaderboard(page=1, limit=50):
     conn = connectToDB()
     offset = (page - 1) * limit
@@ -122,8 +87,9 @@ def getUserInfo(idClient):
         with conn.cursor() as curs:
             curs.execute("""
                             SELECT "idClient", email, "firstName", "lastName", "birthDate", ranked,
-                                username, password_hash, "created_at", "last_login", role,
-                                is_verified, verification_token, reset_token, reset_token_expiry,
+                                username, password_hash, "created_at", 
+                                "last_login" AT TIME ZONE 'America/Montreal',
+                                 role, is_verified, verification_token, reset_token, reset_token_expiry,
                                 "last_password_change" AT TIME ZONE 'America/Montreal',
                                 EXTRACT(YEAR FROM AGE("birthDate")) AS age
                             FROM client 
@@ -259,11 +225,18 @@ def deleteUnverifiedAccounts():
         conn.commit()
     releaseConn(conn)
 
-def getAllUsers():
+def getAllUsers(page=1, limit=20, search=''):
+    offset = (page - 1) * limit
     conn = connectToDB()
     try:
         with conn.cursor() as curs:
-            curs.execute('SELECT "idClient" FROM client WHERE is_verified = TRUE')
+            curs.execute("""
+                SELECT "idClient", email, "firstName", "lastName", role, is_verified, "last_password_change"
+                FROM client 
+                WHERE "firstName" ILIKE %s OR "lastName" ILIKE %s OR email ILIKE %s OR CAST("idClient" AS TEXT) LIKE %s
+                ORDER BY "idClient"
+                LIMIT %s OFFSET %s
+            """, (f'%{search}%', f'%{search}%', f'%{search}%', f'%{search}%', limit, offset))
             rows = curs.fetchall()
         return rows
     finally:
@@ -287,7 +260,101 @@ def passwordTimeLimitRemove(userID):
     with conn.cursor() as curs:
         curs.execute('UPDATE client SET last_password_change = NULL WHERE \"userID\" = %s', (userID,))            
         rows = curs.fetchall()
+
+    conn.commit()
+    
+    releaseConn(conn)
         
     return rows
+
+def countAllUsers(search=''):
+    conn = connectToDB()
+    try:
+        with conn.cursor() as curs:
+            curs.execute("""
+                SELECT COUNT(*) FROM client
+                WHERE "firstName" ILIKE %s OR "lastName" ILIKE %s OR email ILIKE %s OR CAST("idClient" AS TEXT) LIKE %s
+            """, (f'%{search}%', f'%{search}%', f'%{search}%', f'%{search}%'))
+            return curs.fetchone()[0]
+    finally:
+        releaseConn(conn)
+
+def updateLastLogin(idClient):
+    conn = connectToDB()
+    try:
+        with conn.cursor() as curs:
+            curs.execute(
+                'UPDATE client SET last_login = NOW() WHERE "idClient" = %s',
+                (idClient,)
+            )
+            conn.commit()
+    finally:
+        releaseConn(conn)
+
+#================
+# Notifications
+#================
+
+def createNotification(idClient, title, message):
+    conn = connectToDB()
+    with conn.cursor() as curs:
+        try:
+            curs.execute(
+                'INSERT INTO notification ("idClient", title, message) VALUES (%s, %s, %s)',
+                (idClient, title, message)
+            )
+            conn.commit()
+        except Exception as e:
+            print(f"SQL ERROR (createNotification): {e}")
+            conn.rollback()
+    releaseConn(conn)
+
+def getNotifications(idClient):
+    conn = connectToDB()
+    with conn.cursor() as curs:
+        curs.execute(
+            'SELECT id, title, message, "isRead", "creationDate" AT TIME ZONE \'America/Montreal\' FROM notification '
+            'WHERE "idClient" = %s ORDER BY "creationDate" DESC LIMIT 20',
+            (idClient,)
+        )
+        rows = curs.fetchall()
+    releaseConn(conn)
+    return rows
+
+def readNotification(idClient, idNotif):
+    conn = connectToDB()
+
+    with conn.cursor() as curs:
+        curs.execute("UPDATE notification SET \"isRead\" = TRUE WHERE \"idClient\" = %s AND id = %s;", (idClient, idNotif))
+        conn.commit()
+
+    releaseConn(conn)
+
+def deleteNotification(userID, notifID):
+    conn = connectToDB()
+
+    with conn.cursor() as curs:
+        curs.execute('DELETE FROM notification WHERE \"userID\" = %s AND \"id\" = %s', (userID, notifID))            
+        rows = curs.fetchall()
+
+    conn.commit()
+    
+    releaseConn(conn)
+        
+    return rows
+
+def getAdminStats():
+    conn = connectToDB()
+
+    with conn.cursor() as curs:
+        curs.execute('SELECT * FROM ')            
+        rows = curs.fetchall()
+
+    conn.commit()
+    
+    releaseConn(conn)
+        
+    return rows
+
 
 print("database.py done.")
