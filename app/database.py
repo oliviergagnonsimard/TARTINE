@@ -198,7 +198,7 @@ def addRecipe(idClient, desc):
     releaseConn(conn)
 
 
-def delRecipe(idClient, idRecette):
+def deleteRecipe(idClient, idRecette):
     conn = connectToDB()
     with conn.cursor() as curs:
         curs.execute("SELECT \"idRecette\" FROM recette WHERE \"idClient\" = %s AND \"idRecette\" = %s", (idClient, idRecette))

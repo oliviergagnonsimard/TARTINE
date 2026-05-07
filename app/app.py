@@ -358,6 +358,12 @@ def create_recipe():
     
     return render_template('recipes/recipes_create.html')
 
+@app.route('/recipes/<int:idRecette>/delete', methods=['GET', 'POST'])
+@login_required
+def delete_recipe(idRecette):
+    userID = session.get("userID")
+    deleteRecipe(userID, idRecette)
+    return render_template('recipes/recipes.html')
 
 @app.route('/leaderboard')
 @app.route('/leaderboard/<int:page>')
