@@ -135,7 +135,7 @@ def getNameFromId(idClient):
         except Exception as e:
             print(f"SQL ERROR: {e}")
             conn.rollback()
-    releaseConn(conn)
+            releaseConn(conn)
 
 def getUserByEmail(Email):
     conn = connectToDB()
@@ -284,14 +284,11 @@ def passwordTimeLimitRemove(userID):
     conn = connectToDB()
 
     with conn.cursor() as curs:
-        curs.execute('UPDATE client SET last_password_change = NULL WHERE \"userID\" = %s', (userID,))            
-        rows = curs.fetchall()
+        curs.execute('UPDATE client SET last_password_change = NULL WHERE \"idClient\" = %s', (userID,))            
 
     conn.commit()
     
     releaseConn(conn)
-        
-    return rows
 
 def countAllUsers(search=''):
     conn = connectToDB()
@@ -335,13 +332,13 @@ def createNotification(idClient, title, message):
             conn.rollback()
     releaseConn(conn)
 
-def getNotifications(idClient):
+def getNotifications(idClient, hidden=True):
     conn = connectToDB()
     with conn.cursor() as curs:
         curs.execute(
             'SELECT id, title, message, "isRead", "creationDate" AT TIME ZONE \'America/Montreal\' FROM notification '
-            'WHERE "idClient" = %s ORDER BY "creationDate" DESC LIMIT 20',
-            (idClient,)
+            'WHERE "idClient" = %s AND "hidden" = %s ORDER BY "creationDate" DESC LIMIT 20',
+            (idClient, hidden)
         )
         rows = curs.fetchall()
     releaseConn(conn)
@@ -356,11 +353,23 @@ def readNotification(idClient, idNotif):
 
     releaseConn(conn)
 
-def deleteNotification(userID, notifID):
+def dismissNotification(idClient, idNotif):
     conn = connectToDB()
 
     with conn.cursor() as curs:
-        curs.execute('DELETE FROM notification WHERE \"userID\" = %s AND \"id\" = %s', (userID, notifID))            
+        curs.execute(
+            'UPDATE notification SET "hidden" = TRUE WHERE "idClient" = %s AND id = %s',
+            (idClient, idNotif)
+        )
+        conn.commit()
+        
+    releaseConn(conn)
+
+def deleteNotification(userID, idNotif):
+    conn = connectToDB()
+
+    with conn.cursor() as curs:
+        curs.execute('DELETE FROM notification WHERE \"userID\" = %s AND \"id\" = %s', (userID, idNotif))            
         rows = curs.fetchall()
 
     conn.commit()

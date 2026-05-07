@@ -263,7 +263,7 @@ def dashboard():
     data = getUserRecipes(userID)
     name = session.get("name")
     clientInfo = getUserInfo(userID)
-    notifications = getNotifications(userID)
+    notifications = getNotifications(userID, False)
 
     return render_template('dashboard.html', userID=userID, data=data, name=name, clientInfo=clientInfo, notifications=notifications)
 
@@ -384,7 +384,7 @@ def read_notification(id):
 @login_required
 def get_notifications():
     userID = session.get("userID")
-    notifs = getNotifications(userID)
+    notifs = getNotifications(userID, False)
     return jsonify([{
         "id": n[0],
         "title": n[1],
@@ -392,6 +392,12 @@ def get_notifications():
         "isread": n[3],
         "created_at": n[4].strftime('%d/%m/%Y %Hh%M')
     } for n in notifs])
+
+@app.route('/notifications/dismiss/<int:id>', methods=['POST'])
+def dismiss_notification(id):
+    idClient = session.get('userID')
+    dismissNotification(idClient, id)
+    return jsonify({'success': True})
 
 @app.route('/forgot-password', methods=['GET', 'POST'])
 def forgot_password():
