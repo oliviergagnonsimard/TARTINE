@@ -174,12 +174,31 @@ def getRecetteWithIngredients(idRecette, idClient):
 
 def getUserRecipes(idClient: int):
     conn = connectToDB()
-    with conn.cursor() as curs:
-        curs.execute("""SELECT \"idRecette\", nom, instructions, portions, TO_CHAR(\"createdAt\" AT TIME ZONE 'America/Montreal', 'DD/MM/YYYY HH24hMI') FROM recette
-                      WHERE \"idClient\" = %s ORDER BY \"idRecette\" """, (idClient,))
-        rows = curs.fetchall()
+    try:
+        with conn.cursor() as curs:
+            curs.execute("""
+                            SELECT "idRecette", ordre, nom, portions, 
+                                TO_CHAR("createdAt" AT TIME ZONE 'America/Montreal', 'DD/MM/YYYY HH24hMI')
+                            FROM recette
+                            WHERE "idClient" = %s 
+                            ORDER BY ordre ASC, "idRecette" ASC
+                        """, (idClient,))
+            return curs.fetchall()
+    finally:
         releaseConn(conn)
-        return rows
+
+def updateRecipesOrder(idClient, ordre):
+    conn = connectToDB()
+    try:
+        with conn.cursor() as curs:
+            for item in ordre:
+                curs.execute(
+                    'UPDATE recette SET ordre = %s WHERE "idRecette" = %s AND "idClient" = %s',
+                    (item['ordre'], item['id'], idClient)
+                )
+        conn.commit()
+    finally:
+        releaseConn(conn)
 
 def addRecipe(idClient, desc):
     conn = connectToDB()
@@ -202,6 +221,10 @@ def deleteRecipe(idClient, idRecette):
     conn = connectToDB()
     with conn.cursor() as curs:
         curs.execute("SELECT \"idRecette\" FROM recette WHERE \"idClient\" = %s AND \"idRecette\" = %s", (idClient, idRecette))
+
+        if curs.fetchone() is None:
+            return
+
         RecipeId = curs.fetchone()[0]
 
         try:
@@ -362,7 +385,7 @@ def dismissNotification(idClient, idNotif):
             (idClient, idNotif)
         )
         conn.commit()
-        
+
     releaseConn(conn)
 
 def deleteNotification(userID, idNotif):

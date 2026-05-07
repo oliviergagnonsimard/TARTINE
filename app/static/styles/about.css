@@ -44,7 +44,7 @@ table tr {
     transition: transform 0.5s ease;
 }
 
-table tr:not(.header-row):hover {
+.interactive-table table tr:not(.header-row):hover {
     transition: background-color 0.2s ease;
     transition: transform 0.5s ease;
     background-color: #555555;

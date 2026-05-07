@@ -1,32 +1,109 @@
 {% extends 'base.html' %}
 
 {% block head %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.2/Sortable.min.js"></script>
+<style>
+    #sortable-body tr {
+    user-select: none;
+}
+</style>
 {% endblock %}
 
 {% block body %}
 
-<div style="align-items: center;">
-<h3 style="font-weight: bold; font-size: 60px; text-align: center; padding-bottom: 30px;">Mes recettes</h3>
-
-<div style="text-align: right; width: 80%; margin: auto; margin-bottom: 15px; text-align: center;">
-    <a href="{{ url_for('create_recipe') }}" class="btn btn-primary" style="background-color:#e91e8c; border: #e91e8c;">
+<div style="text-align: center; margin-bottom: 15px; display: flex; gap: 10px; justify-content: center;">
+    <a id="btnCreate" href="{{ url_for('create_recipe') }}" class="btn btn-primary" style="background-color:#e91e8c; border-color:#e91e8c;">
         <i class="bi bi-plus-circle"></i> Créer une recette
     </a>
+    <button id="btnEdit" onclick="toggleEditMode()" class="btn btn-outline-light">
+        <i class="bi bi-pencil"></i> Réorganiser
+    </button>
+    <button id="btnSave" onclick="saveOrder()" class="btn btn-success" style="display:none;">
+        <i class="bi bi-check"></i> Sauvegarder l'ordre
+    </button>
+    <button id="btnCancel" onclick="cancelEdit()" class="btn btn-outline-secondary" style="display:none;">
+        Annuler
+    </button>
 </div>
 
-    <table style="border: 2px solid white; margin: auto; margin-top: 2%; width: 80%; text-align: center;">
+<div class="interactive-table">
+    <table id="recipes-table" style="border: 2px solid white; margin: auto; margin-top: 2%; text-align: center;">
         <tr class="header-row" style="border: 2px solid white">
-            {% for header in headings %}
-            <th class="cell">{{ header }}</th>
-            {% endfor %}
+            <th class="cell" style="width: 40px;">Ordre</th>
+            <th class="cell" style="width: 200px">Nom</th>
+            <th class="cell" style="width: 80px;">Portions</th>
+            <th class="cell" style="width: 140px;">Date de création</th>
         </tr>
-        {% for row in data %}
-        <tr style="cursor:pointer" onclick="window.location.href='/recipes/{{ row[0] }}'">
-            {% for cell in row %}
-            <td class="cell">{{ cell }}</td>
-        {% endfor %}
-    </tr>
-      {% endfor %}
+        <tbody id="sortable-body">
+            {% for row in data %}
+            <tr data-id="{{ row[0] }}" style="cursor:pointer" onclick="window.location.href='/recipes/{{ row[0] }}'">
+                {% for cell in row[1:] %}   {# ← skip idRecette #}
+                <td class="cell">{{ cell }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
     </table>
 </div>
+
+<script>
+let sortable = null;
+let editMode = false;
+
+function toggleEditMode() {
+    editMode = true;
+    document.getElementById('btnCreate').style.display = 'none';
+    document.getElementById('btnEdit').style.display = 'none';
+    document.getElementById('btnSave').style.display = 'inline-block';
+    document.getElementById('btnCancel').style.display = 'inline-block';
+
+    // Désactiver le click vers /recipes/X
+    document.querySelectorAll('#sortable-body tr').forEach(tr => {
+        tr.style.cursor = 'grab';
+        tr.onclick = null;
+    });
+
+    // Activer le drag
+    sortable = Sortable.create(document.getElementById('sortable-body'), {
+        animation: 150,
+        ghostClass: 'dragging'
+    });
+}
+
+function cancelEdit() {
+    location.reload();
+}
+
+function saveOrder() {
+    const rows = document.querySelectorAll('#sortable-body tr');
+    const ordre = Array.from(rows).map((tr, index) => ({
+        id: parseInt(tr.dataset.id),
+        ordre: index + 1
+    }));
+
+    console.log('ordre envoyé:', ordre); // ← ajoute ça
+
+    fetch('/recipes/reorder', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ordre })
+    })
+    .then(r => {
+        console.log('status:', r.status); // ← et ça
+        return r.json();
+    })
+    .then(data => {
+        console.log('réponse:', data); // ← et ça
+        if (data.success) location.reload();
+    })
+    .catch(err => console.error('erreur fetch:', err)); // ← et ça
+}
+</script>
+
+<style>
+.dragging {
+    opacity: 0.5;
+    background: #333 !important;
+}
+</style>
 {% endblock %}

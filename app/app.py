@@ -318,9 +318,17 @@ def recipes():
     userID = session.get("userID")
     data = getUserRecipes(userID)
     name = session.get("name")
-    headings = ["ID", "Nom", "Instructions", "Portions", "Date de création"]
+    headings = ["Ordre", "Nom", "Portions", "Date de création"]
 
     return render_template('recipes/recipes.html', userID=userID, headings=headings, data=data, name=name)
+
+@app.route('/recipes/reorder', methods=['POST'])
+@login_required
+def reorder_recipes():
+    userID = session.get("userID")
+    data = request.get_json()
+    updateRecipesOrder(userID, data['ordre'])
+    return jsonify({'success': True})
 
 @app.route('/recipes/<int:idRecette>')
 @login_required
@@ -363,7 +371,14 @@ def create_recipe():
 def delete_recipe(idRecette):
     userID = session.get("userID")
     deleteRecipe(userID, idRecette)
-    return render_template('recipes/recipes.html')
+
+    return redirect(url_for('recipes'))
+
+# ====================================
+# ====================================
+#             LEADERBOARD
+# ====================================
+# ====================================
 
 @app.route('/leaderboard')
 @app.route('/leaderboard/<int:page>')
@@ -373,6 +388,12 @@ def leaderboard(page=1):
     userId = session.get("userID")
 
     return render_template('leaderboard.html', leaderboard=leaderboard, headings=headings, page=page, current_Id=userId)
+
+# ====================================
+# ====================================
+#            NOTIFICATIONS
+# ====================================
+# ====================================
 
 @app.route('/notifications/read/<int:id>', methods=['POST'])
 def read_notification(id):
