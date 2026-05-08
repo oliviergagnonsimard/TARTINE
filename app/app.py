@@ -374,6 +374,15 @@ def delete_recipe(idRecette):
 
     return redirect(url_for('recipes'))
 
+# app.py
+@app.route('/recipes/<int:idRecette>/edit', methods=['POST'])
+@login_required
+def edit_recipe(idRecette):
+    userID = session.get("userID")
+    data = request.get_json()
+    updateRecette(userID, idRecette, data['nom'], data['portions'], data['instructions'], data['ingredients'])
+    return jsonify({'success': True})
+
 # ====================================
 # ====================================
 #             LEADERBOARD

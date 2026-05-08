@@ -14,12 +14,12 @@
 <div style="align-items: center;">
 
     <!-- Title + User Badge Row -->
-    <div style="display: flex; position: relative;">
+    <div style="display: flex; position: relative; min-height: 160px;">
 
-        <div style="width: 100%; text-align: center;">
-            <h3 style="font-weight: bold; font-size: 60px; text-align: center;">Classement</h3>
-            <h3 style="font-weight: bold; font-size: 28px; text-align: center; padding-bottom: 30px;">du nombre de recettes!</h3>
-        </div>
+        <div style="text-align: center; width: 100%; padding-right: 0; margin: auto; position: fixed">
+    <h3 style="font-weight: bold; font-size: 60px;">Classement</h3>
+    <h3 style="font-weight: bold; font-size: 28px; padding-bottom: 30px;">du nombre de recettes!</h3>
+</div>
 
         <!-- Current user badge (top-right) -->
         <div style="position: absolute; top: 20px; right: 20px; text-align: right;">
@@ -38,7 +38,6 @@
                 {% endif %}
             {% endfor %}
         </div>
-
     </div>
     <!-- End Title + User Badge Row -->
 

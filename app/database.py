@@ -216,6 +216,26 @@ def addRecipe(idClient, desc):
             conn.rollback()
     releaseConn(conn)
 
+# database.py
+def updateRecette(idClient, idRecette, nom, portions, instructions, ingredients):
+    conn = connectToDB()
+    try:
+        with conn.cursor() as curs:
+            # Update la recette
+            curs.execute("""
+                UPDATE recette SET nom = %s, portions = %s, instructions = %s
+                WHERE "idRecette" = %s AND "idClient" = %s
+            """, (nom, portions, instructions, idRecette, idClient))
+
+            # Remplace tous les ingrédients
+            curs.execute('DELETE FROM recette_ingredient WHERE "idRecette" = %s', (idRecette,))
+            for ing in ingredients:
+                if ing['nom'].strip():
+                    addIngredientToRecette(idRecette, ing['nom'], ing['quantite'], ing['unite'])
+        conn.commit()
+    finally:
+        releaseConn(conn)
+
 
 def deleteRecipe(idClient, idRecette):
     conn = connectToDB()
