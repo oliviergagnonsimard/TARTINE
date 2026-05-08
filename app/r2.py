@@ -30,3 +30,18 @@ def imageExists(r2Path):
 
 def getImageUrl(r2Path):
     return f"{R2_PUBLIC_URL}/{r2Path}"
+
+def deleteFolderFromR2(prefix: str):
+    """Supprime tous les objets sous un préfixe donné dans R2."""
+    paginator = s3.get_paginator("list_objects_v2")
+    objects_to_delete = []
+
+    for page in paginator.paginate(Bucket=R2_BUCKET, Prefix=prefix):
+        for obj in page.get("Contents", []):
+            objects_to_delete.append({"Key": obj["Key"]})
+
+    if objects_to_delete:
+        s3.delete_objects(Bucket=R2_BUCKET, Delete={"Objects": objects_to_delete})
+        print(f"🗑️ {len(objects_to_delete)} fichiers supprimés sous '{prefix}'")
+    else:
+        print(f"⚠️ Aucun fichier trouvé sous '{prefix}'")

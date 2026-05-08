@@ -475,6 +475,14 @@ def insertDiscount(idEpicerie, week_start, product_name, discount_pct, original_
     finally:
         releaseConn(conn)
 
+def clearDiscounts():
+    conn = connectToDB()
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM discount")
+    conn.commit()
+    cursor.close()
+    conn.close()
+
 def getIdEpicerie(nom):
     conn = connectToDB()
     try:

@@ -13,6 +13,10 @@ def getFlyerWeek():
     next_wednesday = last_thursday + timedelta(days=6)
     return last_thursday, next_wednesday
 
+def getPrevWeekStart(current: str) -> str:
+    d = date.fromisoformat(current)
+    return (d - timedelta(weeks=1)).isoformat()
+
 def getFlyerStartWeekStr():
     week = getFlyerWeek()
     return str(week[0].date())

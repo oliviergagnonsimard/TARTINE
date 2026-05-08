@@ -8,7 +8,7 @@ import threading
 import os
 from main import *
 from database import *
-from r2 import imageExists, getImageUrl
+from r2 import imageExists, getImageUrl, deleteFolderFromR2
 from email_service import *
 from datetime import date
 import re
@@ -54,18 +54,29 @@ def load_user(userID):
 def downloadFlyersJob():
     print("⏰ Téléchargement automatique des circulaires...")
     if not checkIfFlyersAlreadyDownloaded():
+        
+        week_start = getFlyerStartWeekStr()
+        prev_week = getFlyerWeek(week_start)  # à importer/définir
+
+        # 1. Vider la table discounts
+        print("🧹 Suppression des anciens rabais en base...")
+        clearDiscounts()
+
+        # 2. Supprimer les anciens circulaires dans R2
+        print("☁️  Suppression des anciens circulaires R2...")
+        for store in STORES:
+            deleteFolderFromR2(f"circulaires/{store}_{prev_week}/")
+
+        # 3. Télécharger les nouveaux circulaires
         DownloadAllCirculaires()
         print("✅ Circulaires téléchargées!")
 
-        # Scraper chaque store
-        week_start = getFlyerStartWeekStr()
-        stores = getAllEpiceries()  # retourne ['maxi', 'metro', 'iga', ...]
-        
-        for store in stores:
-            idEpicerie = getIdEpicerie(store)  # à ajouter dans database.py
+        # 4. Scraper chaque store
+        for store in STORES:
+            idEpicerie = getIdEpicerie(store)
             scrapeStoreFlyer(store, idEpicerie, week_start)
 
-        # Notifier les users
+        # 5. Notifier les users
         users = getAllUsers(limit=9999)
         for user in users:
             createNotification(user[0], "Nouveaux circulaires!", "Les circulaires de la semaine sont disponibles!")
