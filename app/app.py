@@ -13,6 +13,7 @@ from email_service import *
 from datetime import date
 import re
 from functools import wraps
+from scrapper import *
 
 STORES = ['maxi', 'metro', 'iga', 'superc', 'provigo']
 
@@ -54,14 +55,22 @@ def downloadFlyersJob():
     print("⏰ Téléchargement automatique des circulaires...")
     if not checkIfFlyersAlreadyDownloaded():
         DownloadAllCirculaires()
-        print("✅ Circulaires téléchargées et uploadées sur R2 !")
+        print("✅ Circulaires téléchargées!")
+
+        # Scraper chaque store
+        week_start = getFlyerStartWeekStr()
+        stores = getAllEpiceries()  # retourne ['maxi', 'metro', 'iga', ...]
         
-        # Envoyer une notif à tous les users
-        users = getAllUsers()  # à créer dans main.py
+        for store in stores:
+            idEpicerie = getIdEpicerie(store)  # à ajouter dans database.py
+            scrapeStoreFlyer(store, idEpicerie, week_start)
+
+        # Notifier les users
+        users = getAllUsers(limit=9999)
         for user in users:
             createNotification(user[0], "Nouveaux circulaires!", "Les circulaires de la semaine sont disponibles!")
     else:
-        print("✅ Circulaires déjà à jour !")
+        print("✅ Circulaires déjà à jour!")
 
 def updateUserRank():
     userId = session.get("userID")

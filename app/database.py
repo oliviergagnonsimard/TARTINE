@@ -33,6 +33,7 @@ def connectToDB():
 
 def releaseConn(conn):
     connection_pool.putconn(conn)
+
 def getURI():
     user =     os.environ.get("DB_USER")
     pwd =      os.environ.get("DB_PASSWORD")
@@ -44,16 +45,15 @@ def getURI():
 def createUser(firstName, lastName, email, password_hash, birthday=None):
     conn = connectToDB()
     with conn.cursor() as curs:
-        curs.execute(   """
-                            INSERT INTO client ("firstName", "lastName", "birthDate", "email", "password_hash")
-                            VALUES (%s, %s, %s, %s, %s)
-                            RETURNING "idClient"
-                        """, (firstName, lastName, birthday, email, password_hash))
+        curs.execute("""
+                        INSERT INTO "user" ("firstName", "lastName", "birthDate", "email", "password_hash")
+                        VALUES (%s, %s, %s, %s, %s)
+                        RETURNING "idClient"
+                    """, (firstName, lastName, birthday, email, password_hash))
         
         userID = curs.fetchone()[0]
         conn.commit()
     releaseConn(conn)
-
     return userID
 
 def updatePassword(idClient, password_hash):
@@ -61,7 +61,7 @@ def updatePassword(idClient, password_hash):
     try:
         with conn.cursor() as curs:
             curs.execute(
-                'UPDATE client SET password_hash = %s, reset_token = NULL, reset_token_expiry = NULL, '
+                'UPDATE "user" SET password_hash = %s, reset_token = NULL, reset_token_expiry = NULL, '
                 '"last_password_change" = NOW() WHERE "idClient" = %s',
                 (password_hash, idClient)
             )
@@ -92,7 +92,7 @@ def getUserInfo(idClient):
                                  role, is_verified, verification_token, reset_token, reset_token_expiry,
                                 "last_password_change" AT TIME ZONE 'America/Montreal',
                                 EXTRACT(YEAR FROM AGE("birthDate")) AS age
-                            FROM client 
+                            FROM "user" 
                             WHERE "idClient" = %s
                         """, (idClient,))
             row = curs.fetchone()
@@ -104,7 +104,7 @@ def getUserInfo(idClient):
 def setUserInfo(idClient, Courriel, Prénom, Nom, Birthday, participe):
     conn = connectToDB()
     with conn.cursor() as curs:
-        curs.execute("UPDATE client SET \"email\" = %s, \"firstName\" = %s, \"lastName\" = %s, \"birthDate\" = %s, \"ranked\" = %s WHERE \"idClient\" = %s",
+        curs.execute('UPDATE "user" SET "email" = %s, "firstName" = %s, "lastName" = %s, "birthDate" = %s, "ranked" = %s WHERE "idClient" = %s',
                       (Courriel, Prénom, Nom, Birthday, participe, idClient))
     conn.commit()
     releaseConn(conn)
@@ -113,21 +113,19 @@ def showClients():
     conn = connectToDB()
     with conn.cursor() as curs:
         try:
-            curs.execute(f"SELECT * FROM client")
+            curs.execute('SELECT * FROM "user"')
             rows = curs.fetchall()
         except Exception as e:
             print(f"SQL ERROR: {e}")
             conn.rollback()
-
     releaseConn(conn)
-    
     return rows
 
 def getNameFromId(idClient):
     conn = connectToDB()
     with conn.cursor() as curs:
         try:
-            curs.execute("SELECT \"firstName\", \"lastName\" FROM client WHERE \"idClient\" = %s", (idClient,))
+            curs.execute('SELECT "firstName", "lastName" FROM "user" WHERE "idClient" = %s', (idClient,))
             row = curs.fetchone()
             name = f"{row[0]} {row[1]}"
             releaseConn(conn)
@@ -140,29 +138,25 @@ def getNameFromId(idClient):
 def getUserByEmail(Email):
     conn = connectToDB()
     with conn.cursor() as curs:
-        curs.execute("SELECT * FROM client WHERE \"email\" = %s", (Email,))
+        curs.execute('SELECT * FROM "user" WHERE "email" = %s', (Email,))
         row = curs.fetchone()
-
     releaseConn(conn)
     return row
-    
 
 def getRecetteWithIngredients(idRecette, idClient):
     conn = connectToDB()
     try:
         with conn.cursor() as curs:
-            # La recette
             curs.execute("""
                 SELECT "idRecette", nom, portions, instructions, "createdAt"
-                FROM recette
+                FROM recipe
                 WHERE "idRecette" = %s AND "idClient" = %s
             """, (idRecette, idClient))
             recette = curs.fetchone()
 
-            # Les ingrédients
             curs.execute("""
                 SELECT i.nom, ri.quantite, ri.unite
-                FROM recette_ingredient ri
+                FROM recipe_ingredient ri
                 JOIN ingredient i ON ri."idIngredient" = i."idIngredient"
                 WHERE ri."idRecette" = %s
             """, (idRecette,))
@@ -179,7 +173,7 @@ def getUserRecipes(idClient: int):
             curs.execute("""
                             SELECT "idRecette", ordre, nom, portions, 
                                 TO_CHAR("createdAt" AT TIME ZONE 'America/Montreal', 'DD/MM/YYYY HH24hMI')
-                            FROM recette
+                            FROM recipe
                             WHERE "idClient" = %s 
                             ORDER BY ordre ASC, "idRecette" ASC
                         """, (idClient,))
@@ -193,7 +187,7 @@ def updateRecipesOrder(idClient, ordre):
         with conn.cursor() as curs:
             for item in ordre:
                 curs.execute(
-                    'UPDATE recette SET ordre = %s WHERE "idRecette" = %s AND "idClient" = %s',
+                    'UPDATE recipe SET ordre = %s WHERE "idRecette" = %s AND "idClient" = %s',
                     (item['ordre'], item['id'], idClient)
                 )
         conn.commit()
@@ -203,12 +197,12 @@ def updateRecipesOrder(idClient, ordre):
 def addRecipe(idClient, desc):
     conn = connectToDB()
     with conn.cursor() as curs:
-        curs.execute("SELECT * FROM recette WHERE \"idClient\" = %s ORDER BY \"idRecette\" DESC", (idClient,))
+        curs.execute('SELECT * FROM recipe WHERE "idClient" = %s ORDER BY "idRecette" DESC', (idClient,))
         newRecipeId = curs.fetchone()[1]
         newRecipeId += 1
 
         try:
-            curs.execute("INSERT INTO recette VALUES(%s, %s, %s)", (idClient, newRecipeId, desc))
+            curs.execute("INSERT INTO recipe VALUES(%s, %s, %s)", (idClient, newRecipeId, desc))
             print(f"New recipe ({newRecipeId}) added to UserID: {idClient}")
             conn.commit()
         except Exception as e:
@@ -216,19 +210,16 @@ def addRecipe(idClient, desc):
             conn.rollback()
     releaseConn(conn)
 
-# database.py
 def updateRecette(idClient, idRecette, nom, portions, instructions, ingredients):
     conn = connectToDB()
     try:
         with conn.cursor() as curs:
-            # Update la recette
             curs.execute("""
-                UPDATE recette SET nom = %s, portions = %s, instructions = %s
+                UPDATE recipe SET nom = %s, portions = %s, instructions = %s
                 WHERE "idRecette" = %s AND "idClient" = %s
             """, (nom, portions, instructions, idRecette, idClient))
 
-            # Remplace tous les ingrédients
-            curs.execute('DELETE FROM recette_ingredient WHERE "idRecette" = %s', (idRecette,))
+            curs.execute('DELETE FROM recipe_ingredient WHERE "idRecette" = %s', (idRecette,))
             for ing in ingredients:
                 if ing['nom'].strip():
                     addIngredientToRecette(idRecette, ing['nom'], ing['quantite'], ing['unite'])
@@ -236,11 +227,10 @@ def updateRecette(idClient, idRecette, nom, portions, instructions, ingredients)
     finally:
         releaseConn(conn)
 
-
 def deleteRecipe(idClient, idRecette):
     conn = connectToDB()
     with conn.cursor() as curs:
-        curs.execute("SELECT \"idRecette\" FROM recette WHERE \"idClient\" = %s AND \"idRecette\" = %s", (idClient, idRecette))
+        curs.execute('SELECT "idRecette" FROM recipe WHERE "idClient" = %s AND "idRecette" = %s', (idClient, idRecette))
 
         if curs.fetchone() is None:
             return
@@ -248,8 +238,8 @@ def deleteRecipe(idClient, idRecette):
         RecipeId = curs.fetchone()[0]
 
         try:
-            curs.execute("DELETE FROM recette WHERE \"idClient\" = %s AND \"idRecette\" = %s", (idClient, idRecette))
-            print(f"New recipe ({RecipeId}) added to UserID: {idClient}")
+            curs.execute('DELETE FROM recipe WHERE "idClient" = %s AND "idRecette" = %s', (idClient, idRecette))
+            print(f"Recipe ({RecipeId}) deleted from UserID: {idClient}")
             conn.commit()
         except Exception as e:
             print(f"SQL ERROR: {e}")
@@ -260,9 +250,9 @@ def modifyRecipe(idClient, idRecette, newDesc):
     conn = connectToDB()
     print(f"Modifying recipe {idRecette} from User {idClient}... to: {newDesc}")
     with conn.cursor() as curs:
-        curs.execute("SELECT description FROM recette WHERE \"idClient\" = %s AND \"idRecette\" = %s", (idClient, idRecette))
+        curs.execute('SELECT description FROM recipe WHERE "idClient" = %s AND "idRecette" = %s', (idClient, idRecette))
         row = curs.fetchone()
-        curs.execute("UPDATE recette SET description = %s WHERE \"idClient\" = %s AND \"idRecette\" = %s", (newDesc, idClient, idRecette))
+        curs.execute('UPDATE recipe SET description = %s WHERE "idClient" = %s AND "idRecette" = %s', (newDesc, idClient, idRecette))
     conn.commit()
     releaseConn(conn)
     print(f"Recipe {idRecette} from User {idClient} has been modified")
@@ -270,7 +260,7 @@ def modifyRecipe(idClient, idRecette, newDesc):
 def getRecipe(idClient, idRecette):
     conn = connectToDB()
     with conn.cursor() as curs:
-        curs.execute("SELECT idRecette, nom, instructions, portions, createdAt AT TIME ZONE \'America/Montreal\' FROM recette WHERE \"idClient\" = %s AND \"idRecette\" = %s", (idClient, idRecette))
+        curs.execute('SELECT "idRecette", nom, instructions, portions, "createdAt" AT TIME ZONE \'America/Montreal\' FROM recipe WHERE "idClient" = %s AND "idRecette" = %s', (idClient, idRecette))
         row = curs.fetchall()
     releaseConn(conn)
     return row
@@ -278,7 +268,7 @@ def getRecipe(idClient, idRecette):
 def getAllEpiceries():
     conn = connectToDB()
     with conn.cursor() as curs:
-        curs.execute("SELECT nom FROM epicerie ORDER BY \"idEpicerie\"")
+        curs.execute('SELECT nom FROM stores ORDER BY "idEpicerie"')
         rows = curs.fetchall()
     releaseConn(conn)
     return [row[0].lower() for row in rows]
@@ -287,7 +277,7 @@ def deleteUnverifiedAccounts():
     conn = connectToDB()
     with conn.cursor() as curs:
         curs.execute(
-            """DELETE FROM client 
+            """DELETE FROM "user"
                WHERE is_verified = FALSE 
                AND "creationDate" < NOW() - INTERVAL '24 hours'"""
         )
@@ -301,7 +291,7 @@ def getAllUsers(page=1, limit=20, search=''):
         with conn.cursor() as curs:
             curs.execute("""
                 SELECT "idClient", email, "firstName", "lastName", role, is_verified, "last_password_change"
-                FROM client 
+                FROM "user" 
                 WHERE "firstName" ILIKE %s OR "lastName" ILIKE %s OR email ILIKE %s OR CAST("idClient" AS TEXT) LIKE %s
                 ORDER BY "idClient"
                 LIMIT %s OFFSET %s
@@ -312,7 +302,6 @@ def getAllUsers(page=1, limit=20, search=''):
         releaseConn(conn)
 
 def passwordTimeLimitRespected(userID):
-    # Vérifier le délai de 24h
     clientInfo = getUserInfo(userID)
     last_change = clientInfo[15]
     if last_change:
@@ -325,12 +314,9 @@ def passwordTimeLimitRespected(userID):
 
 def passwordTimeLimitRemove(userID):
     conn = connectToDB()
-
     with conn.cursor() as curs:
-        curs.execute('UPDATE client SET last_password_change = NULL WHERE \"idClient\" = %s', (userID,))            
-
+        curs.execute('UPDATE "user" SET last_password_change = NULL WHERE "idClient" = %s', (userID,))
     conn.commit()
-    
     releaseConn(conn)
 
 def countAllUsers(search=''):
@@ -338,7 +324,7 @@ def countAllUsers(search=''):
     try:
         with conn.cursor() as curs:
             curs.execute("""
-                SELECT COUNT(*) FROM client
+                SELECT COUNT(*) FROM "user"
                 WHERE "firstName" ILIKE %s OR "lastName" ILIKE %s OR email ILIKE %s OR CAST("idClient" AS TEXT) LIKE %s
             """, (f'%{search}%', f'%{search}%', f'%{search}%', f'%{search}%'))
             return curs.fetchone()[0]
@@ -350,7 +336,7 @@ def updateLastLogin(idClient):
     try:
         with conn.cursor() as curs:
             curs.execute(
-                'UPDATE client SET last_login = NOW() WHERE "idClient" = %s',
+                'UPDATE "user" SET last_login = NOW() WHERE "idClient" = %s',
                 (idClient,)
             )
             conn.commit()
@@ -389,49 +375,37 @@ def getNotifications(idClient, hidden=True):
 
 def readNotification(idClient, idNotif):
     conn = connectToDB()
-
     with conn.cursor() as curs:
-        curs.execute("UPDATE notification SET \"isRead\" = TRUE WHERE \"idClient\" = %s AND id = %s;", (idClient, idNotif))
+        curs.execute('UPDATE notification SET "isRead" = TRUE WHERE "idClient" = %s AND id = %s;', (idClient, idNotif))
         conn.commit()
-
     releaseConn(conn)
 
 def dismissNotification(idClient, idNotif):
     conn = connectToDB()
-
     with conn.cursor() as curs:
         curs.execute(
             'UPDATE notification SET "hidden" = TRUE WHERE "idClient" = %s AND id = %s',
             (idClient, idNotif)
         )
         conn.commit()
-
     releaseConn(conn)
 
 def deleteNotification(userID, idNotif):
     conn = connectToDB()
-
     with conn.cursor() as curs:
-        curs.execute('DELETE FROM notification WHERE \"userID\" = %s AND \"id\" = %s', (userID, idNotif))            
+        curs.execute('DELETE FROM notification WHERE "idClient" = %s AND id = %s', (userID, idNotif))
         rows = curs.fetchall()
-
     conn.commit()
-    
     releaseConn(conn)
-        
     return rows
 
 def getAdminStats():
     conn = connectToDB()
-
     with conn.cursor() as curs:
-        curs.execute('SELECT * FROM ')            
+        curs.execute('SELECT * FROM ')
         rows = curs.fetchall()
-
     conn.commit()
-    
     releaseConn(conn)
-        
     return rows
 
 #================
@@ -442,7 +416,6 @@ def getOrCreateIngredient(nom):
     conn = connectToDB()
     try:
         with conn.cursor() as curs:
-            # Cherche si l'ingrédient existe déjà
             curs.execute(
                 'SELECT "idIngredient" FROM ingredient WHERE LOWER(nom) = LOWER(%s)',
                 (nom,)
@@ -451,7 +424,6 @@ def getOrCreateIngredient(nom):
             if row:
                 return row[0]
             
-            # Sinon on le crée
             curs.execute(
                 'INSERT INTO ingredient (nom) VALUES (%s) RETURNING "idIngredient"',
                 (nom,)
@@ -467,7 +439,7 @@ def createRecette(idClient, nom, portions, instructions):
     try:
         with conn.cursor() as curs:
             curs.execute(
-                """INSERT INTO recette ("idClient", nom, portions, instructions) 
+                """INSERT INTO recipe ("idClient", nom, portions, instructions) 
                    VALUES (%s, %s, %s, %s) RETURNING "idRecette" """,
                 (idClient, nom, portions, instructions)
             )
@@ -483,11 +455,33 @@ def addIngredientToRecette(idRecette, nom, quantite, unite):
     try:
         with conn.cursor() as curs:
             curs.execute(
-                """INSERT INTO recette_ingredient ("idRecette", "idIngredient", quantite, unite)
+                """INSERT INTO recipe_ingredient ("idRecette", "idIngredient", quantite, unite)
                    VALUES (%s, %s, %s, %s)""",
                 (idRecette, idIngredient, quantite, unite)
             )
             conn.commit()
+    finally:
+        releaseConn(conn)
+
+def insertDiscount(idEpicerie, week_start, product_name, discount_pct, original_price, discounted_price, page_number=None):
+    conn = connectToDB()
+    try:
+        with conn.cursor() as curs:
+            curs.execute("""
+                INSERT INTO discount ("idEpicerie", week_start, product_name, discount_pct, original_price, discounted_price, page_number)
+                VALUES (%s, %s, %s, %s, %s, %s, %s)
+            """, (idEpicerie, week_start, product_name, discount_pct, original_price, discounted_price, page_number))
+        conn.commit()
+    finally:
+        releaseConn(conn)
+
+def getIdEpicerie(nom):
+    conn = connectToDB()
+    try:
+        with conn.cursor() as curs:
+            curs.execute('SELECT "idEpicerie" FROM stores WHERE LOWER(nom) = LOWER(%s)', (nom,))
+            row = curs.fetchone()
+            return row[0] if row else None
     finally:
         releaseConn(conn)
 
