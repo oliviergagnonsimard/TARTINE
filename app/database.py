@@ -463,14 +463,14 @@ def addIngredientToRecette(idRecette, nom, quantite, unite):
     finally:
         releaseConn(conn)
 
-def insertDiscount(idEpicerie, week_start, product_name, discount_pct, original_price, discounted_price, page_number=None):
+def insertDiscount(idEpicerie, week_start, product_name, discount_pct, original_price, discounted_price, page_number=None, quantity=None, unit_of_measure=None):
     conn = connectToDB()
     try:
         with conn.cursor() as curs:
             curs.execute("""
-                INSERT INTO discount ("idEpicerie", week_start, product_name, discount_pct, original_price, discounted_price, page_number)
-                VALUES (%s, %s, %s, %s, %s, %s, %s)
-            """, (idEpicerie, week_start, product_name, discount_pct, original_price, discounted_price, page_number))
+                INSERT INTO discount ("idEpicerie", week_start, product_name, discount_pct, original_price, discounted_price, page_number, quantity, unit_of_measure)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+            """, (idEpicerie, week_start, product_name, discount_pct, original_price, discounted_price, page_number, quantity, unit_of_measure))
         conn.commit()
     finally:
         releaseConn(conn)
