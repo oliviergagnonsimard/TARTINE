@@ -1,21 +1,370 @@
 {% extends 'base.html' %}
 
 {% block head %}
+<style>
+  #main { padding: 0; }
+
+  @keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero,
+.stores-row,
+.savings-block,
+.pitch-grid,
+.how-row,
+.cta-block {
+  opacity: 0;
+  animation: fadeSlideIn 2s ease forwards;
+}
+
+.stores-row   { animation-delay: 0.1s; }
+.savings-block { animation-delay: 0.2s; }
+.pitch-grid   { animation-delay: 0.3s; }
+.how-row      { animation-delay: 0.4s; }
+.cta-block    { animation-delay: 0.5s; }
+
+  .hero {
+    text-align: center;
+    padding: 4rem 2rem 3rem;
+    background: #111;
+    border-radius: 14px;
+    margin-bottom: 2rem;
+    border: 0.5px solid #2a2a2a;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 30% 50%, #3a1a2e 0%, transparent 60%),
+      radial-gradient(ellipse at 70% 30%, #1a1a3a 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .eyebrow {
+    display: inline-block;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #FFFF;
+    border: 0.5px solid #e91e8c;
+    background: #3a1a2e;
+    padding: 4px 14px;
+    border-radius: 99px;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    font-size: 64px;
+    font-weight: bold;
+    color: #fff;
+    letter-spacing: -2px;
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+  .hero h1 span { color: #e91e8c; }
+  .hero-sub {
+    font-size: 17px;
+    color: #888;
+    max-width: 480px;
+    margin: 0 auto 2rem;
+    line-height: 1.65;
+  }
+  .hero-stat-row {
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+  }
+  .hero-stat-num { font-size: 28px; font-weight: bold; color: #fff; }
+  .hero-stat-label { font-size: 12px; color: #555; margin-top: 2px; }
+  .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+  .btn-pink {
+    background: #d32f89; color: #fff; border: none;
+    padding: 13px 30px; border-radius: 8px;
+    font-size: 15px; font-weight: bold; cursor: pointer;
+    text-decoration: none; display: inline-block;
+    transition: background 0.2s;
+  }
+  .btn-pink:hover { background: #e91e8c; color: #fff; }
+  .btn-outline {
+    background: transparent; color: #aaa;
+    border: 0.5px solid #333;
+    padding: 13px 30px; border-radius: 8px;
+    font-size: 15px; cursor: pointer;
+    text-decoration: none; display: inline-block;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-outline:hover { border-color: #555; color: #fff; }
+
+  .section-label {
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    color: #555; margin-bottom: 1.5rem; text-align: center;
+  }
+
+  .stores-row {
+    display: flex; gap: 10px; justify-content: center;
+    flex-wrap: wrap; margin-bottom: 3rem;
+  }
+  .store-pill {
+    background: #1a1a1a; border: 0.5px solid #2a2a2a;
+    border-radius: 99px; padding: 8px 18px;
+    font-size: 14px; color: #ccc;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .store-dot { width: 8px; height: 8px; border-radius: 50%; background: #1D9E75; }
+
+  .pitch-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+    margin-bottom: 3rem;
+  }
+  .pitch-card {
+    background: #111; border: 0.5px solid #222;
+    border-radius: 14px; padding: 1.5rem;
+    transition: border-color 0.2s;
+  }
+  .pitch-card:hover { border-color: #444; }
+  .pitch-icon-wrap {
+    width: 42px; height: 42px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; margin-bottom: 1rem;
+  }
+  .pitch-card h3 { font-size: 16px; font-weight: bold; color: #fff; margin-bottom: 6px; }
+  .pitch-card p { font-size: 13px; color: #666; line-height: 1.6; }
+
+  .savings-block {
+    background: #111; border: 0.5px solid #222;
+    border-radius: 14px; padding: 2rem;
+    margin-bottom: 3rem;
+  }
+  .savings-header {
+    display: flex; justify-content: space-between;
+    align-items: flex-start; margin-bottom: 1.5rem;
+    flex-wrap: wrap; gap: 12px;
+  }
+  .savings-header h2 { font-size: 18px; font-weight: bold; color: #fff; margin-bottom: 4px; }
+  .savings-header p { font-size: 13px; color: #555; }
+  .savings-tag {
+    font-size: 12px; color: #5DCAA5;
+    background: rgba(29,158,117,0.12);
+    border: 0.5px solid #1D9E75;
+    padding: 4px 12px; border-radius: 99px; white-space: nowrap;
+  }
+  .items-list { display: flex; flex-direction: column; gap: 10px; }
+  .item-row {
+    display: flex; align-items: center; flex-wrap: wrap; gap: 8px;
+    background: #181818; border: 0.5px solid #222;
+    border-radius: 10px; padding: 12px 16px;
+  }
+  .item-store { font-size: 11px; color: #555; min-width: 60px; }
+  .item-name { font-size: 14px; color: #ddd; flex: 1; min-width: 120px; }
+  .item-qty { font-size: 12px; color: #555; }
+  .item-price-old { font-size: 13px; color: #555; text-decoration: line-through; margin-left: auto; }
+  .item-price-new { font-size: 14px; color: #5DCAA5; font-weight: bold; }
+  .item-badge {
+    font-size: 11px; background: rgba(29,158,117,0.15);
+    color: #5DCAA5; padding: 2px 8px;
+    border-radius: 99px; white-space: nowrap;
+  }
+
+  .how-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 16px; margin-bottom: 3rem;
+  }
+  .how-step {
+    text-align: center; padding: 1.5rem 1rem;
+    background: #111; border: 0.5px solid #222; border-radius: 14px;
+  }
+  .how-num { font-size: 28px; font-weight: bold; color: #e91e8c; margin-bottom: 8px; }
+  .how-step h3 { font-size: 14px; font-weight: bold; color: #ccc; margin-bottom: 6px; }
+  .how-step p { font-size: 12px; color: #555; line-height: 1.5; }
+
+  .cta-block {
+    text-align: center; padding: 3rem 2rem;
+    background: #111; border: 0.5px solid #222;
+    border-radius: 14px; margin-bottom: 2rem;
+  }
+  .cta-block h2 { font-size: 26px; font-weight: bold; color: #fff; margin-bottom: 0.75rem; }
+  .cta-block p { font-size: 15px; color: #666; margin-bottom: 2rem; }
+</style>
 {% endblock %}
 
 {% block body %}
- <!-- Header/Home -->
- 
- <header class="w3-container w3-padding-32 w3-center w3-black" id="home">
-   <h3 style="font-weight: bold; font-size: 60px;">TARTINE</h3> 
-   <h3 style="display: inline;">L'application qui fait</h3> 
-   <h3 style="text-decoration: underline; display: inline;">votre</h3> 
-   <h3 style="display: inline;">épicerie en fonction des rabais hebdomadaires et de vos recettes!</h3>
-  </header>
-  
-  <div class="row" style="display: flex;">
-    <h4 style="text-align: center;">Projet en cours de développement</h4>
-    <div style="text-align: center;">
-    <img src="{{ url_for('static', filename='cat.gif') }}" style="text-align: center;">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div style="position:relative; z-index:1;">
+    <h1>Tartine</h1>
+    <h1>Faites votre épicerie<br><span>intelligemment</span></h1>
+    <p class="hero-sub">
+      Tartine compare les rabais de la semaine dans tous les grands supermarchés québécois
+      et les associe à vos recettes préférées. Mangez bien, dépensez moins.
+    </p>
+    <div class="hero-stat-row">
+      <div>
+        <div class="hero-stat-num">5</div>
+        <div class="hero-stat-label">chaînes couvertes</div>
+      </div>
+      <div>
+        <div class="hero-stat-num" style="color:#5DCAA5;">-15$/sem</div>
+        <div class="hero-stat-label">d'économies moy.</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">100%</div>
+        <div class="hero-stat-label">gratuit</div>
+      </div>
     </div>
+    <div class="eyebrow">
+      <i class="bi bi-arrow-repeat" style="margin-right:6px;"></i>Nouveaux circulaires chaque jeudi
+    </div>
+    <div class="hero-btns">
+      <a href="{{ url_for('flyers') }}" class="btn-pink">
+        <i class="bi bi-book" style="margin-right:8px;"></i>Voir les circulaires
+      </a>
+      {% if not current_user.is_authenticated %}
+      <a href="{{ url_for('register') }}" class="btn-outline">Créer un compte gratuit</a>
+      {% else %}
+      <a href="{{ url_for('dashboard') }}" class="btn-outline">Mon tableau de bord</a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<!-- STORES -->
+<p class="section-label">Circulaires disponibles chaque semaine</p>
+<div class="stores-row">
+  {% for store in ['IGA', 'Maxi', 'Metro', 'Provigo', 'Super C'] %}
+  <div class="store-pill">
+    <div class="store-dot"></div> {{ store }}
+  </div>
+  {% endfor %}
+</div>
+
+<!-- APERÇU RABAIS -->
+<div class="savings-block">
+  <div class="savings-header">
+    <div>
+      <h2>Aperçu des rabais cette semaine</h2>
+      <p>{{ week if week else "Semaine en cours" }}</p>
+    </div>
+    <span class="savings-tag">
+      <i class="bi bi-arrow-clockwise" style="margin-right:4px;"></i>Mis à jour jeudi
+    </span>
+  </div>
+  <div class="items-list">
+    <div class="item-row">
+      <span class="item-store">Metro</span>
+      <span class="item-name">Poitrines de poulet</span>
+      <span class="item-qty">500 g</span>
+      <span class="item-price-old">8,99 $</span>
+      <span class="item-price-new">5,99 $</span>
+      <span class="item-badge">-33%</span>
+    </div>
+    <div class="item-row">
+      <span class="item-store">IGA</span>
+      <span class="item-name">Saumon atlantique</span>
+      <span class="item-qty">1 lb</span>
+      <span class="item-price-old">12,49 $</span>
+      <span class="item-price-new">7,99 $</span>
+      <span class="item-badge">-36%</span>
+    </div>
+    <div class="item-row">
+      <span class="item-store">Maxi</span>
+      <span class="item-name">Pâtes Barilla</span>
+      <span class="item-qty">900 g</span>
+      <span class="item-price-old">3,49 $</span>
+      <span class="item-price-new">1,99 $</span>
+      <span class="item-badge">-43%</span>
+    </div>
+    <div class="item-row">
+      <span class="item-store">Super C</span>
+      <span class="item-name">Bœuf haché mi-maigre</span>
+      <span class="item-qty">1 kg</span>
+      <span class="item-price-old">11,99 $</span>
+      <span class="item-price-new">7,49 $</span>
+      <span class="item-badge">-38%</span>
+    </div>
+  </div>
+  <div style="text-align:center; margin-top:1.5rem;">
+    <a href="{{ url_for('flyers') }}" class="btn-pink">Voir tous les rabais</a>
+  </div>
+</div>
+
+<!-- PITCH -->
+<div class="pitch-grid">
+  <div class="pitch-card">
+    <div class="pitch-icon-wrap" style="background: rgba(29,158,117,0.12);">
+      <i class="bi bi-book" style="color:#5DCAA5; font-size:20px;"></i>
+    </div>
+    <h3>Tous les circulaires, un seul endroit</h3>
+    <p>Arrête de fouiller sur pleins de sites chaque semaine. IGA, Maxi, Metro, Provigo et Super C sont regroupés sur Tartine et mis à jour en direct</p>
+  </div>
+  <div class="pitch-card">
+    <div class="pitch-icon-wrap" style="background: rgba(127,119,221,0.12);">
+      <i class="bi bi-journal" style="color:#AFA9EC; font-size:20px;"></i>
+    </div>
+    <h3>Vos recettes rencontrent les rabais</h3>
+    <p>Sauvegardez vos recettes préférées et découvrez lesquelles coûtent moins cher à faire cette semaine selon les spéciaux.</p>
+  </div>
+  <div class="pitch-card">
+    <div class="pitch-icon-wrap" style="background: rgba(239,159,39,0.12);">
+      <i class="bi bi-award" style="color:#EF9F27; font-size:20px;"></i>
+    </div>
+    <h3>Un classement pour rester motivé</h3>
+    <p>Compétitionnez avec d'autres utilisateurs. Plus vous utilisez les rabais, plus votre score monte dans le classement.</p>
+  </div>
+</div>
+
+<!-- COMMENT ÇA MARCHE -->
+<p class="section-label">Comment ça marche</p>
+<div class="how-row">
+  <div class="how-step">
+    <div class="how-num">01</div>
+    <h3>Créez un compte</h3>
+    <p>Gratuit, en moins de 30 secondes.</p>
+  </div>
+  <div class="how-step">
+    <div class="how-num">02</div>
+    <h3>Consultez les rabais</h3>
+    <p>Chaque jeudi, les nouveaux circulaires sont disponibles.</p>
+  </div>
+  <div class="how-step">
+    <div class="how-num">03</div>
+    <h3>Ajoutez vos recettes</h3>
+    <p>Tartine trouve les ingrédients en spécial pour vous.</p>
+  </div>
+  <div class="how-step">
+    <div class="how-num">04</div>
+    <h3>Économisez</h3>
+    <p>Planifiez votre épicerie et payez moins chaque semaine.</p>
+  </div>
+</div>
+
+<!-- CTA FINAL -->
+<div class="cta-block">
+  <h2>Prêt à économiser à l'épicerie?</h2>
+  <p>Rejoignez Tartine et ne payez plus jamais plein prix pour vos repas.</p>
+  {% if not current_user.is_authenticated %}
+  <a href="{{ url_for('register') }}" class="btn-pink" style="font-size:16px; padding: 14px 36px;">
+    Commencer gratuitement
+  </a>
+  {% else %}
+  <a href="{{ url_for('flyers') }}" class="btn-pink" style="font-size:16px; padding: 14px 36px;">
+    Voir les circulaires
+  </a>
+  {% endif %}
+</div>
+
 {% endblock %}

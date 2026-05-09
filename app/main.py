@@ -1,10 +1,6 @@
 from database import *
 from datetime import date, datetime, timedelta
 from r2 import imageExists
-import os
-
-def clearConsole():
-    os.system('cls')
 
 def getFlyerWeek():
     today = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)

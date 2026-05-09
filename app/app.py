@@ -158,27 +158,27 @@ def register():
         age = calculate_age(isoBirthday)
 
         if not email or not password:
-            return render_template('auth/register.html', error="Champs manquants" , 
+            return render_template('auth/register.html', error="Champs manquants." , 
                                                     firstName=firstName, 
                                                     lastName=lastName, 
                                                     email=email, 
                                                     birthday=isoBirthday)
         if len(password) < 6:
-            return render_template('auth/register.html', error="Le mot de passe doit avoir minimum 6 caractères" , 
+            return render_template('auth/register.html', error="Le mot de passe doit avoir minimum 6 caractères." , 
                                                     firstName=firstName, 
                                                     lastName=lastName, 
                                                     email=email, 
                                                     birthday=isoBirthday)
 
         if password != confirm:
-            return render_template('auth/register.html', error="Les mots de passe ne match pas" , 
+            return render_template('auth/register.html', error="Les mots de passe ne sont pas identiques." , 
                                                     firstName=firstName, 
                                                     lastName=lastName, 
                                                     email=email, 
                                                     birthday=isoBirthday)
         
         if age < 13 or age > 100:
-            return render_template('auth/register.html', error="L'âge n'est pas valide" , 
+            return render_template('auth/register.html', error="L'âge n'est pas valide." , 
                                                     firstName=firstName, 
                                                     lastName=lastName, 
                                                     email=email, 

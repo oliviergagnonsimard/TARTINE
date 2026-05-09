@@ -1,38 +1,126 @@
 {% extends 'base.html' %}
 
 {% block head %}
-{% endblock %}
-
 {% if current_user.is_authenticated %}
 <script>window.location.href = "/dashboard";</script>
 {% endif %}
+<style>
+  #main { padding: 3rem 1rem; display: flex; justify-content: center; }
+
+  .card {
+    background: #111;
+    border: 0.5px solid #2a2a2a;
+    border-radius: 16px;
+    padding: 2.5rem 2rem;
+    width: 100%;
+    max-width: 400px;
+    position: relative;
+    overflow: hidden;
+    animation: fadeSlideIn 0.5s ease forwards;
+  }
+  .card-bg {
+    position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(ellipse at 80% 10%, #3a1a2e 0%, transparent 60%);
+    background-color: #111;
+  }
+  .card-inner { position: relative; z-index: 1; }
+
+  .logo-row { text-align: center; margin-bottom: 1.75rem; }
+  .logo-row h1 { font-size: 32px; font-weight: bold; color: #fff; letter-spacing: -1px; margin: 0; }
+  .logo-row h1 span { color: #e91e8c; }
+  .logo-row p { font-size: 13px; color: #555; margin-top: 4px; }
+
+  .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 1rem; }
+  .form-group label { font-size: 12px; color: #888; letter-spacing: 0.5px; text-transform: uppercase; }
+  .form-group input {
+    background: #1a1a1a;
+    border: 0.5px solid #2a2a2a;
+    border-radius: 8px;
+    padding: 10px 14px;
+    color: #fff;
+    font-size: 14px;
+    width: 100%;
+    font-family: inherit;
+    transition: border-color 0.2s;
+  }
+  .form-group input:focus { outline: none; border-color: #e91e8c; }
+
+  .forgot-link {
+    display: block; text-align: right;
+    font-size: 12px; color: #555;
+    text-decoration: none; margin-top: -6px; margin-bottom: 1rem;
+  }
+  .forgot-link:hover { color: #e91e8c; }
+
+  .btn-submit {
+    width: 100%; background: #d32f89; color: #fff; border: none;
+    border-radius: 8px; padding: 13px; font-size: 15px; font-weight: bold;
+    cursor: pointer; font-family: inherit; transition: background 0.2s;
+  }
+  .btn-submit:hover { background: #e91e8c; }
+
+  .register-link { text-align: center; margin-top: 1.25rem; font-size: 13px; color: #555; }
+  .register-link a { color: #e91e8c; text-decoration: none; }
+  .register-link a:hover { text-decoration: underline; }
+
+  .alert-error {
+    background: rgba(220,50,50,0.12);
+    border: 0.5px solid #c0392b;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: #e74c3c;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  @keyframes fadeSlideIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
+{% endblock %}
 
 {% block body %}
-<h3 style="text-align:center; font-size:50px;">Se connecter</h3>
+<div class="card">
+  <div class="card-bg"></div>
+  <div class="card-inner">
 
-<form action="/login" method="POST">
-  <div style="display:flex; flex-direction: column; align-items: center; gap: 15px;">
-
-    <div style="display:flex; gap:10px;">
-      <label style="width:150px;">Courriel</label>
-      <input type="email" name="email" style="width: 300px;" required>
-    </div>
-
-    <div style="display:flex; gap:10px;">
-      <label style="width:150px;">Mot de passe</label>
-      <input type="password" name="password" style="width: 300px;" required>
-    </div>
-
-    <a href="{{ url_for('forgot_password') }}">Mot de passe oublié?</a>
-
-    <div>
-      <button type="submit" class="btn btn-primary">Connexion</button>
+    <div class="logo-row">
+      <h1>Tar<span>tine</span></h1>
+      <p>Bon retour parmi nous!</p>
     </div>
 
     {% if error %}
-      <p style="color:red;">{{ error }}</p>
+    <div class="alert-error">
+      <i class="bi bi-exclamation-circle"></i> {{ error }}
+    </div>
     {% endif %}
 
+    <form action="/login" method="POST">
+
+      <div class="form-group">
+        <label for="email">Courriel</label>
+        <input type="email" id="email" name="email" placeholder="marie@exemple.com" required>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Mot de passe</label>
+        <input type="password" id="password" name="password" placeholder="••••••••" required>
+      </div>
+
+      <a href="{{ url_for('forgot_password') }}" class="forgot-link">Mot de passe oublié?</a>
+
+      <button type="submit" class="btn-submit">
+        <i class="bi bi-box-arrow-in-right" style="margin-right:8px;"></i>Connexion
+      </button>
+
+    </form>
+
+    <p class="register-link">Pas encore de compte? <a href="{{ url_for('register') }}">Créer un compte</a></p>
+
   </div>
-</form>
+</div>
 {% endblock %}

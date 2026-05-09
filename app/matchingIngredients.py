@@ -2,8 +2,7 @@ import os
 import json
 from dotenv import load_dotenv
 import google.generativeai as genai
-from database import *
-from main import getFlyerStartWeekStr
+from main import *
 
 
 load_dotenv()

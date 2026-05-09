@@ -4,7 +4,6 @@ import os
 import platform
 from dotenv import load_dotenv
 from datetime import timezone, datetime
-from matchingIngredients import matchIngredientsWithDiscounts
 
 load_dotenv()
 
