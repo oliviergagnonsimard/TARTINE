@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request, redirect, session, jsonify
+from flask import Flask, render_template, url_for, request, redirect, session, jsonify, flash
 from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
@@ -539,24 +539,27 @@ def reset_password(token):
         confirm = request.form.get('confirm')
 
         if password != confirm:
-            return render_template('auth/password_forgot.html', token=token, error="Les mots de passe ne matchent pas")
+            return render_template('auth/password_reset.html', token=token, error="Les mots de passe ne matchent pas")
         
         idClient = verifyResetToken(token)
         
         if idClient is None:  # ← ici en premier
-            return render_template('auth/password_forgot.html', token=token, error="Lien invalide ou expiré")
+            return render_template('auth/password_reset.html', token=token, error="Lien invalide ou expiré")
 
         clientInfo = getUserInfo(idClient)
         last_change = clientInfo[15]
         if passwordTimeLimitRespected(idClient):
-            return render_template('auth/password_forgot.html', token=token, error="Vous devez attendre 24h entre chaque changement de mot de passe")
+            return render_template('auth/password_reset.html', token=token, error="Vous devez attendre 24h entre chaque changement de mot de passe")
 
         password_hash = BCRYPT.generate_password_hash(password).decode('utf-8')
         updatePassword(idClient, password_hash)
-        return render_template('dashboard.html', success="Mot de passe changé avec succès.")
+
+        # Remplace la ligne problématique par :
+        flash("Mot de passe changé avec succès.", "success")
+        return redirect(url_for('dashboard'))
     
 
-    return render_template('auth/password_forgot.html', token=token)
+    return render_template('auth/password_reset.html', token=token)
 
 @app.route('/change-password', methods=['POST'])
 @login_required

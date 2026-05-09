@@ -40,23 +40,42 @@
 
 /* ── Mini calendrier ── */
 .cal-wrap { flex-shrink: 0; }
-.cal-wrap table { border-collapse: collapse; text-align: center; }
-.cal-wrap th, .cal-wrap td { padding: 3px 2px; }
-.cal-nav-btn {
-  background: none; border: none; color: #555; font-size: 14px;
-  cursor: pointer; transition: color 0.2s; padding: 0 4px;
+
+.cal-month {
+  font-size: 12px; font-weight: 600; color: #888;
+  text-transform: capitalize; letter-spacing: 0.5px;
 }
-.cal-nav-btn:hover { color: #fff; }
-.cal-month { font-size: 12px; color: #888; }
-.cal-day-label { font-size: 10px; color: #444; padding: 4px 3px; }
-.cal-day {
-  width: 26px; height: 26px; border-radius: 50%;
+
+.cal-grid {
+  display: grid; grid-template-columns: repeat(7, 28px);
+  gap: 2px;
+}
+.cal-day-label {
+  width: 28px; height: 22px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 11px; color: #555; margin: 1px;
+  font-size: 10px; color: #888; letter-spacing: 0.5px;
 }
-.cal-day.highlighted { background: #e91e8c; color: #fff; font-weight: 700; }
-.cal-day.today { border: 1.5px solid #555; color: #ccc; }
-.cal-day.highlighted.today { border-color: #fff; }
+.cal-day {
+  width: 28px; height: 28px; border-radius: 7px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; color: #444;
+}
+.cal-day.other-month { color: #2a2a2a; }
+.cal-day.in-range {
+  background: rgba(233,30,140,0.1);
+  color: #e91e8c; border-radius: 0;
+}
+.cal-day.range-start {
+  background: #e91e8c; color: #fff; font-weight: 700;
+  border-radius: 7px 0 0 7px;
+}
+.cal-day.range-end {
+  background: #e91e8c; color: #fff; font-weight: 700;
+  border-radius: 0 7px 7px 0;
+}
+.cal-day.today { border: 0.5px solid #333; color: #ccc; }
+.cal-day.range-start.today,
+.cal-day.range-end.today { border-color: rgba(255,255,255,0.3); }
 
 /* ── Downloading state ── */
 .downloading-bar {
@@ -206,42 +225,41 @@ const moisFR = ['Janvier','Février','Mars','Avril','Mai','Juin',
 function generateCalendar(month, year) {
   const firstDay    = new Date(year, month, 1).getDay();
   const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const prevDays    = new Date(year, month, 0).getDate();
 
   let html = `
-    <table>
-      <tr>
-        <th><button class="cal-nav-btn" onclick="changeMonth(-1)">◀</button></th>
-        <th colspan="5" class="cal-month">${moisFR[month]} ${year}</th>
-        <th><button class="cal-nav-btn" onclick="changeMonth(1)">▶</button></th>
-      </tr>
-      <tr>${jours.map(j => `<th class="cal-day-label">${j}</th>`).join('')}</tr>
-      <tr>`;
+    <div style="font-size:12px;font-weight:600;color:#666;letter-spacing:0.5px;
+                text-align:center;margin-bottom:8px;text-transform:capitalize;">
+      ${moisFR[month]} ${year}
+    </div>
+    <div class="cal-grid">
+      ${jours.map(j => `<div class="cal-day-label">${j}</div>`).join('')}`;
 
-  for (let i = 0; i < firstDay; i++) html += '<td></td>';
+  for (let i = firstDay - 1; i >= 0; i--)
+    html += `<div class="cal-day other-month">${prevDays - i}</div>`;
 
   for (let day = 1; day <= daysInMonth; day++) {
-    const cur = new Date(year, month, day);
-    const isHighlighted = cur >= dateDebut && cur <= dateFin;
+    const cur     = new Date(year, month, day);
+    const isStart = cur.toDateString() === dateDebut.toDateString();
+    const isEnd   = cur.toDateString() === dateFin.toDateString();
+    const isRange = cur > dateDebut && cur < dateFin;
     const isToday = cur.toDateString() === today.toDateString();
-    const classes = ['cal-day', isHighlighted ? 'highlighted' : '', isToday ? 'today' : '']
-      .filter(Boolean).join(' ');
-
-    html += `<td><div class="${classes}">${day}</div></td>`;
-    if ((firstDay + day) % 7 === 0) html += '</tr><tr>';
+    const classes = ['cal-day', isStart ? 'range-start' : '',
+      isEnd ? 'range-end' : '', isRange ? 'in-range' : '',
+      isToday ? 'today' : ''].filter(Boolean).join(' ');
+    html += `<div class="${classes}">${day}</div>`;
   }
 
-  html += '</tr></table>';
+  const remaining = (firstDay + daysInMonth) % 7;
+  for (let i = 1; i <= (remaining ? 7 - remaining : 0); i++)
+    html += `<div class="cal-day other-month">${i}</div>`;
+
+  html += `</div>`;
   document.getElementById('calendar').innerHTML = html;
 }
 
-function changeMonth(dir) {
-  currentMonth += dir;
-  if (currentMonth > 11) { currentMonth = 0; currentYear++; }
-  if (currentMonth < 0)  { currentMonth = 11; currentYear--; }
-  generateCalendar(currentMonth, currentYear);
-}
-
-generateCalendar(currentMonth, currentYear);
+// Toujours afficher le mois de la semaine en cours
+generateCalendar(dateDebut.getMonth(), dateDebut.getFullYear());
 </script>
 
 {% endblock %}

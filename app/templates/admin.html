@@ -1,105 +1,376 @@
-
 {% extends 'base.html' %}
+
+{% block head %}
+<style>
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+* { box-sizing: border-box; }
+#main { padding: 0; }
+
+.page-header  { animation: fadeSlideIn 0.5s ease both; }
+.stats-row    { animation: fadeSlideIn 0.5s ease 0.06s both; }
+.notif-card   { animation: fadeSlideIn 0.5s ease 0.12s both; }
+.users-card   { animation: fadeSlideIn 0.5s ease 0.18s both; }
+
+/* ── Header ── */
+.page-header {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; margin-bottom: 28px; padding-top: 20px; flex-wrap: wrap;
+}
+.page-title { font-size: 48px; font-weight: 700; letter-spacing: -2px; color: #fff; line-height: 1; }
+.page-title span { color: #e91e8c; }
+.page-sub { font-size: 13px; color: #555; margin-top: 4px; }
+
+.admin-badge {
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  color: #e91e8c; background: rgba(233,30,140,0.1);
+  border: 0.5px solid rgba(233,30,140,0.3);
+  padding: 6px 14px; border-radius: 99px;
+  display: flex; align-items: center; gap: 6px;
+}
+
+/* ── Stats rapides ── */
+.stats-row {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 12px; margin-bottom: 20px;
+}
+@media (max-width: 700px) { .stats-row { grid-template-columns: 1fr 1fr; } }
+
+.stat-card {
+  background: #111; border: 0.5px solid #222; border-radius: 14px;
+  padding: 18px; position: relative; overflow: hidden;
+}
+.stat-card::after {
+  content: ""; position: absolute; top: 0; right: 0;
+  width: 60px; height: 60px; border-radius: 0 14px 0 100%;
+  pointer-events: none;
+}
+.stat-card.pink::after   { background: rgba(233,30,140,0.1); }
+.stat-card.teal::after   { background: rgba(29,158,117,0.1); }
+.stat-card.purple::after { background: rgba(127,119,221,0.1); }
+
+.stat-icon {
+  width: 34px; height: 34px; border-radius: 8px; font-size: 16px;
+  display: flex; align-items: center; justify-content: center; margin-bottom: 10px;
+}
+.stat-icon.pink   { background: rgba(233,30,140,0.15); color: #e91e8c; }
+.stat-icon.teal   { background: rgba(29,158,117,0.15); color: #5DCAA5; }
+.stat-icon.purple { background: rgba(127,119,221,0.15); color: #AFA9EC; }
+
+.stat-num   { font-size: 28px; font-weight: 700; color: #fff; letter-spacing: -1px; }
+.stat-label { font-size: 11px; color: #555; letter-spacing: 1px; text-transform: uppercase; margin-top: 2px; }
+
+/* ── Cards ── */
+.card {
+  background: #111; border: 0.5px solid #222; border-radius: 14px;
+  padding: 24px; margin-bottom: 16px;
+  position: relative; overflow: hidden;
+}
+.card::before {
+  content: ""; position: absolute; top: 0; right: 0;
+  width: 120px; height: 120px;
+  background: radial-gradient(circle, rgba(233,30,140,0.05), transparent 70%);
+  pointer-events: none;
+}
+.card-head {
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  color: #444; margin-bottom: 20px;
+  display: flex; align-items: center; gap: 8px;
+}
+
+/* ── Notification form ── */
+.notif-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+}
+@media (max-width: 700px) { .notif-grid { grid-template-columns: 1fr; } }
+
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field label { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: #555; }
+.field input,
+.field textarea,
+.field select {
+  background: #1a1a1a; border: 0.5px solid #2a2a2a; color: #ccc;
+  border-radius: 8px; padding: 10px 12px; font-size: 13px;
+  width: 100%; outline: none; transition: border-color 0.2s; font-family: inherit;
+}
+.field input:focus,
+.field textarea:focus,
+.field select:focus { border-color: #e91e8c; }
+.field textarea { resize: vertical; min-height: 90px; line-height: 1.6; }
+
+.field-full { grid-column: 1 / -1; }
+
+#specific-users { display: none; }
+
+/* ── Search bar ── */
+.search-wrap {
+  display: flex; gap: 8px; margin-bottom: 20px;
+}
+.search-wrap input {
+  flex: 1; background: #1a1a1a; border: 0.5px solid #2a2a2a; color: #ccc;
+  border-radius: 8px; padding: 10px 14px; font-size: 13px; outline: none;
+  transition: border-color 0.2s;
+}
+.search-wrap input:focus { border-color: #e91e8c; }
+
+/* ── Table ── */
+.users-table { width: 100%; border-collapse: collapse; }
+.users-table th {
+  font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: #444; padding: 0 14px 12px; text-align: left; font-weight: 600;
+  border-bottom: 0.5px solid #1e1e1e;
+}
+.users-table td {
+  padding: 12px 14px; font-size: 13px; color: #ccc;
+  border-bottom: 0.5px solid #161616;
+}
+.users-table tr:last-child td { border-bottom: none; }
+.users-table tbody tr { transition: background 0.15s; }
+.users-table tbody tr:hover { background: rgba(255,255,255,0.02); }
+
+.user-avatar {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: #2a2a2a; display: flex; align-items: center;
+  justify-content: center; font-size: 11px; font-weight: 700; color: #888;
+}
+
+.role-badge {
+  font-size: 10px; letter-spacing: 1px; text-transform: uppercase;
+  padding: 3px 9px; border-radius: 99px;
+}
+.role-admin { background: rgba(233,30,140,0.1); color: #e91e8c; border: 0.5px solid rgba(233,30,140,0.3); }
+.role-user  { background: #1a1a1a; color: #555; border: 0.5px solid #2a2a2a; }
+
+.verified-yes { color: #5DCAA5; font-size: 13px; }
+.verified-no  { color: #555;    font-size: 13px; }
+
+/* ── Buttons ── */
+.btn-pink {
+  background: #d32f89; color: #fff; border: none;
+  padding: 9px 18px; border-radius: 8px; font-size: 13px; font-weight: 600;
+  cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+  transition: background 0.2s; white-space: nowrap;
+}
+.btn-pink:hover { background: #e91e8c; }
+
+.btn-pill {
+  background: #1a1a1a; border: 0.5px solid #2a2a2a; color: #aaa;
+  padding: 7px 14px; border-radius: 8px; font-size: 12px; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 5px;
+  transition: border-color 0.2s, color 0.2s; white-space: nowrap;
+  text-decoration: none;
+}
+.btn-pill:hover { border-color: #444; color: #fff; }
+.btn-pill.teal  { border-color: #1D9E75; color: #5DCAA5; }
+.btn-pill.teal:hover { background: rgba(29,158,117,0.08); }
+.btn-pill.danger { border-color: #993556; color: #ED93B1; }
+.btn-pill.danger:hover { background: rgba(212,83,126,0.08); }
+
+.action-cell { display: flex; gap: 6px; }
+
+/* ── Pagination ── */
+.pagination {
+  display: flex; justify-content: center; align-items: center;
+  gap: 6px; margin-top: 20px;
+}
+.page-btn {
+  background: #1a1a1a; border: 0.5px solid #2a2a2a;
+  border-radius: 6px; padding: 6px 14px;
+  font-size: 13px; color: #aaa; text-decoration: none;
+  transition: border-color 0.2s, color 0.2s;
+}
+.page-btn:hover { border-color: #444; color: #fff; }
+.page-btn.active { border-color: #e91e8c; color: #e91e8c; background: rgba(233,30,140,0.06); }
+.page-info { font-size: 12px; color: #444; padding: 0 8px; }
+</style>
+{% endblock %}
+
 {% block body %}
 
-<h3 style="font-weight: bold; font-size: 60px; text-align: center;">Admin Panel</h3>
-
-<!-- SECTION NOTIFICATION GÉNÉRALE -->
-<div style="margin: 30px auto; width: 80%; background: #2a2a2a; padding: 20px; border-radius: 10px;">
-    <h4 style="font-weight: bold;">Envoyer une notification</h4>
-    <form method="POST" action="/admin/notify">
-        <div style="display: flex; flex-direction: column; gap: 10px;">
-            <input type="text" name="title" placeholder="Titre" style="padding: 8px; border-radius: 5px;">
-            <textarea name="message" placeholder="Message" style="padding: 8px; border-radius: 5px; height: 80px;"></textarea>
-            <div>
-                <label>Destinataires:</label>
-                <select name="target" style="padding: 8px; border-radius: 5px; margin-left: 10px;">
-                    <option value="all">Tous les users</option>
-                    <option value="specific">Users spécifiques</option>
-                </select>
-            </div>
-            <div id="specific-users" style="display:none;">
-                <textarea name="user_ids" placeholder="IDs séparés par des virgules (ex: 1,2,3)" 
-                    style="padding: 8px; border-radius: 5px; width: 100%;"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary" style="width: fit-content;">Envoyer</button>
-        </div>
-    </form>
+<!-- ── Header ── -->
+<div class="page-header">
+  <div>
+    <div class="page-title">Admin <span>Panel</span></div>
+    <div class="page-sub">Gestion des utilisateurs et notifications</div>
+  </div>
+  <div class="admin-badge">
+    <i class="bi bi-shield-lock"></i> Accès restreint
+  </div>
 </div>
 
-<div style="background: #2a2a2a; padding: 20px; border-radius: 10px;">
-
-    <div style="margin: auto; text-align: center;">
-        <form method="GET" action="/admin" style="text-align: center;">
-            <input type="text" name="search" value="{{ search }}" 
-                placeholder="Rechercher un user..."
-                style="padding: 8px; border-radius: 5px; width: 60%; margin-bottom: 15px;">
-                <button type="submit" class="btn btn-primary">Rechercher</button>
-                {% if search %}
-                    <a href="/admin" class="btn btn-secondary">Effacer</a>
-                {% endif %}
-        </form>
-    </div>
-    
-    <!-- SECTION LISTE DES USERS -->
-    <div style="margin: 30px auto; width: 80%;">
-        <h4 style="font-weight: bold;">Utilisateurs ({{ users|length }})</h4>
-        <table style="border: 2px solid white; width: 100%; text-align: center;">
-            <tr>
-                <th class="cell">ID</th>
-                <th class="cell">Prénom</th>
-                <th class="cell">Nom</th>
-                <th class="cell">Email</th>
-                <th class="cell">Role</th>
-                <th class="cell">Vérifié</th>
-                <th class="cell">Actions</th>
-            </tr>
-            {% for user in users %}
-            <tr>
-                <td class="cell">{{ user[0] }}</td>
-                <td class="cell">{{ user[2] }}</td>
-                <td class="cell">{{ user[3] }}</td>
-                <td class="cell">{{ user[1] }}</td>
-                <td class="cell">{{ user[4] }}</td>
-                <td class="cell">{{ '✅' if user[5] else '❌' }}</td>
-                <td class="cell" style="display: flex; gap: 5px; justify-content: center; padding: 10px;">
-                    <form method="POST" action="/admin/reset-timer/{{ user[0] }}">
-                        <button type="submit" class="btn btn-primary btn-sm">Reset timer MDP</button>
-                    </form>
-                    <form method="POST" action="/admin/notify-user/{{ user[0] }}">
-                        <button type="submit" class="btn btn-secondary btn-sm">Notifier</button>
-                    </form>
-                </td>
-            </tr>
-            {% endfor %}
-        </table>
-    </div>
-    <div style="text-align: center; margin-top: 20px; display: flex; justify-content: center; gap: 10px;">
-        {% if page > 1 %}
-            <a href="/admin/{{ page - 1 }}?search={{ search }}" class="btn btn-primary">← Précédent</a>
-        {% endif %}
-        <span style="padding: 8px 16px;">Page {{ page }} / {{ total_pages }}</span>
-        {% if page < total_pages %}
-            <a href="/admin/{{ page + 1 }}?search={{ search }}" class="btn btn-primary">Suivant →</a>
-        {% endif %}
-    </div>
+<!-- ── Stats ── -->
+<div class="stats-row">
+  <div class="stat-card pink">
+    <div class="stat-icon pink"><i class="bi bi-people"></i></div>
+    <div class="stat-num">{{ users | length }}</div>
+    <div class="stat-label">Utilisateurs affichés</div>
+  </div>
+  <div class="stat-card teal">
+    <div class="stat-icon teal"><i class="bi bi-patch-check"></i></div>
+    <div class="stat-num">{{ users | selectattr(5) | list | length if users else '—' }}</div>
+    <div class="stat-label">Comptes vérifiés</div>
+  </div>
+  <div class="stat-card purple">
+    <div class="stat-icon purple"><i class="bi bi-file-earmark-text"></i></div>
+    <div class="stat-num">{{ total_pages }}</div>
+    <div class="stat-label">Pages totales</div>
+  </div>
 </div>
-    
-    <script>
-document.querySelector('select[name="target"]').addEventListener('change', function() {
-    document.getElementById('specific-users').style.display = 
-        this.value === 'specific' ? 'block' : 'none';
-});
 
-function filterUsers() {
-    const query = document.getElementById('search').value.toLowerCase();
-    const rows = document.querySelectorAll('table tr:not(:first-child)');
-    
-    rows.forEach(row => {
-        const text = row.innerText.toLowerCase();
-        row.style.display = text.includes(query) ? '' : 'none';
-    });
+<!-- ── Notification ── -->
+<div class="card notif-card">
+  <div class="card-head"><i class="bi bi-megaphone"></i> Envoyer une notification</div>
+  <form method="POST" action="/admin/notify">
+    <div class="notif-grid">
+      <div class="field">
+        <label>Titre</label>
+        <input type="text" name="title" placeholder="ex. Mise à jour disponible" required>
+      </div>
+      <div class="field">
+        <label>Destinataires</label>
+        <select name="target" id="target-select">
+          <option value="all">Tous les utilisateurs</option>
+          <option value="specific">Utilisateurs spécifiques</option>
+        </select>
+      </div>
+      <div class="field field-full">
+        <label>Message</label>
+        <textarea name="message" placeholder="Contenu de la notification…" required></textarea>
+      </div>
+      <div class="field field-full" id="specific-users">
+        <label>IDs des utilisateurs</label>
+        <input type="text" name="user_ids" placeholder="ex. 1, 2, 3">
+      </div>
+      <div class="field-full" style="display:flex; justify-content:flex-end;">
+        <button type="submit" class="btn-pink">
+          <i class="bi bi-send"></i> Envoyer
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- ── Users ── -->
+<div class="card users-card">
+  <div class="card-head"><i class="bi bi-people"></i> Utilisateurs</div>
+
+  <!-- Search -->
+  <form method="GET" action="/admin">
+    <div class="search-wrap">
+      <input type="text" name="search" value="{{ search }}" placeholder="Rechercher par nom, courriel, ID…">
+      <button type="submit" class="btn-pink"><i class="bi bi-search"></i></button>
+      {% if search %}
+      <a href="/admin" class="btn-pill"><i class="bi bi-x"></i> Effacer</a>
+      {% endif %}
+    </div>
+  </form>
+
+  <!-- Table -->
+  <table class="users-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Utilisateur</th>
+        <th>Courriel</th>
+        <th>Rôle</th>
+        <th>Vérifié</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in users %}
+      <tr>
+        <td style="color:#444; font-size:12px;">#{{ user[0] }}</td>
+        <td>
+          <div style="display:flex; align-items:center; gap:10px;">
+            <div class="user-avatar">{{ user[2][0] | upper }}{{ user[3][0] | upper }}</div>
+            <span>{{ user[2] }} {{ user[3] }}</span>
+          </div>
+        </td>
+        <td style="color:#666;">{{ user[1] }}</td>
+        <td>
+          <span class="role-badge {{ 'role-admin' if user[4] == 'admin' else 'role-user' }}">
+            {{ user[4] }}
+          </span>
+        </td>
+        <td>
+          {% if user[5] %}
+          <span class="verified-yes"><i class="bi bi-check-circle-fill"></i></span>
+          {% else %}
+          <span class="verified-no"><i class="bi bi-x-circle"></i></span>
+          {% endif %}
+        </td>
+        <td>
+          <div class="action-cell">
+            <form method="POST" action="/admin/reset-timer/{{ user[0] }}">
+              <button type="submit" class="btn-pill teal">
+                <i class="bi bi-arrow-counterclockwise"></i> Reset MDP
+              </button>
+            </form>
+            <form method="POST" action="/admin/notify-user/{{ user[0] }}">
+              <button type="submit" class="btn-pill">
+                <i class="bi bi-bell"></i> Notifier
+              </button>
+            </form>
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <!-- Pagination -->
+  <div class="pagination">
+    {% if page > 1 %}
+    <a href="/admin/{{ page - 1 }}?search={{ search }}" class="page-btn">‹</a>
+    {% endif %}
+    {% for p in range(1, total_pages + 1) %}
+    <a href="/admin/{{ p }}?search={{ search }}"
+       class="page-btn {% if p == page %}active{% endif %}">{{ p }}</a>
+    {% endfor %}
+    {% if page < total_pages %}
+    <a href="/admin/{{ page + 1 }}?search={{ search }}" class="page-btn">›</a>
+    {% endif %}
+    <span class="page-info">Page {{ page }} / {{ total_pages }}</span>
+  </div>
+</div>
+
+<script>
+document.getElementById('target-select').addEventListener('change', function () {
+  document.getElementById('specific-users').style.display =
+    this.value === 'specific' ? 'flex' : 'none';
+
+function highlightSearch(term) {
+  if (!term.trim()) return;
+  const regex = new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+
+  const walker = document.createTreeWalker(
+    document.querySelector('.users-table tbody'),
+    NodeFilter.SHOW_TEXT,
+    { acceptNode: node => node.textContent.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT }
+  );
+
+  const nodes = [];
+  while (walker.nextNode()) nodes.push(walker.currentNode);
+
+  nodes.forEach(node => {
+    if (!regex.test(node.textContent)) return;
+    regex.lastIndex = 0;
+
+    const span = document.createElement('span');
+    span.innerHTML = node.textContent.replace(regex,
+      '<span style="color:#e91e8c;font-weight:600;background:rgba(233,30,140,0.12);border-radius:3px;padding:0 2px;">$&</span>'
+    );
+
+    node.parentNode.replaceChild(span, node);
+  });
 }
+
+highlightSearch("{{ search | e }}");
+});
 </script>
 
 {% endblock %}
