@@ -88,7 +88,7 @@ def updateUserRank():
     if userId:
         leaderboard = getLeaderboard(limit=999)  # tous les users
         for row in leaderboard:
-            if int(row[2]) == int(userId):
+            if int(row[3]) == int(userId):
                 session["userRank"] = int(row[0])
                 return
         session["userRank"] = None
@@ -101,7 +101,7 @@ def resetSessionData(userID):
     # Rank ici au lieu de load_user
     leaderboard = getLeaderboard(limit=999)
     for row in leaderboard:
-        if int(row[2]) == int(userID):
+        if int(row[3]) == int(userID):
             session["userRank"] = int(row[0])
             return
     session["userRank"] = None
@@ -264,28 +264,97 @@ def logout():
     return redirect(url_for('login'))
 
     
-@app.route('/dashboard', methods=['GET', 'POST'])
+@app.route('/dashboard')
+@login_required
 def dashboard():
-    if not current_user.is_authenticated:
-        return redirect(url_for("login"))
     userID = session.get("userID")
-    
-    if request.method == 'POST':
-        email = request.form['email']
-        firstname = request.form['firstname']
-        lastname = request.form['lastname']
-        birthday = request.form['birthday']
-        participe = request.form.get('participe') == 'on'
-
-        setUserInfo(userID, email, firstname, lastname, birthday, participe)
-        return redirect(url_for('dashboard'))
-    
-    data = getUserRecipes(userID)
-    name = session.get("name")
     clientInfo = getUserInfo(userID)
-    notifications = getNotifications(userID, False)
 
-    return render_template('dashboard.html', userID=userID, data=data, name=name, clientInfo=clientInfo, notifications=notifications)
+    # ── Recettes ──────────────────────────────────────────────────────────────
+    # getUserRecipes retourne : (idRecette, ordre, nom, portions, createdAt)
+    raw_recipes = getUserRecipes(userID)
+    week_start = getFlyerStartWeekStr()
+    discounts = getDiscountsForWeek(week_start)  # [(id, product_name, discount_pct, original_price, discounted_price, store_nom)]
+
+    recipes = []
+    for r in raw_recipes[:6]:
+        idRecette, ordre, nom, portions, created_at = r
+        recette_data, ingredients = getRecetteWithIngredients(idRecette, userID)
+
+        best_match = None
+        for ing in ingredients:
+            ing_nom = ing[0].lower()
+            for d in discounts:
+                if ing_nom in d[1].lower() or d[1].lower() in ing_nom:
+                    if best_match is None or d[2] > best_match[2]:
+                        best_match = d
+                        print(d)
+                    break
+
+        recipes.append({
+            "name":     nom,
+            "emoji":    "🍽️",
+            "on_sale":  best_match is not None,
+            "discount": int(best_match[2]) if best_match else None,
+            "store":    best_match[5].capitalize() if best_match else None,
+        })
+
+    recipes.sort(key=lambda r: r["on_sale"], reverse=True)
+    recipes_on_sale = sum(1 for r in recipes if r["on_sale"])
+
+    # ── Leaderboard ───────────────────────────────────────────────────────────
+    # Colonnes : (classement, firstName, lastName, idClient, nbRecettes)
+    all_ranks = getLeaderboard(limit=999)
+
+    user_rank  = session.get("userRank")
+    user_score = 0
+    for row in all_ranks:
+        if int(row[3]) == int(userID):
+            user_score = row[4]   # nbRecettes comme "score" affiché
+            break
+
+    top3 = all_ranks[:3]
+    leaderboard = []
+    current_user_in_top3 = any(int(row[3]) == int(userID) for row in top3)
+
+    for row in top3:
+        rank, first, last, idclient, nb_recettes = row
+        leaderboard.append({
+            "rank":            rank,
+            "initials":        first[0].upper() + last[0].upper(),
+            "display_name":    first + " " + last[0] + ".",
+            "score":           nb_recettes,
+            "is_current_user": int(idclient) == int(userID),
+        })
+
+    if not current_user_in_top3 and user_rank:
+        leaderboard.append({
+            "rank":            user_rank,
+            "initials":        clientInfo[2][0].upper() + clientInfo[3][0].upper(),
+            "display_name":    clientInfo[2] + " " + clientInfo[3][0] + ".",
+            "score":           user_score,
+            "is_current_user": True,
+        })
+
+    # ── Stats ─────────────────────────────────────────────────────────────────
+    LEVEL_THRESHOLDS = [5, 10, 20, 50, 100]  # seuils en nb de recettes
+    next_level_score = next((t for t in LEVEL_THRESHOLDS if t > user_score), LEVEL_THRESHOLDS[-1])
+
+    stats = {
+        "recipe_count":    len(raw_recipes),
+        "recipes_on_sale": recipes_on_sale,
+        "rank":            user_rank,
+        "score":           user_score,
+        "next_level_score": next_level_score,
+    }
+
+    return render_template(
+        'dashboard.html',
+        clientInfo=clientInfo,
+        stats=stats,
+        recipes=recipes,
+        leaderboard=leaderboard,
+    )
 
 @app.route('/flyers')
 def flyers():
@@ -413,10 +482,11 @@ def edit_recipe(idRecette):
 @app.route('/leaderboard/<int:page>')
 def leaderboard(page=1):
     leaderboard = getLeaderboard(page=page)
-    headings = ( "Classement", "Nom", "Score")
     userId = session.get("userID")
+    total = countAllUsers()
+    total_pages = (total + 19) // 20
 
-    return render_template('leaderboard.html', leaderboard=leaderboard, headings=headings, page=page, current_Id=userId)
+    return render_template('leaderboard.html', leaderboard=leaderboard, page=page, total_pages=total_pages, current_Id=userId)
 
 # ====================================
 # ====================================

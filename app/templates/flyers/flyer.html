@@ -1,166 +1,242 @@
 {% extends 'base.html' %}
 
 {% block head %}
+<style>
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+* { box-sizing: border-box; }
+#main { padding: 0; }
+
+.page-header  { animation: fadeSlideIn 0.5s ease both; }
+.pages-grid   { animation: fadeSlideIn 0.5s ease 0.1s both; }
+
+/* ── Header ── */
+.page-header {
+  display: flex; align-items: center; gap: 20px;
+  margin-bottom: 28px; flex-wrap: wrap;
+}
+.back-btn {
+  width: 42px; height: 42px; border-radius: 99px; flex-shrink: 0;
+  background: #1a1a1a; border: 0.5px solid #2a2a2a; color: #aaa;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; text-decoration: none;
+  transition: border-color 0.2s, color 0.2s;
+}
+.back-btn:hover { border-color: #444; color: #fff; }
+
+.store-logo-wrap {
+  height: 48px; display: flex; align-items: center;
+}
+.store-logo-wrap img {
+  max-height: 48px; max-width: 160px; object-fit: contain;
+  filter: brightness(0.9);
+}
+
+.page-sub { font-size: 13px; color: #555; margin-left: auto; }
+
+/* ── Grille de pages ── */
+.pages-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.flyer-page-card {
+  background: #111; border: 0.5px solid #222; border-radius: 14px;
+  overflow: hidden; position: relative; cursor: zoom-in;
+  transition: border-color 0.2s, transform 0.15s;
+}
+.flyer-page-card:hover { border-color: #444; transform: translateY(-2px); }
+
+.flyer-page-card img {
+  width: 100%; display: block; border-radius: 13px;
+}
+
+.page-num {
+  position: absolute; bottom: 10px; right: 12px;
+  font-size: 11px; color: #fff;
+  background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
+  padding: 3px 10px; border-radius: 99px;
+  pointer-events: none;
+}
+
+/* ── Lightbox ── */
+#lightbox {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.92); z-index: 1000;
+  justify-content: center; align-items: center;
+  cursor: zoom-out; user-select: none;
+}
+
+.lb-nav {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  background: #1a1a1a; border: 0.5px solid #2a2a2a; color: #aaa;
+  width: 44px; height: 44px; border-radius: 99px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+  z-index: 10;
+}
+.lb-nav:hover { border-color: #555; color: #fff; }
+.lb-nav.prev { left: 20px; }
+.lb-nav.next { right: 20px; }
+
+#lightbox-img {
+  max-width: 85%; max-height: 90%;
+  border-radius: 12px; display: block;
+  transition: none;
+}
+
+#lightbox-counter {
+  position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+  font-size: 12px; color: #aaa;
+  background: #111; border: 0.5px solid #2a2a2a;
+  padding: 5px 16px; border-radius: 99px;
+  pointer-events: none;
+}
+
+.lb-close {
+  position: absolute; top: 16px; right: 16px;
+  background: #1a1a1a; border: 0.5px solid #2a2a2a; color: #aaa;
+  width: 36px; height: 36px; border-radius: 99px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; cursor: pointer;
+  transition: border-color 0.2s, color 0.2s; z-index: 10;
+}
+.lb-close:hover { border-color: #555; color: #fff; }
+</style>
 {% endblock %}
 
 {% block body %}
-<div id="lightbox" onclick="closeLightbox()" style="
-    display: none;
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.9);
-    z-index: 1000;
-    justify-content: center;
-    align-items: center;
-    cursor: zoom-out;
-    user-select: none;
-" draggable="false">
-    <button onclick="event.stopPropagation(); changeImage(-1)" style="
-        position: absolute; left: 20px;
-        background: none; border: none;
-        color: white; font-size: 48px;
-        cursor: pointer;">◀</button>
 
-    <img id="lightbox-img" style="max-width: 85%; max-height: 90%; border-radius: 10px;">
-
-    <!-- ← Ajoute le compteur ici -->
-    <div id="lightbox-counter" style="
-        position: absolute; bottom: 20px;
-        color: white; font-size: 18px;
-        background: rgba(0,0,0,0.5);
-        padding: 5px 15px;
-        border-radius: 20px;
-    "></div>
-
-    <button onclick="event.stopPropagation(); changeImage(1)" style="
-        position: absolute; right: 20px;
-        background: none; border: none;
-        color: white; font-size: 48px;
-        cursor: pointer;">▶</button>
-</div>
-<div style="justify-content: center; display: flex; align-items: center; height: 150px; margin-bottom: 20px; position: relative;">
-    <a href="{{ url_for('flyers') }}" style="position: absolute; left: 0; font-size: 36px; color:inherit">
-        <i class="bi bi-arrow-left-circle"></i>
-    </a>
-    <img style="width: 250px; height: auto" src="{{ url_for('static', filename='logos-epiceries/' ~ store ~ '.png') }}">
+<!-- ── Lightbox ── -->
+<div id="lightbox" onclick="closeLightbox()">
+  <button class="lb-close" onclick="event.stopPropagation(); closeLightbox()">
+    <i class="bi bi-x"></i>
+  </button>
+  <button class="lb-nav prev" onclick="event.stopPropagation(); changeImage(-1)">
+    <i class="bi bi-chevron-left"></i>
+  </button>
+  <img id="lightbox-img" draggable="false">
+  <button class="lb-nav next" onclick="event.stopPropagation(); changeImage(1)">
+    <i class="bi bi-chevron-right"></i>
+  </button>
+  <div id="lightbox-counter"></div>
 </div>
 
-{% for url in image_urls %}
-<div style="display: flex; justify-content: space-evenly; align-items: center; width: 100%; height: 100%;">
-    <div style="justify-content: center; display: flex; align-items: center;">
-        <img style="width:90%; border-radius: 30px; cursor: zoom-in;"
-             src="{{ url }}"
-             onclick="openLightbox({{ loop.index0 * 2 }})">
-    </div>
-    {% if loop.index < image_urls|length %}
-    <div style="justify-content: center; display: flex; align-items: center;">
-        <img style="width:90%; border-radius: 30px; cursor: zoom-in;"
-             src="{{ image_urls[loop.index] }}"
-             onclick="openLightbox({{ loop.index0 * 2 + 1 }})">
-    </div>
-    {% endif %}
+<!-- ── Header ── -->
+<div class="page-header" style="padding-top: 20px">
+  <a href="{{ url_for('flyers') }}" class="back-btn">
+    <i class="bi bi-arrow-left"></i>
+  </a>
+  <div class="store-logo-wrap">
+    <img src="{{ url_for('static', filename='logos-epiceries/' ~ store ~ '.png') }}"
+         alt="{{ store }}">
+  </div>
+  <span class="page-sub">{{ image_urls | length * 2 }} pages · {{ week_start }}</span>
 </div>
-{% endfor %}
+
+<!-- ── Grille des pages ── -->
+<div class="pages-grid">
+  {% for url in image_urls %}
+  <div class="flyer-page-card" onclick="openLightbox({{ loop.index0 * 2 }})">
+    <img src="{{ url }}" loading="lazy" alt="Page {{ loop.index0 * 2 + 1 }}">
+    <span class="page-num">{{ loop.index0 * 2 + 1 }}</span>
+  </div>
+  {% if loop.index < image_urls | length %}
+  <div class="flyer-page-card" onclick="openLightbox({{ loop.index0 * 2 + 1 }})">
+    <img src="{{ image_urls[loop.index] }}" loading="lazy" alt="Page {{ loop.index0 * 2 + 2 }}">
+    <span class="page-num">{{ loop.index0 * 2 + 2 }}</span>
+  </div>
+  {% endif %}
+  {% endfor %}
+</div>
+
 <script>
 const allImages = {{ image_urls | tojson | safe }};
 let currentIndex = 0;
+let zoomLevel = 1;
+let translateX = 0, translateY = 0;
+let isDragging = false, startX, startY;
+
+const lb      = document.getElementById('lightbox');
+const lbImg   = document.getElementById('lightbox-img');
+const counter = document.getElementById('lightbox-counter');
 
 function updateCounter() {
-    document.getElementById("lightbox-counter").innerText = 
-        `${currentIndex + 1} / ${allImages.length}`;
+  counter.textContent = `${currentIndex + 1} / ${allImages.length}`;
 }
-
-let isDragging = false;
-let startX, startY, translateX = 0, translateY = 0;
-
-const img = document.getElementById("lightbox-img");
-
-img.addEventListener("mousedown", (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    isDragging = true;
-    startX = e.clientX - translateX;
-    startY = e.clientY - translateY;
-    img.style.cursor = "grabbing";
-});
-
-document.addEventListener("mousemove", (e) => {
-    if (!isDragging) return;
-    translateX = e.clientX - startX;
-    translateY = e.clientY - startY;
-    img.style.transform = `scale(${zoomLevel}) translate(${translateX / zoomLevel}px, ${translateY / zoomLevel}px)`;
-});
-
-document.addEventListener("mouseup", () => {
-    isDragging = false;
-    img.style.cursor = "default";
-});
-img.addEventListener("click", (e) => {
-    e.stopPropagation(); // ← empêche le click de fermer le lightbox
-});
-
-let zoomLevel = 1;
-img.addEventListener("wheel", (e) => {
-    e.preventDefault();
-    
-    const rect = img.getBoundingClientRect();
-    const mouseX = e.clientX - rect.left - rect.width / 2;
-    const mouseY = e.clientY - rect.top - rect.height / 2;
-    
-    const prevZoom = zoomLevel;
-    zoomLevel += e.deltaY * -0.001;
-    zoomLevel = Math.min(Math.max(zoomLevel, 1), 4);
-    
-    // Ajuste le translate pour zoomer vers la souris
-    const zoomRatio = zoomLevel / prevZoom;
-    translateX = mouseX - zoomRatio * (mouseX - translateX);
-    translateY = mouseY - zoomRatio * (mouseY - translateY);
-    
-    // Reset translate si on est à zoom 1
-    if (zoomLevel === 1) {
-        translateX = 0;
-        translateY = 0;
-    }
-
-    img.style.transform = `scale(${zoomLevel}) translate(${translateX / zoomLevel}px, ${translateY / zoomLevel}px)`;
-});
-
 
 function openLightbox(index) {
-    zoomLevel = 1; // reset zoom à chaque ouverture
-    document.getElementById("lightbox-img").style.transform = "scale(1)";
-    currentIndex = index;
-    document.getElementById("lightbox-img").src = allImages[currentIndex];
-    document.getElementById("lightbox").style.display = "flex";
-    updateCounter();
+  currentIndex = index;
+  resetZoom();
+  lbImg.src = allImages[currentIndex];
+  lb.style.display = 'flex';
+  updateCounter();
 }
 
-function changeImage(direction) {
-    zoomLevel = 1; // reset zoom au changement d'image
-    document.getElementById("lightbox-img").style.transform = "scale(1)";
-    currentIndex += direction;
-    if (currentIndex < 0) currentIndex = allImages.length - 1;
-    if (currentIndex >= allImages.length) currentIndex = 0;
-    document.getElementById("lightbox-img").src = allImages[currentIndex];
-    updateCounter();
+function changeImage(dir) {
+  currentIndex = (currentIndex + dir + allImages.length) % allImages.length;
+  resetZoom();
+  lbImg.src = allImages[currentIndex];
+  updateCounter();
 }
 
 function closeLightbox() {
-    document.getElementById("lightbox").style.display = "none";
+  lb.style.display = 'none';
+  resetZoom();
 }
 
-function resetImage() {
-    zoomLevel = 1;
-    translateX = 0;
-    translateY = 0;
-    img.style.transform = "scale(1) translate(0px, 0px)";
+function resetZoom() {
+  zoomLevel = 1; translateX = 0; translateY = 0;
+  lbImg.style.transform = 'scale(1) translate(0px, 0px)';
 }
 
-document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") closeLightbox();
-    if (e.key === "ArrowRight") changeImage(1);
-    if (e.key === "ArrowLeft") changeImage(-1);
+/* Drag */
+lbImg.addEventListener('mousedown', e => {
+  e.preventDefault(); e.stopPropagation();
+  isDragging = true;
+  startX = e.clientX - translateX;
+  startY = e.clientY - translateY;
+  lbImg.style.cursor = 'grabbing';
+});
+document.addEventListener('mousemove', e => {
+  if (!isDragging) return;
+  translateX = e.clientX - startX;
+  translateY = e.clientY - startY;
+  lbImg.style.transform = `scale(${zoomLevel}) translate(${translateX / zoomLevel}px, ${translateY / zoomLevel}px)`;
+});
+document.addEventListener('mouseup', () => {
+  isDragging = false;
+  lbImg.style.cursor = 'default';
+});
+lbImg.addEventListener('click', e => e.stopPropagation());
+
+/* Zoom molette */
+lbImg.addEventListener('wheel', e => {
+  e.preventDefault();
+  const rect = lbImg.getBoundingClientRect();
+  const mx = e.clientX - rect.left - rect.width / 2;
+  const my = e.clientY - rect.top - rect.height / 2;
+  const prev = zoomLevel;
+  zoomLevel = Math.min(Math.max(zoomLevel - e.deltaY * 0.001, 1), 4);
+  const ratio = zoomLevel / prev;
+  translateX = mx - ratio * (mx - translateX);
+  translateY = my - ratio * (my - translateY);
+  if (zoomLevel === 1) { translateX = 0; translateY = 0; }
+  lbImg.style.transform = `scale(${zoomLevel}) translate(${translateX / zoomLevel}px, ${translateY / zoomLevel}px)`;
+});
+
+/* Clavier */
+document.addEventListener('keydown', e => {
+  if (lb.style.display !== 'flex') return;
+  if (e.key === 'Escape')      closeLightbox();
+  if (e.key === 'ArrowRight')  changeImage(1);
+  if (e.key === 'ArrowLeft')   changeImage(-1);
 });
 </script>
+
 {% endblock %}

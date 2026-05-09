@@ -1,154 +1,293 @@
 {% extends 'base.html' %}
+
+{% block head %}
+<style>
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+* { box-sizing: border-box; }
+#main { padding: 0; }
+
+.page-header  { animation: fadeSlideIn 0.5s ease both; }
+.detail-grid  { animation: fadeSlideIn 0.5s ease 0.08s both; }
+
+/* ── Header ── */
+.page-header {
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 28px; flex-wrap: wrap;
+}
+.back-btn {
+  width: 42px; height: 42px; border-radius: 99px; flex-shrink: 0;
+  background: #1a1a1a; border: 0.5px solid #2a2a2a; color: #aaa;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; text-decoration: none;
+  transition: border-color 0.2s, color 0.2s;
+}
+.back-btn:hover { border-color: #444; color: #fff; }
+
+.recipe-title-wrap { flex: 1; min-width: 0; }
+#titre-view {
+  font-size: 36px; font-weight: 700; letter-spacing: -1px;
+  color: #fff; margin: 0; line-height: 1.1;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+.header-actions { display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
+
+.btn-pink {
+  background: #d32f89; color: #fff; border: none;
+  padding: 9px 16px; border-radius: 8px; font-size: 13px; font-weight: 600;
+  cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+  transition: background 0.2s;
+}
+.btn-pink:hover { background: #e91e8c; }
+
+.btn-pill {
+  background: #1a1a1a; border: 0.5px solid #2a2a2a; color: #aaa;
+  padding: 9px 16px; border-radius: 8px; font-size: 13px; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 6px;
+  transition: border-color 0.2s, color 0.2s;
+}
+.btn-pill:hover { border-color: #444; color: #fff; }
+.btn-pill.success { border-color: #1D9E75; color: #5DCAA5; }
+.btn-pill.success:hover { background: rgba(29,158,117,0.1); }
+.btn-pill.danger { border-color: #993556; color: #ED93B1; }
+.btn-pill.danger:hover { background: rgba(212,83,126,0.1); }
+
+/* ── Méta (portions + date) ── */
+.recipe-meta {
+  display: flex; align-items: center; gap: 18px;
+  margin-bottom: 20px; font-size: 13px; color: #555; flex-wrap: wrap;
+}
+.meta-chip {
+  display: flex; align-items: center; gap: 6px;
+  background: #1a1a1a; border: 0.5px solid #222;
+  padding: 5px 12px; border-radius: 99px;
+}
+.meta-chip i { font-size: 13px; }
+
+/* ── Cards ── */
+.card {
+  background: #111; border: 0.5px solid #222; border-radius: 14px;
+  padding: 22px; margin-bottom: 14px;
+  position: relative; overflow: hidden;
+}
+.card::before {
+  content: ""; position: absolute; top: 0; right: 0;
+  width: 100px; height: 100px;
+  background: radial-gradient(circle, rgba(233,30,140,0.06), transparent 70%);
+  pointer-events: none;
+}
+.card-head {
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  color: #444; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
+}
+
+/* ── Ingrédients ── */
+.ing-list { list-style: none; padding: 0; margin: 0; }
+.ing-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 9px 0; border-bottom: 0.5px solid #181818; font-size: 13px;
+}
+.ing-row:last-child { border-bottom: none; }
+.ing-nom-val  { color: #ccc; }
+.ing-qty-val  { color: #555; font-size: 12px; }
+
+/* ── Instructions ── */
+#instructions-view {
+  font-size: 14px; color: #888; line-height: 1.9;
+  white-space: pre-wrap; margin: 0;
+}
+
+/* ── Edit mode inputs ── */
+#titre-edit {
+  display: none; font-size: 30px; font-weight: 700; letter-spacing: -1px;
+  background: #1a1a1a; border: 0.5px solid #333; color: #fff;
+  border-radius: 8px; padding: 6px 12px; width: 100%;
+}
+#titre-edit:focus { outline: none; border-color: #e91e8c; }
+
+.edit-input {
+  background: #1a1a1a; border: 0.5px solid #2a2a2a; color: #ccc;
+  border-radius: 8px; padding: 8px 10px; font-size: 13px;
+  transition: border-color 0.2s; width: 100%;
+}
+.edit-input:focus { outline: none; border-color: #e91e8c; }
+
+.ing-edit-row {
+  display: flex; gap: 8px; margin-bottom: 8px; align-items: center;
+}
+.ing-edit-row input { background: #1a1a1a; border: 0.5px solid #2a2a2a; color: #ccc; border-radius: 8px; padding: 8px 10px; font-size: 13px; }
+.ing-edit-row input:focus { outline: none; border-color: #e91e8c; }
+.ing-edit-row .ing-nom    { flex: 2; }
+.ing-edit-row .ing-qty    { flex: 1; }
+.ing-edit-row .ing-unite  { flex: 1; }
+.ing-remove-btn {
+  background: none; border: none; color: #555; font-size: 16px;
+  cursor: pointer; transition: color 0.2s; flex-shrink: 0;
+}
+.ing-remove-btn:hover { color: #e91e8c; }
+
+.btn-add-ing {
+  background: none; border: 0.5px dashed #2a2a2a; color: #555;
+  padding: 7px 14px; border-radius: 8px; font-size: 12px;
+  cursor: pointer; margin-top: 8px; transition: border-color 0.2s, color 0.2s;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.btn-add-ing:hover { border-color: #444; color: #aaa; }
+
+#instructions-edit {
+  display: none; width: 100%; min-height: 180px;
+  background: #1a1a1a; border: 0.5px solid #2a2a2a; color: #888;
+  border-radius: 8px; padding: 10px 12px; font-size: 14px;
+  line-height: 1.9; resize: vertical;
+}
+#instructions-edit:focus { outline: none; border-color: #e91e8c; }
+
+#portions-view { display: inline; }
+#portions-edit {
+  display: none; width: 70px;
+  background: #1a1a1a; border: 0.5px solid #2a2a2a; color: #ccc;
+  border-radius: 8px; padding: 5px 8px; font-size: 13px;
+}
+#portions-edit:focus { outline: none; border-color: #e91e8c; }
+</style>
+{% endblock %}
+
 {% block body %}
 
-<a href="{{ url_for('recipes') }}" style="font-size: 28px; color: white;">
-    <i class="bi bi-arrow-left-circle"></i>
-</a>
-<div style="max-width: 800px; margin: auto; padding: 30px;">
-    
-    <!-- HEADER -->
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
-        <h3 id="titre-view" style="font-weight: bold; font-size: 50px; margin: 0;">{{ recette[1] }}</h3>
-        <input id="titre-edit" type="text" value="{{ recette[1] }}" style="display:none; font-size: 36px; font-weight: bold; background:#333; border:none; color:white; border-radius:8px; padding: 5px 10px; width: 100%;">
-        
-        <div style="display: flex; gap: 10px; margin-left: 20px; flex-shrink: 0;">
-            <button id="btnEdit" onclick="toggleEdit(true)" class="btn btn-primary">
-                <i class="bi bi-pencil"></i> Modifier
-            </button>
-            <button id="btnSave" onclick="saveEdit()" class="btn btn-success" style="display:none;">
-                <i class="bi bi-check"></i> Sauvegarder
-            </button>
-            <button id="btnCancel" onclick="toggleEdit(false)" class="btn btn-outline-secondary" style="display:none;">
-                Annuler
-            </button>
-            <form method="POST" action="/recipes/{{ recette[0] }}/delete">
-                <button type="submit" class="btn btn-danger"
-                    onclick="return confirm('Supprimer cette recette?')">
-                    <i class="bi bi-trash"></i>
-                </button>
-            </form>
-        </div>
+<!-- ── Header ── -->
+<div class="page-header" style="padding-top: 20px">
+  <a href="{{ url_for('recipes') }}" class="back-btn">
+    <i class="bi bi-arrow-left"></i>
+  </a>
+  <div class="recipe-title-wrap">
+    <h1 id="titre-view">{{ recette[1] }}</h1>
+    <input id="titre-edit" type="text" value="{{ recette[1] }}">
+  </div>
+  <div class="header-actions">
+    <button id="btnEdit" onclick="toggleEdit(true)" class="btn-pill">
+      <i class="bi bi-pencil"></i> Modifier
+    </button>
+    <button id="btnSave" onclick="saveEdit()" class="btn-pill success" style="display:none;">
+      <i class="bi bi-check"></i> Sauvegarder
+    </button>
+    <button id="btnCancel" onclick="toggleEdit(false)" class="btn-pill" style="display:none;">
+      Annuler
+    </button>
+    <form method="POST" action="/recipes/{{ recette[0] }}/delete"
+          onsubmit="return confirm('Supprimer cette recette?')">
+      <button type="submit" class="btn-pill danger">
+        <i class="bi bi-trash"></i>
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- ── Méta ── -->
+<div class="recipe-meta">
+  <div class="meta-chip" style="color:#aaa;">
+    <i class="bi bi-people"></i>
+    <span id="portions-view">{{ recette[3] }} portions</span>
+    <input id="portions-edit" type="number" value="{{ recette[3] }}" min="1">
+  </div>
+  <div class="meta-chip" style="color:#555;">
+    <i class="bi bi-calendar"></i>
+    <span>{{ recette[4].strftime('%d/%m/%Y %Hh%M') }}</span>
+  </div>
+</div>
+
+<!-- ── Ingrédients ── -->
+<div class="card">
+  <div class="card-head">
+    <i class="bi bi-basket"></i> Ingrédients
+  </div>
+
+  <ul id="ingredients-view" class="ing-list">
+    {% for ing in ingredients %}
+    <li class="ing-row">
+      <span class="ing-nom-val">{{ ing[0] }}</span>
+      <span class="ing-qty-val">{{ ing[1] }} {{ ing[2] }}</span>
+    </li>
+    {% endfor %}
+  </ul>
+
+  <div id="ingredients-edit" style="display:none;">
+    <div id="ingredients-list">
+      {% for ing in ingredients %}
+      <div class="ing-edit-row">
+        <input type="text"   value="{{ ing[0] }}" placeholder="Nom"   class="ing-nom edit-input">
+        <input type="number" value="{{ ing[1] }}" placeholder="Qté"   class="ing-qty edit-input">
+        <input type="text"   value="{{ ing[2] }}" placeholder="Unité" class="ing-unite edit-input">
+        <button onclick="this.parentElement.remove()" class="ing-remove-btn">
+          <i class="bi bi-x-circle"></i>
+        </button>
+      </div>
+      {% endfor %}
     </div>
+    <button onclick="addIngredient()" class="btn-add-ing">
+      <i class="bi bi-plus"></i> Ajouter un ingrédient
+    </button>
+  </div>
+</div>
 
-    <!-- INFOS -->
-    <div style="display: flex; gap: 20px; margin-bottom: 30px; color: #aaa; align-items: center;">
-        <i class="bi bi-people"></i>
-        <span id="portions-view">{{ recette[2] }} portions</span>
-        <input id="portions-edit" type="number" value="{{ recette[2] }}" min="1" style="display:none; width:80px; background:#333; border:none; color:white; border-radius:6px; padding: 4px 8px;">
-        <span><i class="bi bi-calendar"></i> {{ recette[4].strftime('%d/%m/%Y %Hh%M') }}</span>
-    </div>
-
-    <!-- INGRÉDIENTS -->
-    <div style="background: #2a2a2a; border-radius: 10px; padding: 20px; margin-bottom: 30px;">
-        <h4 style="font-weight: bold; margin-bottom: 15px;">
-            <i class="bi bi-basket"></i> Ingrédients
-        </h4>
-        <ul id="ingredients-view" style="list-style: none; padding: 0; margin: 0;">
-            {% for ing in ingredients %}
-            <li style="padding: 8px 0; border-bottom: 1px solid #333; display: flex; justify-content: space-between;">
-                <span>{{ ing[0] }}</span>
-                <span style="color: #aaa;">{{ ing[1] }} {{ ing[2] }}</span>
-            </li>
-            {% endfor %}
-        </ul>
-
-        <!-- MODE ÉDITION INGRÉDIENTS -->
-        <div id="ingredients-edit" style="display:none;">
-            <div id="ingredients-list">
-                {% for ing in ingredients %}
-                <div class="ingredient-row" style="display: flex; gap: 10px; margin-bottom: 8px; align-items: center;">
-                    <input type="text" value="{{ ing[0] }}" placeholder="Nom" class="ing-nom"
-                        style="flex:2; background:#444; border:none; color:white; border-radius:6px; padding: 6px 10px;">
-                    <input type="number" value="{{ ing[1] }}" placeholder="Qté" class="ing-quantite"
-                        style="flex:1; background:#444; border:none; color:white; border-radius:6px; padding: 6px 10px;">
-                    <input type="text" value="{{ ing[2] }}" placeholder="Unité" class="ing-unite"
-                        style="flex:1; background:#444; border:none; color:white; border-radius:6px; padding: 6px 10px;">
-                    <button onclick="this.parentElement.remove()" style="background:none; border:none; color:#e91e8c; font-size:18px; cursor:pointer;">
-                        <i class="bi bi-x-circle"></i>
-                    </button>
-                </div>
-                {% endfor %}
-            </div>
-            <button onclick="addIngredient()" style="margin-top: 10px; background:none; border: 1px dashed #aaa; color:#aaa; padding: 6px 14px; border-radius:6px; cursor:pointer;">
-                <i class="bi bi-plus"></i> Ajouter un ingrédient
-            </button>
-        </div>
-    </div>
-
-    <!-- INSTRUCTIONS -->
-    <div style="background: #2a2a2a; border-radius: 10px; padding: 20px;">
-        <h4 style="font-weight: bold; margin-bottom: 15px;">
-            <i class="bi bi-journal-text"></i> Instructions
-        </h4>
-        <p id="instructions-view" style="white-space: pre-wrap; line-height: 1.8;">{{ recette[3] or 'Aucune instruction.' }}</p>
-        <textarea id="instructions-edit" style="display:none; width:100%; min-height:200px; background:#333; border:none; color:white; border-radius:8px; padding:10px; line-height:1.8; resize:vertical;">{{ recette[3] }}</textarea>
-    </div>
-
+<!-- ── Instructions ── -->
+<div class="card">
+  <div class="card-head">
+    <i class="bi bi-journal-text"></i> Instructions
+  </div>
+  <p id="instructions-view">{{ recette[2] or 'Aucune instruction.' }}</p>
+  <textarea id="instructions-edit">{{ recette[2] }}</textarea>
 </div>
 
 <script>
 function toggleEdit(on) {
-    // Titre
-    document.getElementById('titre-view').style.display = on ? 'none' : 'block';
-    document.getElementById('titre-edit').style.display = on ? 'block' : 'none';
-
-    // Portions
-    document.getElementById('portions-view').style.display = on ? 'none' : 'inline';
-    document.getElementById('portions-edit').style.display = on ? 'inline' : 'none';
-
-    // Ingrédients
-    document.getElementById('ingredients-view').style.display = on ? 'none' : 'block';
-    document.getElementById('ingredients-edit').style.display = on ? 'block' : 'none';
-
-    // Instructions
-    document.getElementById('instructions-view').style.display = on ? 'none' : 'block';
-    document.getElementById('instructions-edit').style.display = on ? 'block' : 'none';
-
-    // Boutons
-    document.getElementById('btnEdit').style.display = on ? 'none' : 'inline-block';
-    document.getElementById('btnSave').style.display = on ? 'inline-block' : 'none';
-    document.getElementById('btnCancel').style.display = on ? 'inline-block' : 'none';
+  document.getElementById('titre-view').style.display        = on ? 'none'         : 'block';
+  document.getElementById('titre-edit').style.display        = on ? 'block'        : 'none';
+  document.getElementById('portions-view').style.display     = on ? 'none'         : 'inline';
+  document.getElementById('portions-edit').style.display     = on ? 'inline'       : 'none';
+  document.getElementById('ingredients-view').style.display  = on ? 'none'         : 'block';
+  document.getElementById('ingredients-edit').style.display  = on ? 'block'        : 'none';
+  document.getElementById('instructions-view').style.display = on ? 'none'         : 'block';
+  document.getElementById('instructions-edit').style.display = on ? 'block'        : 'none';
+  document.getElementById('btnEdit').style.display           = on ? 'none'         : 'inline-flex';
+  document.getElementById('btnSave').style.display           = on ? 'inline-flex'  : 'none';
+  document.getElementById('btnCancel').style.display         = on ? 'inline-flex'  : 'none';
 }
 
 function addIngredient() {
-    const list = document.getElementById('ingredients-list');
-    const div = document.createElement('div');
-    div.className = 'ingredient-row';
-    div.style = 'display: flex; gap: 10px; margin-bottom: 8px; align-items: center;';
-    div.innerHTML = `
-        <input type="text" placeholder="Nom" class="ing-nom"
-            style="flex:2; background:#444; border:none; color:white; border-radius:6px; padding: 6px 10px;">
-        <input type="number" placeholder="Qté" class="ing-quantite"
-            style="flex:1; background:#444; border:none; color:white; border-radius:6px; padding: 6px 10px;">
-        <input type="text" placeholder="Unité" class="ing-unite"
-            style="flex:1; background:#444; border:none; color:white; border-radius:6px; padding: 6px 10px;">
-        <button onclick="this.parentElement.remove()" style="background:none; border:none; color:#e91e8c; font-size:18px; cursor:pointer;">
-            <i class="bi bi-x-circle"></i>
-        </button>
-    `;
-    list.appendChild(div);
+  const list = document.getElementById('ingredients-list');
+  const div  = document.createElement('div');
+  div.className = 'ing-edit-row';
+  div.innerHTML = `
+    <input type="text"   placeholder="Nom"   class="ing-nom edit-input">
+    <input type="number" placeholder="Qté"   class="ing-qty edit-input">
+    <input type="text"   placeholder="Unité" class="ing-unite edit-input">
+    <button onclick="this.parentElement.remove()" class="ing-remove-btn">
+      <i class="bi bi-x-circle"></i>
+    </button>`;
+  list.appendChild(div);
 }
 
 function saveEdit() {
-    const nom = document.getElementById('titre-edit').value;
-    const portions = document.getElementById('portions-edit').value;
-    const instructions = document.getElementById('instructions-edit').value;
+  const nom          = document.getElementById('titre-edit').value;
+  const portions     = document.getElementById('portions-edit').value;
+  const instructions = document.getElementById('instructions-edit').value;
+  const ingredients  = Array.from(document.querySelectorAll('.ing-edit-row')).map(row => ({
+    nom:      row.querySelector('.ing-nom').value,
+    quantite: row.querySelector('.ing-qty').value,
+    unite:    row.querySelector('.ing-unite').value
+  })).filter(ing => ing.nom.trim() !== '');
 
-    const ingredients = Array.from(document.querySelectorAll('.ingredient-row')).map(row => ({
-        nom: row.querySelector('.ing-nom').value,
-        quantite: row.querySelector('.ing-quantite').value,
-        unite: row.querySelector('.ing-unite').value
-    })).filter(ing => ing.nom.trim() !== '');
-
-    fetch('/recipes/{{ recette[0] }}/edit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nom, portions, instructions, ingredients })
-    })
-    .then(r => r.json())
-    .then(data => {
-        if (data.success) location.reload();
-    });
+  fetch('/recipes/{{ recette[0] }}/edit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ nom, portions, instructions, ingredients })
+  })
+  .then(r => r.json())
+  .then(data => { if (data.success) location.reload(); });
 }
 </script>
 

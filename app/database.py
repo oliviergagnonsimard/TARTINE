@@ -79,15 +79,21 @@ def updatePassword(idClient, password_hash):
 def getLeaderboard(page=1, limit=50):
     conn = connectToDB()
     offset = (page - 1) * limit
+
     try:
         with conn.cursor() as curs:
             curs.execute("""
-                SELECT * FROM classement
+                SELECT * FROM leaderboard
                 LIMIT %s OFFSET %s
             """, (limit, offset))
-            return curs.fetchall()
+
+            result = curs.fetchall()
+            return result
+
     except Exception as e:
         print(f"SQL ERROR (getLeaderboard): {e}")
+        return []
+
     finally:
         releaseConn(conn)
 

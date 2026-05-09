@@ -3,107 +3,196 @@
 {% block head %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.2/Sortable.min.js"></script>
 <style>
-    #sortable-body tr {
-    user-select: none;
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
+
+* { box-sizing: border-box; }
+#main { padding: 0; }
+
+.page-header  { animation: fadeSlideIn 0.5s ease both; }
+.recipes-card { animation: fadeSlideIn 0.5s ease 0.08s both; }
+
+/* ── Header ── */
+.page-header {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 16px; margin-bottom: 24px; flex-wrap: wrap;
+}
+.page-title {
+  font-size: 48px; font-weight: 700;
+  letter-spacing: -2px; color: #fff; line-height: 1;
+}
+.page-title span { color: #e91e8c; }
+.page-sub { font-size: 13px; color: #555; margin-top: 6px; }
+
+.header-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+
+.btn-pink {
+  background: #d32f89; color: #fff; border: none;
+  padding: 9px 18px; border-radius: 8px; font-size: 13px; font-weight: 600;
+  cursor: pointer; text-decoration: none; display: inline-flex;
+  align-items: center; gap: 6px; transition: background 0.2s;
+}
+.btn-pink:hover { background: #e91e8c; color: #fff; }
+
+.btn-pill {
+  background: #1a1a1a; border: 0.5px solid #2a2a2a; color: #aaa;
+  padding: 9px 16px; border-radius: 8px; font-size: 13px; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 6px;
+  text-decoration: none; transition: border-color 0.2s, color 0.2s;
+}
+.btn-pill:hover { border-color: #444; color: #fff; }
+.btn-pill.success { border-color: #1D9E75; color: #5DCAA5; }
+.btn-pill.success:hover { background: rgba(29,158,117,0.1); }
+
+/* ── Table card ── */
+.recipes-card {
+  background: #111; border: 0.5px solid #222; border-radius: 14px;
+  overflow: hidden;
+}
+
+.recipes-table { width: 100%; border-collapse: collapse; }
+
+.recipes-table thead tr {
+  border-bottom: 0.5px solid #1e1e1e;
+}
+.recipes-table thead th {
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  color: #444; padding: 14px 20px; text-align: left; font-weight: 400;
+}
+
+.recipes-table tbody tr {
+  border-bottom: 0.5px solid #181818;
+  cursor: pointer; transition: background 0.15s;
+}
+.recipes-table tbody tr:last-child { border-bottom: none; }
+.recipes-table tbody tr:hover { background: #181818; }
+.recipes-table tbody tr.drag-mode { cursor: grab; }
+.recipes-table tbody tr.drag-mode:active { cursor: grabbing; }
+
+.recipes-table td {
+  padding: 13px 20px; font-size: 13px; color: #ccc; vertical-align: middle;
+}
+
+.td-ordre { color: #444; font-size: 12px; width: 60px; }
+.td-nom   { color: #fff; font-weight: 500; }
+.td-portions { color: #888; width: 90px; }
+.td-date  { color: #555; font-size: 12px; width: 160px; }
+
+.drag-handle {
+  color: #333; font-size: 14px; margin-right: 6px;
+  display: none; vertical-align: middle;
+}
+.drag-mode .drag-handle { display: inline; }
+
+/* Sortable ghost */
+.dragging { opacity: 0.4; background: #1a1a1a !important; }
+
+/* ── Empty state ── */
+.empty-state {
+  text-align: center; padding: 48px 20px;
+}
+.empty-state p { font-size: 13px; color: #555; margin-bottom: 16px; }
 </style>
 {% endblock %}
 
 {% block body %}
 
-<div style="text-align: center; margin-bottom: 15px; display: flex; gap: 10px; justify-content: center;">
-    <a id="btnCreate" href="{{ url_for('create_recipe') }}" class="btn btn-primary" style="background-color:#e91e8c; border-color:#e91e8c;">
-        <i class="bi bi-plus-circle"></i> Créer une recette
+<!-- ── Header ── -->
+<div class="page-header" style="padding-top: 20px">
+  <div>
+    <div class="page-title">Mes <span>Recettes</span></div>
+    <div class="page-sub">{{ data | length }} recette{{ 's' if data | length != 1 else '' }} sauvegardée{{ 's' if data | length != 1 else '' }}</div>
+  </div>
+  <div class="header-actions">
+    <a id="btnCreate" href="{{ url_for('create_recipe') }}" class="btn-pink">
+      <i class="bi bi-plus"></i> Nouvelle recette
     </a>
-    <button id="btnEdit" onclick="toggleEditMode()" class="btn btn-outline-light">
-        <i class="bi bi-pencil"></i> Réorganiser
+    <button id="btnEdit" onclick="toggleEditMode()" class="btn-pill">
+      <i class="bi bi-arrows-move"></i> Réorganiser
     </button>
-    <button id="btnSave" onclick="saveOrder()" class="btn btn-success" style="display:none;">
-        <i class="bi bi-check"></i> Sauvegarder l'ordre
+    <button id="btnSave" onclick="saveOrder()" class="btn-pill success" style="display:none;">
+      <i class="bi bi-check"></i> Sauvegarder
     </button>
-    <button id="btnCancel" onclick="cancelEdit()" class="btn btn-outline-secondary" style="display:none;">
-        Annuler
+    <button id="btnCancel" onclick="cancelEdit()" class="btn-pill" style="display:none;">
+      Annuler
     </button>
+  </div>
 </div>
 
-<div class="interactive-table">
-    <table id="recipes-table" style="border: 2px solid white; margin: auto; margin-top: 2%; text-align: center;">
-        <tr class="header-row" style="border: 2px solid white">
-            <th class="cell" style="width: 40px;">Ordre</th>
-            <th class="cell" style="width: 200px">Nom</th>
-            <th class="cell" style="width: 80px;">Portions</th>
-            <th class="cell" style="width: 140px;">Date de création</th>
-        </tr>
-        <tbody id="sortable-body">
-            {% for row in data %}
-            <tr data-id="{{ row[0] }}" style="cursor:pointer" onclick="window.location.href='/recipes/{{ row[0] }}'">
-                {% for cell in row[1:] %}   {# ← skip idRecette #}
-                <td class="cell">{{ cell }}</td>
-                {% endfor %}
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+<!-- ── Table ── -->
+<div class="recipes-card">
+  {% if data %}
+  <table class="recipes-table">
+    <thead>
+      <tr>
+        <th>Ordre</th>
+        <th>Nom</th>
+        <th>Portions</th>
+        <th>Créée le</th>
+      </tr>
+    </thead>
+    <tbody id="sortable-body">
+      {% for row in data %}
+      <tr data-id="{{ row[0] }}" onclick="window.location.href='/recipes/{{ row[0] }}'">
+        <td class="td-ordre">
+          <i class="bi bi-grip-vertical drag-handle"></i>{{ row[1] }}
+        </td>
+        <td class="td-nom">{{ row[2] }}</td>
+        <td class="td-portions">{{ row[3] }} portions</td>
+        <td class="td-date">{{ row[4] }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <div class="empty-state">
+    <p>Aucune recette pour l'instant.</p>
+    <a href="{{ url_for('create_recipe') }}" class="btn-pink">
+      <i class="bi bi-plus"></i> Créer ma première recette
+    </a>
+  </div>
+  {% endif %}
 </div>
 
 <script>
 let sortable = null;
-let editMode = false;
 
 function toggleEditMode() {
-    editMode = true;
-    document.getElementById('btnCreate').style.display = 'none';
-    document.getElementById('btnEdit').style.display = 'none';
-    document.getElementById('btnSave').style.display = 'inline-block';
-    document.getElementById('btnCancel').style.display = 'inline-block';
+  document.getElementById('btnCreate').style.display = 'none';
+  document.getElementById('btnEdit').style.display   = 'none';
+  document.getElementById('btnSave').style.display   = 'inline-flex';
+  document.getElementById('btnCancel').style.display = 'inline-flex';
 
-    // Désactiver le click vers /recipes/X
-    document.querySelectorAll('#sortable-body tr').forEach(tr => {
-        tr.style.cursor = 'grab';
-        tr.onclick = null;
-    });
+  document.querySelectorAll('#sortable-body tr').forEach(tr => {
+    tr.classList.add('drag-mode');
+    tr.onclick = null;
+  });
 
-    // Activer le drag
-    sortable = Sortable.create(document.getElementById('sortable-body'), {
-        animation: 150,
-        ghostClass: 'dragging'
-    });
+  sortable = Sortable.create(document.getElementById('sortable-body'), {
+    animation: 150,
+    ghostClass: 'dragging',
+    handle: 'tr',
+  });
 }
 
-function cancelEdit() {
-    location.reload();
-}
+function cancelEdit() { location.reload(); }
 
 function saveOrder() {
-    const rows = document.querySelectorAll('#sortable-body tr');
-    const ordre = Array.from(rows).map((tr, index) => ({
-        id: parseInt(tr.dataset.id),
-        ordre: index + 1
-    }));
-
-    console.log('ordre envoyé:', ordre); // ← ajoute ça
-
-    fetch('/recipes/reorder', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ordre })
-    })
-    .then(r => {
-        console.log('status:', r.status); // ← et ça
-        return r.json();
-    })
-    .then(data => {
-        console.log('réponse:', data); // ← et ça
-        if (data.success) location.reload();
-    })
-    .catch(err => console.error('erreur fetch:', err)); // ← et ça
+  const rows = document.querySelectorAll('#sortable-body tr');
+  const ordre = Array.from(rows).map((tr, i) => ({
+    id: parseInt(tr.dataset.id), ordre: i + 1
+  }));
+  fetch('/recipes/reorder', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ ordre })
+  })
+  .then(r => r.json())
+  .then(data => { if (data.success) location.reload(); })
+  .catch(err => console.error('erreur fetch:', err));
 }
 </script>
 
-<style>
-.dragging {
-    opacity: 0.5;
-    background: #333 !important;
-}
-</style>
 {% endblock %}

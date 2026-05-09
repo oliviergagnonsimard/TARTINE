@@ -2,390 +2,759 @@
 
 {% block head %}
 <style>
-    #edit-form input {
-        width: 350px;
-    }
-
-    #info-form td:last-child {
-        width: 350px;
-    }
-
-    #info-form td:first-child, #edit-form td:first-child {
-        text-align: right;
-        padding-right: 15px;
-        white-space: nowrap;
-        vertical-align: middle;
-
-    }
-
-    #info-form td:last-child, #edit-form td:last-child {
-        text-align: left;
-        vertical-align: middle;
-    }
-
-    #info-form td, #edit-form td {
-    vertical-align: middle;
-    padding-top: 5px;
-    padding-bottom: 5px;
-  }
-
-  #info-form p {
-  margin: 0;
-  padding: 0;
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-#change-password-form table tr {
-    background-color: black !important;
+.db-header   { animation: fadeSlideIn 0.5s ease forwards; }
+.stats-row   { animation: fadeSlideIn 0.5s ease 0.08s both; }
+.main-grid   { animation: fadeSlideIn 0.5s ease 0.16s both; }
+
+* { box-sizing: border-box; }
+
+#main { padding: 0; }
+
+/* ── Header ── */
+.db-header {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 16px; margin-bottom: 28px; flex-wrap: wrap;
+}
+.db-title {
+  font-size: 48px; font-weight: 700;
+  letter-spacing: -2px; color: #fff; line-height: 1;
+}
+.db-title span { color: #e91e8c; }
+.db-sub { font-size: 13px; color: #555; margin-top: 6px; }
+
+.header-actions { display: flex; gap: 10px; align-items: center; }
+
+.btn-pill {
+  background: #1a1a1a; border: 0.5px solid #2a2a2a; color: #aaa;
+  padding: 8px 16px; border-radius: 99px; font-size: 13px; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 6px;
+  text-decoration: none; transition: border-color 0.2s, color 0.2s;
+}
+.btn-pill:hover { border-color: #444; color: #fff; }
+
+.notif-btn {
+  position: relative; background: #1a1a1a; border: 0.5px solid #2a2a2a;
+  color: #aaa; width: 38px; height: 38px; border-radius: 99px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 16px; transition: border-color 0.2s, color 0.2s;
+}
+.notif-btn:hover { border-color: #444; color: #fff; }
+
+#notif-badge {
+  display: none; position: absolute; top: -4px; right: -4px;
+  width: 18px; height: 18px; background: #e91e8c; border-radius: 50%;
+  font-size: 10px; font-weight: 700; color: #fff;
+  line-height: 18px; text-align: center;
 }
 
-#change-password-form table td {
-    background-color: black !important;
+/* ── Stats row ── */
+.stats-row {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 12px; margin-bottom: 20px;
+}
+@media (max-width: 700px) { .stats-row { grid-template-columns: 1fr 1fr; } }
+
+.stat-card {
+  background: #111; border: 0.5px solid #222; border-radius: 14px;
+  padding: 20px 18px; position: relative; overflow: hidden;
+}
+.stat-card::after {
+  content: ""; position: absolute; top: 0; right: 0;
+  width: 60px; height: 60px; border-radius: 0 14px 0 100%;
+  pointer-events: none;
+}
+.stat-card.pink::after  { background: rgba(233,30,140,0.1); }
+.stat-card.teal::after  { background: rgba(29,158,117,0.1); }
+.stat-card.purple::after { background: rgba(127,119,221,0.1); }
+.stat-card.amber::after { background: rgba(239,159,39,0.1); }
+
+.stat-icon {
+  width: 36px; height: 36px; border-radius: 9px; font-size: 17px;
+  display: flex; align-items: center; justify-content: center; margin-bottom: 10px;
+}
+.stat-icon.pink   { background: rgba(233,30,140,0.15);  color: #e91e8c; }
+.stat-icon.teal   { background: rgba(29,158,117,0.15);  color: #5DCAA5; }
+.stat-icon.purple { background: rgba(127,119,221,0.15); color: #AFA9EC; }
+.stat-icon.amber  { background: rgba(239,159,39,0.15);  color: #EF9F27; }
+
+.stat-num   { font-size: 26px; font-weight: 700; color: #fff; letter-spacing: -1px; }
+.stat-label { font-size: 11px; color: #555; letter-spacing: 1px; text-transform: uppercase; margin-top: 2px; }
+.stat-delta { font-size: 11px; color: #5DCAA5; margin-top: 4px; }
+
+/* ── Main grid ── */
+.main-grid {
+  display: grid; grid-template-columns: 300px 1fr;
+  gap: 16px; align-items: start;
+}
+@media (max-width: 800px) { .main-grid { grid-template-columns: 1fr; } }
+
+/* ── Cards ── */
+.card {
+  background: #111; border: 0.5px solid #222; border-radius: 14px;
+  padding: 22px; position: relative; overflow: hidden;
+}
+.card::before {
+  content: ""; position: absolute; top: 0; right: 0;
+  width: 120px; height: 120px;
+  background: radial-gradient(circle, rgba(233,30,140,0.07), transparent 70%);
+  pointer-events: none;
 }
 
-  .toggle-switch {
-    position: relative;
-    display: inline-block;
-    width: 50px;
-    height: 26px;
+.card-head {
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  color: #444; margin-bottom: 18px;
 }
 
-.toggle-switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
+/* ── Profile card ── */
+.avatar-wrap {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: linear-gradient(135deg, #e91e8c, #8e24aa);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; font-weight: 700; color: #fff;
+  margin-bottom: 14px; border: 2px solid #1a1a1a;
+}
+.user-name  { font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+.user-role-badge {
+  display: inline-block; font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  color: #e91e8c; border: 0.5px solid #3a1a2e; background: #3a1a2e;
+  padding: 3px 10px; border-radius: 99px; margin-bottom: 18px;
 }
 
+.info-block { display: flex; flex-direction: column; margin-bottom: 16px; }
+.info-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 9px 0; border-bottom: 0.5px solid #1a1a1a;
+  font-size: 13px;
+}
+.info-row:last-child { border-bottom: none; }
+.info-key { color: #555; }
+.info-val {
+  color: #ccc;
+  font-size: 12px;
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  position: relative;
+}
+
+/* Bulle tooltip */
+.info-val[data-tooltip]:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 6px);
+  right: 0;
+  background: #2a2a2a;
+  border: 0.5px solid #444;
+  color: #ccc;
+  font-size: 11px;
+  white-space: nowrap;
+  padding: 5px 10px;
+  border-radius: 6px;
+  z-index: 10;
+  pointer-events: none;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+.meta-block {
+  background: #181818; border: 0.5px solid #1e1e1e; border-radius: 10px;
+  padding: 12px 14px; display: flex; flex-direction: column; gap: 8px;
+  margin-bottom: 16px;
+}
+.meta-row { display: flex; justify-content: space-between; font-size: 11px; color: #444; }
+.meta-row span:last-child { color: #666; }
+
+.progress-label {
+  display: flex; justify-content: space-between;
+  font-size: 11px; color: #555; margin-bottom: 6px;
+}
+.progress-bar { height: 4px; background: #1e1e1e; border-radius: 99px; overflow: hidden; }
+.progress-fill {
+  height: 100%; border-radius: 99px;
+  background: linear-gradient(90deg, #e91e8c, #8e24aa);
+  transition: width 1s ease;
+}
+
+/* ── Right column ── */
+.right-col { display: flex; flex-direction: column; gap: 16px; }
+
+.section-title {
+  font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 14px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.section-badge {
+  font-size: 10px; color: #5DCAA5; background: rgba(29,158,117,0.12);
+  border: 0.5px solid #1D9E75; padding: 3px 10px; border-radius: 99px;
+}
+.section-muted { font-size: 11px; color: #555; }
+
+/* ── Recettes ── */
+.recette-list { display: flex; flex-direction: column; gap: 8px; }
+.recette-row {
+  display: flex; align-items: center; gap: 10px;
+  background: #181818; border: 0.5px solid #222; border-radius: 10px;
+  padding: 10px 14px;
+}
+.recette-icon {
+  width: 36px; height: 36px; border-radius: 9px; font-size: 16px;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.recette-name { font-size: 13px; color: #ddd; flex: 1; }
+.recette-tag { font-size: 11px; padding: 2px 9px; border-radius: 99px; white-space: nowrap; }
+.tag-eco     { background: rgba(29,158,117,0.12); color: #5DCAA5; }
+.tag-neutral { background: #1e1e1e; color: #555; }
+
+/* ── Leaderboard ── */
+.leaderboard-list { display: flex; flex-direction: column; gap: 6px; }
+.lb-row {
+  display: flex; align-items: center; gap: 10px;
+  background: #181818; border: 0.5px solid #222; border-radius: 10px;
+  padding: 9px 14px;
+}
+.lb-row.me { border-color: #3a1a2e; background: #1a111a; }
+.lb-rank        { font-size: 13px; font-weight: 700; color: #555; min-width: 22px; }
+.lb-rank.gold   { color: #EF9F27; }
+.lb-rank.silver { color: #B4B2A9; }
+.lb-rank.bronze { color: #9E6B3A; }
+.lb-avatar {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: #2a2a2a; display: flex; align-items: center;
+  justify-content: center; font-size: 11px; font-weight: 600; color: #aaa;
+  flex-shrink: 0;
+}
+.lb-name  { font-size: 13px; color: #ccc; flex: 1; }
+.lb-score { font-size: 12px; color: #5DCAA5; font-weight: 600; }
+
+/* ── Quick actions ── */
+.quick-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.qa-btn {
+  background: #181818; border: 0.5px solid #222; border-radius: 10px;
+  padding: 14px; cursor: pointer; text-decoration: none;
+  display: block; transition: border-color 0.2s;
+}
+.qa-btn:hover { border-color: #444; }
+.qa-icon  { font-size: 20px; margin-bottom: 6px; }
+.qa-label { font-size: 12px; color: #888; }
+
+/* ── Toggle switch ── */
+.toggle-wrap {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 9px 0; border-bottom: 0.5px solid #1a1a1a; font-size: 13px;
+}
+.toggle-label { color: #555; }
+.toggle-switch { position: relative; display: inline-block; width: 44px; height: 24px; flex-shrink: 0; }
+.toggle-switch input { opacity: 0; width: 0; height: 0; }
 .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background-color: #555;
-    border-radius: 26px;
-    transition: 0.3s;
+  position: absolute; cursor: pointer; inset: 0;
+  background: #2a2a2a; border-radius: 24px; transition: 0.3s;
+  border: 0.5px solid #333;
 }
-
 .slider:before {
-    position: absolute;
-    content: "";
-    height: 18px;
-    width: 18px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    border-radius: 50%;
-    transition: 0.3s;
+  position: absolute; content: ""; height: 16px; width: 16px;
+  left: 3px; bottom: 3px; background: #666;
+  border-radius: 50%; transition: 0.3s;
 }
+input:checked + .slider { background: #3a1a2e; border-color: #e91e8c; }
+input:checked + .slider:before { transform: translateX(20px); background: #e91e8c; }
 
-input:checked + .slider {
-    background-color: #e91e8c;
+/* ── Profile action links ── */
+.profile-action {
+  display: block; font-size: 12px; color: #e91e8c;
+  text-decoration: none; padding: 8px 0;
+  border-bottom: 0.5px solid #1a1a1a; cursor: pointer;
+  background: none; border-left: none; border-right: none; border-top: none;
+  width: 100%; text-align: left; transition: color 0.2s;
 }
+.profile-action:last-child { border-bottom: none; }
+.profile-action:hover { color: #ff4dac; }
 
-input:checked + .slider:before {
-    transform: translateX(24px);
+/* ── Edit panels ── */
+.edit-panel {
+  display: none; margin-top: 14px;
+  background: #181818; border: 0.5px solid #222;
+  border-radius: 10px; padding: 14px;
 }
+.edit-field { display: flex; flex-direction: column; gap: 4px; margin-bottom: 10px; }
+.edit-field label { font-size: 11px; color: #555; letter-spacing: 1px; text-transform: uppercase; }
+.edit-field input[type="text"],
+.edit-field input[type="email"],
+.edit-field input[type="date"],
+.edit-field input[type="password"] {
+  background: #111; border: 0.5px solid #2a2a2a; border-radius: 8px;
+  color: #ccc; font-size: 13px; padding: 8px 10px; width: 100%;
+  outline: none; transition: border-color 0.2s;
+}
+.edit-field input:focus { border-color: #e91e8c; }
+.edit-actions { display: flex; gap: 8px; margin-top: 4px; }
+.btn-save {
+  background: #d32f89; color: #fff; border: none;
+  padding: 8px 18px; border-radius: 8px; font-size: 13px;
+  font-weight: 600; cursor: pointer; transition: background 0.2s;
+}
+.btn-save:hover { background: #e91e8c; }
+.btn-cancel {
+  background: #1a1a1a; color: #666; border: 0.5px solid #2a2a2a;
+  padding: 8px 14px; border-radius: 8px; font-size: 13px;
+  cursor: pointer; transition: border-color 0.2s, color 0.2s;
+}
+.btn-cancel:hover { border-color: #444; color: #aaa; }
 
-.notif-desc {
-    transition: max-height 0.4s ease, margin-top 0.4s ease;
+/* ── Notification sidebar ── */
+#notif-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.5); z-index: 99;
 }
+#notif-sidebar {
+  position: fixed; top: 0; right: -400px; width: 360px; height: 100%;
+  background: #111; border-left: 0.5px solid #222;
+  z-index: 100; transition: right 0.3s ease;
+  display: flex; flex-direction: column;
+}
+.notif-sidebar-head {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 20px 20px 16px; border-bottom: 0.5px solid #1e1e1e;
+}
+.notif-sidebar-head h2 { font-size: 16px; font-weight: 600; color: #fff; }
+.notif-close-btn {
+  background: none; border: none; color: #555; font-size: 20px;
+  cursor: pointer; line-height: 1;
+}
+.notif-close-btn:hover { color: #fff; }
+#notif-content { padding: 16px; overflow-y: auto; flex: 1; }
 </style>
 {% endblock %}
 
 {% block body %}
+<div>
 
-<div style="align-items: center;">
-  <div style="text-align: center; padding-bottom: 30px;">
-    
-    <div style="display:flex; justify-content: space-between; align-items: center;">
-        <div style="display:flex; justify-content: space-between; align-items: center;">
-            <h3 style="font-weight: bold; font-size: 60px; text-decoration: underline;">Dashboard</h3>
-        </div>
-    <div style="display: flex; gap: 20px">
-        {% if clientInfo[10] == 'admin' %}
-            <a href="{{ url_for('admin') }}" style="color: #e91e8c; display: flex; padding-bottom: 5px">
-                <p style="padding-right: 10px; padding-top: 10px;">Admin panel</p>
-                <i class="bi bi-person-square" style="font-size:30px; color:#e91e8c"></i>
-            </a>
-        {% endif %}
-        <h3 style="font-weight: bold; font-size: 32px;">Bonjour, {{ clientInfo[2] }} {{ clientInfo[3] }}!</h3>
+  <!-- ══ HEADER ══ -->
+  <div class="db-header" style="padding-top: 20px">
+    <div>
+      <div class="db-title">Mon <span>Dashboard</span></div>
+      <div class="db-sub">
+        Bienvenue, {{ clientInfo[2] }} — voici votre semaine Tartine.
       </div>
     </div>
-    <button onclick="toggleNotifSidebar()" style="background:none; border:none; color:white; font-size:30px; cursor:pointer; margin-left: auto; display:block; position: relative;">
-    <i class="bi bi-bell"></i>
-    <span id="notif-badge" style="
-        display: none;
-        position: absolute;
-        top: -5px; right: -5px;
-        background: #e91e8c;
-        color: white;
-        border-radius: 50%;
-        width: 20px; height: 20px;
-        font-size: 11px;
-        font-weight: bold;
-        line-height: 20px;
-        text-align: center;
-    "></span>
-</button>
-</button>
 
-    <!--COLONNE DE GAUCHE, INFOS CLIENT-->
-    <div style="display: flex; gap: 40px; align-items: center; justify-content: center; text-align: center;">
-        <div id="info-form" style="margin-top: 20px;">
-            <h4 style="font-weight: bold; font-size: 28px; padding-bottom: 2%;">Informations du compte</h4>
-            <table style="margin: 0 auto;">
-                <tr>
-                    <td><label>Id:</label></td>
-                    <td><p name="id">{{ clientInfo[0] }}</p></td>
-                </tr>
-                <tr>
-                    <td><label>Courriel:</label></td>
-                    <td><p name="email">{{ clientInfo[1] }}</p></td>
-                </tr>
-                <tr>
-                    <td><label>Prénom:</label></td>
-                    <td><p name="firstname">{{ clientInfo[2] }}</p></td>
-                </tr>
-                <tr>
-                    <td><label>Nom:</label></td>
-                    <td><p name="lastname">{{ clientInfo[3] }}</p></td>
-                </tr>
-                <tr>
-                    <td><label>Date de naissance:</label></td>
-                    <td><p id="birthday" name="birthday">{{ clientInfo[4] }} ({{ clientInfo[-1] }} ans)</p></td>
-                </tr>
-                <tr>
-                    <td><label>Type d'utilisateur:</label></td>
-                    <td><p id="age">{{ clientInfo[10] }}</p></td>
-                </tr>
-                <tr>
-                    <td><label>Participe au classement:</label></td>
-                    <td><p id="participe">{{ clientInfo[5] }}</p></td>
-                </tr>
-            </table>
-            <div style="display:flex; font-size: 13px; gap: 5px; color:grey;">
-                <td><label>Dernier changement de mot de passe:</label></td>
-                <td><p>{{ clientInfo[15].strftime('%d/%m/%Y %Hh%M') if clientInfo[15] else 'N/A' }}</p></td>
-            </div>
-            <div style="display:flex; font-size: 13px; gap: 5px; color:grey;">
-                <td><label>Dernier login:</label></td>
-                <td><p>{{ clientInfo[9].strftime('%d/%m/%Y %Hh%M') if clientInfo[9] else 'N/A' }}</p></td>
-            </div>
-            
-            <div style="display: flex; flex-direction: column;">
+    <div class="header-actions">
+      {% if clientInfo[10] == 'admin' %}
+      <a href="{{ url_for('admin') }}" class="btn-pill">
+        <i class="bi bi-shield-lock"></i> Admin
+      </a>
+      {% endif %}
 
-                <!-- BOUTONS POUR CHANGER INFOS-->
-                <a id="modif" href="#" style="color: #e91e8c;"
-                onclick="document.getElementById('edit-form').style.display='block'; this.style.display='none'; document.getElementById('info-form').style.display='none'">
-                    Modifier mes informations</a>
-                    
-                <a id="changePasswordText" href="#" style="color:#e91e8c"
-                    onclick="document.getElementById('change-password-form').style.display='block'; this.style.display='none'">Changer mon mot de passe</a>
-
-
-                    <div id="change-password-form" style="display:none; margin-top: 20px;">
-                        <form method="POST" action="/change-password">
-                            <table style="margin: 0 auto; background-color: black !important;">
-                                <tr>
-                                    <td><label>Ancien mot de passe:</label></td>
-                                    <td><input type="password" name="old_password"></td>
-                                </tr>
-                                <tr>
-                                    <td><label>Nouveau mot de passe:</label></td>
-                                    <td><input type="password" name="new_password"></td>
-                                </tr>
-                                <tr>
-                                    <td><label>Confirmer:</label></td>
-                                    <td><input type="password" name="confirm"></td>
-                                </tr>
-                            </table>
-                            <div style="padding-top: 1%;">
-                                <button type="submit">Sauvegarder</button>
-                                <button type="button" onclick="document.getElementById('change-password-form').style.display='none'; document.getElementById('changePasswordText').style.display='block'">Annuler</button>
-                            </div>
-                        </form>
-                    </div>
-            </div>
-        </div>
-        
-        <div id="edit-form" style="display:none; margin-top: 20px;">
-            <form method="POST" action="{{ url_for('dashboard') }}">
-                <table style="margin: 0 auto;">
-                    <tr>
-                        <td><label>Courriel:</label></td>
-                        <td><input type="email" name="email" value="{{ clientInfo[1] }}"></td>
-                    </tr>
-                    <tr>
-                        <td><label>Prénom:</label></td>
-                        <td><input type="text" name="firstname" value="{{ clientInfo[2] }}"></td>
-                    </tr>
-                    <tr>
-                        <td><label>Nom:</label></td>
-                        <td><input type="text" name="lastname" value="{{ clientInfo[3] }}"></td>
-                    </tr>
-                    <tr>
-                        <td><label>Date de naissance:</label></td>
-                        <td><input type="date" id="birthday" name="birthday" value="{{ clientInfo[4] }}"></td>
-                    </tr>
-                    <tr>
-                        <td><label>Participe au classement:</label></td>
-                        <td>
-                            <label class="toggle-switch">
-                                <input type="checkbox" id="participe" name="participe" {{ 'checked' if clientInfo[5] else '' }}>
-                                <span class="slider"></span>
-                            </label>
-                        </td>
-                    </tr>
-                
-                </table>
-                <div style="padding-top: 1%;">
-                    <button type="submit">Sauvegarder</button>
-                    <button id="btnAnnuler" type="button" href="window.location.reload()">Annuler</button>
-                </div>
-            </form>
-        </div>
+      <button onclick="toggleNotifSidebar()" class="notif-btn" aria-label="Notifications">
+        <i class="bi bi-bell"></i>
+        <span id="notif-badge"></span>
+      </button>
     </div>
-</div>
+  </div>
 
-<!-- SIDEBAR -->
-<div id="notif-sidebar" style="
-    position: fixed;
-    top: 0; right: -400px;
-    width: 380px; height: 100%;
-    background: #1a1a1a;
-    z-index: 9998;
-    transition: right 0.3s ease;
-    overflow-y: auto;
-    padding: 20px;
-    box-shadow: -5px 0 20px rgba(0,0,0,0.5);
-">
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-        <h4 style="font-weight:bold; margin:0;">🔔 Notifications</h4>
-        <button onclick="toggleNotifSidebar()" style="background:none; border:none; color:white; font-size:24px; cursor:pointer;">✕</button>
+  <!-- ══ STATS ══ -->
+  <div class="stats-row">
+    <div class="stat-card pink">
+      <div class="stat-icon pink"><i class="bi bi-piggy-bank"></i></div>
+      <div class="stat-num">{{ stats.savings_month | default('—') }} $</div>
+      <div class="stat-label">Économisé ce mois</div>
+      {% if stats.savings_delta is defined %}
+      <div class="stat-delta">↑ +{{ stats.savings_delta }} $ vs mois dernier</div>
+      {% endif %}
     </div>
-    <div id="notif-content"></div>
+
+    <div class="stat-card teal">
+      <div class="stat-icon teal"><i class="bi bi-journal-bookmark"></i></div>
+      <div class="stat-num">{{ stats.recipe_count | default(0) }}</div>
+      <div class="stat-label">Recettes sauvegardées</div>
+      {% if stats.recipes_on_sale is defined %}
+      <div class="stat-delta">{{ stats.recipes_on_sale }} en spécial cette semaine</div>
+      {% endif %}
+    </div>
+
+    <div class="stat-card purple">
+      <div class="stat-icon purple"><i class="bi bi-trophy"></i></div>
+      <div class="stat-num">#{{ stats.rank | default('—') }}</div>
+      <div class="stat-label">Classement général</div>
+      {% if stats.rank_delta is defined %}
+      <div class="stat-delta">↑ +{{ stats.rank_delta }} positions</div>
+      {% endif %}
+    </div>
+
+    <div class="stat-card amber">
+      <div class="stat-icon amber"><i class="bi bi-calendar-week"></i></div>
+      <div class="stat-num">{{ stats.active_weeks | default(0) }}</div>
+      <div class="stat-label">Semaines actives</div>
+      {% if stats.active_weeks and stats.active_weeks > 0 %}
+      <div class="stat-delta">🔥 Série en cours</div>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- ══ MAIN GRID ══ -->
+  <div class="main-grid">
+
+    <!-- ── Colonne gauche : Profil ── -->
+    <div class="card">
+      <div class="card-head">Profil</div>
+
+      <div class="avatar-wrap">
+        {{ clientInfo[2][0] | upper }}{{ clientInfo[3][0] | upper }}
+      </div>
+
+      <div class="user-name">{{ clientInfo[2] }} {{ clientInfo[3] }}</div>
+      <div class="user-role-badge">{{ clientInfo[10] | upper }}</div>
+
+      <div class="info-block">
+        <div class="info-row">
+            <span class="info-key">Courriel</span>
+            <span class="info-val" data-tooltip="{{ clientInfo[1] }}">{{ clientInfo[1] }}</span>
+        </div>
+        <div class="info-row">
+          <span class="info-key">Âge</span>
+          <span class="info-val">{{ clientInfo[-1] }} ans</span>
+        </div>
+        <div class="info-row">
+          <span class="info-key">Classement actif</span>
+          <span class="info-val" style="color: {{ '#5DCAA5' if clientInfo[5] else '#555' }};">
+            {{ 'Oui' if clientInfo[5] else 'Non' }}
+          </span>
+        </div>
+        <div class="info-row">
+          <span class="info-key">ID utilisateur</span>
+          <span class="info-val" style="color:#444;">#{{ clientInfo[0] }}</span>
+        </div>
+      </div>
+
+      <div class="meta-block">
+        <div class="meta-row">
+          <span>Dernier login</span>
+          <span>{{ clientInfo[9].strftime('%d/%m/%Y %Hh%M') if clientInfo[9] else 'N/A' }}</span>
+        </div>
+        <div class="meta-row">
+          <span>Mot de passe changé</span>
+          <span>{{ clientInfo[15].strftime('%d/%m/%Y %Hh%M') if clientInfo[15] else 'N/A' }}</span>
+        </div>
+      </div>
+
+      <!-- Barre de progression vers prochain niveau -->
+      {% if stats.score is defined and stats.next_level_score is defined %}
+      {% set pct = ((stats.score / stats.next_level_score) * 100) | int %}
+      <div style="margin-bottom: 16px;">
+        <div class="progress-label">
+          <span>Prochain niveau</span>
+          <span style="color:#e91e8c;">{{ stats.score }} / {{ stats.next_level_score }} recettes</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: {{ pct }}%;"></div>
+        </div>
+      </div>
+      {% endif %}
+
+      <!-- Actions profil -->
+      <div id="profile-actions">
+        <button class="profile-action" onclick="showPanel('edit-info')">
+          <i class="bi bi-pencil" style="margin-right:6px;"></i>Modifier mes informations
+        </button>
+        <button class="profile-action" onclick="showPanel('edit-password')">
+          <i class="bi bi-lock" style="margin-right:6px;"></i>Changer mon mot de passe
+        </button>
+      </div>
+
+      <!-- Panneau : modifier infos -->
+      <div class="edit-panel" id="edit-info">
+        <form method="POST" action="{{ url_for('dashboard') }}">
+          <div class="edit-field">
+            <label>Courriel</label>
+            <input type="email" name="email" value="{{ clientInfo[1] }}">
+          </div>
+          <div class="edit-field">
+            <label>Prénom</label>
+            <input type="text" name="firstname" value="{{ clientInfo[2] }}">
+          </div>
+          <div class="edit-field">
+            <label>Nom</label>
+            <input type="text" name="lastname" value="{{ clientInfo[3] }}">
+          </div>
+          <div class="edit-field">
+            <label>Date de naissance</label>
+            <input type="date" name="birthday" value="{{ clientInfo[4] }}">
+          </div>
+          <div class="toggle-wrap">
+            <span class="toggle-label">Participe au classement</span>
+            <label class="toggle-switch">
+              <input type="checkbox" name="participe" {{ 'checked' if clientInfo[5] else '' }}>
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="edit-actions" style="margin-top:12px;">
+            <button type="submit" class="btn-save">Sauvegarder</button>
+            <button type="button" class="btn-cancel" onclick="hidePanel('edit-info')">Annuler</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Panneau : changer mot de passe -->
+      <div class="edit-panel" id="edit-password">
+        <form method="POST" action="/change-password">
+          <div class="edit-field">
+            <label>Ancien mot de passe</label>
+            <input type="password" name="old_password">
+          </div>
+          <div class="edit-field">
+            <label>Nouveau mot de passe</label>
+            <input type="password" name="new_password">
+          </div>
+          <div class="edit-field">
+            <label>Confirmer</label>
+            <input type="password" name="confirm">
+          </div>
+          <div class="edit-actions">
+            <button type="submit" class="btn-save">Sauvegarder</button>
+            <button type="button" class="btn-cancel" onclick="hidePanel('edit-password')">Annuler</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+
+    <!-- ── Colonne droite ── -->
+    <div class="right-col">
+
+      <!-- Recettes cette semaine -->
+      <div class="card">
+        <div class="section-title">
+          Mes recettes cette semaine
+          {% if stats.recipes_on_sale is defined and stats.recipes_on_sale > 0 %}
+          <span class="section-badge">{{ stats.recipes_on_sale }} en spécial</span>
+          {% endif %}
+        </div>
+
+        {% if recipes %}
+        <div class="recette-list">
+          {% for recipe in recipes %}
+          <div class="recette-row">
+            <div class="recette-icon"
+                 style="background: {{ 'rgba(29,158,117,0.12)' if recipe.on_sale else '#1e1e1e' }};">
+              {{ recipe.emoji | default('🍽️') }}
+            </div>
+            <span class="recette-name">{{ recipe.name }}</span>
+            {% if recipe.on_sale %}
+            <span class="recette-tag tag-eco">
+              -{{ recipe.discount }}% {{ recipe.store }}
+            </span>
+            {% else %}
+            <span class="recette-tag tag-neutral">Pas de spécial</span>
+            {% endif %}
+          </div>
+          {% endfor %}
+        </div>
+        {% else %}
+        <p style="font-size:13px; color:#555; text-align:center; padding:20px 0;">
+          Aucune recette sauvegardée.
+          <a href="{{ url_for('recipes') }}" style="color:#e91e8c;">Ajouter une recette →</a>
+        </p>
+        {% endif %}
+      </div>
+
+      <!-- Classement -->
+      {% if clientInfo[5] %}
+      <div class="card">
+        <div class="section-title">
+          Classement
+          <span class="section-muted">Top utilisateurs Tartine</span>
+        </div>
+
+        <div class="leaderboard-list">
+          {% for entry in leaderboard %}
+          {% set rank_class = 'gold' if loop.index == 1 else ('silver' if loop.index == 2 else ('bronze' if loop.index == 3 else '')) %}
+          <div class="lb-row {{ 'me' if entry.is_current_user else '' }}">
+            <span class="lb-rank {{ rank_class }}">{{ '%02d' | format(entry.rank) }}</span>
+            <div class="lb-avatar"
+                 style="{{ 'background:#3a1a2e; color:#e91e8c;' if entry.is_current_user else '' }}">
+              {{ entry.initials }}
+            </div>
+            <span class="lb-name">
+              {{ entry.display_name }}
+              {% if entry.is_current_user %}
+              <span style="color:#555; font-size:11px;">(moi)</span>
+              {% endif %}
+            </span>
+            <span class="lb-score">{{ entry.score }} pts</span>
+          </div>
+
+          {# Ellipsis si l'utilisateur courant n'est pas dans le top 3 et qu'on passe à son rang #}
+          {% if loop.index == 3 and not leaderboard[:3] | selectattr('is_current_user') | list %}
+          <div class="lb-row" style="border:none; justify-content:center; padding:4px;">
+            <span style="color:#333; font-size:12px;">· · ·</span>
+          </div>
+          {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+      <!-- Actions rapides -->
+      <div class="card">
+        <div class="section-title">Actions rapides</div>
+        <div class="quick-actions">
+          <a href="{{ url_for('recipes') }}" class="qa-btn">
+            <div class="qa-icon" style="color:#e91e8c;"><i class="bi bi-journal-plus"></i></div>
+            <div class="qa-label">Ajouter une recette</div>
+          </a>
+          <a href="{{ url_for('flyers') }}" class="qa-btn">
+            <div class="qa-icon" style="color:#5DCAA5;"><i class="bi bi-receipt"></i></div>
+            <div class="qa-label">Voir les circulaires</div>
+          </a>
+          <a href="#" class="qa-btn">
+            <div class="qa-icon" style="color:#AFA9EC;"><i class="bi bi-list-check"></i></div>
+            <div class="qa-label">Ma liste d'épicerie</div>
+          </a>
+          <a href="#" class="qa-btn">
+            <div class="qa-icon" style="color:#EF9F27;"><i class="bi bi-gear"></i></div>
+            <div class="qa-label">Paramètres</div>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
 </div>
 
-<div id="notif-overlay" onclick="toggleNotifSidebar()" style="
-    display:none;
-    position:fixed; top:0; left:0;
-    width:100%; height:100%;
-    background:rgba(0,0,0,0.5);
-    z-index:9997;
-"></div>
-
+<!-- ══ NOTIFICATION SIDEBAR ══ -->
+<div id="notif-overlay" onclick="toggleNotifSidebar()"></div>
+<div id="notif-sidebar">
+  <div class="notif-sidebar-head">
+    <h2>Notifications</h2>
+    <button class="notif-close-btn" onclick="toggleNotifSidebar()">✕</button>
+  </div>
+  <div id="notif-content">
+    <p style="color:#555; font-size:13px; text-align:center; padding:20px 0;">Chargement...</p>
+  </div>
 </div>
+
 <script>
-document.getElementById("btnAnnuler").addEventListener("click", function() {
-    window.location.reload();
-});
+/* ── Panneaux d'édition profil ── */
+function showPanel(id) {
+  document.querySelectorAll('.edit-panel').forEach(p => p.style.display = 'none');
+  document.getElementById(id).style.display = 'block';
+  document.getElementById('profile-actions').style.display = 'none';
+}
+function hidePanel(id) {
+  document.getElementById(id).style.display = 'none';
+  document.getElementById('profile-actions').style.display = 'block';
+}
 
+/* ── Notifications badge au chargement ── */
 window.addEventListener('load', () => {
-    fetch('/notifications')
-        .then(r => r.json())
-        .then(notifs => {
-            const unread = notifs.filter(n => !n.isread).length;
-            const badge = document.getElementById('notif-badge');
-            badge.innerText = unread;
-            badge.style.display = unread > 0 ? 'block' : 'none';
-        });
+  fetch('/notifications')
+    .then(r => r.json())
+    .then(notifs => {
+      const unread = notifs.filter(n => !n.isread).length;
+      const badge = document.getElementById('notif-badge');
+      badge.textContent = unread;
+      badge.style.display = unread > 0 ? 'block' : 'none';
+    })
+    .catch(() => {});
 });
 
+/* ── Sidebar toggle ── */
 function toggleNotifSidebar() {
-    const sidebar = document.getElementById('notif-sidebar');
-    const overlay = document.getElementById('notif-overlay');
-    const isOpen = sidebar.style.right === '0px';
-    sidebar.style.right = isOpen ? '-400px' : '0px';
-    overlay.style.display = isOpen ? 'none' : 'block';
-    if (!isOpen) loadNotifications();
+  const sidebar  = document.getElementById('notif-sidebar');
+  const overlay  = document.getElementById('notif-overlay');
+  const isOpen   = sidebar.style.right === '0px';
+  sidebar.style.right    = isOpen ? '-400px' : '0px';
+  overlay.style.display  = isOpen ? 'none'   : 'block';
+  if (!isOpen) loadNotifications();
 }
 
+/* ── Charger les notifications ── */
 function loadNotifications() {
-    const content = document.getElementById('notif-content');
-    content.innerHTML = `
-        <div style="text-align: center; padding: 40px;">
-            <div class="spinner-border text-light" role="status"></div>
-            <p style="color: #aaa; margin-top: 15px;">Chargement...</p>
-        </div>
-    `;
+  const content = document.getElementById('notif-content');
+  content.innerHTML = `
+    <div style="text-align:center; padding:40px;">
+      <div class="spinner-border text-light" role="status"></div>
+      <p style="color:#555; margin-top:12px; font-size:13px;">Chargement…</p>
+    </div>`;
 
-    fetch('/notifications')
-        .then(r => r.json())
-        .then(notifs => {
-            const unread = notifs.filter(n => !n.isread).length;
-            const badge = document.getElementById('notif-badge');
-            badge.innerText = unread;
-            badge.style.display = unread > 0 ? 'block' : 'none';
+  fetch('/notifications')
+    .then(r => r.json())
+    .then(notifs => {
+      const unread = notifs.filter(n => !n.isread).length;
+      const badge = document.getElementById('notif-badge');
+      badge.textContent = unread;
+      badge.style.display = unread > 0 ? 'block' : 'none';
 
-            if (notifs.length === 0) {
-                content.innerHTML = '<p style="color:#aaa; text-align:center;">Aucune notification</p>';
-                return;
-            }
+      if (!notifs.length) {
+        content.innerHTML = '<p style="color:#555; text-align:center; font-size:13px; padding:20px 0;">Aucune notification</p>';
+        return;
+      }
 
-            content.innerHTML = notifs.map(n => `
-                <div id="notif-${n.id}" onclick="toggleNotif(event, ${n.id}, this)" style="
-                    padding: 15px;
-                    margin-bottom: 10px;
-                    border-radius: 10px;
-                    cursor: pointer;
-                    background-color: ${n.isread ? '#2a2a2a' : '#3a1a2e'};
-                    border-left: 4px solid ${n.isread ? '#555' : '#e91e8c'};
-                    position: relative;
-                    overflow: hidden;
-                    transition: max-height 0.4s ease, opacity 0.3s ease, margin 0.4s ease, padding 0.4s ease;
-                    max-height: 200px;
-                ">
-                    <button onclick="dismissNotif(event, ${n.id})" style="
-                        position: absolute; top: 8px; right: 8px;
-                        background: none; border: none; color: #aaa;
-                        font-size: 16px; cursor: pointer; line-height: 1;
-                    ">✕</button>
-                    <strong>${n.title}</strong>
-                    <div class="notif-desc" style="max-height:0; overflow:hidden; transition:max-height 0.4s ease;">
-                        <p style="margin-top:8px;">${n.message}</p>
-                        <small style="color:#aaa;">${n.created_at}</small>
-                    </div>
-                </div>
-            `).join('');
-        });
+      content.innerHTML = notifs.map(n => `
+        <div id="notif-${n.id}"
+             onclick="toggleNotif(event, ${n.id}, this)"
+             style="
+               padding:14px; margin-bottom:8px; border-radius:10px; cursor:pointer;
+               background:${n.isread ? '#181818' : '#1e0e18'};
+               border-left:3px solid ${n.isread ? '#2a2a2a' : '#e91e8c'};
+               position:relative; overflow:hidden;
+               transition:max-height 0.35s ease, opacity 0.3s ease,
+                           margin 0.35s ease, padding 0.35s ease;
+               max-height:200px;">
+          <button onclick="dismissNotif(event,${n.id})"
+                  style="position:absolute;top:8px;right:8px;background:none;
+                         border:none;color:#444;font-size:15px;cursor:pointer;
+                         line-height:1;">✕</button>
+          <strong style="font-size:13px;color:#ddd;">${n.title}</strong>
+          <div class="notif-desc" style="max-height:0;overflow:hidden;transition:max-height 0.35s ease;">
+            <p style="margin-top:8px;font-size:13px;color:#888;">${n.message}</p>
+            <small style="color:#555;">${n.created_at}</small>
+          </div>
+        </div>`).join('');
+    })
+    .catch(() => {
+      content.innerHTML = '<p style="color:#555; text-align:center; font-size:13px;">Erreur de chargement.</p>';
+    });
 }
 
+/* ── Toggle notif individuelle ── */
 function toggleNotif(event, id, el) {
-    if (event.target.closest('button')) return;
+  if (event.target.closest('button')) return;
+  const desc   = el.querySelector('.notif-desc');
+  const isOpen = el.classList.contains('open');
+  el.classList.toggle('open');
+  desc.style.maxHeight = isOpen ? '0' : desc.scrollHeight + 'px';
 
-    const desc = el.querySelector('.notif-desc');
-    const isOpen = el.classList.contains('open');
-    el.classList.toggle('open');
-    desc.style.maxHeight = isOpen ? '0' : desc.scrollHeight + 'px';
-
-    if (!isOpen) {
-        fetch(`/notifications/read/${id}`, { method: 'POST' })
-            .then(() => {
-                el.style.backgroundColor = '#2a2a2a';
-                el.style.borderLeftColor = '#555';
-            });
-    }
+  if (!isOpen) {
+    fetch(`/notifications/read/${id}`, { method: 'POST' })
+      .then(() => {
+        el.style.background      = '#181818';
+        el.style.borderLeftColor = '#2a2a2a';
+      });
+  }
 }
 
+/* ── Dismiss notif ── */
 function dismissNotif(event, id) {
-    event.stopPropagation();
-    const el = document.getElementById(`notif-${id}`);
-
-    // Animation de disparition
-    el.style.opacity = '0';
-    el.style.maxHeight = '0';
-    el.style.marginBottom = '0';
-    el.style.paddingTop = '0';
-    el.style.paddingBottom = '0';
-
-    setTimeout(() => {
-        el.remove();
-        // Si plus aucune notif, afficher le message vide
-        const content = document.getElementById('notif-content');
-        if (content.querySelectorAll('[id^="notif-"]').length === 0) {
-            content.innerHTML = '<p style="color:#aaa; text-align:center;">Aucune notification</p>';
-        }
-    }, 400); // correspond à la durée de la transition
-
-    fetch(`/notifications/dismiss/${id}`, { method: 'POST' });
+  event.stopPropagation();
+  const el = document.getElementById(`notif-${id}`);
+  el.style.opacity       = '0';
+  el.style.maxHeight     = '0';
+  el.style.marginBottom  = '0';
+  el.style.paddingTop    = '0';
+  el.style.paddingBottom = '0';
+  setTimeout(() => {
+    el.remove();
+    const content = document.getElementById('notif-content');
+    if (!content.querySelector('[id^="notif-"]')) {
+      content.innerHTML = '<p style="color:#555; text-align:center; font-size:13px; padding:20px 0;">Aucune notification</p>';
+    }
+  }, 380);
+  fetch(`/notifications/dismiss/${id}`, { method: 'POST' });
 }
 </script>
 {% endblock %}

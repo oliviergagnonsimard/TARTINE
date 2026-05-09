@@ -1,74 +1,228 @@
 {% extends 'base.html' %}
+
+{% block head %}
+<style>
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+* { box-sizing: border-box; }
+#main { padding: 0; }
+
+.page-header { animation: fadeSlideIn 0.5s ease both; }
+.create-body { animation: fadeSlideIn 0.5s ease 0.08s both; }
+
+/* ── Header ── */
+.page-header {
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 28px; flex-wrap: wrap; padding-top: 20px;
+}
+.back-btn {
+  width: 42px; height: 42px; border-radius: 99px; flex-shrink: 0;
+  background: #1a1a1a; border: 0.5px solid #2a2a2a; color: #aaa;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; text-decoration: none;
+  transition: border-color 0.2s, color 0.2s;
+}
+.back-btn:hover { border-color: #444; color: #fff; }
+
+.page-title {
+  font-size: 36px; font-weight: 700; letter-spacing: -1.5px;
+  color: #fff; line-height: 1;
+}
+.page-title span { color: #e91e8c; }
+
+/* ── Layout ── */
+.create-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  align-items: start;
+}
+@media (max-width: 800px) { .create-body { grid-template-columns: 1fr; } }
+
+/* ── Cards ── */
+.card {
+  background: #111; border: 0.5px solid #222; border-radius: 14px;
+  padding: 22px; position: relative; overflow: hidden;
+}
+.card::before {
+  content: ""; position: absolute; top: 0; right: 0;
+  width: 100px; height: 100px;
+  background: radial-gradient(circle, rgba(233,30,140,0.06), transparent 70%);
+  pointer-events: none;
+}
+.card-head {
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  color: #444; margin-bottom: 18px;
+  display: flex; align-items: center; gap: 8px;
+}
+
+/* ── Champs ── */
+.field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+.field label {
+  font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: #555;
+}
+.field input[type="text"],
+.field input[type="number"],
+.field textarea,
+.field select {
+  background: #1a1a1a; border: 0.5px solid #2a2a2a; color: #ccc;
+  border-radius: 8px; padding: 10px 12px; font-size: 13px;
+  width: 100%; outline: none; transition: border-color 0.2s;
+  font-family: inherit;
+}
+.field input:focus,
+.field textarea:focus,
+.field select:focus { border-color: #e91e8c; }
+.field textarea { min-height: 160px; resize: vertical; line-height: 1.7; }
+
+/* ── Ingrédients ── */
+.ing-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+.ing-row {
+  display: flex; gap: 8px; align-items: center;
+}
+.ing-row input,
+.ing-row select {
+  background: #1a1a1a; border: 0.5px solid #2a2a2a; color: #ccc;
+  border-radius: 8px; padding: 9px 10px; font-size: 13px;
+  outline: none; transition: border-color 0.2s; font-family: inherit;
+}
+.ing-row input:focus,
+.ing-row select:focus { border-color: #e91e8c; }
+.ing-nom    { flex: 2; }
+.ing-qty    { flex: 1; min-width: 70px; }
+.ing-unite  { flex: 1.2; min-width: 90px; }
+
+.ing-remove-btn {
+  background: none; border: none; color: #555; font-size: 16px;
+  cursor: pointer; flex-shrink: 0; transition: color 0.2s;
+}
+.ing-remove-btn:hover { color: #e91e8c; }
+
+.btn-add-ing {
+  background: none; border: 0.5px dashed #2a2a2a; color: #555;
+  padding: 8px 14px; border-radius: 8px; font-size: 12px;
+  cursor: pointer; transition: border-color 0.2s, color 0.2s;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.btn-add-ing:hover { border-color: #444; color: #aaa; }
+
+/* ── Bouton submit ── */
+.submit-wrap {
+  grid-column: 1 / -1;
+  display: flex; justify-content: flex-end; align-items: center; gap: 12px;
+  padding-top: 4px;
+}
+.btn-pink {
+  background: #d32f89; color: #fff; border: none;
+  padding: 11px 24px; border-radius: 8px; font-size: 14px; font-weight: 600;
+  cursor: pointer; display: inline-flex; align-items: center; gap: 8px;
+  transition: background 0.2s;
+}
+.btn-pink:hover { background: #e91e8c; }
+
+.btn-pill-cancel {
+  background: #1a1a1a; border: 0.5px solid #2a2a2a; color: #aaa;
+  padding: 11px 20px; border-radius: 8px; font-size: 14px; cursor: pointer;
+  text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+  transition: border-color 0.2s, color 0.2s;
+}
+.btn-pill-cancel:hover { border-color: #444; color: #fff; }
+
+.error-msg { color: #ED93B1; font-size: 13px; }
+</style>
+{% endblock %}
+
 {% block body %}
 
-<div>
-    
-    <a href="{{ url_for('recipes') }}" style="font-size: 28px; color: white;">
-        <i class="bi bi-arrow-left-circle"></i>
-    </a>
-    
-    <h3 style="font-weight: bold; font-size: 60px; text-align: center; padding-bottom: 30px;">Créer une recette</h3>
+<!-- ── Header ── -->
+<div class="page-header">
+  <a href="{{ url_for('recipes') }}" class="back-btn">
+    <i class="bi bi-arrow-left"></i>
+  </a>
+  <div>
+    <div class="page-title">Nouvelle <span>recette</span></div>
+  </div>
 </div>
 
+<!-- ── Formulaire ── -->
 <form action="/recipes/create" method="POST">
-    <div style="display:flex; flex-direction: column; align-items: center; gap: 15px;">
+  <div class="create-body">
 
-            <div style="display:flex; gap:10px; padding-right: 7%;">
-                <label style="width:200px; text-align: right;">Nom de recette</label>
-                <input type="text" name="nom" style="width: 300px;" required>
-            </div>
-            
-            <div style="display:flex; gap:10px; padding-right: 7%;">
-                <label style="width:200px; text-align: right;">Portions</label>
-                <input type="number" name="portions" value="4" min="1" style="width: 300px;" required>
-            </div>
-            
-            <div style="display:flex; gap:10px; padding-right: 7%;">
-                <label style="width:200px; text-align: right;">Instructions</label>
-                <textarea name="instructions" style="width: 300px; height: 150px; resize: vertical;"></textarea>
-            </div>
-            
-        <!-- SECTION INGRÉDIENTS -->
-        <div style="width: 500px;">
-            <h5 style="text-align: center; padding-bottom: 10px;">Ingrédients</h5>
-            <div id="ingredients-list" style="display: flex; flex-direction: column; gap: 8px;">
-                <!-- Les lignes s'ajoutent ici dynamiquement -->
-            </div>
-            <div style="text-align: center; margin-top: 10px;">
-                <button type="button" onclick="addIngredient()" class="btn btn-secondary">+ Ajouter un ingrédient</button>
-            </div>
+    <!-- Colonne gauche : infos générales -->
+    <div style="display: flex; flex-direction: column; gap: 16px;">
+
+      <div class="card">
+        <div class="card-head"><i class="bi bi-info-circle"></i> Informations</div>
+
+        <div class="field">
+          <label>Nom de la recette</label>
+          <input type="text" name="nom" placeholder="ex. Poulet rôti aux herbes" required>
         </div>
 
-        <button type="submit" class="btn btn-primary" style="background-color:#e91e8c; border: #e91e8c;">Créer la recette</button>
-        {% if error %}<p style="color:red;">{{ error }}</p>{% endif %}
+        <div class="field">
+          <label>Portions</label>
+          <input type="number" name="portions" value="4" min="1">
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><i class="bi bi-journal-text"></i> Instructions</div>
+        <div class="field">
+          <textarea name="instructions" placeholder="Décrivez les étapes de préparation…"></textarea>
+        </div>
+      </div>
+
     </div>
+
+    <!-- Colonne droite : ingrédients -->
+    <div class="card">
+      <div class="card-head"><i class="bi bi-basket"></i> Ingrédients</div>
+
+      <div class="ing-list" id="ingredients-list"></div>
+
+      <button type="button" onclick="addIngredient()" class="btn-add-ing">
+        <i class="bi bi-plus"></i> Ajouter un ingrédient
+      </button>
+    </div>
+
+    <!-- Actions -->
+    <div class="submit-wrap">
+      {% if error %}<span class="error-msg">{{ error }}</span>{% endif %}
+      <a href="{{ url_for('recipes') }}" class="btn-pill-cancel">Annuler</a>
+      <button type="submit" class="btn-pink">
+        <i class="bi bi-check-lg"></i> Créer la recette
+      </button>
+    </div>
+
+  </div>
 </form>
 
 <script>
+const UNITES = ['kg','g','L','ml','tasse','c. à soupe','c. à thé','unité','pincée'];
+
 function addIngredient() {
-    const list = document.getElementById('ingredients-list');
-    const div = document.createElement('div');
-    div.style.cssText = 'display:flex; gap:8px; align-items:center;';
-    div.innerHTML = `
-        <input type="text" name="ingredient_nom" placeholder="Nom" style="width: 250px; padding: 6px; border-radius: 5px;">
-        <input type="number" name="ingredient_quantite" placeholder="Quantité" style="width: 90px; padding: 6px; border-radius: 5px;" step="0.1">
-        <select name="ingredient_unite" style="padding: 6px; border-radius: 5px;">
-            <option value="kg">kg</option>
-            <option value="g">g</option>
-            <option value="L">L</option>
-            <option value="ml">ml</option>
-            <option value="tasse">tasse</option>
-            <option value="c. à soupe">c. à soupe</option>
-            <option value="c. à thé">c. à thé</option>
-            <option value="unité">unité</option>
-            <option value="pincée">pincée</option>
-        </select>
-        <button type="button" onclick="this.parentElement.remove()" style="background:none; border:none; color:#e91e8c; font-size:20px; cursor:pointer;">✕</button>
-    `;
-    list.appendChild(div);
+  const list = document.getElementById('ingredients-list');
+  const div  = document.createElement('div');
+  div.className = 'ing-row';
+
+  const selectOptions = UNITES.map(u => `<option value="${u}">${u}</option>`).join('');
+
+  div.innerHTML = `
+    <input type="text"   name="ingredient_nom"      placeholder="Nom"   class="ing-nom">
+    <input type="number" name="ingredient_quantite"  placeholder="Qté"   class="ing-qty" step="0.1" min="0">
+    <select name="ingredient_unite" class="ing-unite">${selectOptions}</select>
+    <button type="button" onclick="this.parentElement.remove()" class="ing-remove-btn">
+      <i class="bi bi-x-circle"></i>
+    </button>`;
+
+  list.appendChild(div);
+  div.querySelector('input').focus();
 }
 
-// Ajoute une ligne par défaut au chargement
+// Une ligne par défaut
 addIngredient();
 </script>
 

@@ -5,72 +5,175 @@
   <title>TARTINE</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  {% block head %}{% endblock %}
 
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <link rel="stylesheet" href="{{ url_for('static', filename='styles/about.css') }}">
 
   <style>
-    body, h1, h2, h3, h4, h5, h6 { font-family: "Montserrat", sans-serif; }
+    *, *::before, *::after { box-sizing: border-box; }
 
+    body, h1, h2, h3, h4, h5, h6 {
+      font-family: "Montserrat", sans-serif;
+    }
+
+    body {
+      background-color: #0a0a0a;
+      color: #fff;
+      margin: 0;
+    }
+
+    /* ── NAVBAR ── */
     .navbar {
-      background-color: #222;
+      background-color: #111;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 10px 30px;
-      border-bottom: 2px solid #333;
+      padding: 10px 24px;
+      border-bottom: 0.5px solid #2a2a2a;
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
 
     .navbar-left {
       display: flex;
       align-items: center;
-      gap: 25px;
+      gap: 4px;
     }
 
     .navbar-right {
       display: flex;
       align-items: center;
-      gap: 25px;
+      gap: 4px;
     }
 
     .nav-link-item {
       display: flex;
       align-items: center;
-      gap: 8px;
-      color: white;
+      gap: 7px;
+      color: #aaa;
       text-decoration: none;
-      font-size: 15px;
-      padding: 6px 10px;
-      border-radius: 6px;
-      transition: background 0.2s;
+      font-size: 14px;
+      padding: 7px 12px;
+      border-radius: 8px;
+      transition: background 0.2s, color 0.2s;
     }
 
     .nav-link-item:hover {
-      background-color: #333;
-      color: white;
+      background-color: #1a1a1a;
+      color: #fff;
     }
 
     .nav-link-item i {
-      font-size: 20px;
+      font-size: 18px;
     }
 
+    /* Bouton Connexion mis en évidence */
+    .nav-link-item.nav-cta {
+      background: #d32f89;
+      color: #fff;
+      padding: 7px 16px;
+    }
+    .nav-link-item.nav-cta:hover {
+      background: #e91e8c;
+      color: #fff;
+    }
+
+    /* Séparateur vertical entre groupes nav */
+    .nav-sep {
+      width: 0.5px;
+      height: 20px;
+      background: #2a2a2a;
+      margin: 0 8px;
+    }
+
+    /* ── MAIN ── */
     #main {
       padding: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* ── TOAST ── */
+    #toast {
+      position: fixed;
+      top: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 12px 28px;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 14px;
+      z-index: 9999;
+      transition: top 0.4s ease;
+      min-width: 280px;
+      text-align: center;
+      border: 0.5px solid transparent;
+    }
+
+    /* ── UTILITAIRES GLOBAUX ── */
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .btn-pink {
+      background: #d32f89; color: #fff; border: none;
+      padding: 10px 24px; border-radius: 8px;
+      font-size: 14px; font-weight: bold; cursor: pointer;
+      text-decoration: none; display: inline-block;
+      font-family: inherit; transition: background 0.2s;
+    }
+    .btn-pink:hover { background: #e91e8c; color: #fff; }
+
+    .btn-outline-white {
+      background: transparent; color: #aaa;
+      border: 0.5px solid #333;
+      padding: 10px 24px; border-radius: 8px;
+      font-size: 14px; cursor: pointer;
+      text-decoration: none; display: inline-block;
+      font-family: inherit; transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-outline-white:hover { border-color: #555; color: #fff; }
+
+    .card-dark {
+      background: #111;
+      border: 0.5px solid #222;
+      border-radius: 14px;
+      padding: 1.5rem;
+    }
+
+    .alert-error {
+      background: rgba(220,50,50,0.12);
+      border: 0.5px solid #c0392b;
+      border-radius: 8px; padding: 10px 14px;
+      font-size: 13px; color: #e74c3c;
+      margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .alert-success {
+      background: rgba(29,158,117,0.12);
+      border: 0.5px solid #1D9E75;
+      border-radius: 8px; padding: 10px 14px;
+      font-size: 13px; color: #5DCAA5;
+      margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 8px;
     }
   </style>
+
+  {% block head %}{% endblock %}
 </head>
-<body class="w3-black">
+
+<body>
 
 <nav class="navbar">
-  <!-- GAUCHE : logo + liens principaux -->
   <div class="navbar-left">
-    <a href="{{ url_for('index') }}">
-      <img src="{{ url_for('static', filename='logo.png') }}" style="height: 60px; border-radius: 15px;">
+    <a href="{{ url_for('index') }}" style="margin-right: 8px;">
+      <img src="{{ url_for('static', filename='logo.png') }}" style="height: 48px; border-radius: 12px;">
     </a>
 
     <a href="{{ url_for('flyers') }}" class="nav-link-item">
@@ -97,43 +200,33 @@
     {% endif %}
   </div>
 
-  <!-- DROITE : compte + auth -->
   <div class="navbar-right">
     {% if current_user.is_authenticated %}
       <a href="{{ url_for('recipes') }}" class="nav-link-item">
         <i class="bi bi-journal"></i> Recettes
       </a>
+
+      <div class="nav-sep"></div>
+
       <a href="{{ url_for('dashboard') }}" class="nav-link-item">
-        <i class="bi bi-person"></i> {{ session.get('firstName') }} {{ session.get('lastName') }}
+        <i class="bi bi-person"></i>
+        {{ session.get('firstName') }} {{ session.get('lastName') }}
       </a>
-      <a href="{{ url_for('logout') }}" class="nav-link-item" style="border-top: 1px solid white;">
+      <a href="{{ url_for('logout') }}" class="nav-link-item">
         <i class="bi bi-box-arrow-right"></i> Déconnexion
       </a>
     {% else %}
       <a href="{{ url_for('register') }}" class="nav-link-item">
-        <i class="bi bi-person-square"></i> Créer un compte
+        <i class="bi bi-person-plus"></i> Créer un compte
       </a>
-      <a href="{{ url_for('login') }}" class="nav-link-item">
+      <a href="{{ url_for('login') }}" class="nav-link-item nav-cta">
         <i class="bi bi-box-arrow-in-right"></i> Connexion
       </a>
     {% endif %}
   </div>
 </nav>
 
-<!-- TOAST -->
-<div id="toast" style="
-    position: fixed;
-    top: -100px;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 15px 30px;
-    border-radius: 10px;
-    font-weight: bold;
-    z-index: 9999;
-    transition: top 0.4s ease;
-    min-width: 300px;
-    text-align: center;
-"></div>
+<div id="toast"></div>
 
 <div id="main">
   {% block body %}{% endblock %}
@@ -143,9 +236,16 @@
 function showToast(message, type) {
     const toast = document.getElementById('toast');
     toast.innerText = message;
-    toast.style.backgroundColor = type === 'error' ? '#c0392b' : '#27ae60';
-    toast.style.color = 'white';
-    toast.style.top = '30px';
+    if (type === 'error') {
+        toast.style.backgroundColor = 'rgba(220,50,50,0.15)';
+        toast.style.borderColor = '#c0392b';
+        toast.style.color = '#e74c3c';
+    } else {
+        toast.style.backgroundColor = 'rgba(29,158,117,0.15)';
+        toast.style.borderColor = '#1D9E75';
+        toast.style.color = '#5DCAA5';
+    }
+    toast.style.top = '20px';
     setTimeout(() => { toast.style.top = '-100px'; }, 3500);
 }
 

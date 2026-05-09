@@ -2,81 +2,224 @@
 
 {% block head %}
 <style>
-    .gold        { background-color: #FFD700 !important; color: black !important; font-weight: bold; }
-    .silver      { background-color: #C0C0C0 !important; color: black !important; font-weight: bold; }
-    .bronze      { background-color: #CD7F32 !important; color: black !important; font-weight: bold; }
-    .cell        { padding: 10px 20px; border: 1px solid white; }
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.lb-header  { animation: fadeSlideIn 0.5s ease both; }
+.my-rank-card { animation: fadeSlideIn 0.5s ease 0.06s both; }
+.podium     { animation: fadeSlideIn 0.5s ease 0.12s both; }
+.lb-list    { animation: fadeSlideIn 0.5s ease 0.18s both; }
+
+* { box-sizing: border-box; }
+
+/* ── Header ── */
+.lb-header { text-align: center; margin-bottom: 2rem; }
+.lb-header h1 {
+  font-size: 48px; font-weight: 700; color: #fff;
+  letter-spacing: -2px; margin-bottom: 4px; line-height: 1;
+}
+.lb-header h1 span { color: #e91e8c; }
+.lb-header p { font-size: 13px; color: #555; }
+
+/* ── Ma position ── */
+.my-rank-card {
+  background: #1a0d14; border: 0.5px solid rgba(233,30,140,0.27);
+  border-radius: 12px; padding: 14px 20px;
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 2rem;
+}
+.my-rank-badge {
+  font-size: 22px; font-weight: 800; color: #e91e8c;
+  min-width: 48px; letter-spacing: -1px;
+}
+.my-rank-info { flex: 1; }
+.my-rank-name { font-size: 15px; font-weight: 600; color: #fff; }
+.my-rank-sub  { font-size: 12px; color: #555; margin-top: 2px; }
+.my-rank-score { font-size: 22px; font-weight: 700; color: #5DCAA5; }
+
+/* ── Podium ── */
+.podium {
+  display: flex; align-items: flex-end; justify-content: center;
+  gap: 10px; margin-bottom: 2rem;
+}
+.podium-item { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+
+.podium-avatar {
+  width: 52px; height: 52px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; font-weight: 700;
+}
+.p1 .podium-avatar {
+  width: 64px; height: 64px; font-size: 19px;
+  background: linear-gradient(135deg, #FFD700, #b8860b);
+  color: #111; box-shadow: 0 0 20px rgba(255,215,0,0.25);
+}
+.p2 .podium-avatar {
+  background: linear-gradient(135deg, #d4d4d4, #888);
+  color: #111;
+}
+.p3 .podium-avatar {
+  background: linear-gradient(135deg, #CD7F32, #7a4a1a);
+  color: #111;
+}
+
+.podium-name  { font-size: 12px; color: #aaa; text-align: center; max-width: 90px; line-height: 1.3; }
+.podium-score { font-size: 11px; color: #555; }
+
+.podium-block {
+  border-radius: 8px 8px 0 0; width: 96px;
+  display: flex; align-items: center; justify-content: center;
+}
+/* Rank number inside the block */
+.podium-rank {
+  font-size: 28px; font-weight: 800; letter-spacing: -1px;
+  line-height: 1; padding: 12px 0;
+}
+.p1 .podium-block { background: #2a2200; height: 96px; border: 0.5px solid rgba(255,215,0,0.4); }
+.p1 .podium-rank  { color: #FFD700; }
+.p2 .podium-block { background: #1e1e1e; height: 68px; border: 0.5px solid rgba(192,192,192,0.3); }
+.p2 .podium-rank  { color: #C0C0C0; }
+.p3 .podium-block { background: #1e1500; height: 48px; border: 0.5px solid rgba(205,127,50,0.3); }
+.p3 .podium-rank  { color: #CD7F32; }
+
+/* ── Liste ── */
+.lb-list { display: flex; flex-direction: column; gap: 6px; }
+.lb-row {
+  display: flex; align-items: center; gap: 14px;
+  background: #111; border: 0.5px solid #222;
+  border-radius: 10px; padding: 11px 16px;
+  transition: border-color 0.2s;
+}
+.lb-row:hover { border-color: #333; }
+.lb-row.is-me { background: #1a0d14; border-color: rgba(233,30,140,0.27); }
+
+/* Rank badge */
+.lb-pos {
+  min-width: 32px; height: 32px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700;
+  background: #1a1a1a; border: 0.5px solid #2a2a2a; color: #555;
+}
+.lb-pos.gold   { background: rgba(255,215,0,0.08); border-color: rgba(255,215,0,0.3); color: #FFD700; }
+.lb-pos.silver { background: rgba(192,192,192,0.08); border-color: rgba(192,192,192,0.3); color: #C0C0C0; }
+.lb-pos.bronze { background: rgba(205,127,50,0.08); border-color: rgba(205,127,50,0.3); color: #CD7F32; }
+
+.lb-avatar {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: #222; display: flex; align-items: center;
+  justify-content: center; font-size: 11px; font-weight: 700; color: #666;
+}
+.lb-row.is-me .lb-avatar { background: #3a1a2e; color: #e91e8c; }
+
+.lb-name  { flex: 1; font-size: 13px; color: #ccc; }
+.lb-score { font-size: 13px; font-weight: 700; color: #5DCAA5; }
+
+.me-badge {
+  font-size: 10px; background: rgba(233,30,140,0.1);
+  color: #e91e8c; border: 0.5px solid rgba(233,30,140,0.27);
+  padding: 2px 8px; border-radius: 99px; letter-spacing: 0.5px;
+}
+
+/* ── Pagination ── */
+.pagination { display: flex; justify-content: center; gap: 6px; margin-top: 1.5rem; }
+.page-btn {
+  background: #1a1a1a; border: 0.5px solid #2a2a2a;
+  border-radius: 6px; padding: 6px 14px;
+  font-size: 13px; color: #aaa; text-decoration: none;
+  transition: border-color 0.2s, color 0.2s;
+}
+.page-btn:hover { border-color: #444; color: #fff; }
+.page-btn.active { border-color: #e91e8c; color: #e91e8c; background: rgba(233,30,140,0.06); }
 </style>
 {% endblock %}
 
 {% block body %}
 
-<div style="align-items: center;">
+{% set top3 = leaderboard[:3] if page == 1 else [] %}
+{% set rest = leaderboard[3:] if page == 1 else leaderboard %}
 
-    <!-- Title + User Badge Row -->
-    <div style="display: flex; position: relative; min-height: 160px;">
-
-        <div style="text-align: center; width: 100%; padding-right: 0; margin: auto; position: fixed">
-    <h3 style="font-weight: bold; font-size: 60px;">Classement</h3>
-    <h3 style="font-weight: bold; font-size: 28px; padding-bottom: 30px;">du nombre de recettes!</h3>
+<!-- ── Header ── -->
+<div class="lb-header" style="padding-top: 20px;">
+  <h1>Classe<span>ment</span></h1>
+  <p>Nombre de recettes sauvegardées</p>
 </div>
 
-        <!-- Current user badge (top-right) -->
-        <div style="position: absolute; top: 20px; right: 20px; text-align: right;">
-            {% for row in leaderboard %}
-                {% if row[2] | int == current_Id | int %}
-                    <p style="font-size: 22px; font-weight: bold; margin: 0;">
-                        {% if row[0] == 1 %}🥇
-                        {% elif row[0] == 2 %}🥈
-                        {% elif row[0] == 3 %}🥉
-                        {% else %}<i class="bi bi-award"></i>
-                        {% endif %}
-                        {{ row[0] }}{% if row[0] == 1 %}ère{% else %}e{% endif %} place
-                    </p>
-                    <p style="font-size: 14px; margin: 0; color: #aaa;">{{ row[1] }}</p>
-                    <p style="font-size: 14px; margin: 0; color: #aaa;">{{ row[3] }} recettes</p>
-                {% endif %}
-            {% endfor %}
-        </div>
+<!-- ── Ma position ── -->
+{% for row in leaderboard %}
+  {% if row[3] | int == current_Id | int %}
+  <div class="my-rank-card">
+    <div class="my-rank-badge">
+      {% if row[0] == 1 %}#1
+      {% elif row[0] == 2 %}#2
+      {% elif row[0] == 3 %}#3
+      {% else %}#{{ row[0] }}{% endif %}
     </div>
-    <!-- End Title + User Badge Row -->
+    <div class="my-rank-info">
+      <div class="my-rank-name">{{ row[1] }}</div>
+      <div class="my-rank-sub">Votre position actuelle</div>
+    </div>
+    <div class="my-rank-score">{{ row[4] }} pts</div>
+  </div>
+  {% endif %}
+{% endfor %}
 
-    <!-- Leaderboard Table -->
-    <table style="border: 2px solid white; margin: auto; margin-top: 2%; width: 80%; text-align: center;">
+<!-- ── Podium ── -->
+{% if page == 1 and top3 | length == 3 %}
+{% set p2 = top3[1] %}
+{% set p1 = top3[0] %}
+{% set p3 = top3[2] %}
+<div class="podium">
+  <div class="podium-item p2">
+    <div class="podium-avatar">{{ p2[1][:2] | upper }}</div>
+    <div class="podium-name">{{ p2[1] }}</div>
+    <div class="podium-score">{{ p2[4] }} pts</div>
+    <div class="podium-block"><span class="podium-rank">2</span></div>
+  </div>
+  <div class="podium-item p1">
+    <div class="podium-avatar">{{ p1[1][:2] | upper }}</div>
+    <div class="podium-name">{{ p1[1] }}</div>
+    <div class="podium-score">{{ p1[4] }} pts</div>
+    <div class="podium-block"><span class="podium-rank">1</span></div>
+  </div>
+  <div class="podium-item p3">
+    <div class="podium-avatar">{{ p3[1][:2] | upper }}</div>
+    <div class="podium-name">{{ p3[1] }}</div>
+    <div class="podium-score">{{ p3[4] }} pts</div>
+    <div class="podium-block"><span class="podium-rank">3</span></div>
+  </div>
+</div>
+{% endif %}
 
-        <tr class="header-row" style="border: 2px solid white;">
-            {% for header in headings %}
-                <th class="cell">{{ header }}</th>
-            {% endfor %}
-        </tr>
+<!-- ── Liste ── -->
+<div class="lb-list">
+  {% for row in rest %}
+  {% set is_me = row[3] | int == current_Id | int %}
+  {% set pos = row[0] %}
+  <div class="lb-row {% if is_me %}is-me{% endif %}">
+    <div class="lb-pos {% if pos == 1 %}gold{% elif pos == 2 %}silver{% elif pos == 3 %}bronze{% endif %}">
+      {{ pos }}
+    </div>
+    <div class="lb-avatar">{{ row[1][:2] | upper }}</div>
+    <div class="lb-name">{{ row[1] }}</div>
+    {% if is_me %}<span class="me-badge">Vous</span>{% endif %}
+    <div class="lb-score">{{ row[4] }} pts</div>
+  </div>
+  {% endfor %}
+</div>
 
-        {% for row in leaderboard %}
-            {% set position = row[0] | int %}
-            <tr class="
-                    {% if row[0] | int == 1 %}gold{% elif row[0] | int == 2 %}silver{% elif row[0] | int == 3 %}bronze{% endif %}
-                    {% if row[2] | int == current_Id | int %}current-user{% endif %}
-                ">
-
-                    <!-- Position -->
-                    <td class="cell">{{ row[0] }}</td>
-
-                    <!-- Nom -->
-                    <td class="cell">
-                        {% if row[2] | int == current_Id | int %}
-                            <i class="bi bi-person-vcard" style="margin-right: 8px;"></i>
-                        {% endif %}
-                        {{ row[1] }}
-                    </td>
-
-                    <!-- Score -->
-                    <td class="cell">{{ row[3] }}</td>
-
-                </tr>
-        {% endfor %}
-
-    </table>
-    <!-- End Leaderboard Table -->
-
+<!-- ── Pagination ── -->
+<div class="pagination">
+  {% if page > 1 %}
+    <a href="{{ url_for('leaderboard', page=page-1) }}" class="page-btn">‹</a>
+  {% endif %}
+  {% for p in range(1, total_pages + 1) %}
+    <a href="{{ url_for('leaderboard', page=p) }}" class="page-btn {% if p == page %}active{% endif %}">{{ p }}</a>
+  {% endfor %}
+  {% if page < total_pages %}
+    <a href="{{ url_for('leaderboard', page=page+1) }}" class="page-btn">›</a>
+  {% endif %}
 </div>
 
 {% endblock %}
