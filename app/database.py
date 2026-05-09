@@ -4,6 +4,7 @@ import os
 import platform
 from dotenv import load_dotenv
 from datetime import timezone, datetime
+from matchingIngredients import matchIngredientsWithDiscounts
 
 load_dotenv()
 
@@ -610,6 +611,20 @@ def clearDiscounts():
     conn.commit()
     cursor.close()
     conn.close()
+
+def getDiscountsForWeek(week_start):
+    conn = connectToDB()
+    try:
+        with conn.cursor() as curs:
+            curs.execute("""
+                SELECT d.id, d.product_name, d.discount_pct, d.original_price, d.discounted_price, s.nom
+                FROM discount d
+                JOIN stores s ON d."idEpicerie" = s."idEpicerie"
+                WHERE d.week_start = %s
+            """, (week_start,))
+            return curs.fetchall()
+    finally:
+        releaseConn(conn)
 
 def getIdEpicerie(nom):
     conn = connectToDB()
