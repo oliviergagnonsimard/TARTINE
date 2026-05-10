@@ -108,7 +108,7 @@ def getUserInfo(idClient):
                     role, is_verified, verification_token, reset_token, reset_token_expiry,
                     "last_password_change" AT TIME ZONE 'America/Montreal',
                     EXTRACT(YEAR FROM AGE("birthDate")) AS age
-                FROM "user" 
+                FROM users 
                 WHERE "idClient" = %s
             """, (idClient,))
             row = curs.fetchone()
@@ -139,7 +139,7 @@ def showClients():
     conn = connectToDB()
     try:
         with conn.cursor() as curs:
-            curs.execute('SELECT * FROM "user"')
+            curs.execute('SELECT * FROM users')
             return curs.fetchall()
     except Exception as e:
         conn.rollback()
@@ -151,7 +151,7 @@ def getNameFromId(idClient):
     conn = connectToDB()
     try:
         with conn.cursor() as curs:
-            curs.execute('SELECT "firstName", "lastName" FROM "user" WHERE "idClient" = %s', (idClient,))
+            curs.execute('SELECT "firstName", "lastName" FROM users WHERE "idClient" = %s', (idClient,))
             row = curs.fetchone()
             if row:
                 return f"{row[0]} {row[1]}"
@@ -165,7 +165,7 @@ def getUserByEmail(email):
     conn = connectToDB()
     try:
         with conn.cursor() as curs:
-            curs.execute('SELECT * FROM "user" WHERE "email" = %s', (email,))
+            curs.execute('SELECT * FROM users WHERE "email" = %s', (email,))
             return curs.fetchone()
     except Exception as e:
         print(f"SQL ERROR (getUserByEmail): {e}")
@@ -358,7 +358,7 @@ def deleteUnverifiedAccounts():
     try:
         with conn.cursor() as curs:
             curs.execute("""
-                DELETE FROM "user"
+                DELETE FROM users
                 WHERE is_verified = FALSE 
                 AND "creationDate" < NOW() - INTERVAL '24 hours'
             """)
@@ -376,7 +376,7 @@ def getAllUsers(page=1, limit=20, search=''):
         with conn.cursor() as curs:
             curs.execute("""
                 SELECT "idClient", email, "firstName", "lastName", role, is_verified, "last_password_change"
-                FROM "user" 
+                FROM users 
                 WHERE "firstName" ILIKE %s OR "lastName" ILIKE %s OR email ILIKE %s OR CAST("idClient" AS TEXT) LIKE %s
                 ORDER BY "idClient"
                 LIMIT %s OFFSET %s
@@ -414,7 +414,7 @@ def countAllUsers(search=''):
     try:
         with conn.cursor() as curs:
             curs.execute("""
-                SELECT COUNT(*) FROM "user"
+                SELECT COUNT(*) FROM users
                 WHERE "firstName" ILIKE %s OR "lastName" ILIKE %s OR email ILIKE %s OR CAST("idClient" AS TEXT) LIKE %s
             """, (f'%{search}%', f'%{search}%', f'%{search}%', f'%{search}%'))
             return curs.fetchone()[0]
