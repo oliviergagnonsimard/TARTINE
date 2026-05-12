@@ -36,7 +36,7 @@
     text-align: center;
     padding: 4rem 2rem 3rem;
     background: #111;
-    border-radius: 14px;
+    border-radius: 0 0 20px 20px;
     margin-bottom: 2rem;
     border: 0.5px solid #2a2a2a;
     position: relative;
@@ -252,129 +252,132 @@
   </div>
 </div>
 
-<!-- STORES -->
-<p class="section-label">Circulaires disponibles chaque semaine</p>
-<div class="stores-row">
-  {% for store in ['IGA', 'Maxi', 'Metro', 'Provigo', 'Super C'] %}
-  <div class="store-pill">
-    <div class="store-dot"></div> {{ store }}
+<div style="max-width: 1100px; margin: 0 auto; padding: 0 30px;">
+  <!-- STORES -->
+  <p class="section-label">Circulaires disponibles chaque semaine</p>
+  <div class="stores-row">
+    {% for store in ['IGA', 'Maxi', 'Metro', 'Provigo', 'Super C'] %}
+    <div class="store-pill">
+      <div class="store-dot"></div> {{ store }}
+    </div>
+    {% endfor %}
   </div>
-  {% endfor %}
-</div>
 
-<!-- APERÇU RABAIS -->
-<div class="savings-block">
-  <div class="savings-header">
-    <div>
-      <h2>Aperçu des rabais cette semaine</h2>
-      <p>{{ week if week else "Semaine en cours" }}</p>
+  <!-- APERÇU RABAIS -->
+  <div class="savings-block">
+    <div class="savings-header">
+      <div>
+        <h2>Aperçu des rabais cette semaine</h2>
+        <p>{{ week if week else "Semaine en cours" }}</p>
+      </div>
+      <span class="savings-tag">
+        <i class="bi bi-arrow-clockwise" style="margin-right:4px;"></i>Mis à jour jeudi
+      </span>
     </div>
-    <span class="savings-tag">
-      <i class="bi bi-arrow-clockwise" style="margin-right:4px;"></i>Mis à jour jeudi
-    </span>
+    <div class="items-list">
+      <div class="item-row">
+        <span class="item-store">Metro</span>
+        <span class="item-name">Poitrines de poulet</span>
+        <span class="item-qty">500 g</span>
+        <span class="item-price-old">8,99 $</span>
+        <span class="item-price-new">5,99 $</span>
+        <span class="item-badge">-33%</span>
+      </div>
+      <div class="item-row">
+        <span class="item-store">IGA</span>
+        <span class="item-name">Saumon atlantique</span>
+        <span class="item-qty">1 lb</span>
+        <span class="item-price-old">12,49 $</span>
+        <span class="item-price-new">7,99 $</span>
+        <span class="item-badge">-36%</span>
+      </div>
+      <div class="item-row">
+        <span class="item-store">Maxi</span>
+        <span class="item-name">Pâtes Barilla</span>
+        <span class="item-qty">900 g</span>
+        <span class="item-price-old">3,49 $</span>
+        <span class="item-price-new">1,99 $</span>
+        <span class="item-badge">-43%</span>
+      </div>
+      <div class="item-row">
+        <span class="item-store">Super C</span>
+        <span class="item-name">Bœuf haché mi-maigre</span>
+        <span class="item-qty">1 kg</span>
+        <span class="item-price-old">11,99 $</span>
+        <span class="item-price-new">7,49 $</span>
+        <span class="item-badge">-38%</span>
+      </div>
+    </div>
+    <div style="text-align:center; margin-top:1.5rem;">
+      <a href="{{ url_for('flyers') }}" class="btn-pink">Voir tous les rabais</a>
+    </div>
   </div>
-  <div class="items-list">
-    <div class="item-row">
-      <span class="item-store">Metro</span>
-      <span class="item-name">Poitrines de poulet</span>
-      <span class="item-qty">500 g</span>
-      <span class="item-price-old">8,99 $</span>
-      <span class="item-price-new">5,99 $</span>
-      <span class="item-badge">-33%</span>
-    </div>
-    <div class="item-row">
-      <span class="item-store">IGA</span>
-      <span class="item-name">Saumon atlantique</span>
-      <span class="item-qty">1 lb</span>
-      <span class="item-price-old">12,49 $</span>
-      <span class="item-price-new">7,99 $</span>
-      <span class="item-badge">-36%</span>
-    </div>
-    <div class="item-row">
-      <span class="item-store">Maxi</span>
-      <span class="item-name">Pâtes Barilla</span>
-      <span class="item-qty">900 g</span>
-      <span class="item-price-old">3,49 $</span>
-      <span class="item-price-new">1,99 $</span>
-      <span class="item-badge">-43%</span>
-    </div>
-    <div class="item-row">
-      <span class="item-store">Super C</span>
-      <span class="item-name">Bœuf haché mi-maigre</span>
-      <span class="item-qty">1 kg</span>
-      <span class="item-price-old">11,99 $</span>
-      <span class="item-price-new">7,49 $</span>
-      <span class="item-badge">-38%</span>
-    </div>
-  </div>
-  <div style="text-align:center; margin-top:1.5rem;">
-    <a href="{{ url_for('flyers') }}" class="btn-pink">Voir tous les rabais</a>
-  </div>
-</div>
 
-<!-- PITCH -->
-<div class="pitch-grid">
-  <div class="pitch-card">
-    <div class="pitch-icon-wrap" style="background: rgba(29,158,117,0.12);">
-      <i class="bi bi-book" style="color:#5DCAA5; font-size:20px;"></i>
+  <!-- PITCH -->
+  <div class="pitch-grid">
+    <div class="pitch-card">
+      <div class="pitch-icon-wrap" style="background: rgba(29,158,117,0.12);">
+        <i class="bi bi-book" style="color:#5DCAA5; font-size:20px;"></i>
+      </div>
+      <h3>Tous les circulaires, un seul endroit</h3>
+      <p>Arrête de fouiller sur pleins de sites chaque semaine. Les circulaires IGA, Maxi, Metro, Provigo et Super C sont regroupés sur Tartine et mis à jour en direct</p>
     </div>
-    <h3>Tous les circulaires, un seul endroit</h3>
-    <p>Arrête de fouiller sur pleins de sites chaque semaine. Les circulaires IGA, Maxi, Metro, Provigo et Super C sont regroupés sur Tartine et mis à jour en direct</p>
-  </div>
-  <div class="pitch-card">
-    <div class="pitch-icon-wrap" style="background: rgba(127,119,221,0.12);">
-      <i class="bi bi-journal" style="color:#AFA9EC; font-size:20px;"></i>
+    <div class="pitch-card">
+      <div class="pitch-icon-wrap" style="background: rgba(127,119,221,0.12);">
+        <i class="bi bi-journal" style="color:#AFA9EC; font-size:20px;"></i>
+      </div>
+      <h3>Vos recettes rencontrent les rabais</h3>
+      <p>Sauvegardez vos recettes préférées et découvrez lesquelles coûtent moins cher à faire cette semaine selon les spéciaux.</p>
     </div>
-    <h3>Vos recettes rencontrent les rabais</h3>
-    <p>Sauvegardez vos recettes préférées et découvrez lesquelles coûtent moins cher à faire cette semaine selon les spéciaux.</p>
-  </div>
-  <div class="pitch-card">
-    <div class="pitch-icon-wrap" style="background: rgba(239,159,39,0.12);">
-      <i class="bi bi-award" style="color:#EF9F27; font-size:20px;"></i>
+    <div class="pitch-card">
+      <div class="pitch-icon-wrap" style="background: rgba(239,159,39,0.12);">
+        <i class="bi bi-award" style="color:#EF9F27; font-size:20px;"></i>
+      </div>
+      <h3>Un classement pour rester motivé</h3>
+      <p>Compétitionnez avec d'autres utilisateurs. Plus vous utilisez les rabais, plus votre score monte dans le classement.</p>
     </div>
-    <h3>Un classement pour rester motivé</h3>
-    <p>Compétitionnez avec d'autres utilisateurs. Plus vous utilisez les rabais, plus votre score monte dans le classement.</p>
   </div>
-</div>
 
-<!-- COMMENT ÇA MARCHE -->
-<p class="section-label">Comment ça marche</p>
-<div class="how-row">
-  <div class="how-step">
-    <div class="how-num">01</div>
-    <h3>Créez un compte</h3>
-    <p>Gratuit, en moins de 30 secondes.</p>
+  <!-- COMMENT ÇA MARCHE -->
+  <p class="section-label">Comment ça marche</p>
+  <div class="how-row">
+    <div class="how-step">
+      <div class="how-num">01</div>
+      <h3>Créez un compte</h3>
+      <p>Gratuit, en moins de 30 secondes.</p>
+    </div>
+    <div class="how-step">
+      <div class="how-num">02</div>
+      <h3>Consultez les rabais</h3>
+      <p>Chaque jeudi, les nouveaux circulaires sont disponibles.</p>
+    </div>
+    <div class="how-step">
+      <div class="how-num">03</div>
+      <h3>Ajoutez vos recettes</h3>
+      <p>Tartine trouve les ingrédients en spécial pour vous.</p>
+    </div>
+    <div class="how-step">
+      <div class="how-num">04</div>
+      <h3>Économisez</h3>
+      <p>Planifiez votre épicerie et payez moins chaque semaine.</p>
+    </div>
   </div>
-  <div class="how-step">
-    <div class="how-num">02</div>
-    <h3>Consultez les rabais</h3>
-    <p>Chaque jeudi, les nouveaux circulaires sont disponibles.</p>
-  </div>
-  <div class="how-step">
-    <div class="how-num">03</div>
-    <h3>Ajoutez vos recettes</h3>
-    <p>Tartine trouve les ingrédients en spécial pour vous.</p>
-  </div>
-  <div class="how-step">
-    <div class="how-num">04</div>
-    <h3>Économisez</h3>
-    <p>Planifiez votre épicerie et payez moins chaque semaine.</p>
-  </div>
-</div>
 
-<!-- CTA FINAL -->
-<div class="cta-block">
-  <h2>Prêt à économiser à l'épicerie?</h2>
-  <p>Rejoignez Tartine et ne payez plus jamais plein prix pour vos repas.</p>
-  {% if not current_user.is_authenticated %}
-  <a href="{{ url_for('register') }}" class="btn-pink" style="font-size:16px; padding: 14px 36px;">
-    Commencer gratuitement
-  </a>
-  {% else %}
-  <a href="{{ url_for('flyers') }}" class="btn-pink" style="font-size:16px; padding: 14px 36px;">
-    Voir les circulaires
-  </a>
-  {% endif %}
+  <!-- CTA FINAL -->
+  <div class="cta-block">
+    <h2>Prêt à économiser à l'épicerie?</h2>
+    <p>Rejoignez Tartine et ne payez plus jamais plein prix pour vos repas.</p>
+    {% if not current_user.is_authenticated %}
+    <a href="{{ url_for('register') }}" class="btn-pink" style="font-size:16px; padding: 14px 36px;">
+      Commencer gratuitement
+    </a>
+    {% else %}
+    <a href="{{ url_for('flyers') }}" class="btn-pink" style="font-size:16px; padding: 14px 36px;">
+      Voir les circulaires
+    </a>
+    {% endif %}
+  </div>
+
 </div>
 
 {% endblock %}

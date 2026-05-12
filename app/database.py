@@ -615,7 +615,7 @@ def clearDiscounts():
     cursor.execute("DELETE FROM discount")
     conn.commit()
     cursor.close()
-    conn.close()
+    releaseConn(conn)
 
 def getDiscountsForWeek(week_start):
     conn = connectToDB()
