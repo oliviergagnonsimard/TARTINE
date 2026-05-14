@@ -263,7 +263,11 @@ def logout():
     session.clear()
     return redirect(url_for('login'))
 
-    
+# ====================================
+# ====================================
+#              DASHBOARD
+# ====================================
+# ====================================
 @app.route('/dashboard')
 @login_required
 def dashboard():
@@ -279,7 +283,7 @@ def dashboard():
     recipes = []
     for r in raw_recipes[:6]:
         idRecette, ordre, nom, portions, created_at = r
-        recette_data, ingredients = getRecetteWithIngredients(idRecette, userID)
+        recette_data, ingredients = getRecipeWithIngredients(idRecette, userID)
 
         best_match = None
         for ing in ingredients:
@@ -423,7 +427,7 @@ def reorder_recipes():
 @login_required
 def recipe_detail(idRecette):
     userID = session.get("userID")
-    recette, ingredients = getRecetteWithIngredients(idRecette, userID)
+    recette, ingredients = getRecipeWithIngredients(idRecette, userID)
     
     if recette is None:
         return redirect(url_for('recipes') + '?error=Recette introuvable')
@@ -438,9 +442,15 @@ def create_recipe():
         nom = request.form.get('nom')
         portions = request.form.get('portions', 4)
         instructions = request.form.get('instructions')
+        role = getUserRole(userID)
+
+        if role == 'user':
+            recipe_count = len(getUserRecipes(userID))
+            if recipe_count >= FREE_RECIPE_LIMIT:
+                return redirect(url_for('recipes') + '?error=Limite atteinte! Pendant le développement, nous limitons le nombre de recettes par client.')
 
         # Créer la recette
-        idRecette = createRecette(userID, nom, portions, instructions)
+        idRecette = createRecipe(userID, nom, portions, instructions)
 
         # Ajouter les ingrédients — le formulaire envoie des listes
         noms = request.form.getlist('ingredient_nom')
@@ -449,7 +459,7 @@ def create_recipe():
 
         for nom_ing, quantite, unite in zip(noms, quantites, unites):
             if nom_ing.strip():
-                addIngredientToRecette(idRecette, nom_ing, quantite, unite)
+                addIngredientToRecipe(idRecette, nom_ing, quantite, unite)
 
         return redirect(url_for('recipes') + '?success=Recette créée!')
     
@@ -469,7 +479,7 @@ def delete_recipe(idRecette):
 def edit_recipe(idRecette):
     userID = session.get("userID")
     data = request.get_json()
-    updateRecette(userID, idRecette, data['nom'], data['portions'], data['instructions'], data['ingredients'])
+    updateRecipe(userID, idRecette, data['nom'], data['portions'], data['instructions'], data['ingredients'])
     return jsonify({'success': True})
 
 # ====================================
@@ -482,11 +492,14 @@ def edit_recipe(idRecette):
 @app.route('/leaderboard/<int:page>')
 def leaderboard(page=1):
     leaderboard = getLeaderboard(page=page)
-    userId = session.get("userID")
+    userID = session.get("userID")
+
+    rank = getUserRank(userID)
+
     total = countAllUsers()
     total_pages = (total + 19) // 20
 
-    return render_template('leaderboard.html', leaderboard=leaderboard, page=page, total_pages=total_pages, current_Id=userId)
+    return render_template('leaderboard.html', leaderboard=leaderboard, page=page, total_pages=total_pages, current_Id=userID, rank=rank)
 
 # ====================================
 # ====================================

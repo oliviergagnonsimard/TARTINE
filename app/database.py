@@ -5,6 +5,8 @@ import platform
 from dotenv import load_dotenv
 from datetime import timezone, datetime
 
+FREE_RECIPE_LIMIT = 10
+
 load_dotenv()
 
 connection_pool = pool.SimpleConnectionPool(
@@ -172,7 +174,13 @@ def getUserByEmail(email):
     finally:
         releaseConn(conn)
 
-def getRecetteWithIngredients(idRecette, idClient):
+
+# ====================================
+# ====================================
+#               RECIPES
+# ====================================
+# ====================================
+def getRecipeWithIngredients(idRecette, idClient):
     conn = connectToDB()
     try:
         with conn.cursor() as curs:
@@ -230,22 +238,25 @@ def updateRecipesOrder(idClient, ordre):
     finally:
         releaseConn(conn)
 
-def addRecipe(idClient, desc):
+def createRecipe(idClient, nom, portions, instructions):
     conn = connectToDB()
     try:
         with conn.cursor() as curs:
-            curs.execute('SELECT * FROM recipe WHERE "idClient" = %s ORDER BY "idRecette" DESC', (idClient,))
-            newRecipeId = curs.fetchone()[1] + 1
-            curs.execute("INSERT INTO recipe VALUES(%s, %s, %s)", (idClient, newRecipeId, desc))
+            curs.execute(
+                """INSERT INTO recipe ("idClient", nom, portions, instructions) 
+                   VALUES (%s, %s, %s, %s) RETURNING "idRecette" """,
+                (idClient, nom, portions, instructions)
+            )
+            idRecette = curs.fetchone()[0]
             conn.commit()
-            print(f"New recipe ({newRecipeId}) added to UserID: {idClient}")
+            return idRecette
     except Exception as e:
         conn.rollback()
-        print(f"SQL ERROR (addRecipe): {e}")
+        print(f"SQL ERROR (createRecette): {e}")
     finally:
         releaseConn(conn)
 
-def updateRecette(idClient, idRecette, nom, portions, instructions, ingredients):
+def updateRecipe(idClient, idRecette, nom, portions, instructions, ingredients):
     conn = connectToDB()
     try:
         with conn.cursor() as curs:
@@ -438,9 +449,40 @@ def updateLastLogin(idClient):
     finally:
         releaseConn(conn)
 
-#================
-# Notifications
-#================
+def getUserRole(idClient):
+    conn = connectToDB()
+    try:
+        with conn.cursor() as curs:
+            curs.execute(
+                'SELECT role FROM users WHERE "idClient" = %s',
+                (idClient,)
+            )
+            return curs.fetchone()[0]
+    except Exception as e:
+        conn.rollback()
+        print(f"SQL ERROR (updateLastLogin): {e}")
+    finally:
+        releaseConn(conn)
+
+def getUserRank(idClient):
+    conn = connectToDB()
+    try:
+        with conn.cursor() as curs:
+            curs.execute(
+                'SELECT classement, score FROM leaderboard WHERE idClient = %s',
+                (idClient,)
+            )
+            return curs.fetchone()
+    except Exception as e:
+        conn.rollback()
+        print(f"SQL ERROR (updateLastLogin): {e}")
+    finally:
+        releaseConn(conn)
+# ====================================
+# ====================================
+#            NOTIFICATIONS
+# ====================================
+# ====================================
 
 def createNotification(idClient, title, message):
     conn = connectToDB()
@@ -517,9 +559,11 @@ def deleteNotification(userID, idNotif):
     finally:
         releaseConn(conn)
 
-#================
-# Ingrédients
-#================
+# ====================================
+# ====================================
+#            INGRÉDIENTS
+# ====================================
+# ====================================
 
 def getOrCreateIngredient(nom):
     conn = connectToDB()
@@ -545,25 +589,7 @@ def getOrCreateIngredient(nom):
     finally:
         releaseConn(conn)
 
-def createRecette(idClient, nom, portions, instructions):
-    conn = connectToDB()
-    try:
-        with conn.cursor() as curs:
-            curs.execute(
-                """INSERT INTO recipe ("idClient", nom, portions, instructions) 
-                   VALUES (%s, %s, %s, %s) RETURNING "idRecette" """,
-                (idClient, nom, portions, instructions)
-            )
-            idRecette = curs.fetchone()[0]
-            conn.commit()
-            return idRecette
-    except Exception as e:
-        conn.rollback()
-        print(f"SQL ERROR (createRecette): {e}")
-    finally:
-        releaseConn(conn)
-
-def addIngredientToRecette(idRecette, nom, quantite, unite):
+def addIngredientToRecipe(idRecette, nom, quantite, unite):
     conn = connectToDB()
     try:
         with conn.cursor() as curs:
