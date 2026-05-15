@@ -466,6 +466,75 @@ def getUserRank(idClient):
         print(f"SQL ERROR (updateLastLogin): {e}")
     finally:
         releaseConn(conn)
+
+# ====================================
+# ====================================
+#              CATALOGUE
+# ====================================
+# ====================================
+def getCatalogItems():
+    conn = connectToDB()
+    try:
+        with conn.cursor() as curs:
+            curs.execute("""
+                SELECT "idIngredient", nom FROM catalog
+                WHERE is_validated = TRUE
+                ORDER BY nom ASC
+            """)
+            return curs.fetchall()
+    except Exception as e:
+        print(f"SQL ERROR (getCatalogItems): {e}")
+    finally:
+        releaseConn(conn)
+
+def saveCatalogDiscountMatches(matches, week_start):
+    conn = connectToDB()
+    try:
+        with conn.cursor() as curs:
+            # Vide les anciens matches de la semaine avant de réinssérer
+            curs.execute('DELETE FROM catalog_discount WHERE week_start = %s', (week_start,))
+            
+            for m in matches:
+                curs.execute("""
+                    INSERT INTO catalog_discount ("idCatalog", "idDiscount", week_start)
+                    VALUES (%s, %s, %s)
+                    ON CONFLICT DO NOTHING
+                """, (m["catalog_id"], m["discount_id"], week_start))
+        conn.commit()
+    except Exception as e:
+        conn.rollback()
+        print(f"SQL ERROR (saveCatalogDiscountMatches): {e}")
+    finally:
+        releaseConn(conn)
+
+def getBestDiscountForRecipe(idRecette):
+    conn = connectToDB()
+    try:
+        with conn.cursor() as curs:
+            curs.execute("""
+                SELECT 
+                    d.discount_pct,
+                    d.original_price,
+                    d.discounted_price,
+                    s.nom AS store,
+                    cat.nom AS ingredient
+                FROM recipe_ingredient ri
+                JOIN catalog_discount cd ON cd."idCatalog" = ri."idCatalog"
+                JOIN discount d ON d.id = cd."idDiscount"
+                JOIN stores s ON s."idEpicerie" = d."idEpicerie"
+                JOIN catalog cat ON cat."idIngredient" = ri."idCatalog"
+                WHERE ri."idRecette" = %s
+                ORDER BY d.discount_pct DESC NULLS LAST
+                LIMIT 1
+            """, (idRecette,))
+            return curs.fetchone()
+    except Exception as e:
+        print(f"SQL ERROR (getBestDiscountForRecipe): {e}")
+    finally:
+        releaseConn(conn)
+
+
+
 # ====================================
 # ====================================
 #            NOTIFICATIONS
@@ -635,7 +704,7 @@ def getDiscountsForWeek(week_start):
             curs.execute("""
                 SELECT d.id, d.product_name, d.discount_pct, d.original_price, d.discounted_price, s.nom
                 FROM discount d
-                JOIN stores s ON d.idEpicerie = s."idEpicerie"
+                JOIN stores s ON d."idEpicerie" = s."idEpicerie"
                 WHERE d.week_start = %s
             """, (week_start,))
             return curs.fetchall()

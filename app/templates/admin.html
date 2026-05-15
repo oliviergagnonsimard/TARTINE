@@ -8,8 +8,6 @@
 }
 
 * { box-sizing: border-box; }
-#main { padding: 0; }
-
 .page-header  { animation: fadeSlideIn 0.5s ease both; }
 .stats-row    { animation: fadeSlideIn 0.5s ease 0.06s both; }
 .notif-card   { animation: fadeSlideIn 0.5s ease 0.12s both; }
@@ -120,7 +118,7 @@
 .users-table { width: 100%; border-collapse: collapse; }
 .users-table th {
   font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
-  color: #444; padding: 0 14px 12px; text-align: left; font-weight: 600;
+  color: #444; padding: 10px 14px 12px; text-align: left; font-weight: 600;
   border-bottom: 0.5px solid #1e1e1e;
 }
 .users-table td {
@@ -199,6 +197,14 @@
   <div class="admin-badge">
     <i class="bi bi-shield-lock"></i> Accès restreint
   </div>
+</div>
+
+<div style="display: flex; justify-content: center; margin-bottom: 20px;">
+  <form method="POST" action="/admin/match-catalog">
+    <button type="submit" class="btn-pink">
+      <i class="bi bi-robot"></i> Matcher catalog avec discounts
+    </button>
+  </form>
 </div>
 
 <!-- ── Stats ── -->

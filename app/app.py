@@ -14,6 +14,7 @@ from datetime import date
 import re
 from functools import wraps
 from scrapper import *
+from ingredients import *
 
 STORES = ['maxi', 'metro', 'iga', 'superc', 'provigo']
 
@@ -79,8 +80,11 @@ def downloadFlyersJob():
         for store in STORES:
             idEpicerie = getIdEpicerie(store)
             scrapeStoreFlyer(store, idEpicerie, week_start)
+            
+        # 5. Matcher catalog avec discounts  ← nouveau
+        matchCatalogWithDiscounts(week_start)
 
-        # 5. Notifier les users
+        # 6. Notifier les users
         notifyAllUsers("Nouveaux circulaires!", "Les circulaires de la semaine sont disponibles!")
     else:
         print("✅ Circulaires déjà à jour!")
@@ -285,24 +289,14 @@ def dashboard():
     recipes = []
     for r in raw_recipes[:6]:
         idRecette, ordre, nom, portions, created_at = r
-        recette_data, ingredients = getRecipeWithIngredients(idRecette, userID)
-
-        best_match = None
-        for ing in ingredients:
-            ing_nom = ing[0].lower()
-            for d in discounts:
-                if ing_nom in d[1].lower() or d[1].lower() in ing_nom:
-                    if best_match is None or d[2] > best_match[2]:
-                        best_match = d
-                        print(d)
-                    break
+        best = getBestDiscountForRecipe(idRecette)
 
         recipes.append({
             "name":     nom,
             "emoji":    "🍽️",
-            "on_sale":  best_match is not None,
-            "discount": int(best_match[2]) if best_match else None,
-            "store":    best_match[5].capitalize() if best_match else None,
+            "on_sale":  best is not None and best[0] is not None,
+            "discount": int(best[0]) if best and best[0] else None,
+            "store":    best[3].capitalize() if best else None,
         })
 
     recipes.sort(key=lambda r: r["on_sale"], reverse=True)
@@ -672,6 +666,13 @@ def admin_notify_user(idClient):
     message = request.form.get('message', '')
     createNotification(idClient, title, message)
     return redirect(url_for('admin') + '?success=Notification envoyée!')
+
+@app.route('/admin/match-catalog', methods=['POST'])
+@admin_required
+def admin_match_catalog():
+    week_start = getFlyerStartWeekStr()
+    matchCatalogWithDiscounts(week_start)
+    return redirect(url_for('admin') + '?success=Matching catalog terminé!')
 # Automatic download des circulaires -------------------------------
 
 scheduler = BackgroundScheduler()
