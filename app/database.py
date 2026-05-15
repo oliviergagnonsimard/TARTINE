@@ -49,7 +49,7 @@ def createUser(firstName, lastName, email, password_hash, birthday=None):
     try:
         with conn.cursor() as curs:
             curs.execute("""
-                INSERT INTO "user" ("firstName", "lastName", "birthDate", "email", "password_hash")
+                INSERT INTO users ("firstName", "lastName", "birthDate", "email", "password_hash")
                 VALUES (%s, %s, %s, %s, %s)
                 RETURNING "idClient"
             """, (firstName, lastName, birthday, email, password_hash))
@@ -67,7 +67,7 @@ def updatePassword(idClient, password_hash):
     try:
         with conn.cursor() as curs:
             curs.execute(
-                'UPDATE "user" SET password_hash = %s, reset_token = NULL, reset_token_expiry = NULL, '
+                'UPDATE users SET password_hash = %s, reset_token = NULL, reset_token_expiry = NULL, '
                 '"last_password_change" = NOW() WHERE "idClient" = %s',
                 (password_hash, idClient)
             )
@@ -127,7 +127,7 @@ def setUserInfo(idClient, Courriel, Prénom, Nom, Birthday, participe):
     try:
         with conn.cursor() as curs:
             curs.execute(
-                'UPDATE "user" SET "email" = %s, "firstName" = %s, "lastName" = %s, "birthDate" = %s, "ranked" = %s WHERE "idClient" = %s',
+                'UPDATE users SET "email" = %s, "firstName" = %s, "lastName" = %s, "birthDate" = %s, "ranked" = %s WHERE "idClient" = %s',
                 (Courriel, Prénom, Nom, Birthday, participe, idClient)
             )
             conn.commit()
@@ -412,7 +412,7 @@ def passwordTimeLimitRemove(userID):
     conn = connectToDB()
     try:
         with conn.cursor() as curs:
-            curs.execute('UPDATE "user" SET last_password_change = NULL WHERE "idClient" = %s', (userID,))
+            curs.execute('UPDATE users SET last_password_change = NULL WHERE "idClient" = %s', (userID,))
             conn.commit()
     except Exception as e:
         conn.rollback()
@@ -439,7 +439,7 @@ def updateLastLogin(idClient):
     try:
         with conn.cursor() as curs:
             curs.execute(
-                'UPDATE "user" SET last_login = NOW() WHERE "idClient" = %s',
+                'UPDATE users SET last_login = NOW() WHERE "idClient" = %s',
                 (idClient,)
             )
             conn.commit()
@@ -565,7 +565,7 @@ def notifyAllUsers(title, message):
         with conn.cursor() as curs:
             curs.execute("""
                 INSERT INTO notification ("idClient", title, message)
-                SELECT "idClient", %s, %s FROM "user"
+                SELECT "idClient", %s, %s FROM users
             """, (title, message))
             conn.commit()
     except Exception as e:
