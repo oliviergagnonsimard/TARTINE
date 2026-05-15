@@ -11,7 +11,7 @@ genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 model = genai.GenerativeModel("gemini-2.5-flash")
 
 def matchCatalogWithDiscounts(week_start):
-        catalog = getCatalogItems()       # SELECT idIngredient, nom FROM catalog WHERE is_validated = TRUE
+        catalog = getCatalogItems()
         discounts = getDiscountsForWeek(week_start)
         
         if not catalog or not discounts:

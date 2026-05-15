@@ -641,9 +641,7 @@ def admin_notify():
     target = request.form.get('target')
 
     if target == 'all':
-        users = getAllUsers(limit=9999)
-        for user in users:
-            createNotification(user[0], title, message)
+        notifyAllUsers(title, message)
     
     elif target == 'specific':
         user_ids = request.form.get('user_ids', '')
