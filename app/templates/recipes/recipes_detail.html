@@ -71,7 +71,7 @@
 .card {
   background: #111; border: 0.5px solid #222; border-radius: 14px;
   padding: 22px; margin-bottom: 14px;
-  position: relative; overflow: hidden;
+  position: relative; overflow: visible;
 }
 .card::before {
   content: ""; position: absolute; top: 0; right: 0;
@@ -139,7 +139,15 @@
 
 
 /* ── Autocomplete ── */
-.autocomplete-wrapper { position: relative; flex: 2; }
+.autocomplete-wrapper {
+  position: relative;
+  flex: 2;
+  display: flex;
+  align-items: center;
+}
+.autocomplete-wrapper .ing-nom {
+  width: 100%;
+}
 .autocomplete-dropdown {
   position: absolute; top: 100%; left: 0; right: 0; z-index: 99;
   background: #1a1a1a; border: 0.5px solid #333; border-radius: 8px;
@@ -153,6 +161,79 @@
 .autocomplete-item:hover { background: #222; }
 .autocomplete-category {
   font-size: 10px; color: #555; text-transform: uppercase; letter-spacing: 1px;
+}
+
+/* ── Unite dropdown custom ── */
+.unite-wrapper { position: relative; flex: 1.2; min-width: 90px; }
+.unite-selected {
+  background: #1a1a1a; border: 0.5px solid #2a2a2a; color: #ccc;
+  border-radius: 8px; padding: 9px 10px; font-size: 13px;
+  cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+  transition: border-color 0.2s; user-select: none;
+}
+.unite-selected:hover { border-color: #444; }
+.unite-selected.open { border-color: #e91e8c; }
+.unite-dropdown {
+  position: absolute; top: 100%; left: 0; right: 0; z-index: 100;
+  background: #1a1a1a; border: 0.5px solid #333; border-radius: 8px;
+  margin-top: 4px; overflow: hidden; display: none;
+}
+.unite-dropdown.open { display: block; }
+.unite-option {
+  padding: 8px 12px; font-size: 13px; color: #ccc;
+  cursor: pointer; transition: background 0.15s;
+}
+.unite-option:hover { background: #222; color: #fff; }
+.unite-option.active { color: #e91e8c; }
+/* hidden input pour le form */
+.unite-hidden { display: none; }
+
+/* ── Qty input custom ── */
+.qty-wrapper {
+  display: flex; align-items: center;
+  background: #1a1a1a; border: 0.5px solid #2a2a2a;
+  border-radius: 8px; overflow: hidden;
+  flex: 1; min-width: 70px;
+}
+.qty-wrapper:focus-within { border-color: #e91e8c; }
+.qty-btn {
+  background: none; border: none; color: #555;
+  padding: 0 10px; height: 100%; cursor: pointer;
+  font-size: 16px; transition: color 0.2s;
+  display: flex; align-items: center;
+}
+.qty-btn:hover { color: #e91e8c; }
+.qty-input {
+  background: none; border: none; color: #ccc;
+  font-size: 13px; text-align: center;
+  width: 100%; outline: none; padding: 9px 0;
+  -moz-appearance: textfield;
+}
+.qty-input::-webkit-outer-spin-button,
+.qty-input::-webkit-inner-spin-button { -webkit-appearance: none; }
+
+.ing-validated-badge {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #5DCAA5;
+  font-size: 14px;
+  display: none;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.ing-row.is-validated .autocomplete-wrapper .ing-validated-badge,
+.ing-edit-row.is-validated .autocomplete-wrapper .ing-validated-badge { 
+  display: block; 
+}
+
+/* Ajoute du padding à droite pour que le texte dépasse pas sous le badge */
+.ing-row.is-validated .ing-nom,
+.ing-edit-row.is-validated .ing-nom {
+  padding-right: 30px;
+  border-color: rgba(29,158,117,0.4);
 }
 
 #instructions-edit {
@@ -235,9 +316,12 @@
     <div id="ingredients-list">
       {% for ing in ingredients %}
       <div class="ing-edit-row">
-        <input type="text"   value="{{ ing[0] }}" placeholder="Nom"   class="ing-nom edit-input">
-        <input type="number" value="{{ ing[1] }}" placeholder="Qté"   class="ing-qty edit-input">
-        <input type="text"   value="{{ ing[2] }}" placeholder="Unité" class="ing-unite edit-input">
+        <div class="autocomplete-wrapper">
+          <input type="text" value="{{ ing[0] }}" placeholder="Nom" class="ing-nom edit-input" autocomplete="off">
+          <div class="autocomplete-dropdown"></div>
+        </div>
+        <input type="number" value="{{ ing[1] }}" placeholder="Qté" class="ing-qty edit-input">
+        <input type="text" value="{{ ing[2] }}" placeholder="Unité" class="ing-unite edit-input">
         <button onclick="this.parentElement.remove()" class="ing-remove-btn">
           <i class="bi bi-x-circle"></i>
         </button>
@@ -259,79 +343,148 @@
   <textarea id="instructions-edit">{{ recette[2] }}</textarea>
 </div>
 
-<script>
-function toggleEdit(on) {
-  document.getElementById('titre-view').style.display        = on ? 'none'         : 'block';
-  document.getElementById('titre-edit').style.display        = on ? 'block'        : 'none';
-  document.getElementById('portions-view').style.display     = on ? 'none'         : 'inline';
-  document.getElementById('portions-edit').style.display     = on ? 'inline'       : 'none';
-  document.getElementById('ingredients-view').style.display  = on ? 'none'         : 'block';
-  document.getElementById('ingredients-edit').style.display  = on ? 'block'        : 'none';
-  document.getElementById('instructions-view').style.display = on ? 'none'         : 'block';
-  document.getElementById('instructions-edit').style.display = on ? 'block'        : 'none';
-  document.getElementById('btnEdit').style.display           = on ? 'none'         : 'inline-flex';
-  document.getElementById('btnSave').style.display           = on ? 'inline-flex'  : 'none';
-  document.getElementById('btnCancel').style.display         = on ? 'inline-flex'  : 'none';
-}
 
+<script>
 const UNITES = ['kg','g','L','ml','tasse','c. à soupe','c. à thé','unité','pincée'];
 
-function addIngredient() {
-  const list = document.getElementById('ingredients-list');
-  const div  = document.createElement('div');
-  div.className = 'ing-row';
-
-  const selectOptions = UNITES.map(u => `<option value="${u}">${u}</option>`).join('');
-
-  div.innerHTML = `
-    <div class="autocomplete-wrapper">
-      <input type="text" name="ingredient_nom" placeholder="Nom" class="ing-nom" autocomplete="off">
-      <div class="autocomplete-dropdown"></div>
-    </div>
-    <input type="number" name="ingredient_quantite" placeholder="Qté" class="ing-qty" step="0.1" min="0">
-    <select name="ingredient_unite" class="ing-unite">${selectOptions}</select>
-    <button type="button" onclick="this.closest('.ing-row').remove()" class="ing-remove-btn">
-      <i class="bi bi-x-circle"></i>
-    </button>`;
-
-  list.appendChild(div);
-  
-  const input = div.querySelector('input[name="ingredient_nom"]');
-  const dropdown = div.querySelector('.autocomplete-dropdown');
-  
-  setupAutocomplete(input, dropdown);
-  input.focus();
+function toggleEdit(on) {
+  document.getElementById('titre-view').style.display        = on ? 'none'        : 'block';
+  document.getElementById('titre-edit').style.display        = on ? 'block'       : 'none';
+  document.getElementById('portions-view').style.display     = on ? 'none'        : 'inline';
+  document.getElementById('portions-edit').style.display     = on ? 'inline'      : 'none';
+  document.getElementById('ingredients-view').style.display  = on ? 'none'        : 'block';
+  document.getElementById('ingredients-edit').style.display  = on ? 'block'       : 'none';
+  document.getElementById('instructions-view').style.display = on ? 'none'        : 'block';
+  document.getElementById('instructions-edit').style.display = on ? 'block'       : 'none';
+  document.getElementById('btnEdit').style.display           = on ? 'none'        : 'inline-flex';
+  document.getElementById('btnSave').style.display           = on ? 'inline-flex' : 'none';
+  document.getElementById('btnCancel').style.display         = on ? 'inline-flex' : 'none';
 }
 
-function addIngredient() {
+function setupAutocomplete(input, dropdown) {
+  let debounceTimer;
+  input.addEventListener('input', () => {
+    const row = input.closest('.ing-row') || input.closest('.ing-edit-row');
+    row.classList.remove('is-validated');
+    delete input.dataset.catalogId;
+
+    clearTimeout(debounceTimer);
+    const q = input.value.trim();
+    if (q.length < 2) { dropdown.style.display = 'none'; return; }
+    debounceTimer = setTimeout(async () => {
+      const res   = await fetch(`/ingredients/search?q=${encodeURIComponent(q)}`);
+      const items = await res.json();
+      if (items.length === 0) { dropdown.style.display = 'none'; return; }
+      dropdown.innerHTML = items.map(item => `
+        <div class="autocomplete-item" data-nom="${item.nom}" data-id="${item.id}">
+          <span>${item.nom}</span>
+          <span class="autocomplete-category">${item.category || ''}</span>
+        </div>`).join('');
+      dropdown.querySelectorAll('.autocomplete-item').forEach(el => {
+        el.addEventListener('click', () => {
+          input.value = el.dataset.nom;
+          dropdown.style.display = 'none';
+          const row = input.closest('.ing-row') || input.closest('.ing-edit-row');
+          row.classList.add('is-validated');
+          input.dataset.catalogId = el.dataset.id;
+        });
+      });
+      dropdown.style.display = 'block';
+    }, 250);
+  });
+  document.addEventListener('click', (e) => {
+    if (!input.contains(e.target) && !dropdown.contains(e.target))
+      dropdown.style.display = 'none';
+  });
+}
+
+function createUniteDropdown(defaultUnite = 'unité') {
+  const options = UNITES.map(u =>
+    `<div class="unite-option ${u === defaultUnite ? 'active' : ''}" data-value="${u}">${u}</div>`
+  ).join('');
+  return `
+    <div class="unite-wrapper">
+      <div class="unite-selected">
+        <span class="unite-label">${defaultUnite}</span>
+        <i class="bi bi-chevron-down" style="font-size:10px;"></i>
+      </div>
+      <div class="unite-dropdown">${options}</div>
+      <input type="hidden" class="unite-hidden ing-unite" value="${defaultUnite}">
+    </div>`;
+}
+
+function setupUnite(div) {
+  const selected = div.querySelector('.unite-selected');
+  const dropdown = div.querySelector('.unite-dropdown');
+  const hidden   = div.querySelector('.unite-hidden');
+  const label    = div.querySelector('.unite-label');
+  selected.addEventListener('click', (e) => {
+    e.stopPropagation();
+    selected.classList.toggle('open');
+    dropdown.classList.toggle('open');
+  });
+  dropdown.querySelectorAll('.unite-option').forEach(opt => {
+    opt.addEventListener('click', () => {
+      label.textContent = opt.dataset.value;
+      hidden.value = opt.dataset.value;
+      dropdown.querySelectorAll('.unite-option').forEach(o => o.classList.remove('active'));
+      opt.classList.add('active');
+      selected.classList.remove('open');
+      dropdown.classList.remove('open');
+    });
+  });
+  document.addEventListener('click', () => {
+    selected.classList.remove('open');
+    dropdown.classList.remove('open');
+  });
+}
+
+function setupQty(div) {
+  const input = div.querySelector('.qty-input');
+  div.querySelector('.qty-minus').addEventListener('click', () => {
+    const val = parseFloat(input.value) || 0;
+    input.value = Math.max(0, Math.round((val - 0.5) * 10) / 10);
+  });
+  div.querySelector('.qty-plus').addEventListener('click', () => {
+    const val = parseFloat(input.value) || 0;
+    input.value = Math.round((val + 0.5) * 10) / 10;
+  });
+}
+
+function addIngredient(defaultNom = '', defaultQty = '', defaultUnite = 'unité') {
   const list = document.getElementById('ingredients-list');
   const div  = document.createElement('div');
   div.className = 'ing-edit-row';
   div.innerHTML = `
     <div class="autocomplete-wrapper">
-      <input type="text" placeholder="Nom" class="ing-nom edit-input" autocomplete="off">
-      <div class="autocomplete-dropdown"></div>
+    <input type="text" value="${defaultNom}" placeholder="Nom" class="ing-nom edit-input" autocomplete="off">
+    <i class="bi bi-check-circle-fill ing-validated-badge"></i>
+    <div class="autocomplete-dropdown"></div>
+  </div>
+    <div class="qty-wrapper">
+      <button type="button" class="qty-btn qty-minus">−</button>
+      <input type="number" placeholder="1" class="ing-qty qty-input edit-input" value="${defaultQty}" step="0.1" min="0">
+      <button type="button" class="qty-btn qty-plus">＋</button>
     </div>
-    <input type="number" placeholder="Qté" class="ing-qty edit-input">
-    <input type="text" placeholder="Unité" class="ing-unite edit-input">
+    ${createUniteDropdown(defaultUnite)}
     <button onclick="this.closest('.ing-edit-row').remove()" class="ing-remove-btn">
       <i class="bi bi-x-circle"></i>
     </button>`;
   list.appendChild(div);
-
-  const input = div.querySelector('.ing-nom');
-  const dropdown = div.querySelector('.autocomplete-dropdown');
-  setupAutocomplete(input, dropdown);
+  setupAutocomplete(div.querySelector('.ing-nom'), div.querySelector('.autocomplete-dropdown'));
+  setupUnite(div);
+  setupQty(div);
 }
 
 function saveEdit() {
   const nom          = document.getElementById('titre-edit').value;
   const portions     = document.getElementById('portions-edit').value;
   const instructions = document.getElementById('instructions-edit').value;
-  const ingredients  = Array.from(document.querySelectorAll('.ing-edit-row')).map(row => ({
+  const ingredients = Array.from(document.querySelectorAll('.ing-edit-row')).map(row => ({
     nom:      row.querySelector('.ing-nom').value,
-    quantite: row.querySelector('.ing-qty').value,
-    unite:    row.querySelector('.ing-unite').value
+    quantite: row.querySelector('.qty-input').value,
+    unite:    row.querySelector('.unite-hidden').value,
+    idCatalog: row.querySelector('.ing-nom').dataset.catalogId || null  // ← ajoute ça
   })).filter(ing => ing.nom.trim() !== '');
 
   fetch('/recipes/{{ recette[0] }}/edit', {
@@ -342,6 +495,23 @@ function saveEdit() {
   .then(r => r.json())
   .then(data => { if (data.success) location.reload(); });
 }
+
+// Init les ingrédients existants avec le nouveau style
+document.addEventListener('DOMContentLoaded', () => {
+  const list = document.getElementById('ingredients-list');
+  const rows = Array.from(list.querySelectorAll('.ing-edit-row'));
+  
+  // Récupère les valeurs existantes
+  const existing = rows.map(row => ({
+    nom:    row.querySelector('.ing-nom')?.value || '',
+    qty:    row.querySelector('.ing-qty')?.value || '',
+    unite:  row.querySelector('.ing-unite')?.value || 'unité'
+  }));
+
+  // Vide la liste et recrée avec le nouveau style
+  list.innerHTML = '';
+  existing.forEach(ing => addIngredient(ing.nom, ing.qty, ing.unite));
+});
 </script>
 
 {% endblock %}

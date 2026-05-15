@@ -133,7 +133,15 @@
 .error-msg { color: #ED93B1; font-size: 13px; }
 
 /* ── Autocomplete ── */
-.autocomplete-wrapper { position: relative; flex: 2; }
+.autocomplete-wrapper {
+  position: relative;
+  flex: 2;
+  display: flex;
+  align-items: center;
+}
+.autocomplete-wrapper .ing-nom {
+  width: 100%;
+}
 .autocomplete-dropdown {
   position: absolute; top: 100%; left: 0; right: 0; z-index: 99;
   background: #1a1a1a; border: 0.5px solid #333; border-radius: 8px;
@@ -197,6 +205,28 @@
 }
 .qty-input::-webkit-outer-spin-button,
 .qty-input::-webkit-inner-spin-button { -webkit-appearance: none; }
+
+.ing-validated-badge {
+  position: absolute;
+  right: 10px;
+  color: #5DCAA5;
+  font-size: 14px;
+  display: none;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.ing-row.is-validated .autocomplete-wrapper .ing-validated-badge,
+.ing-edit-row.is-validated .autocomplete-wrapper .ing-validated-badge { 
+  display: block; 
+}
+
+/* Ajoute du padding à droite pour que le texte dépasse pas sous le badge */
+.ing-row.is-validated .ing-nom,
+.ing-edit-row.is-validated .ing-nom {
+  padding-right: 30px;
+  border-color: rgba(29,158,117,0.4);
+}
 </style>
 {% endblock %}
 
@@ -278,28 +308,28 @@ function addIngredient(defaultUnite = 'unité') {
   ).join('');
 
   div.innerHTML = `
-    <div class="autocomplete-wrapper">
-      <input type="text" name="ingredient_nom" placeholder="Nom" class="ing-nom" autocomplete="off">
-      <div class="autocomplete-dropdown"></div>
+  <div class="autocomplete-wrapper">
+    <input type="text" name="ingredient_nom" placeholder="Nom" class="ing-nom" autocomplete="off">
+    <div class="autocomplete-dropdown"></div>
+    <i class="bi bi-check-circle-fill ing-validated-badge"></i>
+  </div>
+  <input type="hidden" name="ingredient_catalog_id" class="ing-catalog-id" value="">
+  <div class="qty-wrapper">
+    <button type="button" class="qty-btn qty-minus">−</button>
+    <input type="number" name="ingredient_quantite" placeholder="1" class="ing-qty qty-input" step="0.1" min="0">
+    <button type="button" class="qty-btn qty-plus">＋</button>
+  </div>
+  <div class="unite-wrapper">
+    <div class="unite-selected">
+      <span class="unite-label">${defaultUnite}</span>
+      <i class="bi bi-chevron-down" style="font-size:10px;"></i>
     </div>
-    <div class="qty-wrapper">
-      <button type="button" class="qty-btn qty-minus">−</button>
-      <input type="number" name="ingredient_quantite" placeholder="1" class="ing-qty qty-input" step="0.1" min="0">
-      <button type="button" class="qty-btn qty-plus">＋</button>
-    </div>
-    <div class="unite-wrapper">
-      <div class="unite-selected">
-        <span class="unite-label">${defaultUnite}</span>
-        <i class="bi bi-chevron-down" style="font-size:10px;"></i>
-      </div>
-      <div class="unite-dropdown">
-        ${uniteOptions}
-      </div>
-      <input type="hidden" name="ingredient_unite" class="unite-hidden" value="${defaultUnite}">
-    </div>
-    <button type="button" onclick="this.closest('.ing-row').remove()" class="ing-remove-btn">
-      <i class="bi bi-x-circle"></i>
-    </button>`;
+    <div class="unite-dropdown">${uniteOptions}</div>
+    <input type="hidden" name="ingredient_unite" class="unite-hidden" value="${defaultUnite}">
+  </div>
+  <button type="button" onclick="this.closest('.ing-row').remove()" class="ing-remove-btn">
+    <i class="bi bi-x-circle"></i>
+  </button>`;
 
   list.appendChild(div);
 
@@ -355,6 +385,10 @@ function setupAutocomplete(input, dropdown) {
   let debounceTimer;
 
   input.addEventListener('input', () => {
+    const row = input.closest('.ing-row') || input.closest('.ing-edit-row');
+    row.classList.remove('is-validated');
+    delete input.dataset.catalogId;
+
     clearTimeout(debounceTimer);
     const q = input.value.trim();
     
@@ -373,16 +407,21 @@ function setupAutocomplete(input, dropdown) {
       }
 
       dropdown.innerHTML = items.map(item => `
-        <div class="autocomplete-item" data-nom="${item.nom}">
+        <div class="autocomplete-item" data-nom="${item.nom}" data-id="${item.id}">
           <span>${item.nom}</span>
           <span class="autocomplete-category">${item.category || ''}</span>
-        </div>
-      `).join('');
+        </div>`).join('');
 
       dropdown.querySelectorAll('.autocomplete-item').forEach(el => {
         el.addEventListener('click', () => {
           input.value = el.dataset.nom;
+          input.dataset.catalogId = el.dataset.id;
+          div.querySelector('.ing-catalog-id').value = el.dataset.id;
           dropdown.style.display = 'none';
+          
+         const row = input.closest('.ing-row') || input.closest('.ing-edit-row');
+          row.classList.add('is-validated');
+          input.dataset.catalogId = el.dataset.id;  // garde l'id pour le save
         });
       });
 

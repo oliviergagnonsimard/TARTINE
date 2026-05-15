@@ -458,11 +458,11 @@ def create_recipe():
         noms = request.form.getlist('ingredient_nom')
         quantites = request.form.getlist('ingredient_quantite')
         unites = request.form.getlist('ingredient_unite')
+        catalog_ids = request.form.getlist('ingredient_catalog_id')  # ← ajoute
 
-        for nom_ing, quantite, unite in zip(noms, quantites, unites):
+        for nom_ing, quantite, unite, catalog_id in zip(noms, quantites, unites, catalog_ids):
             if nom_ing.strip():
-                addIngredientToRecipe(idRecette, nom_ing, quantite, unite)
-
+                addIngredientToRecipe(idRecette, nom_ing, quantite, unite, catalog_id or None)
         return redirect(url_for('recipes') + '?success=Recette créée!')
     
     return render_template('recipes/recipes_create.html')

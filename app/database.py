@@ -185,16 +185,15 @@ def getRecipeWithIngredients(idRecette, idClient):
     try:
         with conn.cursor() as curs:
             curs.execute("""
-                SELECT "idRecette", nom, portions, instructions, "createdAt"
+                SELECT "idRecette", nom, portions, instructions, "createdAt" AT TIME ZONE 'America/Montreal', 'DD/MM/YYYY HH24hMI'
                 FROM recipe
                 WHERE "idRecette" = %s AND "idClient" = %s
             """, (idRecette, idClient))
             recette = curs.fetchone()
 
             curs.execute("""
-                SELECT i.nom, ri.quantite, ri.unite
+                SELECT ri.nom, ri.quantite, ri.unite
                 FROM recipe_ingredient ri
-                JOIN catalog i ON ri."idIngredient" = i."idIngredient"
                 WHERE ri."idRecette" = %s
             """, (idRecette,))
             ingredients = curs.fetchall()
@@ -260,6 +259,7 @@ def updateRecipe(idClient, idRecette, nom, portions, instructions, ingredients):
     conn = connectToDB()
     try:
         with conn.cursor() as curs:
+            portions = portions if portions != '' else None
             curs.execute("""
                 UPDATE recipe SET nom = %s, portions = %s, instructions = %s
                 WHERE "idRecette" = %s AND "idClient" = %s
@@ -267,28 +267,16 @@ def updateRecipe(idClient, idRecette, nom, portions, instructions, ingredients):
 
             curs.execute('DELETE FROM recipe_ingredient WHERE "idRecette" = %s', (idRecette,))
 
-            # FIX: resolve ingredients within the same connection instead of opening new ones
             for ing in ingredients:
                 if not ing['nom'].strip():
                     continue
+                
+                quantite = ing['quantite'] if ing['quantite'] != '' else None
+                
                 curs.execute(
-                    'SELECT "idIngredient" FROM ingredient WHERE LOWER(nom) = LOWER(%s)',
-                    (ing['nom'],)
-                )
-                row = curs.fetchone()
-                if row:
-                    idIngredient = row[0]
-                else:
-                    curs.execute(
-                        'INSERT INTO ingredient (nom) VALUES (%s) RETURNING "idIngredient"',
-                        (ing['nom'],)
-                    )
-                    idIngredient = curs.fetchone()[0]
-
-                curs.execute(
-                    """INSERT INTO recipe_ingredient ("idRecette", "idIngredient", quantite, unite)
-                       VALUES (%s, %s, %s, %s)""",
-                    (idRecette, idIngredient, ing['quantite'], ing['unite'])
+                    """INSERT INTO recipe_ingredient ("idRecette", "idCatalog", nom, quantite, unite)
+                    VALUES (%s, %s, %s, %s, %s)""",
+                    (idRecette, ing.get('idCatalog'), ing['nom'], quantite, ing['unite'])
                 )
         conn.commit()
     except Exception as e:
@@ -579,54 +567,14 @@ def notifyAllUsers(title, message):
 #            INGRÉDIENTS
 # ====================================
 # ====================================
-
-def getOrCreateIngredient(nom):
+def addIngredientToRecipe(idRecette, nom, quantite, unite, idCatalog=None):
     conn = connectToDB()
     try:
         with conn.cursor() as curs:
             curs.execute(
-                'SELECT "idIngredient" FROM ingredient WHERE LOWER(nom) = LOWER(%s)',
-                (nom,)
-            )
-            row = curs.fetchone()
-            if row:
-                return row[0]
-            curs.execute(
-                'INSERT INTO ingredient (nom) VALUES (%s) RETURNING "idIngredient"',
-                (nom,)
-            )
-            idIngredient = curs.fetchone()[0]
-            conn.commit()
-            return idIngredient
-    except Exception as e:
-        conn.rollback()
-        print(f"SQL ERROR (getOrCreateIngredient): {e}")
-    finally:
-        releaseConn(conn)
-
-def addIngredientToRecipe(idRecette, nom, quantite, unite):
-    conn = connectToDB()
-    try:
-        with conn.cursor() as curs:
-            # Resolve or create ingredient within the same connection
-            curs.execute(
-                'SELECT "idIngredient" FROM ingredient WHERE LOWER(nom) = LOWER(%s)',
-                (nom,)
-            )
-            row = curs.fetchone()
-            if row:
-                idIngredient = row[0]
-            else:
-                curs.execute(
-                    'INSERT INTO ingredient (nom) VALUES (%s) RETURNING "idIngredient"',
-                    (nom,)
-                )
-                idIngredient = curs.fetchone()[0]
-
-            curs.execute(
-                """INSERT INTO recipe_ingredient ("idRecette", "idIngredient", quantite, unite)
-                   VALUES (%s, %s, %s, %s)""",
-                (idRecette, idIngredient, quantite, unite)
+                """INSERT INTO recipe_ingredient ("idRecette", "idCatalog", nom, quantite, unite)
+                   VALUES (%s, %s, %s, %s, %s)""",
+                (idRecette, idCatalog, nom, quantite, unite)
             )
             conn.commit()
     except Exception as e:
