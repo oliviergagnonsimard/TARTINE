@@ -194,7 +194,7 @@ def getRecipeWithIngredients(idRecette, idClient):
             curs.execute("""
                 SELECT i.nom, ri.quantite, ri.unite
                 FROM recipe_ingredient ri
-                JOIN ingredient i ON ri."idIngredient" = i."idIngredient"
+                JOIN catalog i ON ri."idIngredient" = i."idIngredient"
                 WHERE ri."idRecette" = %s
             """, (idRecette,))
             ingredients = curs.fetchall()
@@ -559,6 +559,21 @@ def deleteNotification(userID, idNotif):
     finally:
         releaseConn(conn)
 
+def notifyAllUsers(title, message):
+    conn = connectToDB()
+    try:
+        with conn.cursor() as curs:
+            curs.execute("""
+                INSERT INTO notification ("idClient", title, message)
+                SELECT "idClient", %s, %s FROM "user"
+            """, (title, message))
+            conn.commit()
+    except Exception as e:
+        conn.rollback()
+        print(f"SQL ERROR (notifyAllUsers): {e}")
+    finally:
+        releaseConn(conn)
+
 # ====================================
 # ====================================
 #            INGRÉDIENTS
@@ -620,6 +635,27 @@ def addIngredientToRecipe(idRecette, nom, quantite, unite):
     finally:
         releaseConn(conn)
 
+def searchIngredients(query):
+    conn = connectToDB()
+    try:
+        with conn.cursor() as curs:
+            curs.execute("""
+                SELECT "idIngredient", nom, category
+                FROM catalog
+                WHERE nom ILIKE %s AND is_validated = TRUE
+                ORDER BY nom ASC
+                LIMIT 8
+            """, (f'%{query}%',))
+            return curs.fetchall()
+    finally:
+        releaseConn(conn)
+
+# ====================================
+# ====================================
+#              DISCOUNT
+# ====================================
+# ====================================
+
 def insertDiscount(idEpicerie, week_start, product_name, discount_pct, original_price, discounted_price, page_number=None, quantity=None, unit_of_measure=None):
     conn = connectToDB()
     try:
@@ -638,7 +674,8 @@ def insertDiscount(idEpicerie, week_start, product_name, discount_pct, original_
 def clearDiscounts():
     conn = connectToDB()
     cursor = conn.cursor()
-    cursor.execute("DELETE FROM discount")
+    with conn.cursor() as curs:
+        cursor.execute("DELETE FROM discount")
     conn.commit()
     cursor.close()
     releaseConn(conn)
@@ -650,7 +687,7 @@ def getDiscountsForWeek(week_start):
             curs.execute("""
                 SELECT d.id, d.product_name, d.discount_pct, d.original_price, d.discounted_price, s.nom
                 FROM discount d
-                JOIN stores s ON d."idEpicerie" = s."idEpicerie"
+                JOIN stores s ON d.idEpicerie = s."idEpicerie"
                 WHERE d.week_start = %s
             """, (week_start,))
             return curs.fetchall()

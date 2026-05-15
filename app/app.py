@@ -53,10 +53,13 @@ def load_user(userID):
 
 def downloadFlyersJob():
     print("⏰ Téléchargement automatique des circulaires...")
-    if not checkIfFlyersAlreadyDownloaded():
+    if checkIfFlyersAlreadyDownloaded():
         
         week_start = getFlyerStartWeekStr()
-        prev_week = getFlyerWeek(week_start)  # à importer/définir
+        print("Current week: " + week_start)
+        prev_week = getPrevWeekStart(week_start)  # à importer/définir`
+        print("Last week: " + prev_week)
+        
 
         # 1. Vider la table discounts
         print("🧹 Suppression des anciens rabais en base...")
@@ -65,6 +68,7 @@ def downloadFlyersJob():
         # 2. Supprimer les anciens circulaires dans R2
         print("☁️  Suppression des anciens circulaires R2...")
         for store in STORES:
+            print("circulaires/{store}_{prev_week}/")
             deleteFolderFromR2(f"circulaires/{store}_{prev_week}/")
 
         # 3. Télécharger les nouveaux circulaires
@@ -77,9 +81,7 @@ def downloadFlyersJob():
             scrapeStoreFlyer(store, idEpicerie, week_start)
 
         # 5. Notifier les users
-        users = getAllUsers(limit=9999)
-        for user in users:
-            createNotification(user[0], "Nouveaux circulaires!", "Les circulaires de la semaine sont disponibles!")
+        notifyAllUsers("Nouveaux circulaires!", "Les circulaires de la semaine sont disponibles!")
     else:
         print("✅ Circulaires déjà à jour!")
 
@@ -481,6 +483,21 @@ def edit_recipe(idRecette):
     data = request.get_json()
     updateRecipe(userID, idRecette, data['nom'], data['portions'], data['instructions'], data['ingredients'])
     return jsonify({'success': True})
+
+
+
+@app.route('/ingredients/search')
+def search_ingredients():
+    query = request.args.get('q', '').strip()
+    if len(query) < 2:
+        return jsonify([])
+    
+    results = searchIngredients(query)
+    return jsonify([{
+        "id": r[0],
+        "nom": r[1],
+        "category": r[2]
+    } for r in results])
 
 # ====================================
 # ====================================

@@ -44,7 +44,7 @@
 /* ── Cards ── */
 .card {
   background: #111; border: 0.5px solid #222; border-radius: 14px;
-  padding: 22px; position: relative; overflow: hidden;
+  padding: 22px; position: relative; overflow: visible;
 }
 .card::before {
   content: ""; position: absolute; top: 0; right: 0;
@@ -131,6 +131,72 @@
 .btn-pill-cancel:hover { border-color: #444; color: #fff; }
 
 .error-msg { color: #ED93B1; font-size: 13px; }
+
+/* ── Autocomplete ── */
+.autocomplete-wrapper { position: relative; flex: 2; }
+.autocomplete-dropdown {
+  position: absolute; top: 100%; left: 0; right: 0; z-index: 99;
+  background: #1a1a1a; border: 0.5px solid #333; border-radius: 8px;
+  margin-top: 4px; overflow: hidden; display: none;
+}
+.autocomplete-item {
+  padding: 9px 12px; font-size: 13px; color: #ccc; cursor: pointer;
+  display: flex; justify-content: space-between; align-items: center;
+  transition: background 0.15s;
+}
+.autocomplete-item:hover { background: #222; }
+.autocomplete-category {
+  font-size: 10px; color: #555; text-transform: uppercase; letter-spacing: 1px;
+}
+
+/* ── Unite dropdown custom ── */
+.unite-wrapper { position: relative; flex: 1.2; min-width: 90px; }
+.unite-selected {
+  background: #1a1a1a; border: 0.5px solid #2a2a2a; color: #ccc;
+  border-radius: 8px; padding: 9px 10px; font-size: 13px;
+  cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+  transition: border-color 0.2s; user-select: none;
+}
+.unite-selected:hover { border-color: #444; }
+.unite-selected.open { border-color: #e91e8c; }
+.unite-dropdown {
+  position: absolute; top: 100%; left: 0; right: 0; z-index: 100;
+  background: #1a1a1a; border: 0.5px solid #333; border-radius: 8px;
+  margin-top: 4px; overflow: hidden; display: none;
+}
+.unite-dropdown.open { display: block; }
+.unite-option {
+  padding: 8px 12px; font-size: 13px; color: #ccc;
+  cursor: pointer; transition: background 0.15s;
+}
+.unite-option:hover { background: #222; color: #fff; }
+.unite-option.active { color: #e91e8c; }
+/* hidden input pour le form */
+.unite-hidden { display: none; }
+
+/* ── Qty input custom ── */
+.qty-wrapper {
+  display: flex; align-items: center;
+  background: #1a1a1a; border: 0.5px solid #2a2a2a;
+  border-radius: 8px; overflow: hidden;
+  flex: 1; min-width: 70px;
+}
+.qty-wrapper:focus-within { border-color: #e91e8c; }
+.qty-btn {
+  background: none; border: none; color: #555;
+  padding: 0 10px; height: 100%; cursor: pointer;
+  font-size: 16px; transition: color 0.2s;
+  display: flex; align-items: center;
+}
+.qty-btn:hover { color: #e91e8c; }
+.qty-input {
+  background: none; border: none; color: #ccc;
+  font-size: 13px; text-align: center;
+  width: 100%; outline: none; padding: 9px 0;
+  -moz-appearance: textfield;
+}
+.qty-input::-webkit-outer-spin-button,
+.qty-input::-webkit-inner-spin-button { -webkit-appearance: none; }
 </style>
 {% endblock %}
 
@@ -202,27 +268,135 @@
 <script>
 const UNITES = ['kg','g','L','ml','tasse','c. à soupe','c. à thé','unité','pincée'];
 
-function addIngredient() {
+function addIngredient(defaultUnite = 'unité') {
   const list = document.getElementById('ingredients-list');
   const div  = document.createElement('div');
   div.className = 'ing-row';
 
-  const selectOptions = UNITES.map(u => `<option value="${u}">${u}</option>`).join('');
+  const uniteOptions = UNITES.map(u => 
+    `<div class="unite-option ${u === defaultUnite ? 'active' : ''}" data-value="${u}">${u}</div>`
+  ).join('');
 
   div.innerHTML = `
-    <input type="text"   name="ingredient_nom"      placeholder="Nom"   class="ing-nom">
-    <input type="number" name="ingredient_quantite"  placeholder="Qté"   class="ing-qty" step="0.1" min="0">
-    <select name="ingredient_unite" class="ing-unite">${selectOptions}</select>
-    <button type="button" onclick="this.parentElement.remove()" class="ing-remove-btn">
+    <div class="autocomplete-wrapper">
+      <input type="text" name="ingredient_nom" placeholder="Nom" class="ing-nom" autocomplete="off">
+      <div class="autocomplete-dropdown"></div>
+    </div>
+    <div class="qty-wrapper">
+      <button type="button" class="qty-btn qty-minus">−</button>
+      <input type="number" name="ingredient_quantite" placeholder="1" class="ing-qty qty-input" step="0.1" min="0">
+      <button type="button" class="qty-btn qty-plus">＋</button>
+    </div>
+    <div class="unite-wrapper">
+      <div class="unite-selected">
+        <span class="unite-label">${defaultUnite}</span>
+        <i class="bi bi-chevron-down" style="font-size:10px;"></i>
+      </div>
+      <div class="unite-dropdown">
+        ${uniteOptions}
+      </div>
+      <input type="hidden" name="ingredient_unite" class="unite-hidden" value="${defaultUnite}">
+    </div>
+    <button type="button" onclick="this.closest('.ing-row').remove()" class="ing-remove-btn">
       <i class="bi bi-x-circle"></i>
     </button>`;
 
   list.appendChild(div);
-  div.querySelector('input').focus();
+
+  // Setup unite dropdown
+  const uniteSelected = div.querySelector('.unite-selected');
+  const uniteDropdown = div.querySelector('.unite-dropdown');
+  const uniteHidden   = div.querySelector('.unite-hidden');
+  const uniteLabel    = div.querySelector('.unite-label');
+
+  uniteSelected.addEventListener('click', (e) => {
+    e.stopPropagation();
+    uniteSelected.classList.toggle('open');
+    uniteDropdown.classList.toggle('open');
+  });
+
+  uniteDropdown.querySelectorAll('.unite-option').forEach(opt => {
+    opt.addEventListener('click', () => {
+      const val = opt.dataset.value;
+      uniteLabel.textContent = val;
+      uniteHidden.value = val;
+      uniteDropdown.querySelectorAll('.unite-option').forEach(o => o.classList.remove('active'));
+      opt.classList.add('active');
+      uniteSelected.classList.remove('open');
+      uniteDropdown.classList.remove('open');
+    });
+  });
+
+  document.addEventListener('click', () => {
+    uniteSelected.classList.remove('open');
+    uniteDropdown.classList.remove('open');
+  });
+
+  // Setup autocomplete
+  const input    = div.querySelector('input[name="ingredient_nom"]');
+  const dropdown = div.querySelector('.autocomplete-dropdown');
+  setupAutocomplete(input, dropdown);
+
+  // Setup qty buttons
+const qtyInput = div.querySelector('.qty-input');
+  div.querySelector('.qty-minus').addEventListener('click', () => {
+    const val = parseFloat(qtyInput.value) || 0;
+    qtyInput.value = Math.max(0, Math.round((val - 0.5) * 10) / 10);
+  });
+  div.querySelector('.qty-plus').addEventListener('click', () => {
+    const val = parseFloat(qtyInput.value) || 0;
+    qtyInput.value = Math.round((val + 0.5) * 10) / 10;
+  });
+
+  input.focus();
 }
 
-// Une ligne par défaut
+function setupAutocomplete(input, dropdown) {
+  let debounceTimer;
+
+  input.addEventListener('input', () => {
+    clearTimeout(debounceTimer);
+    const q = input.value.trim();
+    
+    if (q.length < 2) {
+      dropdown.style.display = 'none';
+      return;
+    }
+
+    debounceTimer = setTimeout(async () => {
+      const res = await fetch(`/ingredients/search?q=${encodeURIComponent(q)}`);
+      const items = await res.json();
+      
+      if (items.length === 0) {
+        dropdown.style.display = 'none';
+        return;
+      }
+
+      dropdown.innerHTML = items.map(item => `
+        <div class="autocomplete-item" data-nom="${item.nom}">
+          <span>${item.nom}</span>
+          <span class="autocomplete-category">${item.category || ''}</span>
+        </div>
+      `).join('');
+
+      dropdown.querySelectorAll('.autocomplete-item').forEach(el => {
+        el.addEventListener('click', () => {
+          input.value = el.dataset.nom;
+          dropdown.style.display = 'none';
+        });
+      });
+
+      dropdown.style.display = 'block';
+    }, 250);
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!input.contains(e.target) && !dropdown.contains(e.target)) {
+      dropdown.style.display = 'none';
+    }
+  });
+}
+
 addIngredient();
 </script>
-
 {% endblock %}

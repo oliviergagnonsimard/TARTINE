@@ -1,60 +1,66 @@
 import os
 import json
 import time
-import base64
 from dotenv import load_dotenv
 import google.generativeai as genai
-
 from database import *
 from r2 import getImageUrl, imageExists
 import requests
+from concurrent.futures import ThreadPoolExecutor
 
 load_dotenv()
 
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 model = genai.GenerativeModel("gemini-2.5-flash")
 
-def scrapeStoreFlyerPage(store, idEpicerie, week_start, image, page_num):
-    prompt = f"""Extract ALL discounts from this grocery flyer page (page {page_num}) for store '{store}'.
+BATCH_SIZE = 3
 
-Return ONLY a valid JSON array.
+def downloadImage(args):
+    i, store, week_start = args
+    url = getImageUrl(f"circulaires/{store}_{week_start}/{store}{i}.png")
+    response = requests.get(url)
+    return {"mime_type": "image/png", "data": response.content}
+
+def scrapePageBatch(store, idEpicerie, week_start, images_batch, start_page):
+    page_nums = list(range(start_page, start_page + len(images_batch)))
+    
+    prompt = f"""Extract ALL discounts from these {len(images_batch)} grocery flyer pages (pages {page_nums}) for '{store}'.
+Return ONLY a JSON array
 
 Format:
 [
-  {{
-    "product_name": "Poitrines de poulet",
-    "discount_percentage": 30,
-    "original_price": 8.99,
-    "discounted_price": 6.29,
-    "quantity": 500,
-    "unit_of_measure": "g",
-    "page_number": {page_num}
-  }}
+    {{
+    "product_name": str,
+    "discount_percentage": float|null,
+    "original_price": float|null,
+    "discounted_price": float|null,
+    "quantity": float|null,
+    "unit_of_measure": str|null,
+    "page_number": int
+    }}
 ]
 
 Rules:
-- Extract EVERY discounted product visible on this page — do NOT skip any
-- A typical flyer page has 8-15 products minimum, make sure you get them all
-- If original price is missing, calculate it from the discount percentage
-- quantity: the numeric amount (e.g. 500, 1, 2)
-- unit_of_measure: the unit as shown (e.g. "g", "kg", "lb", "ml", "L", "unités"). Set both to null if not shown.
-- Output ONLY raw JSON, no markdown, no explanations
+Extract EVERY discounted product visible on this page -- IF THERE IS NOT DISCOUNT : Set to null
+A typical flyer page has 8-15 products minimum, make sure you get them all
+If original price is missing, calculate it from the discount percentage
+quantity: the numeric amount (e.g. 500, 1, 2)
+unit_of_measure: the unit as shown (e.g. "g", "kg", "lb", "ml", "L", "unités"). Set both to null if not shown.
+Output ONLY raw JSON, no markdown, no explanations
 """
 
     MAX_RETRIES = 5
-
     for attempt in range(MAX_RETRIES):
         try:
             response = model.generate_content(
-                [prompt, image],
+                [prompt] + images_batch,
                 generation_config={
                     "temperature": 0.1,
                     "response_mime_type": "application/json"
                 }
             )
 
-            text = response.text.strip()
-            discounts = json.loads(text)
+            discounts = json.loads(response.text.strip())
 
             for d in discounts:
                 insertDiscount(
@@ -64,47 +70,50 @@ Rules:
                     discount_pct=d.get("discount_percentage"),
                     original_price=d.get("original_price"),
                     discounted_price=d.get("discounted_price"),
-                    page_number=page_num,
+                    page_number=d.get("page_number"),
                     quantity=d.get("quantity"),
                     unit_of_measure=d.get("unit_of_measure")
                 )
 
-            print(f"  📄 Page {page_num}: {len(discounts)} rabais insérés")
+            print(f"  📄 Pages {page_nums}: {len(discounts)} rabais insérés")
             return len(discounts)
 
         except Exception as e:
-            print(f"  ⚠️ Page {page_num} - Tentative {attempt + 1} échouée: {e}")
+            print(f"  ⚠️ Pages {page_nums} - Tentative {attempt + 1} échouée: {e}")
             if attempt < MAX_RETRIES - 1:
                 time.sleep(5)
             else:
-                print(f"  ❌ Page {page_num} - Échec final")
+                print(f"  ❌ Pages {page_nums} - Échec final")
                 return 0
-
 
 def scrapeStoreFlyer(store, idEpicerie, week_start):
     print(f"🔍 Scraping {store} - semaine du {week_start}...")
-    
-    images = []
+
+    # Trouve toutes les pages disponibles
+    indices = []
     i = 0
     while imageExists(f"circulaires/{store}_{week_start}/{store}{i}.png"):
-        url = getImageUrl(f"circulaires/{store}_{week_start}/{store}{i}.png")
-        response = requests.get(url)
-        images.append({
-            "mime_type": "image/png",
-            "data": response.content
-        })
+        indices.append(i)
         i += 1
 
-    if not images:
+    if not indices:
         print(f"Aucune image trouvée pour {store} - {week_start}")
         return
 
-    print(f"  📦 {len(images)} pages trouvées")
+    print(f"  📦 {len(indices)} pages trouvées — téléchargement parallèle...")
 
+    # Télécharge toutes les images en parallèle
+    with ThreadPoolExecutor(max_workers=8) as executor:
+        images = list(executor.map(downloadImage, [(i, store, week_start) for i in indices]))
+
+    print(f"  ✅ Images téléchargées — scraping par batch de {BATCH_SIZE}...")
+
+    # Scrape par batch
     total = 0
-    for page_num, image in enumerate(images, start=1):
-        count = scrapeStoreFlyerPage(store, idEpicerie, week_start, image, page_num)
+    for batch_start in range(0, len(images), BATCH_SIZE):
+        batch = images[batch_start:batch_start + BATCH_SIZE]
+        count = scrapePageBatch(store, idEpicerie, week_start, batch, batch_start + 1)
         total += count
-        time.sleep(1)  # petit délai pour pas spam l'API
+        time.sleep(1)
 
     print(f"✅ {store} terminé — {total} rabais insérés au total")
