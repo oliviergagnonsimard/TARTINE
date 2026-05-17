@@ -1,6 +1,13 @@
 # TARTINE™
 [https://tartine.app](https://tartine.app)
 
+COEUR DE L'APPLICATION ==================
+Avoir une **symbiose** entre 
+Circulaires
+Recettes
+Listes d'épiceries
+==========================================
+
 ## BUT DE L'APPLICATION:
 - Faire l'épicerie, planifier les repas en utilisant les circulaires.
 - Nutrition
@@ -50,11 +57,6 @@
 - Chat bot intégré pour l'utilisateur pour aider à planifier repas
 - Système d'amis pour importer les repas des autres
 - Recommandations de livres de cuisines (Ricardo ou autres)
-
-## PROCHAINES OBJECTIFS
-- Trouver un moyen de télécharger les circulaires récurremment et mettre automatiquement la BD à jour
-- Créer un programme de base avec les fondements de l'app dans le terminal (créer recettes, ajouter ingrédients et check si tt va dans la BD dans le cloud)
-- Programme ou fonction détectant les repas les plus économiques en fonction de ses ingrédients et des rabais d'épicerie
 
 <img width="1915" height="925" alt="Capture d’écran 2026-05-16 232125" src="https://github.com/user-attachments/assets/c45f1c5a-3c36-4e8d-bc5e-a142e70ad368" />
 <img width="1893" height="914" alt="image" src="https://github.com/user-attachments/assets/ddb0d980-3c6f-4fa7-9cbb-3cb43127d640" />
