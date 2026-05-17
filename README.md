@@ -1,8 +1,12 @@
 # TARTINE™
+[https://tartine.app](https://tartine.app) \
+Tartine compare les rabais de la semaine dans tous les grands supermarchés québécois et les associe à vos recettes préférées. Mangez bien, dépensez moins.
 
-## BUT DE L'APPLICATION:
-- Faire l'épicerie, planifier les repas en utilisant les circulaires.
-- Nutrition
+## COEUR DE L'APPLICATION
+Avoir une **symbiose** entre 
+- Circulaires
+- Recettes
+- Listes d'épiceries
 
 ## 4 ÉTAPES DU PROJET
 - 1: MVP dans le terminal
@@ -30,12 +34,13 @@
 
 
 ## FONCTIONNALITÉS VOULUES
-- Système de compte
 - Ajouter des recettes
-- Préférence alimentaires
+- Préférences alimentaires
 - Système de filtrage des aliments et épiceries
 - Calculateur pour calories et valeurs nutritives
-- Système d'abonnement et de clients avec des privilèges
+- Système de liste d'épicerie
+- Permettre d'ajouter automatiquement tous les ingrédients d'une recette à sa liste d'épicerie
+- Rotation automatique de repas pour une semaine (random ou avec certains filtres utilisateur)
 
 ## MVP
 - Avoir une DB pour enregistrer ses recettes
@@ -46,15 +51,14 @@
 ## Idée +
 - Système de compte
 - Calcul des calories, macros, protéines pour les gym rats
-- Chat bot intégré pour l'utilisateur pour aider à planifier repas
+- Chat bot intégré pour l'utilisateur pour aider à planifier repas (maybe)
 - Système d'amis pour importer les repas des autres
 - Recommandations de livres de cuisines (Ricardo ou autres)
+- Pouvoir choisir la marque de son produit (Ajouter au prompt éventuellement)
 
-## PROCHAINES OBJECTIFS
-- Trouver un moyen de télécharger les circulaires récurremment et mettre automatiquement la BD à jour
-- Créer un programme de base avec les fondements de l'app dans le terminal (créer recettes, ajouter ingrédients et check si tt va dans la BD dans le cloud)
-- Programme ou fonction détectant les repas les plus économiques en fonction de ses ingrédients et des rabais d'épicerie
+<img width="1915" height="925" alt="Capture d’écran 2026-05-16 232125" src="https://github.com/user-attachments/assets/c45f1c5a-3c36-4e8d-bc5e-a142e70ad368" />
+<img width="1893" height="914" alt="image" src="https://github.com/user-attachments/assets/ddb0d980-3c6f-4fa7-9cbb-3cb43127d640" />
+<img width="1914" height="924" alt="image" src="https://github.com/user-attachments/assets/f03b7351-8dfd-4285-8eb2-e3a414f91356" />
 
 
-<img width="1869" height="914" alt="image" src="https://github.com/user-attachments/assets/36047c32-02d6-450c-9458-5fa4946da0a4" />
-<img width="1867" height="911" alt="image" src="https://github.com/user-attachments/assets/1ebcf840-8d58-4fbd-81e1-68b18808b132" />
+
