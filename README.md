@@ -3,14 +3,10 @@
 
 COEUR DE L'APPLICATION ==================
 Avoir une **symbiose** entre 
-Circulaires
-Recettes
-Listes d'épiceries
+- Circulaires
+- Recettes
+- Listes d'épiceries
 ==========================================
-
-## BUT DE L'APPLICATION:
-- Faire l'épicerie, planifier les repas en utilisant les circulaires.
-- Nutrition
 
 ## 4 ÉTAPES DU PROJET
 - 1: MVP dans le terminal
@@ -38,12 +34,13 @@ Listes d'épiceries
 
 
 ## FONCTIONNALITÉS VOULUES
-- Système de compte
 - Ajouter des recettes
-- Préférence alimentaires
+- Préférences alimentaires
 - Système de filtrage des aliments et épiceries
 - Calculateur pour calories et valeurs nutritives
-- Système d'abonnement et de clients avec des privilèges
+- Système de liste d'épicerie
+- Permettre d'ajouter automatiquement tous les ingrédients d'une recette à sa liste d'épicerie
+- Rotation automatique de repas pour une semaine (random ou avec certains filtres utilisateur)
 
 ## MVP
 - Avoir une DB pour enregistrer ses recettes
@@ -54,9 +51,10 @@ Listes d'épiceries
 ## Idée +
 - Système de compte
 - Calcul des calories, macros, protéines pour les gym rats
-- Chat bot intégré pour l'utilisateur pour aider à planifier repas
+- Chat bot intégré pour l'utilisateur pour aider à planifier repas (maybe)
 - Système d'amis pour importer les repas des autres
 - Recommandations de livres de cuisines (Ricardo ou autres)
+- Pouvoir choisir la marque de son produit (Ajouter au prompt éventuellement)
 
 <img width="1915" height="925" alt="Capture d’écran 2026-05-16 232125" src="https://github.com/user-attachments/assets/c45f1c5a-3c36-4e8d-bc5e-a142e70ad368" />
 <img width="1893" height="914" alt="image" src="https://github.com/user-attachments/assets/ddb0d980-3c6f-4fa7-9cbb-3cb43127d640" />
