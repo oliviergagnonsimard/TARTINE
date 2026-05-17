@@ -55,6 +55,9 @@
 - Créer un programme de base avec les fondements de l'app dans le terminal (créer recettes, ajouter ingrédients et check si tt va dans la BD dans le cloud)
 - Programme ou fonction détectant les repas les plus économiques en fonction de ses ingrédients et des rabais d'épicerie
 
+<img width="1915" height="925" alt="Capture d’écran 2026-05-16 232125" src="https://github.com/user-attachments/assets/c45f1c5a-3c36-4e8d-bc5e-a142e70ad368" />
+<img width="1893" height="914" alt="image" src="https://github.com/user-attachments/assets/ddb0d980-3c6f-4fa7-9cbb-3cb43127d640" />
+<img width="1914" height="924" alt="image" src="https://github.com/user-attachments/assets/f03b7351-8dfd-4285-8eb2-e3a414f91356" />
 
-<img width="1869" height="914" alt="image" src="https://github.com/user-attachments/assets/36047c32-02d6-450c-9458-5fa4946da0a4" />
-<img width="1867" height="911" alt="image" src="https://github.com/user-attachments/assets/1ebcf840-8d58-4fbd-81e1-68b18808b132" />
+
+
