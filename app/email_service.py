@@ -179,7 +179,7 @@ def createVerificationToken(idClient):
     conn = connectToDB()
     with conn.cursor() as curs:
         curs.execute(
-            'UPDATE "user" SET verification_token = %s WHERE "idClient" = %s',
+            'UPDATE users SET verification_token = %s WHERE "idClient" = %s',
             (token, idClient)
         )
         conn.commit()
@@ -190,7 +190,7 @@ def verifyUserToken(token):
     conn = connectToDB()
     with conn.cursor() as curs:
         curs.execute(
-            'UPDATE "user" SET is_verified = TRUE, verification_token = NULL '
+            'UPDATE users SET is_verified = TRUE, verification_token = NULL '
             'WHERE verification_token = %s RETURNING "idClient"',
             (token,)
         )
@@ -204,7 +204,7 @@ def createResetToken(idClient):
     conn = connectToDB()
     with conn.cursor() as curs:
         curs.execute(
-            "UPDATE \"user\" SET reset_token = %s, reset_token_expiry = NOW() + INTERVAL '1 hour' "
+            "UPDATE users SET reset_token = %s, reset_token_expiry = NOW() + INTERVAL '1 hour' "
             "WHERE \"idClient\" = %s",
             (token, idClient)
         )
@@ -216,7 +216,7 @@ def verifyResetToken(token):
     conn = connectToDB()
     with conn.cursor() as curs:
         curs.execute(
-            'SELECT "idClient" FROM "user" WHERE reset_token = %s AND reset_token_expiry > NOW()',
+            'SELECT "idClient" FROM users WHERE reset_token = %s AND reset_token_expiry > NOW()',
             (token,)
         )
         row = curs.fetchone()
@@ -232,7 +232,7 @@ def sendConfirmationEmail(toEmail, token):
         "from": "Tartine <noreply@tartine.app>",
         "to": toEmail,
         "subject": "Confirme ton compte Tartine",
-        "html": _base_email("Confirme ton compte Tartine", _confirmation_body(confirm_url))
+        "html": _base_email("Confirmez votre compte Tartine", _confirmation_body(confirm_url))
     })
 
 def sendResetEmail(toEmail, token):
@@ -240,7 +240,7 @@ def sendResetEmail(toEmail, token):
     resend.Emails.send({
         "from": "Tartine <noreply@tartine.app>",
         "to": toEmail,
-        "subject": "Réinitialisation de ton mot de passe Tartine",
+        "subject": "Réinitialisation de votre mot de passe Tartine",
         "html": _base_email("Réinitialisation du mot de passe", _reset_body(reset_url))
     })
     createNotification(
