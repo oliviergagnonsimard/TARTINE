@@ -1,5 +1,5 @@
 # TARTINE™
-[https://tartine.app](https://tartine.app)
+[https://tartine.app](https://tartine.app) \
 Tartine compare les rabais de la semaine dans tous les grands supermarchés québécois et les associe à vos recettes préférées. Mangez bien, dépensez moins.
 
 ## COEUR DE L'APPLICATION
