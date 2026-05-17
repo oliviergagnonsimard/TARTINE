@@ -245,7 +245,7 @@ def login():
         hasVerifiedEmail = user[11]
 
         if not hasVerifiedEmail:
-            return render_template('auth/login.html', error="Confirme ton courriel avant de te connecter")
+            return render_template('auth/login.html', error="Confirmez votre courriel avant de vous connecter")
         
         
         try:
