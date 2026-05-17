@@ -1,12 +1,11 @@
 # TARTINE™
 [https://tartine.app](https://tartine.app)
 
-COEUR DE L'APPLICATION ==================
+## COEUR DE L'APPLICATION
 Avoir une **symbiose** entre 
 - Circulaires
 - Recettes
 - Listes d'épiceries
-==========================================
 
 ## 4 ÉTAPES DU PROJET
 - 1: MVP dans le terminal
