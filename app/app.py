@@ -69,7 +69,7 @@ def downloadFlyersJob():
         # 2. Supprimer les anciens circulaires dans R2
         print("☁️  Suppression des anciens circulaires R2...")
         for store in STORES:
-            print("circulaires/{store}_{prev_week}/")
+            print(f"circulaires/{store}_{prev_week}/")
             deleteFolderFromR2(f"circulaires/{store}_{prev_week}/")
 
         # 3. Télécharger les nouveaux circulaires
