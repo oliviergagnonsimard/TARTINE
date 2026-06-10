@@ -98,6 +98,199 @@ table tr {
   100% { transform: rotate(360deg); }
 }
 
+.hero,
+.stores-row,
+.savings-block,
+.pitch-grid,
+.how-row,
+.section-label,
+.cta-block {
+  opacity: 0;
+  animation: fadeSlideIn 2s ease forwards;
+}
+
+.stores-row   { animation-delay: 0.1s; }
+.savings-block { animation-delay: 0.2s; }
+.pitch-grid   { animation-delay: 0.3s; }
+.how-row      { animation-delay: 0.4s; }
+.cta-block    { animation-delay: 0.5s; }
+
+  .hero {
+    text-align: center;
+    padding: 4rem 2rem 3rem;
+    background: #111;
+    border-radius: 0 0 20px 20px;
+    margin-bottom: 2rem;
+    border: 0.5px solid #2a2a2a;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 30% 50%, #3a1a2e 0%, transparent 60%),
+      radial-gradient(ellipse at 70% 30%, #1a1a3a 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .eyebrow {
+    display: inline-block;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #FFFF;
+    border: 0.5px solid #e91e8c;
+    background: #3a1a2e;
+    padding: 4px 14px;
+    border-radius: 99px;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    font-size: 64px;
+    font-weight: bold;
+    color: #fff;
+    letter-spacing: -2px;
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+  .hero h1 span { color: #e91e8c; }
+  .hero h2 {
+    font-size: 40px;
+    font-weight: bold;
+    color: #fff;
+    letter-spacing: -2px;
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+  .hero h2 span { color: #e91e8c; }
+  .hero-sub {
+    font-size: 17px;
+    color: #888;
+    max-width: 480px;
+    margin: 0 auto 2rem;
+    line-height: 1.65;
+  }
+  .hero-stat-row {
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+  }
+  .hero-stat-num { font-size: 28px; font-weight: bold; color: #fff; }
+  .hero-stat-label { font-size: 12px; color: #555; margin-top: 2px; }
+  .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+  .btn-pink {
+    background: #d32f89; color: #fff; border: none;
+    padding: 13px 30px; border-radius: 8px;
+    font-size: 15px; font-weight: bold; cursor: pointer;
+    text-decoration: none; display: inline-block;
+    transition: background 0.2s;
+  }
+  .btn-pink:hover { background: #e91e8c; color: #fff; }
+  .btn-outline {
+    background: transparent; color: #aaa;
+    border: 0.5px solid #333;
+    padding: 13px 30px; border-radius: 8px;
+    font-size: 15px; cursor: pointer;
+    text-decoration: none; display: inline-block;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-outline:hover { border-color: #555; color: #fff; }
+
+  .section-label {
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    color: #555; margin-bottom: 1.5rem; text-align: center;
+  }
+
+  .stores-row {
+    display: flex; gap: 10px; justify-content: center;
+    flex-wrap: wrap; margin-bottom: 3rem;
+  }
+  .store-pill {
+    background: #1a1a1a; border: 0.5px solid #2a2a2a;
+    border-radius: 99px; padding: 8px 18px;
+    font-size: 14px; color: #ccc;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .store-dot { width: 8px; height: 8px; border-radius: 50%; background: #1D9E75; }
+
+  .pitch-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+    margin-bottom: 3rem;
+  }
+  .pitch-card {
+    background: #111; border: 0.5px solid #222;
+    border-radius: 14px; padding: 1.5rem;
+    transition: border-color 0.2s;
+  }
+  .pitch-card:hover { border-color: #444; }
+  .pitch-icon-wrap {
+    width: 42px; height: 42px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; margin-bottom: 1rem;
+  }
+  .pitch-card h3 { font-size: 16px; font-weight: bold; color: #fff; margin-bottom: 6px; }
+  .pitch-card p { font-size: 13px; color: #666; line-height: 1.6; }
+
+  .savings-block {
+    background: #111; border: 0.5px solid #222;
+    border-radius: 14px; padding: 2rem;
+    margin-bottom: 3rem;
+  }
+  .savings-header {
+    display: flex; justify-content: space-between;
+    align-items: flex-start; margin-bottom: 1.5rem;
+    flex-wrap: wrap; gap: 12px;
+  }
+  .savings-header h2 { font-size: 18px; font-weight: bold; color: #fff; margin-bottom: 4px; }
+  .savings-header p { font-size: 13px; color: #555; }
+  .savings-tag {
+    font-size: 12px; color: #5DCAA5;
+    background: rgba(29,158,117,0.12);
+    border: 0.5px solid #1D9E75;
+    padding: 4px 12px; border-radius: 99px; white-space: nowrap;
+  }
+  .items-list { display: flex; flex-direction: column; gap: 10px; }
+  .item-row {
+    display: flex; align-items: center; flex-wrap: wrap; gap: 8px;
+    background: #181818; border: 0.5px solid #222;
+    border-radius: 10px; padding: 12px 16px;
+  }
+  .item-store { font-size: 11px; color: #555; min-width: 60px; }
+  .item-name { font-size: 14px; color: #ddd; flex: 1; min-width: 120px; }
+  .item-qty { font-size: 12px; color: #555; }
+  .item-price-old { font-size: 13px; color: #555; text-decoration: line-through; margin-left: auto; }
+  .item-price-new { font-size: 14px; color: #5DCAA5; font-weight: bold; }
+  .item-badge {
+    font-size: 11px; background: rgba(29,158,117,0.15);
+    color: #5DCAA5; padding: 2px 8px;
+    border-radius: 99px; white-space: nowrap;
+  }
+
+  .how-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 16px; margin-bottom: 3rem;
+  }
+  .how-step {
+    text-align: center; padding: 1.5rem 1rem;
+    background: #111; border: 0.5px solid #222; border-radius: 14px;
+  }
+  .how-num { font-size: 28px; font-weight: bold; color: #e91e8c; margin-bottom: 8px; }
+  .how-step h3 { font-size: 14px; font-weight: bold; color: #ccc; margin-bottom: 6px; }
+  .how-step p { font-size: 12px; color: #555; line-height: 1.5; }
+
+  .cta-block {
+    text-align: center; padding: 3rem 2rem;
+    background: #111; border: 0.5px solid #222;
+    border-radius: 14px; margin-bottom: 2rem;
+  }
+  .cta-block h2 { font-size: 26px; font-weight: bold; color: #fff; margin-bottom: 0.75rem; }
+  .cta-block p { font-size: 15px; color: #666; margin-bottom: 2rem; }
+
 /* .current-user { 
     background-color: #e91e8c !important; 
     outline: 2px solid #FFFF; 

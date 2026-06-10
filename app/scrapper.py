@@ -41,7 +41,9 @@ Format:
 ]
 
 Rules:
-Extract EVERY discounted product visible on this page -- IF THERE IS NOT DISCOUNT : Set to null
+Extract EVERY discounted product visible on this page. Make SURE that you look for an original price next to the item when it has a discount.
+The original price in french might be called "Prix régulier: ..$" or "Prix reg. : ..$" or any other similar combination
+IF THERE IS NOT DISCOUNT : Set to null
 A typical flyer page has 8-15 products minimum, make sure you get them all
 If original price is missing, calculate it from the discount percentage
 quantity: the numeric amount (e.g. 500, 1, 2)

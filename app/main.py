@@ -1,6 +1,4 @@
-from database import *
 from datetime import date, datetime, timedelta
-from r2 import imageExists
 
 def getFlyerWeek():
     today = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
@@ -16,16 +14,6 @@ def getPrevWeekStart(current: str) -> str:
 def getFlyerStartWeekStr():
     week = getFlyerWeek()
     return str(week[0].date())
-
-def checkIfFlyersAlreadyDownloaded():
-    epiceries = getAllEpiceries()
-    weekStr = getFlyerStartWeekStr()
-
-    for epicerie in epiceries:
-        r2Path = f"circulaires/{epicerie}_{weekStr}/{epicerie}0.png"
-        if not imageExists(r2Path):
-            return False
-    return True
 
 def calculate_age(born):
     today = date.today()

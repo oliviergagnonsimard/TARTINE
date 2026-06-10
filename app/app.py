@@ -130,7 +130,10 @@ def test_notif():
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    discounts = getWeeklyDiscounts(limit=5)
+    week = getFlyerWeek()
+    week_str = f"{week[0].strftime('%d %b')} au {week[1].strftime('%d %b %Y')}"
+    return render_template('index.html', discounts=discounts, week=week_str)
 
 @app.route('/about')
 def about():

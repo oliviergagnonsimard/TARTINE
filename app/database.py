@@ -4,6 +4,8 @@ import os
 import platform
 from dotenv import load_dotenv
 from datetime import timezone, datetime
+from main import getFlyerStartWeekStr
+from r2 import imageExists
 
 FREE_RECIPE_LIMIT = 10
 
@@ -692,7 +694,7 @@ def clearDiscounts():
     conn = connectToDB()
     cursor = conn.cursor()
     with conn.cursor() as curs:
-        cursor.execute("DELETE FROM discount")
+        cursor.execute("TRUNCATE discount CASCADE")
     conn.commit()
     cursor.close()
     releaseConn(conn)
@@ -722,6 +724,32 @@ def getIdEpicerie(nom):
         print(f"SQL ERROR (getIdEpicerie): {e}")
     finally:
         releaseConn(conn)
+
+def getWeeklyDiscounts(limit=5):
+    conn = connectToDB()
+    with conn.cursor() as curs:
+        curs.execute("""
+            SELECT s.nom, d.product_name, d.quantity, d.unit_of_measure,
+                   d.original_price, d.discounted_price, d.discount_pct
+            FROM discount d
+            JOIN stores s ON s."idEpicerie" = d."idEpicerie"
+            WHERE d.week_start = %s
+            ORDER BY d.discount_pct DESC
+            LIMIT %s
+        """, (getFlyerStartWeekStr(), limit))
+        rows = curs.fetchall()
+    releaseConn(conn)
+    return rows
+
+def checkIfFlyersAlreadyDownloaded():
+    epiceries = getAllEpiceries()
+    weekStr = getFlyerStartWeekStr()
+
+    for epicerie in epiceries:
+        r2Path = f"circulaires/{epicerie}_{weekStr}/{epicerie}0.png"
+        if not imageExists(r2Path):
+            return False
+    return True
 
 
 print("database.py done.")
