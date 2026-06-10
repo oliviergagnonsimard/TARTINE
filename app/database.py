@@ -733,7 +733,7 @@ def getWeeklyDiscounts(limit=5):
                    d.original_price, d.discounted_price, d.discount_pct
             FROM discount d
             JOIN stores s ON s."idEpicerie" = d."idEpicerie"
-            WHERE d.week_start = %s
+            WHERE d.week_start = %s AND d.discount_pct IS NOT NULL
             ORDER BY d.discount_pct DESC
             LIMIT %s
         """, (getFlyerStartWeekStr(), limit))
