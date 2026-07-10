@@ -36,12 +36,20 @@ def deleteFolderFromR2(prefix: str):
     paginator = s3.get_paginator("list_objects_v2")
     objects_to_delete = []
 
-    for page in paginator.paginate(Bucket=R2_BUCKET, Prefix=prefix):
-        for obj in page.get("Contents", []):
-            objects_to_delete.append({"Key": obj["Key"]})
+    try:
+        for page in paginator.paginate(Bucket=R2_BUCKET, Prefix=prefix):
+            for obj in page.get("Contents", []):
+                objects_to_delete.append({"Key": obj["Key"]})
+    except Exception as exc:
+        print(f"❌ Erreur lors de la lecture de '{prefix}' dans R2: {exc}")
+        return
 
-    if objects_to_delete:
-        s3.delete_objects(Bucket=R2_BUCKET, Delete={"Objects": objects_to_delete})
-        print(f"🗑️ {len(objects_to_delete)} fichiers supprimés sous '{prefix}'")
-    else:
+    if not objects_to_delete:
         print(f"⚠️ Aucun fichier trouvé sous '{prefix}'")
+        return
+
+    for start in range(0, len(objects_to_delete), 1000):
+        batch = objects_to_delete[start:start + 1000]
+        s3.delete_objects(Bucket=R2_BUCKET, Delete={"Objects": batch, "Quiet": True})
+
+    print(f"🗑️ {len(objects_to_delete)} fichiers supprimés sous '{prefix}'")

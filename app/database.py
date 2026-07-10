@@ -746,8 +746,11 @@ def checkIfFlyersAlreadyDownloaded():
     weekStr = getFlyerStartWeekStr()
 
     for epicerie in epiceries:
-        r2Path = f"circulaires/{epicerie}_{weekStr}/{epicerie}0.png"
-        if not imageExists(r2Path):
+        folder_prefix = f"circulaires/{epicerie}_{weekStr}/"
+        if not any(
+            imageExists(f"{folder_prefix}{epicerie}{suffix}.png")
+            for suffix in ("0", "2", "4", "6")
+        ):
             return False
     return True
 

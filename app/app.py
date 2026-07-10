@@ -54,40 +54,41 @@ def load_user(userID):
 
 def downloadFlyersJob():
     print("⏰ Téléchargement automatique des circulaires...")
+
+    week_start = getFlyerStartWeekStr()
+    print("Current week: " + week_start)
+    prev_week = getPrevWeekStart(week_start)
+    print("Last week: " + prev_week)
+
     if checkIfFlyersAlreadyDownloaded():
-        
-        week_start = getFlyerStartWeekStr()
-        print("Current week: " + week_start)
-        prev_week = getPrevWeekStart(week_start)  # à importer/définir`
-        print("Last week: " + prev_week)
-        
+        print("✅ Circulaires déjà à jour pour la semaine en cours.")
+        return
 
-        # 1. Vider la table discounts
-        print("🧹 Suppression des anciens rabais en base...")
-        clearDiscounts()
+    # 1. Vider la table discounts
+    print("🧹 Suppression des anciens rabais en base...")
+    clearDiscounts()
 
-        # 2. Supprimer les anciens circulaires dans R2
-        print("☁️  Suppression des anciens circulaires R2...")
-        for store in STORES:
-            print(f"circulaires/{store}_{prev_week}/")
-            deleteFolderFromR2(f"circulaires/{store}_{prev_week}/")
+    # 2. Supprimer les anciens circulaires dans R2
+    print("☁️  Suppression des anciens circulaires R2...")
+    for store in STORES:
+        prefix = f"circulaires/{store}_{prev_week}/"
+        print(f"  - {prefix}")
+        deleteFolderFromR2(prefix)
 
-        # 3. Télécharger les nouveaux circulaires
-        DownloadAllCirculaires()
-        print("✅ Circulaires téléchargées!")
+    # 3. Télécharger les nouveaux circulaires
+    DownloadAllCirculaires()
+    print("✅ Circulaires téléchargées!")
 
-        # 4. Scraper chaque store
-        for store in STORES:
-            idEpicerie = getIdEpicerie(store)
-            scrapeStoreFlyer(store, idEpicerie, week_start)
-            
-        # 5. Matcher catalog avec discounts  ← nouveau
-        matchCatalogWithDiscounts(week_start)
+    # 4. Scraper chaque store
+    for store in STORES:
+        idEpicerie = getIdEpicerie(store)
+        scrapeStoreFlyer(store, idEpicerie, week_start)
 
-        # 6. Notifier les users
-        notifyAllUsers("Nouveaux circulaires!", "Les circulaires de la semaine sont disponibles!")
-    else:
-        print("✅ Circulaires déjà à jour!")
+    # 5. Matcher catalog avec discounts
+    matchCatalogWithDiscounts(week_start)
+
+    # 6. Notifier les users
+    notifyAllUsers("Nouveaux circulaires!", "Les circulaires de la semaine sont disponibles!")
 
 def updateUserRank():
     userId = session.get("userID")
@@ -116,7 +117,7 @@ def triggerDownloadFlyers():
     if checkIfFlyersAlreadyDownloaded():
         print("Flyers already downloaded.")
         return
-    DownloadAllCirculaires()
+    downloadFlyersJob()
     print("Flyers downloaded.")
 
 
