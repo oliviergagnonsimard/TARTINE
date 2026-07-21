@@ -4,6 +4,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from download import DownloadAllCirculaires
 from apscheduler.schedulers.background import BackgroundScheduler
+import logging
+from apscheduler.events import EVENT_JOB_EXECUTED, EVENT_JOB_ERROR, EVENT_JOB_MISSED
 import threading
 import os
 from main import *
@@ -13,12 +15,26 @@ from email_service import *
 from datetime import date
 import re
 from functools import wraps
-from scrapper import *
+from scrapper import scrapeStoreFlyer
 from ingredients import *
 
-STORES = ['maxi', 'metro', 'iga', 'superc', 'provigo']
+from jobs import downloadFlyersJob, STORES
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Logging for scheduler and jobs
+logs_dir = os.path.join(BASE_DIR, 'logs')
+os.makedirs(logs_dir, exist_ok=True)
+log_file = os.path.join(logs_dir, 'scheduler.log')
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s %(levelname)s %(name)s: %(message)s',
+    handlers=[
+        logging.StreamHandler(),
+        logging.FileHandler(log_file, encoding='utf-8')
+    ]
+)
+logger = logging.getLogger('tartine.scheduler')
 
 DB_URL = getURI()
 
@@ -52,43 +68,7 @@ def load_user(userID):
 
 # FONCTIONS HELPER -----------------------------
 
-def downloadFlyersJob():
-    print("⏰ Téléchargement automatique des circulaires...")
-
-    week_start = getFlyerStartWeekStr()
-    print("Current week: " + week_start)
-    prev_week = getPrevWeekStart(week_start)
-    print("Last week: " + prev_week)
-
-    if checkIfFlyersAlreadyDownloaded():
-        print("✅ Circulaires déjà à jour pour la semaine en cours.")
-        return
-
-    # 1. Vider la table discounts
-    print("🧹 Suppression des anciens rabais en base...")
-    clearDiscounts()
-
-    # 2. Supprimer les anciens circulaires dans R2
-    print("☁️  Suppression des anciens circulaires R2...")
-    for store in STORES:
-        prefix = f"circulaires/{store}_{prev_week}/"
-        print(f"  - {prefix}")
-        deleteFolderFromR2(prefix)
-
-    # 3. Télécharger les nouveaux circulaires
-    DownloadAllCirculaires()
-    print("✅ Circulaires téléchargées!")
-
-    # 4. Scraper chaque store
-    for store in STORES:
-        idEpicerie = getIdEpicerie(store)
-        scrapeStoreFlyer(store, idEpicerie, week_start)
-
-    # 5. Matcher catalog avec discounts
-    matchCatalogWithDiscounts(week_start)
-
-    # 6. Notifier les users
-    notifyAllUsers("Nouveaux circulaires!", "Les circulaires de la semaine sont disponibles!")
+# downloadFlyersJob and STORES are defined in app/jobs.py
 
 def updateUserRank():
     userId = session.get("userID")
@@ -692,6 +672,21 @@ scheduler.add_job(
     hours=1,
     timezone='America/Montreal'
 )
+
+# APScheduler listener pour tracer exécutions / erreurs / misfires
+def _job_listener(event):
+    try:
+        job_id = getattr(event, 'job_id', 'unknown')
+        if event.exception:
+            logger.error("Job %s a levé une exception: %s", job_id, event.exception)
+        else:
+            logger.info("Job %s exécutée avec succès", job_id)
+    except Exception:
+        logger.exception("Erreur dans le listener APScheduler")
+
+scheduler.add_listener(_job_listener, EVENT_JOB_EXECUTED | EVENT_JOB_ERROR | EVENT_JOB_MISSED)
+
+logger.info("Scheduler configured, logs -> %s", log_file)
 scheduler.start()
 
 if __name__ == "__main__":
