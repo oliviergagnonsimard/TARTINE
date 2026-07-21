@@ -654,7 +654,13 @@ def admin_notify_user(idClient):
 def admin_match_catalog():
     week_start = getFlyerStartWeekStr()
     matchCatalogWithDiscounts(week_start)
-    return redirect(url_for('admin') + '?success=Matching catalog terminé!')
+    return redirect(url_for('admin') + '?success=Matching catalog commencé!')
+
+@app.route('/admin/downloadFlyersJob', methods=['POST'])
+@admin_required
+def admin_downloadFlyersJob():
+    downloadFlyersJob()
+    return redirect(url_for('admin') + '?success=downloadFlyersJob commencé!')
 # Automatic download des circulaires -------------------------------
 
 scheduler = BackgroundScheduler()
