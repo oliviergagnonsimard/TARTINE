@@ -2,8 +2,9 @@ import os
 import logging
 from download import DownloadAllCirculaires
 from r2 import deleteFolderFromR2
-from main import getFlyerStartWeekStr, getPrevWeekStart, matchCatalogWithDiscounts
-from database import clearDiscounts, getIdEpicerie, notifyAllUsers
+from main import getFlyerStartWeekStr, getPrevWeekStart
+from ingredients import matchCatalogWithDiscounts
+from database import clearDiscounts, getIdEpicerie, notifyAllUsers, checkIfFlyersAlreadyDownloaded
 from scrapper import scrapeStoreFlyer
 
 # STORES list centralized for scheduler
