@@ -199,8 +199,8 @@
   </div>
 </div>
 
-<div style="display: flex; justify-content: center; margin-bottom: 20px;">
-  <form method="POST" action="/admin/downloadFlyersJob">
+<div style="display: flex; justify-content: center; margin-bottom: 20px; gap: 10px;">
+  <!-- <form method="POST" action="/admin/downloadFlyersJob">
     <button type="submit" class="btn-pink">
       <i class="bi bi-robot"></i> downloadFlyersJob
     </button>
@@ -209,7 +209,10 @@
     <button type="submit" class="btn-pink">
       <i class="bi bi-robot"></i> Matcher catalog avec discounts
     </button>
-  </form>
+  </form> -->
+  <a href="{{ url_for('admin_discounts') }}" class="btn-pink" style="text-decoration:none;">
+    <i class="bi bi-tags"></i> Gérer les rabais
+  </a>
 </div>
 
 <!-- ── Stats ── -->

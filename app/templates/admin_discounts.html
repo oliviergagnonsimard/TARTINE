@@ -1,0 +1,319 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<style>
+* { box-sizing: border-box; }
+
+.page-header {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; margin-bottom: 24px; padding-top: 20px; flex-wrap: wrap;
+}
+.page-title { font-size: 48px; font-weight: 700; letter-spacing: -2px; color: #fff; line-height: 1; }
+.page-title span { color: #e91e8c; }
+.page-sub { font-size: 13px; color: #555; margin-top: 4px; }
+
+.back-link {
+  font-size: 12px; color: #888; text-decoration: none; display: flex; align-items: center; gap: 6px;
+}
+.back-link:hover { color: #e91e8c; }
+
+.card {
+  background: #111; border: 0.5px solid #222; border-radius: 14px;
+  padding: 24px; margin-bottom: 16px;
+}
+.card-head {
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  color: #444; margin-bottom: 20px;
+  display: flex; align-items: center; gap: 8px;
+}
+
+.search-wrap { display: flex; gap: 8px; margin-bottom: 20px; }
+.search-wrap input {
+  flex: 1; background: #1a1a1a; border: 0.5px solid #2a2a2a; color: #ccc;
+  border-radius: 8px; padding: 10px 14px; font-size: 13px; outline: none;
+  transition: border-color 0.2s;
+}
+.search-wrap input:focus { border-color: #e91e8c; }
+
+.data-table { width: 100%; border-collapse: collapse; }
+.data-table th {
+  font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: #444; padding: 10px 14px 12px; text-align: left; font-weight: 600;
+  border-bottom: 0.5px solid #1e1e1e;
+}
+.data-table td {
+  padding: 12px 14px; font-size: 13px; color: #ccc;
+  border-bottom: 0.5px solid #161616;
+}
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tbody tr:hover { background: rgba(255,255,255,0.02); }
+
+.store-tag { color: #AFA9EC; font-size: 12px; text-transform: capitalize; }
+.price-old { color: #555; text-decoration: line-through; font-size: 12px; }
+.price-new { color: #5DCAA5; font-weight: 600; }
+.pct-tag {
+  font-size: 11px; font-weight: 700; color: #e91e8c;
+  background: rgba(233,30,140,0.1); padding: 2px 8px; border-radius: 99px;
+}
+
+.btn-pink {
+  background: #d32f89; color: #fff; border: none;
+  padding: 9px 18px; border-radius: 8px; font-size: 13px; font-weight: 600;
+  cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+  transition: background 0.2s;
+}
+.btn-pink:hover { background: #e91e8c; }
+.btn-pill {
+  background: #1a1a1a; border: 0.5px solid #2a2a2a; color: #aaa;
+  padding: 7px 14px; border-radius: 8px; font-size: 12px; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 5px;
+  transition: border-color 0.2s, color 0.2s;
+}
+.btn-pill:hover { border-color: #444; color: #fff; }
+
+.pagination {
+  display: flex; justify-content: center; align-items: center;
+  gap: 6px; margin-top: 20px;
+}
+.page-btn {
+  background: #1a1a1a; border: 0.5px solid #2a2a2a;
+  border-radius: 6px; padding: 6px 14px;
+  font-size: 13px; color: #aaa; text-decoration: none;
+  transition: border-color 0.2s, color 0.2s;
+}
+.page-btn:hover { border-color: #444; color: #fff; }
+.page-btn.active { border-color: #e91e8c; color: #e91e8c; background: rgba(233,30,140,0.06); }
+.page-info { font-size: 12px; color: #444; padding: 0 8px; }
+
+/* ── Modal d'édition ── */
+.edit-modal {
+  background: #111; border: 0.5px solid #2a2a2a; border-radius: 14px;
+  padding: 24px; width: min(480px, 90vw); color: #ccc;
+}
+.edit-modal::backdrop { background: rgba(0,0,0,0.6); }
+.edit-modal h3 { color: #fff; font-size: 18px; margin: 0 0 18px; }
+.edit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.field-full { grid-column: 1 / -1; }
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field label { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: #555; }
+.field input, .field select {
+  background: #1a1a1a; border: 0.5px solid #2a2a2a; color: #ccc;
+  border-radius: 8px; padding: 10px 12px; font-size: 13px; outline: none;
+  transition: border-color 0.2s; font-family: inherit;
+}
+.field input:focus, .field select:focus { border-color: #e91e8c; }
+
+.field select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 32px;
+  cursor: pointer;
+}
+.field select option {
+  background: #1a1a1a;
+  color: #ccc;
+}
+
+.filter-checkbox {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 13px; color: #EF9F27; cursor: pointer;
+  white-space: nowrap; padding: 0 6px;
+}
+.filter-checkbox input[type="checkbox"] {
+  width: 16px; height: 16px; accent-color: #EF9F27; cursor: pointer;
+}
+</style>
+{% endblock %}
+
+{% block body %}
+
+<div class="page-header">
+  <div>
+    <div class="page-title">Gestion des <span>rabais</span></div>
+    <div class="page-sub">Corrigez manuellement les erreurs de scraping (prix, quantité, %…)</div>
+  </div>
+  <a href="{{ url_for('admin') }}" class="back-link"><i class="bi bi-arrow-left"></i> Retour à l'admin</a>
+</div>
+
+<div class="card">
+  <div class="card-head"><i class="bi bi-tags"></i> Rabais ({{ total_pages }} pages)</div>
+
+  <form method="GET" action="{{ url_for('admin_discounts') }}">
+  <div class="search-wrap">
+    <input type="text" name="search" value="{{ search }}" placeholder="Rechercher par produit, épicerie ou ID…">
+    <label class="filter-checkbox">
+      <input type="checkbox" name="invalid_units" value="1" {% if invalid_units_only %}checked{% endif %}
+             onchange="this.form.submit()">
+      <i class="bi bi-exclamation-triangle"></i> Unités invalides seulement
+    </label>
+    <button type="submit" class="btn-pink"><i class="bi bi-search"></i></button>
+    {% if search or invalid_units_only %}
+    <a href="{{ url_for('admin_discounts') }}" class="btn-pill"><i class="bi bi-x"></i> Effacer</a>
+    {% endif %}
+  </div>
+</form>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Épicerie</th>
+        <th>Produit</th>
+        <th>Qté / Unité</th>
+        <th>Prix</th>
+        <th>%</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for d in discounts %}
+      <tr>
+        <td style="color:#444; font-size:12px;">#{{ d[0] }}</td>
+        <td class="store-tag">{{ d[1] }}</td>
+        <td>{{ d[2] }}</td>
+        <td style="color:#888;">
+            {% if d[3] %}{{ d[3] }}{% endif %} {% if d[4] %}{{ d[4] }}{% endif %}
+            {% if d[4] and d[4] not in VALID_UNITS %}
+            <i class="bi bi-exclamation-triangle-fill" style="color:#EF9F27; margin-left:6px;" title="Unité non-standard : {{ d[4] }}"></i>
+            {% endif %}
+        </td>
+        <td>
+          {% if d[5] %}<span class="price-old">{{ "%.2f"|format(d[5]) }} $</span>{% endif %}
+          {% if d[6] is not none %}<span class="price-new">{{ "%.2f"|format(d[6]) }} $</span>{% else %}—{% endif %}
+        </td>
+        <td>{% if d[7] %}<span class="pct-tag">-{{ d[7]|int }}%</span>{% endif %}</td>
+        <td>
+          <button type="button" class="btn-pill edit-btn"
+  data-id="{{ d[0] }}"
+  data-product="{{ d[2] }}"
+  data-quantity="{{ d[3] or '' }}"
+  data-unit="{{ d[4] or '' }}"
+  data-original="{{ d[5] if d[5] is not none else '' }}"
+  data-discounted="{{ d[6] if d[6] is not none else '' }}"
+  data-pct="{{ d[7] if d[7] is not none else '' }}">
+  <i class="bi bi-pencil"></i> Modifier
+</button>
+        </td>
+      </tr>
+      {% else %}
+      <tr><td colspan="7" style="text-align:center; color:#555;">Aucun rabais trouvé.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <div class="pagination">
+  {% if page > 1 %}
+  <a href="{{ url_for('admin_discounts', page=page-1) }}?search={{ search }}&invalid_units={{ '1' if invalid_units_only else '' }}" class="page-btn">‹</a>
+  {% endif %}
+  {% for p in range(1, total_pages + 1) %}
+    {% if p == page or p == 1 or p == total_pages or (p >= page - 2 and p <= page + 2) %}
+    <a href="{{ url_for('admin_discounts', page=p) }}?search={{ search }}&invalid_units={{ '1' if invalid_units_only else '' }}"
+       class="page-btn {% if p == page %}active{% endif %}">{{ p }}</a>
+    {% endif %}
+  {% endfor %}
+  {% if page < total_pages %}
+  <a href="{{ url_for('admin_discounts', page=page+1) }}?search={{ search }}&invalid_units={{ '1' if invalid_units_only else '' }}" class="page-btn">›</a>
+  {% endif %}
+  <span class="page-info">Page {{ page }} / {{ total_pages }}</span>
+</div>
+
+<!-- ── Modal d'édition ── -->
+<dialog id="edit-modal" class="edit-modal">
+  <h3>Modifier le rabais</h3>
+  <form method="POST" id="edit-form">
+    <input type="hidden" name="page" id="edit-page">
+    <input type="hidden" name="search" id="edit-search">
+    <div class="edit-grid">
+      <div class="field field-full">
+        <label>Produit</label>
+        <input type="text" name="product_name" id="edit-product_name" required>
+      </div>
+      <div class="field">
+        <label>Quantité</label>
+        <input type="text" name="quantity" id="edit-quantity">
+      </div>
+      <div class="field">
+        <label>Unité</label>
+        <select name="unit_of_measure" id="edit-unit_of_measure">
+            <option value="">—</option>
+            <option value="unité">unité</option>
+            <option value="g">g</option>
+            <option value="kg">kg</option>
+            <option value="lb">lb</option>
+            <option value="L">L</option>
+            <option value="ml">ml</option>
+            <option value="paquet">paquet</option>
+            <option value="sac">sac</option>
+            <option value="caisse">caisse</option>
+            <option value="botte">botte</option>
+            <option value="panier">panier</option>
+            <option value="pinte">pinte</option>
+            <option value="chopine">chopine</option>
+            <option value="canette">canette</option>
+            <option value="rouleau">rouleau</option>
+            <option value="capsule">capsule</option>
+            <option value="feuille">feuille</option>
+            <option value="barre">barre</option>
+            <option value="biscuit">biscuit</option>
+            <option value="m">m</option>
+        </select>
+        </div>
+      <div class="field">
+        <label>Prix original ($)</label>
+        <input type="number" step="0.01" name="original_price" id="edit-original_price">
+      </div>
+      <div class="field">
+        <label>Prix rabais ($)</label>
+        <input type="number" step="0.01" name="discounted_price" id="edit-discounted_price">
+      </div>
+      <div class="field field-full">
+  <label>Rabais (%) — calculé automatiquement</label>
+  <input type="number" step="1" name="discount_pct" id="edit-discount_pct" readonly
+         style="background:#0d0d0d; color:#888; cursor:not-allowed;">
+</div>
+    </div>
+    <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;">
+      <button type="button" class="btn-pill" onclick="document.getElementById('edit-modal').close()">Annuler</button>
+      <button type="submit" class="btn-pink"><i class="bi bi-check2"></i> Enregistrer</button>
+    </div>
+  </form>
+</dialog>
+
+<script>
+    
+document.querySelectorAll('.edit-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.getElementById('edit-form').action = `/admin/discounts/${btn.dataset.id}/edit`;
+    document.getElementById('edit-product_name').value = btn.dataset.product;
+    document.getElementById('edit-quantity').value = btn.dataset.quantity;
+    document.getElementById('edit-unit_of_measure').value = btn.dataset.unit;
+    document.getElementById('edit-original_price').value = btn.dataset.original;
+    document.getElementById('edit-discounted_price').value = btn.dataset.discounted;
+    document.getElementById('edit-discount_pct').value = btn.dataset.pct;
+    document.getElementById('edit-page').value = "{{ page }}";
+    document.getElementById('edit-search').value = "{{ search }}";
+    document.getElementById('edit-modal').showModal();
+    document.getElementById('edit-unit_of_measure').value = btn.dataset.unit;
+  });
+});
+
+function recalcDiscountPct() {
+  const original = parseFloat(document.getElementById('edit-original_price').value);
+  const discounted = parseFloat(document.getElementById('edit-discounted_price').value);
+  const pctField = document.getElementById('edit-discount_pct');
+
+  if (!isNaN(original) && !isNaN(discounted) && original > 0) {
+    const pct = ((original - discounted) / original) * 100;
+    pctField.value = Math.round(pct);
+  } else {
+    pctField.value = '';
+  }
+}
+
+document.getElementById('edit-original_price').addEventListener('input', recalcDiscountPct);
+document.getElementById('edit-discounted_price').addEventListener('input', recalcDiscountPct);
+</script>
+{% endblock %}

@@ -400,3 +400,170 @@
 2026-07-26 20:42:42,607 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 20:42:42] "[36mGET /static/logos-epiceries/superc.png HTTP/1.1[0m" 304 -
 2026-07-26 20:42:42,617 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 20:42:42] "[36mGET /static/logos-epiceries/provigo.png HTTP/1.1[0m" 304 -
 2026-07-26 20:42:43,144 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 20:42:43] "GET /flyers/status HTTP/1.1" 200 -
+2026-07-26 21:02:28,829 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-26 21:02:28,829 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-26 21:02:28,830 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-26 21:02:28,830 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-26 21:02:28,830 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-26 21:02:28,830 INFO apscheduler.scheduler: Scheduler started
+2026-07-26 21:02:28,839 INFO werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.0.0.194:5000
+2026-07-26 21:02:28,839 INFO werkzeug: [33mPress CTRL+C to quit[0m
+2026-07-26 21:02:28,840 INFO werkzeug:  * Restarting with stat
+2026-07-26 21:02:29,851 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-26 21:02:29,852 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-26 21:02:29,852 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-26 21:02:29,852 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-26 21:02:29,852 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-26 21:02:29,852 INFO apscheduler.scheduler: Scheduler started
+2026-07-26 21:02:29,855 WARNING werkzeug:  * Debugger is active!
+2026-07-26 21:02:29,857 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-26 21:02:33,984 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:02:33] "GET / HTTP/1.1" 200 -
+2026-07-26 21:02:34,128 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:02:34] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-26 21:02:34,134 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:02:34] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-26 21:02:35,475 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:02:35] "GET /login HTTP/1.1" 200 -
+2026-07-26 21:02:35,504 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:02:35] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-26 21:02:35,506 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:02:35] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-26 21:02:46,332 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:02:46] "[32mPOST /login HTTP/1.1[0m" 302 -
+2026-07-26 21:02:46,960 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:02:46] "GET /dashboard HTTP/1.1" 200 -
+2026-07-26 21:02:46,994 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:02:46] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-26 21:02:46,995 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:02:46] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-26 21:02:47,277 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:02:47] "GET /notifications HTTP/1.1" 200 -
+2026-07-26 21:02:50,391 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:02:50] "GET /admin HTTP/1.1" 200 -
+2026-07-26 21:02:50,417 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:02:50] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-26 21:02:50,417 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:02:50] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-26 21:02:53,310 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:02:53] "GET /admin/discounts HTTP/1.1" 200 -
+2026-07-26 21:02:53,336 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:02:53] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-26 21:02:53,337 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:02:53] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-26 21:03:05,313 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:03:05] "GET /admin HTTP/1.1" 200 -
+2026-07-26 21:03:05,342 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:03:05] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-26 21:03:05,342 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:03:05] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-26 21:03:07,079 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:03:07] "GET /admin/discounts HTTP/1.1" 200 -
+2026-07-26 21:03:07,112 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:03:07] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-26 21:03:07,113 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:03:07] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-26 21:04:06,184 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:04:06] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-26 21:05:24,508 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:05:24] "GET /admin/discounts HTTP/1.1" 200 -
+2026-07-26 21:05:24,558 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:05:24] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-26 21:05:24,559 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:05:24] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-26 21:05:24,635 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:05:24] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-26 21:05:41,738 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:05:41] "GET /admin/discounts?search=12 HTTP/1.1" 200 -
+2026-07-26 21:05:41,766 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:05:41] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-26 21:05:41,767 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:05:41] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-26 21:05:46,106 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:05:46] "GET /admin/discounts HTTP/1.1" 200 -
+2026-07-26 21:05:46,137 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:05:46] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-26 21:05:46,137 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:05:46] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-26 21:05:52,668 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:05:52] "GET /admin/discounts?search=Maxi HTTP/1.1" 200 -
+2026-07-26 21:05:52,696 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:05:52] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-26 21:05:52,698 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:05:52] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-26 21:05:55,231 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:05:55] "GET /admin/discounts HTTP/1.1" 200 -
+2026-07-26 21:05:55,262 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:05:55] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-26 21:05:55,263 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:05:55] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-26 21:05:59,669 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:05:59] "GET /admin/discounts?search=Provigo HTTP/1.1" 200 -
+2026-07-26 21:05:59,701 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:05:59] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-26 21:05:59,701 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:05:59] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-26 21:06:07,979 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:06:07] "GET /admin/discounts?search=Crevettes HTTP/1.1" 200 -
+2026-07-26 21:06:08,010 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:06:08] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-26 21:06:08,011 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:06:08] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-26 21:21:08,898 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:21:08] "GET /admin/discounts?search=Crevettes HTTP/1.1" 200 -
+2026-07-26 21:21:08,956 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:21:08] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-26 21:21:08,957 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:21:08] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-26 21:21:09,099 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:21:09] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-26 21:21:35,469 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:21:35] "[32mPOST /admin/discounts/1545/edit HTTP/1.1[0m" 302 -
+2026-07-26 21:21:35,870 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:21:35] "GET /admin/discounts/1?search=Crevettes&success=Rabais%20modifié! HTTP/1.1" 200 -
+2026-07-26 21:21:35,933 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:21:35] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-26 21:21:35,934 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:21:35] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-26 21:23:13,031 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\app.py', reloading
+2026-07-26 21:23:13,322 INFO werkzeug:  * Restarting with stat
+2026-07-26 21:23:14,506 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-26 21:23:14,507 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-26 21:23:14,507 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-26 21:23:14,507 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-26 21:23:14,508 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-26 21:23:14,508 INFO apscheduler.scheduler: Scheduler started
+2026-07-26 21:23:14,512 WARNING werkzeug:  * Debugger is active!
+2026-07-26 21:23:14,513 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-26 21:23:25,546 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\app.py', reloading
+2026-07-26 21:23:25,851 INFO werkzeug:  * Restarting with stat
+2026-07-26 21:23:26,949 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-26 21:23:26,949 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-26 21:23:26,950 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-26 21:23:26,950 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-26 21:23:26,950 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-26 21:23:26,950 INFO apscheduler.scheduler: Scheduler started
+2026-07-26 21:23:26,955 WARNING werkzeug:  * Debugger is active!
+2026-07-26 21:23:26,957 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-26 21:23:35,587 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:23:35] "GET /admin/discounts/1?search=Crevettes&success=Rabais%20modifié! HTTP/1.1" 200 -
+2026-07-26 21:23:35,643 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:23:35] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-26 21:23:35,644 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:23:35] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-26 21:23:35,780 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:23:35] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-26 21:23:56,803 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:23:56] "GET /admin HTTP/1.1" 200 -
+2026-07-26 21:23:56,841 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:23:56] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-26 21:23:56,841 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:23:56] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-26 21:24:00,996 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:24:00] "GET /admin/discounts HTTP/1.1" 200 -
+2026-07-26 21:24:01,037 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:24:01] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-26 21:24:01,037 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:24:01] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-26 21:24:25,567 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:24:25] "GET /admin HTTP/1.1" 200 -
+2026-07-26 21:24:25,615 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:24:25] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-26 21:24:25,616 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:24:25] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-26 21:24:38,143 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\database.py', reloading
+2026-07-26 21:24:38,517 INFO werkzeug:  * Restarting with stat
+2026-07-26 21:24:39,741 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-26 21:24:39,742 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-26 21:24:39,742 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-26 21:24:39,742 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-26 21:24:39,742 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-26 21:24:39,743 INFO apscheduler.scheduler: Scheduler started
+2026-07-26 21:24:39,747 WARNING werkzeug:  * Debugger is active!
+2026-07-26 21:24:39,749 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-26 21:24:55,813 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\database.py', reloading
+2026-07-26 21:24:56,133 INFO werkzeug:  * Restarting with stat
+2026-07-26 21:24:57,361 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-26 21:24:57,362 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-26 21:24:57,362 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-26 21:24:57,362 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-26 21:24:57,363 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-26 21:24:57,363 INFO apscheduler.scheduler: Scheduler started
+2026-07-26 21:24:57,367 WARNING werkzeug:  * Debugger is active!
+2026-07-26 21:24:57,368 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-26 21:25:07,398 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\app.py', reloading
+2026-07-26 21:25:07,708 INFO werkzeug:  * Restarting with stat
+2026-07-26 21:25:08,807 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-26 21:25:08,808 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-26 21:25:08,808 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-26 21:25:08,809 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-26 21:25:08,809 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-26 21:25:08,809 INFO apscheduler.scheduler: Scheduler started
+2026-07-26 21:25:08,813 WARNING werkzeug:  * Debugger is active!
+2026-07-26 21:25:08,815 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-26 21:26:11,973 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\app.py', reloading
+2026-07-26 21:26:12,289 INFO werkzeug:  * Restarting with stat
+2026-07-26 21:26:13,469 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-26 21:26:13,470 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-26 21:26:13,470 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-26 21:26:13,470 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-26 21:26:13,471 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-26 21:26:13,471 INFO apscheduler.scheduler: Scheduler started
+2026-07-26 21:26:13,474 WARNING werkzeug:  * Debugger is active!
+2026-07-26 21:26:13,476 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-26 21:26:19,496 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\database.py', reloading
+2026-07-26 21:26:19,791 INFO werkzeug:  * Restarting with stat
+2026-07-26 21:26:20,841 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-26 21:26:20,842 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-26 21:26:20,842 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-26 21:26:20,842 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-26 21:26:20,842 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-26 21:26:20,842 INFO apscheduler.scheduler: Scheduler started
+2026-07-26 21:26:20,846 WARNING werkzeug:  * Debugger is active!
+2026-07-26 21:26:20,848 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-26 21:26:41,907 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\app.py', reloading
+2026-07-26 21:26:42,268 INFO werkzeug:  * Restarting with stat
+2026-07-26 21:26:43,446 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-26 21:26:43,447 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-26 21:26:43,447 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-26 21:26:43,447 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-26 21:26:43,448 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-26 21:26:43,448 INFO apscheduler.scheduler: Scheduler started
+2026-07-26 21:26:43,452 WARNING werkzeug:  * Debugger is active!
+2026-07-26 21:26:43,454 INFO werkzeug:  * Debugger PIN: 876-490-579

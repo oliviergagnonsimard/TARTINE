@@ -669,6 +669,44 @@ def admin_match_catalog():
 def admin_downloadFlyersJob():
     downloadFlyersJob()
     return redirect(url_for('admin') + '?success=downloadFlyersJob commencé!')
+
+VALID_UNITS = ['unité', 'g', 'kg', 'lb', 'L', 'ml', 'paquet', 'sac', 'caisse',
+               'botte', 'panier', 'pinte', 'chopine', 'canette', 'rouleau',
+               'capsule', 'feuille', 'barre', 'biscuit', 'm']
+
+@app.route('/admin/discounts')
+@app.route('/admin/discounts/<int:page>')
+@admin_required
+def admin_discounts(page=1):
+    search = request.args.get('search', '').strip()
+    invalid_units_only = request.args.get('invalid_units') == '1'
+
+    discounts = getDiscountsAdmin(page=page, limit=20, search=search, invalid_units_only=invalid_units_only)
+    total = countDiscountsAdmin(search=search, invalid_units_only=invalid_units_only)
+    total_pages = max(1, (total + 19) // 20)
+
+    return render_template('admin_discounts.html', discounts=discounts, page=page,
+                            total_pages=total_pages, search=search,
+                            invalid_units_only=invalid_units_only, VALID_UNITS=VALID_UNITS)
+
+@app.route('/admin/discounts/<int:idDiscount>/edit', methods=['POST'])
+@admin_required
+def admin_edit_discount(idDiscount):
+    product_name = request.form.get('product_name')
+    quantity = request.form.get('quantity') or None
+    unit_of_measure = request.form.get('unit_of_measure') or None
+    original_price = request.form.get('original_price') or None
+    discounted_price = request.form.get('discounted_price') or None
+    discount_pct = request.form.get('discount_pct') or None
+
+    updateDiscount(idDiscount, product_name, quantity, unit_of_measure, original_price, discounted_price, discount_pct)
+    cache.delete_memoized(getWeeklyDiscounts)  # 👈 sinon les corrections n'apparaîtront pas sur / et /flyers avant 1h
+
+    page = request.form.get('page', '1')
+    search = request.form.get('search', '')
+    params = [f'search={search}'] if search else []
+    params.append('success=Rabais modifié!')
+    return redirect(url_for('admin_discounts', page=page) + '?' + '&'.join(params))
 # Automatic download des circulaires -------------------------------
 
 scheduler = BackgroundScheduler()

@@ -32,6 +32,10 @@ if PLATFORM == "Linux":
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 configFile = DIR_PATH + SLASHS + "dbinfo.json"
 
+VALID_UNITS = ['unité', 'g', 'kg', 'lb', 'L', 'ml', 'paquet', 'sac', 'caisse',
+               'botte', 'panier', 'pinte', 'chopine', 'canette', 'rouleau',
+               'capsule', 'feuille', 'barre', 'biscuit', 'm']
+
 # FONCTIONS ------------------------------------------------------------------------------------------
 def connectToDB():
     return connection_pool.getconn()
@@ -767,6 +771,118 @@ def checkIfFlyersAlreadyDownloaded():
         ):
             return False
     return True
+
+def getDiscountsAdmin(page=1, limit=20, search=''):
+    conn = connectToDB()
+    offset = (page - 1) * limit
+    try:
+        with conn.cursor() as curs:
+            curs.execute("""
+                SELECT d.id, s.nom, d.product_name, d.quantity, d.unit_of_measure,
+                       d.original_price, d.discounted_price, d.discount_pct, d.week_start
+                FROM discount d
+                JOIN stores s ON s."idEpicerie" = d."idEpicerie"
+                WHERE d.product_name ILIKE %s 
+                   OR s.nom ILIKE %s 
+                   OR CAST(d.id AS TEXT) = %s
+                ORDER BY d.week_start DESC, d.id DESC
+                LIMIT %s OFFSET %s
+            """, (f'%{search}%', f'%{search}%', search, limit, offset))
+            return curs.fetchall()
+    except Exception as e:
+        print(f"SQL ERROR (getDiscountsAdmin): {e}")
+        return []
+    finally:
+        releaseConn(conn)
+
+def countDiscountsAdmin(search=''):
+    conn = connectToDB()
+    try:
+        with conn.cursor() as curs:
+            curs.execute("""
+                SELECT COUNT(*)
+                FROM discount d
+                JOIN stores s ON s."idEpicerie" = d."idEpicerie"
+                WHERE d.product_name ILIKE %s 
+                   OR s.nom ILIKE %s 
+                   OR CAST(d.id AS TEXT) = %s
+            """, (f'%{search}%', f'%{search}%', search))
+            return curs.fetchone()[0]
+    except Exception as e:
+        print(f"SQL ERROR (countDiscountsAdmin): {e}")
+        return 0
+    finally:
+        releaseConn(conn)
+
+def updateDiscount(idDiscount, product_name, quantity, unit_of_measure, original_price, discounted_price, discount_pct):
+    conn = connectToDB()
+    try:
+        with conn.cursor() as curs:
+            curs.execute("""
+                UPDATE discount
+                SET product_name = %s, quantity = %s, unit_of_measure = %s,
+                    original_price = %s, discounted_price = %s, discount_pct = %s
+                WHERE id = %s
+            """, (product_name, quantity, unit_of_measure, original_price, discounted_price, discount_pct, idDiscount))
+            conn.commit()
+    except Exception as e:
+        conn.rollback()
+        print(f"SQL ERROR (updateDiscount): {e}")
+    finally:
+        releaseConn(conn)
+
+def getDiscountsAdmin(page=1, limit=20, search='', invalid_units_only=False):
+    conn = connectToDB()
+    offset = (page - 1) * limit
+    try:
+        with conn.cursor() as curs:
+            query = """
+                SELECT d.id, s.nom, d.product_name, d.quantity, d.unit_of_measure,
+                       d.original_price, d.discounted_price, d.discount_pct, d.week_start
+                FROM discount d
+                JOIN stores s ON s."idEpicerie" = d."idEpicerie"
+                WHERE (d.product_name ILIKE %s OR s.nom ILIKE %s OR CAST(d.id AS TEXT) = %s)
+            """
+            params = [f'%{search}%', f'%{search}%', search]
+
+            if invalid_units_only:
+                query += " AND d.unit_of_measure IS NOT NULL AND NOT (d.unit_of_measure = ANY(%s))"
+                params.append(VALID_UNITS)
+
+            query += " ORDER BY d.week_start DESC, d.id DESC LIMIT %s OFFSET %s"
+            params.extend([limit, offset])
+
+            curs.execute(query, params)
+            return curs.fetchall()
+    except Exception as e:
+        print(f"SQL ERROR (getDiscountsAdmin): {e}")
+        return []
+    finally:
+        releaseConn(conn)
+
+def countDiscountsAdmin(search='', invalid_units_only=False):
+    conn = connectToDB()
+    try:
+        with conn.cursor() as curs:
+            query = """
+                SELECT COUNT(*)
+                FROM discount d
+                JOIN stores s ON s."idEpicerie" = d."idEpicerie"
+                WHERE (d.product_name ILIKE %s OR s.nom ILIKE %s OR CAST(d.id AS TEXT) = %s)
+            """
+            params = [f'%{search}%', f'%{search}%', search]
+
+            if invalid_units_only:
+                query += " AND d.unit_of_measure IS NOT NULL AND NOT (d.unit_of_measure = ANY(%s))"
+                params.append(VALID_UNITS)
+
+            curs.execute(query, params)
+            return curs.fetchone()[0]
+    except Exception as e:
+        print(f"SQL ERROR (countDiscountsAdmin): {e}")
+        return 0
+    finally:
+        releaseConn(conn)
 
 
 print("database.py done.")
