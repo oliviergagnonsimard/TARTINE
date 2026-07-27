@@ -20,6 +20,8 @@ from ingredients import *
 
 from jobs import downloadFlyersJob, STORES
 
+from extensions import cache, limiter
+
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Logging for scheduler and jobs
@@ -45,6 +47,8 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = DB_URL
 app.secret_key = os.environ.get("SECRET_KEY")
+cache.init_app(app)
+limiter.init_app(app)
 db = SQLAlchemy(app)
 
 
@@ -94,6 +98,7 @@ def resetSessionData(userID):
     session["userRank"] = None
 
 def triggerDownloadFlyers():
+    cache.delete_memoized(getWeeklyDiscounts)
     if checkIfFlyersAlreadyDownloaded():
         print("Flyers already downloaded.")
         return
@@ -341,6 +346,7 @@ def dashboard():
     )
 
 @app.route('/flyers')
+@limiter.limit("30 per minute")
 def flyers():
     discounts = getWeeklyDiscounts(0)
     areFlyersDownloaded = checkIfFlyersAlreadyDownloaded()
@@ -351,6 +357,7 @@ def flyers():
     return render_template('flyers/flyers.html', epiceries=epiceries, week=week, downloading=not areFlyersDownloaded, discounts=discounts)
 
 @app.route('/flyers/status')
+@limiter.limit("1 per second")
 def flyers_status():
     downloading = checkIfFlyersAlreadyDownloaded()
     return {"downloading": not downloading}

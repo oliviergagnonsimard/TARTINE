@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from datetime import timezone, datetime
 from main import getFlyerStartWeekStr
 from r2 import imageExists
+from extensions import cache
 
 FREE_RECIPE_LIMIT = 10
 
@@ -725,6 +726,7 @@ def getIdEpicerie(nom):
     finally:
         releaseConn(conn)
 
+@cache.memoize(timeout=3600)  # 1 hour
 def getWeeklyDiscounts(limit=5):
     conn = connectToDB()
     with conn.cursor() as curs:
@@ -752,6 +754,7 @@ def getWeeklyDiscounts(limit=5):
     releaseConn(conn)
     return rows
 
+@cache.cached(timeout=5)
 def checkIfFlyersAlreadyDownloaded():
     epiceries = getAllEpiceries()
     weekStr = getFlyerStartWeekStr()

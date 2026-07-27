@@ -388,3 +388,15 @@
 2026-07-26 20:40:47,276 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 20:40:47] "[36mGET /static/logos-epiceries/provigo.png HTTP/1.1[0m" 304 -
 2026-07-26 20:40:47,379 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 20:40:47] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
 2026-07-26 20:40:47,825 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 20:40:47] "GET /flyers/status HTTP/1.1" 200 -
+2026-07-26 20:42:34,631 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 20:42:34] "GET / HTTP/1.1" 200 -
+2026-07-26 20:42:34,661 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 20:42:34] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-26 20:42:34,662 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 20:42:34] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-26 20:42:42,562 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 20:42:42] "GET /flyers HTTP/1.1" 200 -
+2026-07-26 20:42:42,602 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 20:42:42] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-26 20:42:42,603 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 20:42:42] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-26 20:42:42,603 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 20:42:42] "[36mGET /static/logos-epiceries/maxi.png HTTP/1.1[0m" 304 -
+2026-07-26 20:42:42,605 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 20:42:42] "[36mGET /static/logos-epiceries/metro.png HTTP/1.1[0m" 304 -
+2026-07-26 20:42:42,606 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 20:42:42] "[36mGET /static/logos-epiceries/iga.png HTTP/1.1[0m" 304 -
+2026-07-26 20:42:42,607 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 20:42:42] "[36mGET /static/logos-epiceries/superc.png HTTP/1.1[0m" 304 -
+2026-07-26 20:42:42,617 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 20:42:42] "[36mGET /static/logos-epiceries/provigo.png HTTP/1.1[0m" 304 -
+2026-07-26 20:42:43,144 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 20:42:43] "GET /flyers/status HTTP/1.1" 200 -
