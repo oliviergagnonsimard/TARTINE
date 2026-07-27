@@ -346,7 +346,7 @@ def dashboard():
     )
 
 @app.route('/flyers')
-@limiter.limit("30 per minute")
+@limiter.limit("30 per minute", override_defaults=True)
 def flyers():
     discounts = getWeeklyDiscounts(0)
     areFlyersDownloaded = checkIfFlyersAlreadyDownloaded()

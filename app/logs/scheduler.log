@@ -567,3 +567,35 @@
 2026-07-26 21:26:43,448 INFO apscheduler.scheduler: Scheduler started
 2026-07-26 21:26:43,452 WARNING werkzeug:  * Debugger is active!
 2026-07-26 21:26:43,454 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-26 21:27:32,321 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:27:32] "GET /admin HTTP/1.1" 200 -
+2026-07-26 21:27:32,401 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:27:32] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-26 21:27:32,401 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:27:32] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-26 21:27:32,539 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:27:32] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-26 21:27:33,641 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:27:33] "GET /admin/discounts HTTP/1.1" 200 -
+2026-07-26 21:27:33,683 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:27:33] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-26 21:27:33,683 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:27:33] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-26 21:27:36,058 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:27:36] "GET /admin/discounts?search=&invalid_units=1 HTTP/1.1" 200 -
+2026-07-26 21:27:36,100 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:27:36] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-26 21:27:36,105 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:27:36] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-26 21:27:40,727 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:27:40] "GET /admin/discounts?search= HTTP/1.1" 200 -
+2026-07-26 21:27:40,771 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:27:40] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-26 21:27:40,773 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:27:40] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-26 21:29:13,070 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:29:13] "GET /admin/discounts?search= HTTP/1.1" 200 -
+2026-07-26 21:29:13,121 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:29:13] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-26 21:29:13,121 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:29:13] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-26 21:29:13,222 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:29:13] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-26 21:29:24,429 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:29:24] "GET /admin HTTP/1.1" 200 -
+2026-07-26 21:29:24,465 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:29:24] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-26 21:29:24,466 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:29:24] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-26 21:29:28,482 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:29:28] "GET /admin/discounts HTTP/1.1" 200 -
+2026-07-26 21:29:28,537 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:29:28] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-26 21:29:28,537 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:29:28] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-26 21:29:45,011 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:29:45] "GET /flyers HTTP/1.1" 200 -
+2026-07-26 21:29:45,080 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:29:45] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-26 21:29:45,081 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:29:45] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-26 21:29:45,083 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:29:45] "[36mGET /static/logos-epiceries/maxi.png HTTP/1.1[0m" 304 -
+2026-07-26 21:29:45,083 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:29:45] "[36mGET /static/logos-epiceries/metro.png HTTP/1.1[0m" 304 -
+2026-07-26 21:29:45,087 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:29:45] "[36mGET /static/logos-epiceries/iga.png HTTP/1.1[0m" 304 -
+2026-07-26 21:29:45,087 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:29:45] "[36mGET /static/logos-epiceries/superc.png HTTP/1.1[0m" 304 -
+2026-07-26 21:29:45,106 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:29:45] "[36mGET /static/logos-epiceries/provigo.png HTTP/1.1[0m" 304 -
+2026-07-26 21:29:45,650 INFO werkzeug: 127.0.0.1 - - [26/Jul/2026 21:29:45] "GET /flyers/status HTTP/1.1" 200 -
