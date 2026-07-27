@@ -379,7 +379,7 @@ def flyer(store):
     # Génère les URLs R2 pour chaque page
     image_urls = [
         getImageUrl(f"circulaires/{store}_{week_start}/{store}{i}.png")
-        for i in range(0, nbPages, 2)  # ton compteur va de 2 en 2
+        for i in range(0, nbPages)  # ton compteur va de 2 en 2
     ]
     
     return render_template('flyers/flyer.html', store=store, image_urls=image_urls, week_start=week_start)
