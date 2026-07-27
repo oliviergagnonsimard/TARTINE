@@ -740,3 +740,245 @@
 2026-07-27 14:49:20,106 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 14:49:20] "GET /flyers/status HTTP/1.1" 200 -
 2026-07-27 14:50:42,245 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\database.py', reloading
 2026-07-27 14:50:42,524 INFO werkzeug:  * Restarting with stat
+2026-07-27 14:50:43,652 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 14:50:43,653 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 14:50:43,653 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 14:50:43,653 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 14:50:43,653 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 14:50:43,653 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 14:50:43,657 WARNING werkzeug:  * Debugger is active!
+2026-07-27 14:50:43,658 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-27 14:54:28,691 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 14:54:28] "GET / HTTP/1.1" 200 -
+2026-07-27 14:54:28,784 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 14:54:28] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 14:54:28,785 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 14:54:28] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 14:54:43,114 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 14:54:43] "GET / HTTP/1.1" 200 -
+2026-07-27 14:54:43,202 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 14:54:43] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 14:54:43,204 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 14:54:43] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 14:54:46,854 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 14:54:46] "GET /recipes HTTP/1.1" 200 -
+2026-07-27 14:54:46,884 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 14:54:46] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 14:54:46,884 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 14:54:46] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 14:54:48,556 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 14:54:48] "[35m[1mGET /recipes/11 HTTP/1.1[0m" 500 -
+2026-07-27 14:54:48,597 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 14:54:48] "GET /recipes/11?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2026-07-27 14:54:48,598 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 14:54:48] "GET /recipes/11?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2026-07-27 14:54:48,627 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 14:54:48] "GET /recipes/11?__debugger__=yes&cmd=resource&f=console.png&s=ZMh6SKQosYDdHSCUTeiK HTTP/1.1" 200 -
+2026-07-27 14:54:48,638 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 14:54:48] "GET /recipes/11?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2026-07-27 14:57:03,453 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 14:57:03] "GET /recipes/11 HTTP/1.1" 200 -
+2026-07-27 14:57:03,495 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 14:57:03] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 14:57:03,496 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 14:57:03] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 14:57:03,558 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 14:57:03] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-27 14:57:05,946 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 14:57:05] "GET /recipes HTTP/1.1" 200 -
+2026-07-27 14:57:05,975 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 14:57:05] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 14:57:05,977 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 14:57:05] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 14:57:08,241 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 14:57:08] "GET /recipes/11 HTTP/1.1" 200 -
+2026-07-27 14:57:08,272 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 14:57:08] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 14:57:08,273 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 14:57:08] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 14:57:13,498 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 14:57:13] "GET /ingredients/search?q=Oue HTTP/1.1" 200 -
+2026-07-27 14:57:16,350 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 14:57:16] "GET /ingredients/search?q=Oeu HTTP/1.1" 200 -
+2026-07-27 14:57:18,241 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 14:57:18] "GET /ingredients/search?q=Oeuf HTTP/1.1" 200 -
+2026-07-27 14:57:20,321 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 14:57:20] "GET /ingredients/search?q=Oeufs HTTP/1.1" 200 -
+2026-07-27 14:57:23,461 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 14:57:23] "GET /recipes HTTP/1.1" 200 -
+2026-07-27 14:57:23,487 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 14:57:23] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 14:57:23,488 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 14:57:23] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 14:57:24,599 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 14:57:24] "GET /recipes/create HTTP/1.1" 200 -
+2026-07-27 14:57:24,635 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 14:57:24] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 14:57:24,636 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 14:57:24] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 14:57:29,924 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 14:57:29] "GET /ingredients/search?q=Oeu HTTP/1.1" 200 -
+2026-07-27 14:57:31,643 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 14:57:31] "GET /ingredients/search?q=Oeuf HTTP/1.1" 200 -
+2026-07-27 14:57:32,472 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 14:57:32] "GET /ingredients/search?q=Oeufs HTTP/1.1" 200 -
+2026-07-27 14:57:35,077 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 14:57:35] "GET /recipes HTTP/1.1" 200 -
+2026-07-27 14:57:35,115 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 14:57:35] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 14:57:35,117 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 14:57:35] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:01:00,786 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:01:00] "GET /recipes HTTP/1.1" 200 -
+2026-07-27 15:01:00,828 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:01:00] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:01:00,828 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:01:00] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:01:00,885 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:01:00] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-27 15:01:02,950 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:01:02] "GET /recipes/11 HTTP/1.1" 200 -
+2026-07-27 15:01:02,979 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:01:02] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:01:02,981 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:01:02] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:01:07,608 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:01:07] "GET /ingredients/search?q=Oe HTTP/1.1" 200 -
+2026-07-27 15:01:09,537 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:01:09] "GET /ingredients/search?q=Oeufs HTTP/1.1" 200 -
+2026-07-27 15:01:13,102 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:01:13] "GET /ingredients/search?q=Pain HTTP/1.1" 200 -
+2026-07-27 15:01:14,196 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:01:14] "GET /ingredients/search?q=Pain HTTP/1.1" 200 -
+2026-07-27 15:01:14,693 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:01:14] "GET /ingredients/search?q=Pain%20tr HTTP/1.1" 200 -
+2026-07-27 15:03:14,621 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:03:14] "GET /recipes HTTP/1.1" 200 -
+2026-07-27 15:03:14,661 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:03:14] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:03:14,663 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:03:14] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:03:16,259 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:03:16] "GET /recipes/11 HTTP/1.1" 200 -
+2026-07-27 15:03:16,292 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:03:16] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:03:16,292 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:03:16] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:03:26,781 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:03:26] "GET /ingredients/search?q=Oeufs HTTP/1.1" 200 -
+2026-07-27 15:03:28,514 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:03:28] "GET /ingredients/search?q=Oeufs HTTP/1.1" 200 -
+2026-07-27 15:03:28,916 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:03:28] "GET /ingredients/search?q=Oeu HTTP/1.1" 200 -
+2026-07-27 15:03:29,761 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:03:29] "GET /ingredients/search?q=Oeuf HTTP/1.1" 200 -
+2026-07-27 15:03:32,868 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:03:32] "POST /recipes/11/edit HTTP/1.1" 200 -
+2026-07-27 15:03:33,164 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:03:33] "GET /recipes/11 HTTP/1.1" 200 -
+2026-07-27 15:03:33,200 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:03:33] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:03:33,201 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:03:33] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:03:33,251 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:03:33] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-27 15:03:37,882 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:03:37] "GET /dashboard HTTP/1.1" 200 -
+2026-07-27 15:03:37,913 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:03:37] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:03:37,913 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:03:37] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:03:38,188 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:03:38] "GET /notifications HTTP/1.1" 200 -
+2026-07-27 15:03:38,904 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:03:38] "GET /recipes HTTP/1.1" 200 -
+2026-07-27 15:03:38,933 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:03:38] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:03:38,934 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:03:38] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:03:40,072 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:03:40] "GET /recipes/11 HTTP/1.1" 200 -
+2026-07-27 15:03:40,099 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:03:40] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:03:40,100 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:03:40] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:03:55,294 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:03:55] "GET /ingredients/search?q=Pain%20tranché HTTP/1.1" 200 -
+2026-07-27 15:03:59,676 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:03:59] "POST /recipes/11/edit HTTP/1.1" 200 -
+2026-07-27 15:04:00,002 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:04:00] "GET /recipes/11 HTTP/1.1" 200 -
+2026-07-27 15:04:00,033 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:04:00] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:04:00,033 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:04:00] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:04:00,059 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:04:00] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-27 15:04:02,419 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:04:02] "GET /recipes HTTP/1.1" 200 -
+2026-07-27 15:04:02,450 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:04:02] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:04:02,450 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:04:02] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:04:04,444 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:04:04] "GET /recipes/11 HTTP/1.1" 200 -
+2026-07-27 15:04:04,475 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:04:04] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:04:04,476 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:04:04] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:04:06,864 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:04:06] "GET /recipes HTTP/1.1" 200 -
+2026-07-27 15:04:06,895 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:04:06] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:04:06,896 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:04:06] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:04:19,001 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:04:19] "GET /recipes/11 HTTP/1.1" 200 -
+2026-07-27 15:04:19,030 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:04:19] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:04:19,031 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:04:19] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:04:32,107 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:04:32] "POST /recipes/11/edit HTTP/1.1" 200 -
+2026-07-27 15:04:32,393 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:04:32] "GET /recipes/11 HTTP/1.1" 200 -
+2026-07-27 15:04:32,432 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:04:32] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:04:32,432 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:04:32] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:04:32,482 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:04:32] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-27 15:04:37,719 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:04:37] "POST /recipes/11/edit HTTP/1.1" 200 -
+2026-07-27 15:04:37,982 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:04:37] "GET /recipes/11 HTTP/1.1" 200 -
+2026-07-27 15:04:38,015 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:04:38] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:04:38,016 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:04:38] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:04:38,041 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:04:38] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-27 15:06:28,967 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:06:28] "GET /recipes HTTP/1.1" 200 -
+2026-07-27 15:06:29,012 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:06:29] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:06:29,012 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:06:29] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:06:31,697 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:06:31] "GET /recipes/11 HTTP/1.1" 200 -
+2026-07-27 15:06:31,731 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:06:31] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:06:31,732 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:06:31] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:06:33,757 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:06:33] "GET /recipes HTTP/1.1" 200 -
+2026-07-27 15:06:33,789 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:06:33] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:06:33,789 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:06:33] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:06:39,029 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:06:39] "GET /recipes/11 HTTP/1.1" 200 -
+2026-07-27 15:06:39,054 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:06:39] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:06:39,056 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:06:39] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:06:46,574 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:06:46] "GET /recipes HTTP/1.1" 200 -
+2026-07-27 15:06:46,606 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:06:46] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:06:46,608 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:06:46] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:07:03,052 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:07:03] "GET /recipes/9 HTTP/1.1" 200 -
+2026-07-27 15:07:03,084 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:07:03] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:07:03,085 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:07:03] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:07:06,716 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:07:06] "[32mPOST /recipes/9/delete HTTP/1.1[0m" 302 -
+2026-07-27 15:07:06,964 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:07:06] "GET /recipes HTTP/1.1" 200 -
+2026-07-27 15:07:06,996 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:07:06] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:07:06,997 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:07:06] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:07:14,167 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:07:14] "GET /recipes/create HTTP/1.1" 200 -
+2026-07-27 15:07:14,201 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:07:14] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:07:14,203 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:07:14] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:07:22,764 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:07:22] "GET /ingredients/search?q=Laity HTTP/1.1" 200 -
+2026-07-27 15:07:23,388 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:07:23] "GET /ingredients/search?q=Lait HTTP/1.1" 200 -
+2026-07-27 15:07:29,153 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:07:29] "GET /ingredients/search?q=Lait HTTP/1.1" 200 -
+2026-07-27 15:07:31,636 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:07:31] "GET /ingredients/search?q=Lait HTTP/1.1" 200 -
+2026-07-27 15:07:42,899 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:07:42] "GET /ingredients/search?q=Cé HTTP/1.1" 200 -
+2026-07-27 15:07:43,318 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:07:43] "GET /ingredients/search?q=Céré HTTP/1.1" 200 -
+2026-07-27 15:07:44,010 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:07:44] "GET /ingredients/search?q=Céréales HTTP/1.1" 200 -
+2026-07-27 15:07:47,837 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:07:47] "GET /ingredients/search?q=Lait HTTP/1.1" 200 -
+2026-07-27 15:08:06,161 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:08:06] "[32mPOST /recipes/create HTTP/1.1[0m" 302 -
+2026-07-27 15:08:06,404 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:08:06] "GET /recipes?success=Recette%20créée! HTTP/1.1" 200 -
+2026-07-27 15:08:06,454 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:08:06] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:08:06,454 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:08:06] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:08:59,331 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\app.py', reloading
+2026-07-27 15:08:59,606 INFO werkzeug:  * Restarting with stat
+2026-07-27 15:09:00,674 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 15:09:00,675 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 15:09:00,675 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 15:09:00,675 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 15:09:00,675 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 15:09:00,676 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 15:09:00,679 WARNING werkzeug:  * Debugger is active!
+2026-07-27 15:09:00,681 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-27 15:11:58,111 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\database.py', reloading
+2026-07-27 15:11:58,377 INFO werkzeug:  * Restarting with stat
+2026-07-27 15:11:59,460 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 15:11:59,461 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 15:11:59,461 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 15:11:59,461 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 15:11:59,461 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 15:11:59,462 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 15:11:59,465 WARNING werkzeug:  * Debugger is active!
+2026-07-27 15:11:59,467 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-27 15:12:08,493 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\database.py', reloading
+2026-07-27 15:12:08,789 INFO werkzeug:  * Restarting with stat
+2026-07-27 15:12:09,779 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 15:12:09,780 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 15:12:09,780 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 15:12:09,780 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 15:12:09,780 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 15:12:09,780 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 15:12:09,783 WARNING werkzeug:  * Debugger is active!
+2026-07-27 15:12:09,785 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-27 15:12:10,792 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\database.py', reloading
+2026-07-27 15:12:11,071 INFO werkzeug:  * Restarting with stat
+2026-07-27 15:12:12,095 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 15:12:12,095 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 15:12:12,095 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 15:12:12,096 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 15:12:12,096 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 15:12:12,096 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 15:12:12,099 WARNING werkzeug:  * Debugger is active!
+2026-07-27 15:12:12,101 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-27 15:12:44,180 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\database.py', reloading
+2026-07-27 15:12:44,437 INFO werkzeug:  * Restarting with stat
+2026-07-27 15:12:45,416 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 15:12:45,417 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 15:12:45,417 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 15:12:45,417 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 15:12:45,417 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 15:12:45,417 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 15:12:45,421 WARNING werkzeug:  * Debugger is active!
+2026-07-27 15:12:45,422 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-27 15:12:55,449 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\database.py', reloading
+2026-07-27 15:12:55,697 INFO werkzeug:  * Restarting with stat
+2026-07-27 15:12:56,694 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 15:12:56,695 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 15:12:56,695 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 15:12:56,695 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 15:12:56,695 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 15:12:56,695 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 15:12:56,699 WARNING werkzeug:  * Debugger is active!
+2026-07-27 15:12:56,701 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-27 15:13:01,719 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\database.py', reloading
+2026-07-27 15:13:02,003 INFO werkzeug:  * Restarting with stat
+2026-07-27 15:13:03,075 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 15:13:03,075 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 15:13:03,075 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 15:13:03,075 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 15:13:03,076 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 15:13:03,076 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 15:13:03,079 WARNING werkzeug:  * Debugger is active!
+2026-07-27 15:13:03,081 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-27 15:13:42,178 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\app.py', reloading
+2026-07-27 15:13:42,445 INFO werkzeug:  * Restarting with stat
+2026-07-27 15:14:27,117 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 15:14:27,118 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 15:14:27,118 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 15:14:27,118 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 15:14:27,118 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 15:14:27,118 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 15:14:27,126 INFO werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.0.0.194:5000
+2026-07-27 15:14:27,126 INFO werkzeug: [33mPress CTRL+C to quit[0m
+2026-07-27 15:14:27,126 INFO werkzeug:  * Restarting with stat
+2026-07-27 15:14:28,125 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 15:14:28,126 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 15:14:28,126 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 15:14:28,126 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 15:14:28,126 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 15:14:28,126 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 15:14:28,130 WARNING werkzeug:  * Debugger is active!
+2026-07-27 15:14:28,132 INFO werkzeug:  * Debugger PIN: 876-490-579

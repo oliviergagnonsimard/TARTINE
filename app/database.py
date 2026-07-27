@@ -192,7 +192,7 @@ def getRecipeWithIngredients(idRecette, idClient):
     try:
         with conn.cursor() as curs:
             curs.execute("""
-                SELECT "idRecette", nom, portions, instructions, "createdAt" AT TIME ZONE 'America/Montreal', 'DD/MM/YYYY HH24hMI'
+                SELECT "idRecette", nom, instructions, portions, "createdAt" AT TIME ZONE 'America/Montreal'
                 FROM recipe
                 WHERE "idRecette" = %s AND "idClient" = %s
             """, (idRecette, idClient))
@@ -216,11 +216,19 @@ def getUserRecipes(idClient: int):
     try:
         with conn.cursor() as curs:
             curs.execute("""
-                SELECT "idRecette", ordre, nom, portions, 
-                    TO_CHAR("createdAt" AT TIME ZONE 'America/Montreal', 'DD/MM/YYYY HH24hMI')
-                FROM recipe
-                WHERE "idClient" = %s 
-                ORDER BY ordre ASC, "idRecette" ASC
+                SELECT r."idRecette", r.ordre, r.nom, r.portions,
+                       TO_CHAR(r."createdAt" AT TIME ZONE 'America/Montreal', 'DD/MM/YYYY HH24hMI'),
+                       CASE
+                           WHEN COUNT(ri."idRecette") > 0
+                                AND COUNT(ri."idRecette") = COUNT(ri."idCatalog")
+                           THEN TRUE
+                           ELSE FALSE
+                       END AS fully_validated
+                FROM recipe r
+                LEFT JOIN recipe_ingredient ri ON ri."idRecette" = r."idRecette"
+                WHERE r."idClient" = %s
+                GROUP BY r."idRecette", r.ordre, r.nom, r.portions, r."createdAt"
+                ORDER BY r.ordre ASC, r."idRecette" ASC
             """, (idClient,))
             return curs.fetchall()
     except Exception as e:

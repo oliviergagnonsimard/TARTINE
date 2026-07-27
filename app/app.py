@@ -277,7 +277,7 @@ def dashboard():
 
     recipes = []
     for r in raw_recipes[:6]:
-        idRecette, ordre, nom, portions, created_at = r
+        idRecette, ordre, nom, portions, created_at, fully_validated = r
         best = getBestDiscountForRecipe(idRecette)
 
         recipes.append({
@@ -428,7 +428,7 @@ def create_recipe():
     if request.method == 'POST':
         userID = session.get("userID")
         nom = request.form.get('nom')
-        portions = request.form.get('portions', 4)
+        portions = request.form.get('portions', 1)
         instructions = request.form.get('instructions')
         role = getUserRole(userID)
 

@@ -251,6 +251,12 @@
   border-radius: 8px; padding: 5px 8px; font-size: 13px;
 }
 #portions-edit:focus { outline: none; border-color: #e91e8c; }
+
+.ing-check-icon {
+  color: #5DCAA5;
+  font-size: 12px;
+  margin-left: 6px;
+}
 </style>
 {% endblock %}
 
@@ -289,6 +295,7 @@
   <div class="meta-chip" style="color:#aaa;">
     <i class="bi bi-people"></i>
     <span id="portions-view">{{ recette[3] }} portions</span>
+    {% if recette[3] %}<i class="bi bi-check-circle-fill ing-check-icon"></i>{% endif %}
     <input id="portions-edit" type="number" value="{{ recette[3] }}" min="1">
   </div>
   <div class="meta-chip" style="color:#555;">
@@ -308,7 +315,10 @@
   <ul id="ingredients-view" class="ing-list">
     {% for ing in ingredients %}
     <li class="ing-row">
-      <span class="ing-nom-val">{{ ing[0] }}</span>
+      <span class="ing-nom-val">
+        {{ ing[0] }}
+        {% if ing[3] %}<i class="bi bi-check-circle-fill ing-check-icon"></i>{% endif %}
+      </span>
       <span class="ing-qty-val">{{ ing[1] }} {{ ing[2] }}</span>
     </li>
     {% endfor %}
@@ -317,22 +327,20 @@
   <div id="ingredients-edit" style="display:none;">
     <div id="ingredients-list">
       {% for ing in ingredients %}
-      <div id="ingredients-list">
-        {% for ing in ingredients %}
-        <div class="ing-edit-row">
-          <div class="autocomplete-wrapper">
-            <input type="text" value="{{ ing[0] }}" placeholder="Nom" class="ing-nom edit-input"
-                  autocomplete="off" data-catalog-id="{{ ing[3] or '' }}">
-            <div class="autocomplete-dropdown"></div>
-          </div>
-          <input type="number" value="{{ ing[1] }}" placeholder="Qté" class="ing-qty edit-input">
-          <input type="text" value="{{ ing[2] }}" placeholder="Unité" class="ing-unite edit-input">
-          <button onclick="this.parentElement.remove()" class="ing-remove-btn">
-            <i class="bi bi-x-circle"></i>
-          </button>
+      <div class="ing-edit-row">
+        <div class="autocomplete-wrapper">
+          <input type="text" value="{{ ing[0] }}" placeholder="Nom" class="ing-nom edit-input"
+                autocomplete="off" data-catalog-id="{{ ing[3] or '' }}">
+          <div class="autocomplete-dropdown"></div>
         </div>
-        {% endfor %}
+        <input type="number" value="{{ ing[1] }}" placeholder="Qté" class="ing-qty edit-input">
+        <input type="text" value="{{ ing[2] }}" placeholder="Unité" class="ing-unite edit-input">
+        <button onclick="this.parentElement.remove()" class="ing-remove-btn">
+          <i class="bi bi-x-circle"></i>
+        </button>
       </div>
+      {% endfor %}
+    </div>
     <button onclick="addIngredient()" class="btn-add-ing">
       <i class="bi bi-plus"></i> Ajouter un ingrédient
     </button>

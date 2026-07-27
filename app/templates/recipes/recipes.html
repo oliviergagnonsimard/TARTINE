@@ -138,7 +138,10 @@
         <td class="td-ordre">
           <i class="bi bi-grip-vertical drag-handle"></i>{{ row[1] }}
         </td>
-        <td class="td-nom">{{ row[2] }}</td>
+        <td class="td-nom">
+          {{ row[2] }}
+          {% if row[5] %}<i class="bi bi-check-circle-fill" style="color:#5DCAA5; font-size:12px; margin-left:6px;"></i>{% endif %}
+        </td>
         <td class="td-portions">{{ row[3] }} portions</td>
         <td class="td-date">{{ row[4] }}</td>
       </tr>
