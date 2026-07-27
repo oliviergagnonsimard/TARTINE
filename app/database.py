@@ -199,7 +199,7 @@ def getRecipeWithIngredients(idRecette, idClient):
             recette = curs.fetchone()
 
             curs.execute("""
-                SELECT ri.nom, ri.quantite, ri.unite
+                SELECT ri.nom, ri.quantite, ri.unite, ri."idCatalog"
                 FROM recipe_ingredient ri
                 WHERE ri."idRecette" = %s
             """, (idRecette,))

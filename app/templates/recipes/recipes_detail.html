@@ -317,19 +317,22 @@
   <div id="ingredients-edit" style="display:none;">
     <div id="ingredients-list">
       {% for ing in ingredients %}
-      <div class="ing-edit-row">
-        <div class="autocomplete-wrapper">
-          <input type="text" value="{{ ing[0] }}" placeholder="Nom" class="ing-nom edit-input" autocomplete="off">
-          <div class="autocomplete-dropdown"></div>
+      <div id="ingredients-list">
+        {% for ing in ingredients %}
+        <div class="ing-edit-row">
+          <div class="autocomplete-wrapper">
+            <input type="text" value="{{ ing[0] }}" placeholder="Nom" class="ing-nom edit-input"
+                  autocomplete="off" data-catalog-id="{{ ing[3] or '' }}">
+            <div class="autocomplete-dropdown"></div>
+          </div>
+          <input type="number" value="{{ ing[1] }}" placeholder="Qté" class="ing-qty edit-input">
+          <input type="text" value="{{ ing[2] }}" placeholder="Unité" class="ing-unite edit-input">
+          <button onclick="this.parentElement.remove()" class="ing-remove-btn">
+            <i class="bi bi-x-circle"></i>
+          </button>
         </div>
-        <input type="number" value="{{ ing[1] }}" placeholder="Qté" class="ing-qty edit-input">
-        <input type="text" value="{{ ing[2] }}" placeholder="Unité" class="ing-unite edit-input">
-        <button onclick="this.parentElement.remove()" class="ing-remove-btn">
-          <i class="bi bi-x-circle"></i>
-        </button>
+        {% endfor %}
       </div>
-      {% endfor %}
-    </div>
     <button onclick="addIngredient()" class="btn-add-ing">
       <i class="bi bi-plus"></i> Ajouter un ingrédient
     </button>
@@ -453,10 +456,10 @@ function setupQty(div) {
   });
 }
 
-function addIngredient(defaultNom = '', defaultQty = '', defaultUnite = 'unité') {
+function addIngredient(defaultNom = '', defaultQty = '', defaultUnite = 'unité', defaultCatalogId = '') {
   const list = document.getElementById('ingredients-list');
   const div  = document.createElement('div');
-  div.className = 'ing-edit-row';
+  div.className = 'ing-edit-row' + (defaultCatalogId ? ' is-validated' : '');
   div.innerHTML = `
     <div class="autocomplete-wrapper">
     <input type="text" value="${defaultNom}" placeholder="Nom" class="ing-nom edit-input" autocomplete="off">
@@ -473,7 +476,11 @@ function addIngredient(defaultNom = '', defaultQty = '', defaultUnite = 'unité'
       <i class="bi bi-x-circle"></i>
     </button>`;
   list.appendChild(div);
-  setupAutocomplete(div.querySelector('.ing-nom'), div.querySelector('.autocomplete-dropdown'));
+
+  const nomInput = div.querySelector('.ing-nom');
+  if (defaultCatalogId) nomInput.dataset.catalogId = defaultCatalogId;
+
+  setupAutocomplete(nomInput, div.querySelector('.autocomplete-dropdown'));
   setupUnite(div);
   setupQty(div);
 }
@@ -502,17 +509,16 @@ function saveEdit() {
 document.addEventListener('DOMContentLoaded', () => {
   const list = document.getElementById('ingredients-list');
   const rows = Array.from(list.querySelectorAll('.ing-edit-row'));
-  
-  // Récupère les valeurs existantes
+
   const existing = rows.map(row => ({
-    nom:    row.querySelector('.ing-nom')?.value || '',
-    qty:    row.querySelector('.ing-qty')?.value || '',
-    unite:  row.querySelector('.ing-unite')?.value || 'unité'
+    nom:       row.querySelector('.ing-nom')?.value || '',
+    qty:       row.querySelector('.ing-qty')?.value || '',
+    unite:     row.querySelector('.ing-unite')?.value || 'unité',
+    catalogId: row.querySelector('.ing-nom')?.dataset.catalogId || ''
   }));
 
-  // Vide la liste et recrée avec le nouveau style
   list.innerHTML = '';
-  existing.forEach(ing => addIngredient(ing.nom, ing.qty, ing.unite));
+  existing.forEach(ing => addIngredient(ing.nom, ing.qty, ing.unite, ing.catalogId));
 });
 </script>
 

@@ -415,13 +415,14 @@ function setupAutocomplete(input, dropdown) {
       dropdown.querySelectorAll('.autocomplete-item').forEach(el => {
         el.addEventListener('click', () => {
           input.value = el.dataset.nom;
-          input.dataset.catalogId = el.dataset.id;
-          div.querySelector('.ing-catalog-id').value = el.dataset.id;
           dropdown.style.display = 'none';
-          
-         const row = input.closest('.ing-row') || input.closest('.ing-edit-row');
+
+          const row = input.closest('.ing-row') || input.closest('.ing-edit-row');
           row.classList.add('is-validated');
-          input.dataset.catalogId = el.dataset.id;  // garde l'id pour le save
+          input.dataset.catalogId = el.dataset.id;
+
+          const catalogInput = row.querySelector('.ing-catalog-id');
+          if (catalogInput) catalogInput.value = el.dataset.id;
         });
       });
 
