@@ -135,22 +135,16 @@
     <img src="{{ url_for('static', filename='logos-epiceries/' ~ store ~ '.png') }}"
          alt="{{ store }}">
   </div>
-  <span class="page-sub">{{ image_urls | length * 2 }} pages · {{ week_start }}</span>
+  <span class="page-sub">{{ image_urls | length }} pages · {{ week_start }}</span>
 </div>
 
 <!-- ── Grille des pages ── -->
 <div class="pages-grid">
   {% for url in image_urls %}
-  <div class="flyer-page-card" onclick="openLightbox({{ loop.index0 * 2 }})">
-    <img src="{{ url }}" loading="lazy" alt="Page {{ loop.index0 * 2 + 1 }}">
-    <span class="page-num">{{ loop.index0 * 2 + 1 }}</span>
+  <div class="flyer-page-card" onclick="openLightbox({{ loop.index0 }})">
+    <img src="{{ url }}" loading="lazy" alt="Page {{ loop.index }}">
+    <span class="page-num">{{ loop.index }}</span>
   </div>
-  {% if loop.index < image_urls | length %}
-  <div class="flyer-page-card" onclick="openLightbox({{ loop.index0 * 2 + 1 }})">
-    <img src="{{ image_urls[loop.index] }}" loading="lazy" alt="Page {{ loop.index0 * 2 + 2 }}">
-    <span class="page-num">{{ loop.index0 * 2 + 2 }}</span>
-  </div>
-  {% endif %}
   {% endfor %}
 </div>
 
