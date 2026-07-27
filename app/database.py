@@ -728,16 +728,27 @@ def getIdEpicerie(nom):
 def getWeeklyDiscounts(limit=5):
     conn = connectToDB()
     with conn.cursor() as curs:
-        curs.execute("""
-            SELECT s.nom, d.product_name, d.quantity, d.unit_of_measure,
-                   d.original_price, d.discounted_price, d.discount_pct
-            FROM discount d
-            JOIN stores s ON s."idEpicerie" = d."idEpicerie"
-            WHERE d.week_start = %s AND d.discount_pct IS NOT NULL
-            ORDER BY d.discount_pct DESC
-            LIMIT %s
-        """, (getFlyerStartWeekStr(), limit))
-        rows = curs.fetchall()
+        if limit == 0:
+            curs.execute("""
+                        SELECT s.nom, d.product_name, d.quantity, d.unit_of_measure,
+                               d.original_price, d.discounted_price, d.discount_pct
+                        FROM discount d
+                        JOIN stores s ON s."idEpicerie" = d."idEpicerie"
+                        WHERE d.week_start = %s AND d.discount_pct IS NOT NULL AND d.discounted_price IS NOT NULL
+                        ORDER BY d.discount_pct DESC
+                    """, (getFlyerStartWeekStr(),))
+            rows = curs.fetchall()
+        else:
+            curs.execute("""
+                SELECT s.nom, d.product_name, d.quantity, d.unit_of_measure,
+                    d.original_price, d.discounted_price, d.discount_pct
+                FROM discount d
+                JOIN stores s ON s."idEpicerie" = d."idEpicerie"
+                WHERE d.week_start = %s AND d.discount_pct IS NOT NULL AND d.discounted_price IS NOT NULL
+                ORDER BY d.discount_pct DESC
+                LIMIT %s
+            """, (getFlyerStartWeekStr(), limit))
+            rows = curs.fetchall()
     releaseConn(conn)
     return rows
 

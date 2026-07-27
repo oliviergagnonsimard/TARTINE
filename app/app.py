@@ -342,12 +342,13 @@ def dashboard():
 
 @app.route('/flyers')
 def flyers():
+    discounts = getWeeklyDiscounts(0)
     areFlyersDownloaded = checkIfFlyersAlreadyDownloaded()
     if not areFlyersDownloaded:
         threading.Thread(target=triggerDownloadFlyers).start()
     epiceries = getAllEpiceries()
     week = getFlyerWeek()
-    return render_template('flyers/flyers.html', epiceries=epiceries, week=week, downloading=not areFlyersDownloaded)
+    return render_template('flyers/flyers.html', epiceries=epiceries, week=week, downloading=not areFlyersDownloaded, discounts=discounts)
 
 @app.route('/flyers/status')
 def flyers_status():

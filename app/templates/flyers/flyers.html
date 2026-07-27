@@ -84,10 +84,46 @@
   padding: 18px 22px; margin-bottom: 24px;
 }
 .downloading-bar p { font-size: 14px; color: #888; margin: 0; }
+
 .spinner-ring {
   width: 20px; height: 20px; border-radius: 50%; flex-shrink: 0;
   border: 2px solid #2a2a2a; border-top-color: #e91e8c;
   animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Filtres ── */
+.filters-wrap {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+}
+.store-select {
+  appearance: none;
+  -webkit-appearance: none;
+  background: #0a0a0a url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 14px center;
+  border: 0.5px solid #2a2a2a; border-radius: 10px;
+  padding: 10px 34px 10px 14px; font-size: 13px; color: #fff;
+  outline: none; cursor: pointer; transition: border-color 0.2s;
+}
+.store-select:hover { border-color: #444; }
+.store-select:focus { border-color: #e91e8c; }
+.store-select option { background: #111; color: #fff; }
+
+/* ── Pagination ── */
+.pagination {
+  display: flex; align-items: center; justify-content: center;
+  gap: 6px; margin-top: 20px; flex-wrap: wrap;
+}
+.page-btn {
+  min-width: 32px; height: 32px; padding: 0 8px;
+  border-radius: 8px; border: 0.5px solid #2a2a2a; background: #111;
+  color: #888; font-size: 13px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+.page-btn:hover:not(:disabled) { border-color: #444; color: #fff; }
+.page-btn.active { background: #e91e8c; border-color: #e91e8c; color: #fff; }
+.page-btn:disabled { opacity: 0.3; cursor: default; }
+.page-ellipsis { color: #444; font-size: 13px; padding: 0 4px; }
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
@@ -134,6 +170,24 @@
   transition: color 0.2s, transform 0.2s;
 }
 .store-card:hover .store-arrow { color: #e91e8c; transform: translateX(3px); }
+
+.search-wrap {
+  position: relative;
+  display: flex; align-items: center;
+}
+.search-wrap i {
+  position: absolute; left: 14px;
+  color: #555; font-size: 13px; pointer-events: none;
+}
+.search-wrap input {
+  background: #0a0a0a; border: 0.5px solid #2a2a2a; border-radius: 10px;
+  padding: 10px 14px 10px 36px; font-size: 13px; color: #fff;
+  min-width: 240px; outline: none; transition: border-color 0.2s;
+}
+.search-wrap input::placeholder { color: #444; }
+.search-wrap input:focus { border-color: #e91e8c; }
+.savings-header { flex-wrap: wrap; gap: 12px; }
+.item-row.hidden { display: none !important; }
 </style>
 {% endblock %}
 
@@ -165,7 +219,7 @@
 </div>
 
 <!-- ── Grille des épiceries ── -->
-<div class="stores-grid" id="stores-grid">
+<div class="stores-grid" id="stores-grid" style="padding-bottom: 3%;">
   {% for epicerie in epiceries %}
   <a href="{{ url_for('flyer', store=epicerie) }}" class="store-card flyers-content">
     <div class="store-logo-wrap">
@@ -176,6 +230,53 @@
     <span class="store-arrow"><i class="bi bi-arrow-right"></i></span>
   </a>
   {% endfor %}
+</div>
+
+<!-- ── Rabais de la semaine ── -->
+<div class="savings-block" id="savings-block">
+  <div class="savings-header">
+  <div>
+    <h2>Articles en rabais</h2>
+    <p>Trouvez les meilleurs deals parmi les circulaires affichés.</p>
+  </div>
+  <div class="filters-wrap">
+    <div class="search-wrap">
+      <i class="bi bi-search"></i>
+      <input type="text" id="item-search" placeholder="Rechercher un article ou une épicerie…">
+    </div>
+    <select id="store-filter" class="store-select">
+      <option value="all">Toutes les épiceries</option>
+      {% for epicerie in epiceries %}
+      <option value="{{ epicerie|lower }}">{{ epicerie }}</option>
+      {% endfor %}
+    </select>
+  </div>
+</div>
+  <div class="items-list" id="items-list">
+    {% for d in discounts %}
+    <div class="item-row" data-search="{{ (d[0] ~ ' ' ~ d[1])|lower }}" data-store="{{ d[0]|lower }}">
+      <span class="item-store">{{ d[0] }}</span>
+      <span class="item-name">{{ d[1] }}</span>
+      <span class="item-qty">
+        {% if d[2] %}{{ d[2] }}{% endif %}
+        {% if d[3] %}{{ d[3] }}{% endif %}
+      </span>
+      {% if d[4] %}
+      <span class="item-price-old">{{ "%.2f"|format(d[4]) }} $</span>
+      {% endif %}
+      <span class="item-price-new">{{ "%.2f"|format(d[5]) }} $</span>
+      {% if d[6] %}
+      <span class="item-badge">-{{ d[6]|int }}%</span>
+      {% endif %}
+    </div>
+    {% else %}
+    <p style="color:#555;text-align:center;">Aucun rabais trouvé cette semaine.</p>
+    {% endfor %}
+  </div>
+  <p id="no-results-msg" style="display:none;color:#555;text-align:center;padding:16px 0;">
+    Aucun article ne correspond à votre recherche.
+  </p>
+  <div class="pagination" id="pagination"></div>
 </div>
 
 <script>
@@ -259,6 +360,85 @@ function generateCalendar(month, year) {
 
 // Toujours afficher le mois de la semaine en cours
 generateCalendar(dateDebut.getMonth(), dateDebut.getFullYear());
+
+/* ── Recherche + filtre + pagination ── */
+const ITEMS_PER_PAGE = 20;
+let currentPage = 1;
+
+const allRows      = Array.from(document.querySelectorAll('#items-list .item-row'));
+const searchInput2  = document.getElementById('item-search');
+const storeFilter   = document.getElementById('store-filter');
+const noResultsMsg  = document.getElementById('no-results-msg');
+const paginationEl  = document.getElementById('pagination');
+
+function getFilteredRows() {
+  const q     = searchInput2.value.trim().toLowerCase();
+  const store = storeFilter.value;
+  return allRows.filter(row => {
+    const matchesSearch = row.dataset.search.includes(q);
+    const matchesStore  = store === 'all' || row.dataset.store === store;
+    return matchesSearch && matchesStore;
+  });
+}
+
+function renderPage() {
+  const filtered   = getFilteredRows();
+  const totalPages = Math.max(1, Math.ceil(filtered.length / ITEMS_PER_PAGE));
+  if (currentPage > totalPages) currentPage = totalPages;
+
+  allRows.forEach(row => row.classList.add('hidden'));
+
+  const start = (currentPage - 1) * ITEMS_PER_PAGE;
+  filtered.slice(start, start + ITEMS_PER_PAGE)
+          .forEach(row => row.classList.remove('hidden'));
+
+  noResultsMsg.style.display = (filtered.length === 0) ? 'block' : 'none';
+  renderPaginationControls(totalPages);
+}
+
+function renderPaginationControls(totalPages) {
+  if (totalPages <= 1) { paginationEl.innerHTML = ''; return; }
+
+  let html = `<button class="page-btn" data-page="prev" ${currentPage === 1 ? 'disabled' : ''}>
+                <i class="bi bi-chevron-left"></i></button>`;
+
+  const maxButtons = 5;
+  let startPage = Math.max(1, currentPage - Math.floor(maxButtons / 2));
+  let endPage   = Math.min(totalPages, startPage + maxButtons - 1);
+  startPage     = Math.max(1, endPage - maxButtons + 1);
+
+  if (startPage > 1) {
+    html += `<button class="page-btn" data-page="1">1</button>`;
+    if (startPage > 2) html += `<span class="page-ellipsis">…</span>`;
+  }
+  for (let p = startPage; p <= endPage; p++) {
+    html += `<button class="page-btn ${p === currentPage ? 'active' : ''}" data-page="${p}">${p}</button>`;
+  }
+  if (endPage < totalPages) {
+    if (endPage < totalPages - 1) html += `<span class="page-ellipsis">…</span>`;
+    html += `<button class="page-btn" data-page="${totalPages}">${totalPages}</button>`;
+  }
+
+  html += `<button class="page-btn" data-page="next" ${currentPage === totalPages ? 'disabled' : ''}>
+             <i class="bi bi-chevron-right"></i></button>`;
+
+  paginationEl.innerHTML = html;
+  paginationEl.querySelectorAll('.page-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const val = btn.dataset.page;
+      if (val === 'prev') currentPage = Math.max(1, currentPage - 1);
+      else if (val === 'next') currentPage += 1;
+      else currentPage = parseInt(val, 10);
+      renderPage();
+      document.getElementById('savings-block').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+}
+
+if (searchInput2) searchInput2.addEventListener('input', () => { currentPage = 1; renderPage(); });
+if (storeFilter)  storeFilter.addEventListener('change', () => { currentPage = 1; renderPage(); });
+
+renderPage();
 </script>
 
 {% endblock %}

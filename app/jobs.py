@@ -58,6 +58,10 @@ def downloadFlyersJob():
         # 4. Scraper chaque store
         for store in STORES:
             idEpicerie = getIdEpicerie(store)
+            if idEpicerie is None:
+                print(f"❌ {store} pas trouvé dans la DB")
+                continue
+            print(f"Scrapping for {store} | week: {week_start} | idEpicerie: {idEpicerie}")
             scrapeStoreFlyer(store, idEpicerie, week_start)
 
         # 5. Matcher catalog avec discounts
