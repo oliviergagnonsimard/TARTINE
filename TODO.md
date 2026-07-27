@@ -81,6 +81,31 @@ Tous les chiffres affichés (économies, moyennes, comparaisons) doivent être r
 
 ---
 
+## 🛡️ Intégrité des données — "J'ai utilisé cette liste" (pas urgent, à garder en tête)
+
+**Verdict**: pas besoin de s'en occuper activement pour l'instant. Le bon design dès le départ règle presque tout le problème sans effort de sécurité additionnel.
+
+### Le principe de base (à respecter dès le début du code)
+- Le montant "économisé" ne doit **jamais** être un champ saisi par l'utilisateur
+- Toujours le calculer côté serveur: matcher les items de la liste contre les vrais rabais (`discount`) de cette `week_start`
+- Montant = somme de `(original_price - discounted_price)` seulement pour les items réellement en rabais cette semaine-là
+- Résultat: un utilisateur ne peut pas juste taper un chiffre inventé, le montant n'existe que si les données de rabais existent vraiment
+
+### Petites mesures simples à ajouter (rapide, pas de sur-ingénierie)
+- Une liste ne peut être marquée "utilisée" qu'une fois (évite le spam du bouton)
+- Flag automatique si le montant "économisé" dépasse le max statistiquement possible pour ce nombre d'items (exclu du classement, pas juste accepté)
+- Dans le classement **public**, éviter d'afficher le $ économisé directement — classer plutôt par nombre de listes utilisées ou streak de semaines consécutives (moins de tentation à tricher + encourage la régularité)
+- Si besoin de crédibilité plus tard: badge "vérifié" optionnel via upload de reçu simple (pas d'OCR au début, juste une photo)
+
+### Pourquoi ça compte quand même un peu
+- Le tracker personnel (dashboard perso) = enjeu faible, pas grave si quelqu'un se ment à lui-même
+- Les stats utilisées dans le **marketing/monétisation** (ex: "les users Premium économisent 71$/mois en moyenne") = enjeu réel, faut que ce soit vrai sinon ça devient un mensonge involontaire dans notre propre argument de vente
+
+### Ce qu'il ne faut PAS faire maintenant
+- Pas d'OCR de reçus ou de vérification lourde en préventif — seulement si un vrai problème de triche est observé en pratique plus tard
+
+---
+
 ## Ordre de priorité suggéré
 1. Épicerie de la semaine (quick win)
 2. Notifications favoris (quick win, réutilise l'existant)
