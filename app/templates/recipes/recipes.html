@@ -78,6 +78,22 @@
 .td-nom   { color: #fff; font-weight: 500; }
 .td-portions { color: #888; width: 90px; }
 .td-date  { color: #555; font-size: 12px; width: 160px; }
+.td-discount { color: #888; width: 240px; }
+.recipe-discount-badge {
+  display: inline-block;
+  background: rgba(29,158,117,0.12);
+  color: #5DCAA5;
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 99px;
+  white-space: normal;
+  line-height: 1.3;
+  text-align: center;
+  max-width: 100%;
+}
+.recipe-discount-muted {
+  color: #555; font-size: 12px;
+}
 
 .drag-handle {
   color: #333; font-size: 14px; margin-right: 6px;
@@ -130,6 +146,7 @@
         <th>Nom</th>
         <th>Portions</th>
         <th>Créée le</th>
+        <th>Rabais</th>
       </tr>
     </thead>
     <tbody id="sortable-body">
@@ -144,6 +161,14 @@
         </td>
         <td class="td-portions">{{ row[3] }} portions</td>
         <td class="td-date">{{ row[4] }}</td>
+        <td class="td-discount">
+          {% set discount_label = recipe_discounts.get(row[0]) %}
+          {% if discount_label %}
+          <span class="recipe-discount-badge">{{ discount_label }}</span>
+          {% else %}
+          <span class="recipe-discount-muted">Aucun rabais</span>
+          {% endif %}
+        </td>
       </tr>
       {% endfor %}
     </tbody>

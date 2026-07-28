@@ -153,6 +153,11 @@
   transition: background 0.2s; white-space: nowrap;
 }
 .btn-pink:hover { background: #e91e8c; }
+.btn-pink:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+.btn-pink:disabled:hover { background: #d32f89; }
 
 .btn-pill {
   background: #1a1a1a; border: 0.5px solid #2a2a2a; color: #aaa;
@@ -199,21 +204,162 @@
   </div>
 </div>
 
-<div style="display: flex; justify-content: center; margin-bottom: 20px; gap: 10px;">
-  <!-- <form method="POST" action="/admin/downloadFlyersJob">
+<div style="display: flex; justify-content: center; margin-bottom: 20px; gap: 10px; flex-wrap: wrap;">
+  <form id="match-form" method="POST" action="{{ url_for('admin_match_catalog') }}">
     <button type="submit" class="btn-pink">
-      <i class="bi bi-robot"></i> downloadFlyersJob
+      <i class="bi bi-diagram-3"></i> Relancer le matching catalog/rabais
     </button>
   </form>
-  <form method="POST" action="/admin/match-catalog">
-    <button type="submit" class="btn-pink">
-      <i class="bi bi-robot"></i> Matcher catalog avec discounts
-    </button>
-  </form> -->
   <a href="{{ url_for('admin_discounts') }}" class="btn-pink" style="text-decoration:none;">
     <i class="bi bi-tags"></i> Gérer les rabais
   </a>
 </div>
+
+<div id="match-status-panel" style="display:none; max-width: 720px; margin: 0 auto 20px; background:#181818; border:1px solid #2a2a2a; border-radius:12px; padding:16px;">
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+    <strong style="color:#fff;">État du matching</strong>
+    <span id="match-status-message" style="color:#5DCAA5; font-size:13px;">En attente…</span>
+  </div>
+  <div id="match-status-logs" style="font-size:12px; color:#888; line-height:1.7; max-height:220px; overflow:auto;"></div>
+</div>
+
+<script>
+const matchForm = document.getElementById('match-form');
+const matchPanel = document.getElementById('match-status-panel');
+const matchMessage = document.getElementById('match-status-message');
+const matchLogs = document.getElementById('match-status-logs');
+const matchButton = matchForm ? matchForm.querySelector('button[type="submit"]') : null;
+let matchPollingTimer = null;
+
+function setMatchButtonState(running) {
+  if (!matchButton) return;
+  matchButton.disabled = running;
+  if (running) {
+    matchButton.innerHTML = '<i class="bi bi-hourglass-split"></i> Matching en cours…';
+  } else {
+    matchButton.innerHTML = '<i class="bi bi-diagram-3"></i> Relancer le matching catalog/rabais';
+  }
+}
+
+function refreshMatchStatus() {
+  fetch('{{ url_for("admin_match_status") }}')
+    .then(r => r.json())
+    .then(data => {
+      if (!data) return;
+      const shouldShowPanel = data.running || (data.logs && data.logs.length > 0) || matchPanel.style.display === 'block';
+      if (shouldShowPanel) {
+        matchPanel.style.display = 'block';
+      }
+      setMatchButtonState(Boolean(data.running));
+      matchMessage.textContent = data.message || 'En attente…';
+      matchLogs.innerHTML = (data.logs || []).map(log => `<div>${log}</div>`).join('');
+
+      if (!data.running && matchPollingTimer) {
+        stopMatchPolling();
+      }
+    })
+    .catch(() => {});
+}
+
+function startMatchPolling() {
+  if (matchPollingTimer) {
+    clearInterval(matchPollingTimer);
+  }
+  matchPollingTimer = setInterval(refreshMatchStatus, 1500);
+  refreshMatchStatus();
+}
+
+function stopMatchPolling() {
+  if (matchPollingTimer) {
+    clearInterval(matchPollingTimer);
+    matchPollingTimer = null;
+  }
+}
+
+const geminiTestForm = document.getElementById('gemini-test-form');
+
+if (geminiTestForm) {
+  geminiTestForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+    matchPanel.style.display = 'block';
+    matchPanel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    matchMessage.textContent = 'Test Gemini…';
+    matchLogs.innerHTML = '<div>Envoi d’un test Gemini sur un petit échantillon…</div>';
+
+    fetch(this.action, {
+      method: 'POST',
+      body: new FormData(this)
+    })
+      .then(async response => {
+        const text = await response.text();
+        let data = null;
+        try {
+          data = text ? JSON.parse(text) : null;
+        } catch (err) {
+          data = { success: false, error: text || err.message };
+        }
+
+        const lines = [];
+        if (data && data.success) {
+          lines.push(`<div>Échantillon : ${data.catalog_count} produits / ${data.discount_count} rabais</div>`);
+          lines.push(`<div>Réponse brute : ${data.raw_response}</div>`);
+          lines.push(`<div>Matches parsés : ${JSON.stringify(data.parsed_matches)}</div>`);
+          matchMessage.textContent = 'Test Gemini terminé';
+        } else {
+          lines.push(`<div>Erreur : ${data && data.error ? data.error : 'réponse inattendue'}</div>`);
+          matchMessage.textContent = 'Test Gemini échoué';
+        }
+        matchLogs.innerHTML = lines.join('');
+      })
+      .catch(err => {
+        matchMessage.textContent = 'Erreur';
+        matchLogs.innerHTML += `<div>${err.message}</div>`;
+      });
+  });
+}
+
+if (matchForm) {
+  matchForm.addEventListener('submit', function (event) {
+    if (matchButton && matchButton.disabled) {
+      event.preventDefault();
+      matchPanel.style.display = 'block';
+      matchMessage.textContent = 'Matching déjà en cours';
+      matchLogs.innerHTML += '<div>Un matching est déjà en cours. Merci de patienter.</div>';
+      return;
+    }
+
+    event.preventDefault();
+    matchPanel.style.display = 'block';
+    matchPanel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    matchMessage.textContent = 'Démarrage…';
+    matchLogs.innerHTML = '<div>Envoi de la requête…</div>';
+    setMatchButtonState(true);
+    startMatchPolling();
+
+    fetch(this.action, { method: 'POST' })
+      .then(r => r.json())
+      .then(data => {
+        if (data.success) {
+          matchMessage.textContent = 'Matching lancé';
+          matchLogs.innerHTML += '<div>Requête acceptée, traitement en arrière-plan.</div>';
+        } else {
+          matchMessage.textContent = 'Déjà en cours';
+          matchLogs.innerHTML += `<div>${data.message}</div>`;
+          setMatchButtonState(true);
+          stopMatchPolling();
+        }
+      })
+      .catch(err => {
+        matchMessage.textContent = 'Erreur';
+        matchLogs.innerHTML += `<div>${err.message}</div>`;
+        setMatchButtonState(false);
+        stopMatchPolling();
+      });
+  });
+}
+
+refreshMatchStatus();
+</script>
 
 <!-- ── Stats ── -->
 <div class="stats-row">

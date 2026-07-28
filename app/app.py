@@ -8,6 +8,7 @@ import logging
 from apscheduler.events import EVENT_JOB_EXECUTED, EVENT_JOB_ERROR, EVENT_JOB_MISSED
 import threading
 import os
+import queue
 from main import *
 from database import *
 from r2 import imageExists, getImageUrl, deleteFolderFromR2
@@ -37,6 +38,11 @@ logging.basicConfig(
     ]
 )
 logger = logging.getLogger('tartine.scheduler')
+
+MATCH_QUEUE = queue.Queue()
+MATCH_RUNNING = False
+MATCH_LOCK = threading.Lock()
+MATCH_STATUS = {"running": False, "message": "Aucun matching en cours", "logs": []}
 
 DB_URL = getURI()
 
@@ -69,6 +75,32 @@ def load_user(userID):
     user = User(userID)
     return user
 
+def formatDiscountLabel(pct, original_price, discounted_price, store, show_original=True):
+    """Formatte un rabais en chaîne lisible avec montant économisé, pourcentage et épicerie."""
+    parts = []
+    original_value = float(original_price) if original_price is not None else None
+    discounted_value = float(discounted_price) if discounted_price is not None else None
+
+    if show_original and original_value is not None and discounted_value is not None:
+        parts.append(f"{original_value:.2f}$ → {discounted_value:.2f}$")
+    elif discounted_value is not None:
+        parts.append(f"{discounted_value:.2f}$")
+
+    if original_value is not None and discounted_value is not None:
+        savings = original_value - discounted_value
+        if savings > 0:
+            parts.append(f"Économie {savings:.2f}$")
+
+    tail = []
+    if pct is not None:
+        tail.append(f"-{int(pct)}%")
+    if store:
+        tail.append(f"({store.capitalize()})")
+
+    if tail:
+        parts.append(" · ".join(tail))
+
+    return " · ".join(parts) if parts else None
 
 # FONCTIONS HELPER -----------------------------
 
@@ -280,12 +312,17 @@ def dashboard():
         idRecette, ordre, nom, portions, created_at, fully_validated = r
         best = getBestDiscountForRecipe(idRecette)
 
+        on_sale = best is not None
+        discount_label = None
+        if on_sale:
+            pct, original_price, discounted_price, store, ingredient = best
+            discount_label = formatDiscountLabel(pct, original_price, discounted_price, store, show_original=False)
+
         recipes.append({
-            "name":     nom,
-            "emoji":    "🍽️",
-            "on_sale":  best is not None and best[0] is not None,
-            "discount": int(best[0]) if best and best[0] else None,
-            "store":    best[3].capitalize() if best else None,
+            "name":           nom,
+            "emoji":          "🍽️",
+            "on_sale":        on_sale,
+            "discount_label": discount_label,
         })
 
     recipes.sort(key=lambda r: r["on_sale"], reverse=True)
@@ -399,9 +436,17 @@ def recipes():
     userID = session.get("userID")
     data = getUserRecipes(userID)
     name = session.get("name")
-    headings = ["Ordre", "Nom", "Portions", "Date de création"]
+    headings = ["Ordre", "Nom", "Portions", "Date de création", "Rabais"]
 
-    return render_template('recipes/recipes.html', userID=userID, headings=headings, data=data, name=name)
+    recipe_discounts = {}
+    for row in data:
+        recipe_id = row[0]
+        best = getBestDiscountForRecipe(recipe_id)
+        if best is not None:
+            pct, original_price, discounted_price, store, ingredient = best
+            recipe_discounts[recipe_id] = formatDiscountLabel(pct, original_price, discounted_price, store, show_original=False)
+
+    return render_template('recipes/recipes.html', userID=userID, headings=headings, data=data, name=name, recipe_discounts=recipe_discounts)
 
 @app.route('/recipes/reorder', methods=['POST'])
 @login_required
@@ -420,7 +465,13 @@ def recipe_detail(idRecette):
     if recette is None:
         return redirect(url_for('recipes') + '?error=Recette introuvable')
     
-    return render_template('recipes/recipes_detail.html', recette=recette, ingredients=ingredients)
+    discounts_raw = getIngredientDiscounts(idRecette)
+    discounts = {}
+    for idCatalog, pct, original_price, discounted_price, store in discounts_raw:
+        if idCatalog not in discounts:
+            discounts[idCatalog] = formatDiscountLabel(pct, original_price, discounted_price, store, show_original=True)
+    
+    return render_template('recipes/recipes_detail.html', recette=recette, ingredients=ingredients, discounts=discounts)
 
 @app.route('/recipes/create', methods=['GET', 'POST'])
 @login_required
@@ -657,12 +708,78 @@ def admin_notify_user(idClient):
     createNotification(idClient, title, message)
     return redirect(url_for('admin') + '?success=Notification envoyée!')
 
+def _set_match_status(message, log=None):
+    with MATCH_LOCK:
+        MATCH_STATUS["message"] = message
+        if log is not None:
+            MATCH_STATUS["logs"].append(log)
+            if len(MATCH_STATUS["logs"]) > 20:
+                MATCH_STATUS["logs"] = MATCH_STATUS["logs"][-20:]
+
+
+def _run_catalog_match_task(week_start):
+    global MATCH_RUNNING
+    with MATCH_LOCK:
+        if MATCH_RUNNING:
+            return
+        MATCH_RUNNING = True
+        MATCH_STATUS["running"] = True
+        MATCH_STATUS["message"] = "Démarrage du matching…"
+        MATCH_STATUS["logs"] = ["Démarrage du matching…"]
+
+    try:
+        logger.info("Starting async catalog/discount matching for %s", week_start)
+        _set_match_status("Récupération des rabais et du catalogue…", "Récupération des rabais et du catalogue…")
+        matchCatalogWithDiscounts(week_start, status_cb=_set_match_status)
+        _set_match_status("Matching terminé", "Matching terminé avec succès")
+        notifyAllUsers("Matching catalog/rabais terminé", "L’association entre le catalogue et les rabais est terminée.")
+        logger.info("Async catalog/discount matching completed for %s", week_start)
+    except Exception as exc:
+        logger.exception("Async catalog/discount matching failed")
+        _set_match_status("Matching échoué", f"Erreur inattendue : {exc}")
+        notifyAllUsers("Matching catalog/rabais échoué", "L’association entre le catalogue et les rabais a échoué.")
+    finally:
+        with MATCH_LOCK:
+            MATCH_RUNNING = False
+            MATCH_STATUS["running"] = False
+            MATCH_STATUS["message"] = "Matching terminé" if not MATCH_STATUS["message"].startswith("Matching échoué") else MATCH_STATUS["message"]
+
+@app.route('/admin/test-gemini-prompt', methods=['POST'])
+@admin_required
+def admin_test_gemini_prompt():
+    mode = request.form.get('mode', 'db')
+    week_start = getFlyerStartWeekStr()
+    sample_size = request.form.get('sample_size', '8')
+
+    if mode == 'example':
+        result = testGeminiPromptExample(status_cb=_set_match_status)
+    else:
+        result = testGeminiPromptSample(week_start, sample_size=sample_size, status_cb=_set_match_status)
+
+    return jsonify(result)
+
 @app.route('/admin/match-catalog', methods=['POST'])
 @admin_required
 def admin_match_catalog():
     week_start = getFlyerStartWeekStr()
-    matchCatalogWithDiscounts(week_start)
-    return redirect(url_for('admin') + '?success=Matching catalog commencé!')
+    with MATCH_LOCK:
+        if MATCH_RUNNING:
+            return jsonify({"success": False, "message": "Un matching est déjà en cours."})
+
+    threading.Thread(target=_run_catalog_match_task, args=(week_start,), daemon=True).start()
+    _set_match_status("Matching démarré en arrière-plan", "Matching démarré en arrière-plan")
+    # notifyAllUsers("Matching catalog/rabais commencé", "L’association entre le catalogue et les rabais a commencé en arrière-plan.")
+    return jsonify({"success": True, "message": "Matching démarré en arrière-plan."})
+
+@app.route('/admin/match-status')
+@admin_required
+def admin_match_status():
+    with MATCH_LOCK:
+        return jsonify({
+            "running": MATCH_STATUS["running"],
+            "message": MATCH_STATUS["message"],
+            "logs": MATCH_STATUS["logs"],
+        })
 
 @app.route('/admin/downloadFlyersJob', methods=['POST'])
 @admin_required
@@ -707,6 +824,13 @@ def admin_edit_discount(idDiscount):
     params = [f'search={search}'] if search else []
     params.append('success=Rabais modifié!')
     return redirect(url_for('admin_discounts', page=page) + '?' + '&'.join(params))
+
+@app.route('/admin/review-matches')
+@admin_required
+def admin_review_matches():
+    week_start = getFlyerStartWeekStr()
+    sample = getCatalogDiscountMatchSample(week_start, limit=30)
+    return render_template('admin_review_matches.html', sample=sample, week_start=week_start)
 # Automatic download des circulaires -------------------------------
 
 scheduler = BackgroundScheduler()

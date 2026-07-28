@@ -204,8 +204,17 @@
   width: 36px; height: 36px; border-radius: 9px; font-size: 16px;
   display: flex; align-items: center; justify-content: center; flex-shrink: 0;
 }
-.recette-name { font-size: 13px; color: #ddd; flex: 1; }
-.recette-tag { font-size: 11px; padding: 2px 9px; border-radius: 99px; white-space: nowrap; }
+.recette-name { font-size: 13px; color: #ddd; flex: 1; min-width: 0; }
+.recette-tag {
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 99px;
+  white-space: normal;
+  line-height: 1.3;
+  text-align: center;
+  margin-left: auto;
+  max-width: min(100%, 220px);
+}
 .tag-eco     { background: rgba(29,158,117,0.12); color: #5DCAA5; }
 .tag-neutral { background: #1e1e1e; color: #555; }
 
@@ -543,9 +552,7 @@ input:checked + .slider:before { transform: translateX(20px); background: #e91e8
             </div>
             <span class="recette-name">{{ recipe.name }}</span>
             {% if recipe.on_sale %}
-            <span class="recette-tag tag-eco">
-              -{{ recipe.discount }}% {{ recipe.store }}
-            </span>
+            <span class="recette-tag tag-eco">{{ recipe.discount_label }}</span>
             {% else %}
             <span class="recette-tag tag-neutral">Pas de spécial</span>
             {% endif %}

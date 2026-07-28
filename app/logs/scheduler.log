@@ -982,3 +982,1333 @@
 2026-07-27 15:14:28,126 INFO apscheduler.scheduler: Scheduler started
 2026-07-27 15:14:28,130 WARNING werkzeug:  * Debugger is active!
 2026-07-27 15:14:28,132 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-27 15:14:29,832 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:14:29] "GET /recipes?success=Recette%20créée! HTTP/1.1" 200 -
+2026-07-27 15:14:29,928 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:14:29] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:14:29,930 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:14:29] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:14:30,037 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:14:30] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-27 15:14:32,622 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:14:32] "GET /recipes/11 HTTP/1.1" 200 -
+2026-07-27 15:14:32,653 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:14:32] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:14:32,655 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:14:32] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:14:36,290 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:14:36] "GET /recipes HTTP/1.1" 200 -
+2026-07-27 15:14:36,322 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:14:36] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:14:36,323 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:14:36] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:14:37,286 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:14:37] "GET /recipes/12 HTTP/1.1" 200 -
+2026-07-27 15:14:37,315 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:14:37] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:14:37,316 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:14:37] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:14:39,176 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:14:39] "GET /recipes HTTP/1.1" 200 -
+2026-07-27 15:14:39,208 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:14:39] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:14:39,209 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:14:39] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:14:40,414 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:14:40] "GET /recipes/create HTTP/1.1" 200 -
+2026-07-27 15:14:40,444 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:14:40] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:14:40,445 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:14:40] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:14:47,978 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:14:47] "GET /ingredients/search?q=Pou HTTP/1.1" 200 -
+2026-07-27 15:14:48,365 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:14:48] "GET /ingredients/search?q=Poule HTTP/1.1" 200 -
+2026-07-27 15:14:51,102 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:14:51] "[32mPOST /recipes/create HTTP/1.1[0m" 302 -
+2026-07-27 15:14:51,350 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:14:51] "GET /recipes?success=Recette%20créée! HTTP/1.1" 200 -
+2026-07-27 15:14:51,386 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:14:51] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:14:51,386 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:14:51] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:14:55,093 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:14:55] "GET /recipes/13 HTTP/1.1" 200 -
+2026-07-27 15:14:55,123 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:14:55] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:14:55,124 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:14:55] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:15:04,593 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:04] "GET /recipes HTTP/1.1" 200 -
+2026-07-27 15:15:04,623 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:04] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:15:04,626 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:04] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:15:08,123 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:08] "GET /recipes/13 HTTP/1.1" 200 -
+2026-07-27 15:15:08,156 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:08] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:15:08,157 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:08] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:15:11,775 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:11] "GET /ingredients/search?q=Po HTTP/1.1" 200 -
+2026-07-27 15:15:12,092 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:12] "GET /ingredients/search?q=Pok HTTP/1.1" 200 -
+2026-07-27 15:15:12,668 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:12] "GET /ingredients/search?q=Pokle HTTP/1.1" 200 -
+2026-07-27 15:15:17,746 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:17] "POST /recipes/13/edit HTTP/1.1" 200 -
+2026-07-27 15:15:18,037 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:18] "GET /recipes/13 HTTP/1.1" 200 -
+2026-07-27 15:15:18,066 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:18] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:15:18,067 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:18] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:15:18,089 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:18] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-27 15:15:19,706 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:19] "GET /recipes HTTP/1.1" 200 -
+2026-07-27 15:15:19,740 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:19] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:15:19,741 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:19] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:15:21,214 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:21] "GET /recipes/13 HTTP/1.1" 200 -
+2026-07-27 15:15:21,244 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:21] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:15:21,246 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:21] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:15:26,267 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:26] "GET /ingredients/search?q=Riz HTTP/1.1" 200 -
+2026-07-27 15:15:29,585 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:29] "POST /recipes/13/edit HTTP/1.1" 200 -
+2026-07-27 15:15:29,871 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:29] "GET /recipes/13 HTTP/1.1" 200 -
+2026-07-27 15:15:29,911 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:29] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:15:29,911 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:29] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:15:29,964 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:29] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-27 15:15:31,908 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:31] "GET /recipes HTTP/1.1" 200 -
+2026-07-27 15:15:31,937 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:31] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:15:31,938 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:31] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:15:33,216 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:33] "GET /recipes/13 HTTP/1.1" 200 -
+2026-07-27 15:15:33,244 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:33] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:15:33,245 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:33] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:15:37,002 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:37] "GET /ingredients/search?q=Po HTTP/1.1" 200 -
+2026-07-27 15:15:38,091 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:38] "GET /ingredients/search?q=Poulet HTTP/1.1" 200 -
+2026-07-27 15:15:41,011 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:41] "POST /recipes/13/edit HTTP/1.1" 200 -
+2026-07-27 15:15:41,298 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:41] "GET /recipes/13 HTTP/1.1" 200 -
+2026-07-27 15:15:41,329 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:41] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:15:41,330 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:41] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:15:41,355 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:41] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-27 15:15:43,322 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:43] "GET /recipes HTTP/1.1" 200 -
+2026-07-27 15:15:43,354 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:43] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:15:43,355 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:43] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:15:44,696 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:44] "GET /recipes/13 HTTP/1.1" 200 -
+2026-07-27 15:15:44,725 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:44] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:15:44,725 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:44] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:15:48,885 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:48] "GET /ingredients/search?q=Poulet HTTP/1.1" 200 -
+2026-07-27 15:15:51,353 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:51] "POST /recipes/13/edit HTTP/1.1" 200 -
+2026-07-27 15:15:51,640 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:51] "GET /recipes/13 HTTP/1.1" 200 -
+2026-07-27 15:15:51,670 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:51] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:15:51,671 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:51] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:15:51,694 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:51] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-27 15:15:54,465 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:54] "GET /recipes HTTP/1.1" 200 -
+2026-07-27 15:15:54,496 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:54] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:15:54,496 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:54] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:15:57,326 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:57] "GET /recipes/13 HTTP/1.1" 200 -
+2026-07-27 15:15:57,359 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:57] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:15:57,359 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:15:57] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:16:03,732 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:16:03] "POST /recipes/13/edit HTTP/1.1" 200 -
+2026-07-27 15:16:04,014 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:16:04] "GET /recipes/13 HTTP/1.1" 200 -
+2026-07-27 15:16:04,048 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:16:04] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:16:04,048 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:16:04] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:16:04,079 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:16:04] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-27 15:16:14,981 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:16:14] "POST /recipes/13/edit HTTP/1.1" 200 -
+2026-07-27 15:16:15,270 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:16:15] "GET /recipes/13 HTTP/1.1" 200 -
+2026-07-27 15:16:15,303 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:16:15] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:16:15,303 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:16:15] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:16:15,331 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:16:15] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-27 15:16:16,770 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:16:16] "GET /recipes HTTP/1.1" 200 -
+2026-07-27 15:16:16,803 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:16:16] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:16:16,804 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:16:16] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:16:19,391 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:16:19] "GET /dashboard HTTP/1.1" 200 -
+2026-07-27 15:16:19,425 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:16:19] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:16:19,426 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:16:19] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:16:19,716 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:16:19] "GET /notifications HTTP/1.1" 200 -
+2026-07-27 15:16:48,130 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:16:48] "GET /leaderboard HTTP/1.1" 200 -
+2026-07-27 15:16:48,169 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:16:48] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:16:48,169 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:16:48] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:16:52,267 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:16:52] "GET /leaderboard HTTP/1.1" 200 -
+2026-07-27 15:16:53,458 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:16:53] "GET /flyers HTTP/1.1" 200 -
+2026-07-27 15:16:53,496 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:16:53] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:16:53,497 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:16:53] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:16:53,498 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:16:53] "[36mGET /static/logos-epiceries/maxi.png HTTP/1.1[0m" 304 -
+2026-07-27 15:16:53,500 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:16:53] "[36mGET /static/logos-epiceries/metro.png HTTP/1.1[0m" 304 -
+2026-07-27 15:16:53,502 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:16:53] "[36mGET /static/logos-epiceries/iga.png HTTP/1.1[0m" 304 -
+2026-07-27 15:16:53,502 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:16:53] "[36mGET /static/logos-epiceries/superc.png HTTP/1.1[0m" 304 -
+2026-07-27 15:16:53,508 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:16:53] "[36mGET /static/logos-epiceries/provigo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:16:54,067 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:16:54] "GET /flyers/status HTTP/1.1" 200 -
+2026-07-27 15:16:57,582 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:16:57] "GET /recipes HTTP/1.1" 200 -
+2026-07-27 15:16:57,615 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:16:57] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:16:57,619 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:16:57] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:17:40,143 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:17:40] "POST /recipes/reorder HTTP/1.1" 200 -
+2026-07-27 15:17:40,409 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:17:40] "GET /recipes HTTP/1.1" 200 -
+2026-07-27 15:17:40,458 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:17:40] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 15:17:40,461 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:17:40] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 15:17:40,521 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 15:17:40] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-27 22:16:23,921 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 22:16:23,922 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 22:16:23,922 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 22:16:23,922 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 22:16:23,922 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 22:16:23,922 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 22:16:23,929 INFO werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.63.85.221:5000
+2026-07-27 22:16:23,930 INFO werkzeug: [33mPress CTRL+C to quit[0m
+2026-07-27 22:16:23,931 INFO werkzeug:  * Restarting with stat
+2026-07-27 22:16:24,947 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 22:16:24,947 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 22:16:24,947 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 22:16:24,948 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 22:16:24,948 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 22:16:24,948 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 22:16:24,952 WARNING werkzeug:  * Debugger is active!
+2026-07-27 22:16:24,953 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-27 22:16:27,780 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:16:27] "GET / HTTP/1.1" 200 -
+2026-07-27 22:16:27,871 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:16:27] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 22:16:27,872 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:16:27] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 22:16:29,936 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:16:29] "GET /recipes HTTP/1.1" 200 -
+2026-07-27 22:16:29,969 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:16:29] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 22:16:29,970 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:16:29] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 22:16:32,255 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:16:32] "GET /recipes/13 HTTP/1.1" 200 -
+2026-07-27 22:16:32,288 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:16:32] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 22:16:32,288 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:16:32] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 22:16:34,194 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:16:34] "GET /recipes HTTP/1.1" 200 -
+2026-07-27 22:16:34,223 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:16:34] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 22:16:34,223 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:16:34] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 22:16:36,418 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:16:36] "GET /dashboard HTTP/1.1" 200 -
+2026-07-27 22:16:36,451 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:16:36] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 22:16:36,452 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:16:36] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 22:16:36,803 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:16:36] "GET /notifications HTTP/1.1" 200 -
+2026-07-27 22:20:58,625 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\app.py', reloading
+2026-07-27 22:20:58,962 INFO werkzeug:  * Restarting with stat
+2026-07-27 22:21:00,208 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 22:21:00,209 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 22:21:00,209 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 22:21:00,209 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 22:21:00,209 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 22:21:00,209 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 22:21:00,214 WARNING werkzeug:  * Debugger is active!
+2026-07-27 22:21:00,216 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-27 22:29:12,394 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\ingredients.py', reloading
+2026-07-27 22:29:12,682 INFO werkzeug:  * Restarting with stat
+2026-07-27 22:29:13,842 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 22:29:13,843 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 22:29:13,843 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 22:29:13,843 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 22:29:13,843 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 22:29:13,844 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 22:29:13,848 WARNING werkzeug:  * Debugger is active!
+2026-07-27 22:29:13,849 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-27 22:30:08,985 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\ingredients.py', reloading
+2026-07-27 22:30:09,273 INFO werkzeug:  * Restarting with stat
+2026-07-27 22:30:10,374 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 22:30:10,375 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 22:30:10,375 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 22:30:10,375 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 22:30:10,375 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 22:30:10,375 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 22:30:10,379 WARNING werkzeug:  * Debugger is active!
+2026-07-27 22:30:10,381 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-27 22:32:44,766 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\ingredients.py', reloading
+2026-07-27 22:32:45,076 INFO werkzeug:  * Restarting with stat
+2026-07-27 22:32:46,234 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 22:32:46,235 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 22:32:46,235 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 22:32:46,235 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 22:32:46,236 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 22:32:46,236 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 22:32:46,239 WARNING werkzeug:  * Debugger is active!
+2026-07-27 22:32:46,241 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-27 22:33:30,354 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\ingredients.py', reloading
+2026-07-27 22:33:30,634 INFO werkzeug:  * Restarting with stat
+2026-07-27 22:33:31,751 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 22:33:31,752 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 22:33:31,752 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 22:33:31,752 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 22:33:31,752 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 22:33:31,752 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 22:33:31,756 WARNING werkzeug:  * Debugger is active!
+2026-07-27 22:33:31,758 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-27 22:41:45,666 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:41:45] "GET / HTTP/1.1" 200 -
+2026-07-27 22:41:45,757 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:41:45] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 22:41:45,757 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:41:45] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 22:41:51,277 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:41:51] "GET /dashboard HTTP/1.1" 200 -
+2026-07-27 22:41:51,306 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:41:51] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 22:41:51,306 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:41:51] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 22:41:51,654 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:41:51] "GET /notifications HTTP/1.1" 200 -
+2026-07-27 22:41:52,975 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:41:52] "GET /admin HTTP/1.1" 200 -
+2026-07-27 22:41:53,003 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:41:53] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 22:41:53,004 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:41:53] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 22:42:02,536 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:42:02] "GET /dashboard HTTP/1.1" 200 -
+2026-07-27 22:42:03,101 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:42:03] "GET /dashboard HTTP/1.1" 200 -
+2026-07-27 22:42:03,136 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:42:03] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 22:42:03,136 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:42:03] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 22:42:03,473 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:42:03] "GET /notifications HTTP/1.1" 200 -
+2026-07-27 22:42:14,519 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:42:14] "GET /recipes HTTP/1.1" 200 -
+2026-07-27 22:42:14,549 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:42:14] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 22:42:14,551 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:42:14] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 22:42:29,207 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 22:42:29,207 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 22:42:29,207 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 22:42:29,207 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 22:42:29,208 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 22:42:29,208 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 22:42:29,215 INFO werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.63.85.221:5000
+2026-07-27 22:42:29,215 INFO werkzeug: [33mPress CTRL+C to quit[0m
+2026-07-27 22:42:29,215 INFO werkzeug:  * Restarting with stat
+2026-07-27 22:42:30,158 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 22:42:30,159 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 22:42:30,159 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 22:42:30,159 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 22:42:30,160 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 22:42:30,160 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 22:42:30,163 WARNING werkzeug:  * Debugger is active!
+2026-07-27 22:42:30,164 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-27 22:42:31,905 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:42:31] "GET /recipes HTTP/1.1" 200 -
+2026-07-27 22:42:31,944 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:42:31] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 22:42:31,944 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:42:31] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 22:42:31,996 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:42:31] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-27 22:43:20,853 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:43:20] "GET /recipes/13 HTTP/1.1" 200 -
+2026-07-27 22:43:20,889 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:43:20] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 22:43:20,890 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:43:20] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 22:43:38,277 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:43:38] "GET /flyers HTTP/1.1" 200 -
+2026-07-27 22:43:38,322 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:43:38] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 22:43:38,324 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:43:38] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 22:43:38,325 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:43:38] "GET /static/logos-epiceries/maxi.png HTTP/1.1" 200 -
+2026-07-27 22:43:38,327 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:43:38] "GET /static/logos-epiceries/metro.png HTTP/1.1" 200 -
+2026-07-27 22:43:38,327 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:43:38] "GET /static/logos-epiceries/iga.png HTTP/1.1" 200 -
+2026-07-27 22:43:38,328 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:43:38] "GET /static/logos-epiceries/superc.png HTTP/1.1" 200 -
+2026-07-27 22:43:38,337 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:43:38] "GET /static/logos-epiceries/provigo.png HTTP/1.1" 200 -
+2026-07-27 22:43:38,960 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:43:38] "GET /flyers/status HTTP/1.1" 200 -
+2026-07-27 22:43:53,259 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:43:53] "[35m[1mGET /recipes HTTP/1.1[0m" 500 -
+2026-07-27 22:43:53,290 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:43:53] "GET /recipes?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2026-07-27 22:43:53,290 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:43:53] "GET /recipes?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2026-07-27 22:43:53,318 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:43:53] "GET /recipes?__debugger__=yes&cmd=resource&f=console.png&s=mwCT6iDvubGgKl6dj8Pb HTTP/1.1" 200 -
+2026-07-27 22:43:53,331 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:43:53] "GET /recipes?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2026-07-27 22:43:53,369 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\app.py', reloading
+2026-07-27 22:43:53,636 INFO werkzeug:  * Restarting with stat
+2026-07-27 22:43:54,699 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 22:43:54,699 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 22:43:54,699 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 22:43:54,700 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 22:43:54,700 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 22:43:54,700 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 22:43:54,703 WARNING werkzeug:  * Debugger is active!
+2026-07-27 22:43:54,704 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-27 22:43:59,295 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:43:59] "GET /recipes HTTP/1.1" 200 -
+2026-07-27 22:43:59,327 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:43:59] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 22:43:59,329 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:43:59] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 22:44:20,773 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\app.py', reloading
+2026-07-27 22:44:21,007 INFO werkzeug:  * Restarting with stat
+2026-07-27 22:44:22,013 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 22:44:22,014 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 22:44:22,014 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 22:44:22,014 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 22:44:22,015 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 22:44:22,015 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 22:44:22,018 WARNING werkzeug:  * Debugger is active!
+2026-07-27 22:44:22,019 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-27 22:44:26,322 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:44:26] "GET /recipes HTTP/1.1" 200 -
+2026-07-27 22:44:26,357 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:44:26] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 22:44:26,358 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:44:26] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 22:44:26,410 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:44:26] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-27 22:44:29,093 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:44:29] "GET /recipes/13 HTTP/1.1" 200 -
+2026-07-27 22:44:29,124 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:44:29] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 22:44:29,124 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:44:29] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 22:45:05,030 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:45:05] "GET /recipes HTTP/1.1" 200 -
+2026-07-27 22:45:05,055 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:45:05] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 22:45:05,056 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:45:05] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 22:45:05,081 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:45:05] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-27 22:45:14,437 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:45:14] "GET /dashboard HTTP/1.1" 200 -
+2026-07-27 22:45:14,467 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:45:14] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 22:45:14,467 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:45:14] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 22:45:14,804 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:45:14] "GET /notifications HTTP/1.1" 200 -
+2026-07-27 22:45:15,926 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:45:15] "GET /admin HTTP/1.1" 200 -
+2026-07-27 22:45:15,955 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:45:15] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 22:45:15,955 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:45:15] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 22:47:56,486 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:47:56] "[32mPOST /admin/match-catalog HTTP/1.1[0m" 302 -
+2026-07-27 22:47:56,995 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:47:56] "GET /admin?success=Matching%20catalog%20commencé! HTTP/1.1" 200 -
+2026-07-27 22:47:57,044 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:47:57] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 22:47:57,046 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:47:57] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 22:48:59,674 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\database.py', reloading
+2026-07-27 22:49:01,960 INFO werkzeug:  * Restarting with stat
+2026-07-27 22:49:03,056 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 22:49:03,056 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 22:49:03,056 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 22:49:03,057 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 22:49:03,057 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 22:49:03,057 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 22:49:03,060 WARNING werkzeug:  * Debugger is active!
+2026-07-27 22:49:03,061 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-27 22:49:42,158 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\database.py', reloading
+2026-07-27 22:49:42,412 INFO werkzeug:  * Restarting with stat
+2026-07-27 22:49:43,443 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 22:49:43,443 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 22:49:43,443 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 22:49:43,444 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 22:49:43,444 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 22:49:43,444 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 22:49:43,447 WARNING werkzeug:  * Debugger is active!
+2026-07-27 22:49:43,449 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-27 22:50:58,631 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\app.py', reloading
+2026-07-27 22:50:58,930 INFO werkzeug:  * Restarting with stat
+2026-07-27 22:51:56,821 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 22:51:56,821 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 22:51:56,821 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 22:51:56,822 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 22:51:56,822 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 22:51:56,822 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 22:51:56,829 INFO werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.63.85.221:5000
+2026-07-27 22:51:56,829 INFO werkzeug: [33mPress CTRL+C to quit[0m
+2026-07-27 22:51:56,829 INFO werkzeug:  * Restarting with stat
+2026-07-27 22:51:57,766 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 22:51:57,766 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 22:51:57,767 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 22:51:57,767 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 22:51:57,767 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 22:51:57,767 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 22:51:57,770 WARNING werkzeug:  * Debugger is active!
+2026-07-27 22:51:57,771 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-27 22:52:50,901 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\app.py', reloading
+2026-07-27 22:52:51,144 INFO werkzeug:  * Restarting with stat
+2026-07-27 22:52:52,143 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 22:52:52,143 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 22:52:52,143 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 22:52:52,144 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 22:52:52,144 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 22:52:52,144 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 22:52:52,147 WARNING werkzeug:  * Debugger is active!
+2026-07-27 22:52:52,149 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-27 22:53:07,189 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\app.py', reloading
+2026-07-27 22:53:07,446 INFO werkzeug:  * Restarting with stat
+2026-07-27 22:53:08,465 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 22:53:08,465 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 22:53:08,466 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 22:53:08,466 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 22:53:08,466 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 22:53:08,466 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 22:53:08,469 WARNING werkzeug:  * Debugger is active!
+2026-07-27 22:53:08,471 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-27 22:53:22,673 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:53:22] "GET /admin?success=Matching%20catalog%20commencé! HTTP/1.1" 200 -
+2026-07-27 22:53:22,729 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:53:22] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 22:53:22,730 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:53:22] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 22:53:22,793 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:53:22] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-27 22:53:23,059 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:53:23] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:53:33,544 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 22:53:33,544 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 22:53:33,545 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 22:53:33,545 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 22:53:33,545 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 22:53:33,545 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 22:53:33,551 INFO werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.63.85.221:5000
+2026-07-27 22:53:33,551 INFO werkzeug: [33mPress CTRL+C to quit[0m
+2026-07-27 22:53:33,552 INFO werkzeug:  * Restarting with stat
+2026-07-27 22:53:34,512 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 22:53:34,512 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 22:53:34,512 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 22:53:34,512 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 22:53:34,513 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 22:53:34,513 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 22:53:34,516 WARNING werkzeug:  * Debugger is active!
+2026-07-27 22:53:34,517 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-27 22:53:34,820 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:53:34] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:53:35,124 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:53:35] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:53:36,574 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:53:36] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:53:38,061 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:53:38] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:53:39,562 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:53:39] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:53:41,070 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:53:41] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:53:42,575 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:53:42] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:53:44,064 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:53:44] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:53:45,559 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:53:45] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:53:47,070 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:53:47] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:53:48,599 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:53:48] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:53:50,077 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:53:50] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:53:51,582 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:53:51] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:53:53,089 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:53:53] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:53:54,592 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:53:54] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:53:56,074 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:53:56] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:53:57,582 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:53:57] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:53:59,083 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:53:59] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:54:00,575 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:54:00] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:54:02,168 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:54:02] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:54:03,573 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:54:03] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:54:05,071 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:54:05] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:54:06,574 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:54:06] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:54:08,068 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:54:08] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:54:09,560 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:54:09] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:54:11,069 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:54:11] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:54:12,564 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:54:12] "GET /admin?success=Matching%20catalog%20commencé! HTTP/1.1" 200 -
+2026-07-27 22:54:12,606 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:54:12] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 22:54:12,606 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:54:12] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 22:54:12,677 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:54:12] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-27 22:54:12,938 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:54:12] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:54:12,971 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:54:12] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:54:14,436 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:54:14] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:54:15,944 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:54:15] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:54:17,450 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:54:17] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:54:18,946 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:54:18] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:54:20,448 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:54:20] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:54:21,947 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:54:21] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:54:23,459 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:54:23] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:54:24,942 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:54:24] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:54:25,745 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:54:25] "GET /admin?success=Matching%20catalog%20commencé! HTTP/1.1" 200 -
+2026-07-27 22:54:25,781 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:54:25] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 22:54:25,781 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:54:25] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 22:54:25,844 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:54:25] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-27 22:54:26,107 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:54:26] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:54:27,615 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:54:27] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:54:29,120 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:54:29] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:54:30,613 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:54:30] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:54:32,145 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:54:32] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:54:33,624 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:54:33] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:54:35,121 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:54:35] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:54:36,621 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:54:36] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:54:38,138 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:54:38] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:54:39,629 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:54:39] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:54:41,120 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:54:41] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:54:42,623 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:54:42] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:54:44,111 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:54:44] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:54:45,617 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:54:45] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:54:46,813 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:54:46,814 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:54:46] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:54:48,319 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:54:48,320 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:54:48] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:54:49,820 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:54:49,821 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:54:49] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:54:51,326 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:54:51,327 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:54:51] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:54:52,826 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:54:52,827 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:54:52] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:54:54,316 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:54:54,317 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:54:54] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:54:55,820 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:54:55,821 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:54:55] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:54:57,314 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:54:57,315 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:54:57] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:54:58,822 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:54:58,822 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:54:58] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:55:00,317 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:55:00,318 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:55:00] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:55:01,822 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:55:01,822 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:55:01] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:55:03,318 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:55:03,319 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:55:03] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:55:04,827 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:55:04,827 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:55:04] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:55:06,313 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:55:06,314 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:55:06] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:55:07,826 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:55:07,826 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:55:07] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:55:09,316 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:55:09,317 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:55:09] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:55:10,024 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:55:10] "GET /dashboard HTTP/1.1" 200 -
+2026-07-27 22:55:10,059 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:55:10] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 22:55:10,060 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:55:10] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 22:55:10,395 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:55:10] "GET /notifications HTTP/1.1" 200 -
+2026-07-27 22:56:00,029 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 22:56:00,029 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 22:56:00,029 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 22:56:00,030 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 22:56:00,030 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 22:56:00,030 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 22:56:00,038 INFO werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.63.85.221:5000
+2026-07-27 22:56:00,038 INFO werkzeug: [33mPress CTRL+C to quit[0m
+2026-07-27 22:56:00,039 INFO werkzeug:  * Restarting with stat
+2026-07-27 22:56:01,054 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 22:56:01,054 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 22:56:01,054 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 22:56:01,055 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 22:56:01,055 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 22:56:01,055 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 22:56:01,059 WARNING werkzeug:  * Debugger is active!
+2026-07-27 22:56:01,061 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-27 22:56:01,067 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:56:01] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-27 22:56:01,690 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:56:01] "GET /recipes HTTP/1.1" 200 -
+2026-07-27 22:56:05,098 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:56:05] "GET /admin HTTP/1.1" 200 -
+2026-07-27 22:56:05,135 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:56:05] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 22:56:05,135 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:56:05] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 22:56:08,248 INFO tartine.scheduler: Starting async catalog/discount matching for 2026-07-23
+2026-07-27 22:56:08,372 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:56:08] "POST /admin/match-catalog HTTP/1.1" 200 -
+2026-07-27 22:56:08,464 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:56:08] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:56:09,767 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:56:09] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:56:11,260 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:56:11] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:56:12,765 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:56:12] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:56:14,261 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:56:14] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:56:15,760 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:56:15] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:56:17,282 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:56:17] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:56:18,769 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:56:18] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:56:20,254 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:56:20] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:56:21,764 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:56:21] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:56:23,265 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:56:23] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:56:24,765 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:56:24] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:56:26,263 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:56:26] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:56:27,764 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:56:27] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:56:29,255 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:56:29] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:56:30,757 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:56:30] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:56:32,254 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:56:32] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:56:33,756 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:56:33] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:56:35,267 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:56:35] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:56:36,756 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:56:36] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:56:38,259 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:56:38] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:56:39,756 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:56:39] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:56:41,298 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:56:41] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:56:42,757 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:56:42] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:56:44,277 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:56:44] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:56:45,754 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:56:45] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:56:47,283 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:56:47] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:56:48,758 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:56:48] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:56:50,253 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:56:50] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:56:51,748 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:56:51] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:56:53,259 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:56:53] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:56:54,761 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:56:54] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:56:56,272 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:56:56] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:56:57,764 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:56:57] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:56:59,257 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:56:59] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:57:00,758 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:57:00] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:57:02,251 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:57:02] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:57:03,748 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:57:03] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:57:05,257 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:57:05] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:57:06,762 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:57:06] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:57:08,254 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:57:08] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:57:09,756 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:57:09] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:57:11,251 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:57:11] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:57:12,763 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:57:12] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:57:14,274 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:57:14] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:57:15,758 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:57:15] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:57:17,248 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:57:17] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:57:18,740 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:57:18] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:57:20,247 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:57:20] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:57:21,764 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:57:21] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:57:22,954 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:57:22,955 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:57:22] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:57:24,443 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:57:24,443 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:57:24] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:57:25,958 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:57:25,958 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:57:25] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:57:27,458 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:57:27,458 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:57:27] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:57:28,953 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:57:28,953 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:57:28] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:57:30,447 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:57:30,447 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:57:30] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:57:31,943 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:57:31,944 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:57:31] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:57:33,456 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:57:33,456 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:57:33] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:57:34,953 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:57:34,953 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:57:34] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:57:36,454 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:57:36,454 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:57:36] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:57:37,944 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:57:37,944 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:57:37] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:57:39,443 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:57:39,443 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:57:39] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:57:40,955 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:57:40,956 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:57:40] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:57:42,456 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:57:42,456 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:57:42] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:57:43,957 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:57:43,958 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:57:43] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:57:45,452 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:57:45,453 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:57:45] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:57:46,950 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:57:46,951 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:57:46] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:57:48,454 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:57:48,455 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:57:48] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:57:49,953 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:57:49,954 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:57:49] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:57:51,457 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:57:51,458 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:57:51] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:57:52,954 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:57:52,954 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:57:52] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:57:54,447 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:57:54,447 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:57:54] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:57:55,951 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:57:55,952 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:57:55] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:57:57,449 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:57:57,449 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:57:57] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:57:58,956 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:57:58,957 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:57:58] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:58:00,455 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:58:00,456 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:58:00] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:58:01,955 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:58:01,956 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:58:01] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:58:03,457 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:58:03,458 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:58:03] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:58:04,945 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:58:04,945 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:58:04] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:58:06,442 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:58:06,443 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:58:06] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:58:07,954 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:58:07,955 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:58:07] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:58:09,447 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:58:09,448 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:58:09] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:58:10,954 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:58:10,955 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:58:10] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:58:12,449 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:58:12,449 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:58:12] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:58:13,948 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:58:13,949 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:58:13] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:58:15,456 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:58:15,456 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:58:15] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:58:16,948 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:58:16,948 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:58:16] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:58:18,455 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:58:18,455 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:58:18] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:58:19,958 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:58:19,958 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:58:19] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:58:21,451 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:58:21,451 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:58:21] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:58:22,946 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:58:22,947 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:58:22] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:58:24,456 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:58:24,456 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:58:24] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:58:25,949 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:58:25,949 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:58:25] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:58:27,445 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:58:27,446 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:58:27] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:58:28,949 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:58:28,949 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:58:28] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:58:30,458 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:58:30,458 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:58:30] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:58:31,951 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:58:31,952 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:58:31] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:58:33,447 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:58:33,447 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:58:33] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:58:34,955 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:58:34,956 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:58:34] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:58:36,456 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:58:36,456 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:58:36] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:58:37,951 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:58:37,952 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:58:37] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:58:39,446 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:58:39,446 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:58:39] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:58:40,958 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:58:40,958 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:58:40] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:58:42,456 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:58:42,456 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:58:42] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:58:43,946 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:58:43,946 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:58:43] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:58:45,457 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:58:45,457 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:58:45] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:58:46,953 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:58:46,953 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:58:46] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:58:48,453 INFO flask-limiter: ratelimit 50 per 1 hour (127.0.0.1) exceeded at endpoint: admin_match_status
+2026-07-27 22:58:48,454 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:58:48] "[31m[1mGET /admin/match-status HTTP/1.1[0m" 429 -
+2026-07-27 22:58:48,460 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\extensions.py', reloading
+2026-07-27 22:58:50,656 INFO werkzeug:  * Restarting with stat
+2026-07-27 22:58:51,690 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 22:58:51,690 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 22:58:51,691 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 22:58:51,691 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 22:58:51,691 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 22:58:51,691 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 22:58:51,694 WARNING werkzeug:  * Debugger is active!
+2026-07-27 22:58:51,695 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-27 22:58:52,031 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:58:52] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:58:52,342 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:58:52] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:58:53,263 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:58:53] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:58:54,753 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:58:54] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:58:56,251 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:58:56] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:58:57,765 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:58:57] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:58:59,261 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:58:59] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:59:00,749 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:59:00] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:59:02,254 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:59:02] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:59:03,768 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:59:03] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:59:05,265 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:59:05] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:59:06,764 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:59:06] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:59:08,260 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:59:08] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:59:09,762 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:59:09] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:59:11,273 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:59:11] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:59:12,760 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:59:12] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:59:14,265 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:59:14] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:59:15,761 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:59:15] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:59:17,254 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:59:17] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:59:18,754 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:59:18] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:59:20,258 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:59:20] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:59:21,754 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:59:21] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:59:23,260 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:59:23] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:59:24,775 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:59:24] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:59:26,259 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:59:26] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:59:27,766 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:59:27] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:59:29,267 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:59:29] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:59:30,765 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:59:30] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:59:32,334 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:59:32] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:59:33,766 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:59:33] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:59:34,801 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\app.py', reloading
+2026-07-27 22:59:35,028 INFO werkzeug:  * Restarting with stat
+2026-07-27 22:59:35,994 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 22:59:35,995 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 22:59:35,995 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 22:59:35,996 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 22:59:35,996 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 22:59:35,996 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 22:59:35,999 WARNING werkzeug:  * Debugger is active!
+2026-07-27 22:59:36,000 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-27 22:59:36,321 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:59:36] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:59:36,755 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:59:36] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:59:38,257 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:59:38] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:59:39,761 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:59:39] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:59:41,265 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:59:41] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:59:42,774 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:59:42] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:59:44,259 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:59:44] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 22:59:44,819 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:59:44] "GET /admin HTTP/1.1" 200 -
+2026-07-27 22:59:44,861 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:59:44] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 22:59:44,862 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:59:44] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 22:59:44,923 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 22:59:44] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-27 23:02:58,482 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\app.py', reloading
+2026-07-27 23:02:58,756 INFO werkzeug:  * Restarting with stat
+2026-07-27 23:02:59,869 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:02:59,870 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:02:59,870 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 23:02:59,870 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 23:02:59,870 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 23:02:59,871 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 23:02:59,874 WARNING werkzeug:  * Debugger is active!
+2026-07-27 23:02:59,875 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-27 23:03:01,885 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\app.py', reloading
+2026-07-27 23:03:02,120 INFO werkzeug:  * Restarting with stat
+2026-07-27 23:03:03,097 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:03:03,097 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:03:03,097 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 23:03:03,098 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 23:03:03,098 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 23:03:03,098 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 23:03:03,101 WARNING werkzeug:  * Debugger is active!
+2026-07-27 23:03:03,103 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-27 23:03:51,216 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\ingredients.py', reloading
+2026-07-27 23:03:51,476 INFO werkzeug:  * Restarting with stat
+2026-07-27 23:07:33,970 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:07:33,970 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:07:33,970 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 23:07:33,971 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 23:07:33,971 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 23:07:33,971 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 23:07:33,978 INFO werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.63.85.221:5000
+2026-07-27 23:07:33,978 INFO werkzeug: [33mPress CTRL+C to quit[0m
+2026-07-27 23:07:33,979 INFO werkzeug:  * Restarting with stat
+2026-07-27 23:07:35,005 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:07:35,006 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:07:35,006 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 23:07:35,006 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 23:07:35,007 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 23:07:35,007 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 23:07:35,010 WARNING werkzeug:  * Debugger is active!
+2026-07-27 23:07:35,012 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-27 23:07:37,382 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:07:37] "GET /dashboard HTTP/1.1" 200 -
+2026-07-27 23:07:37,428 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:07:37] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 23:07:37,429 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:07:37] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 23:07:37,497 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:07:37] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-27 23:07:37,810 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:07:37] "GET /notifications HTTP/1.1" 200 -
+2026-07-27 23:07:39,506 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:07:39] "GET /notifications HTTP/1.1" 200 -
+2026-07-27 23:07:40,778 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:07:40] "POST /notifications/read/219 HTTP/1.1" 200 -
+2026-07-27 23:07:46,071 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:07:46] "GET /admin HTTP/1.1" 200 -
+2026-07-27 23:07:46,106 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:07:46] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 23:07:46,106 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:07:46] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 23:07:46,424 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:07:46] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:07:48,021 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:07:48] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:07:48,193 INFO tartine.scheduler: Starting async catalog/discount matching for 2026-07-23
+2026-07-27 23:07:48,194 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:07:48] "POST /admin/match-catalog HTTP/1.1" 200 -
+2026-07-27 23:07:52,995 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:07:52] "GET /dashboard HTTP/1.1" 200 -
+2026-07-27 23:07:53,028 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:07:53] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 23:07:53,029 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:07:53] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 23:07:53,364 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:07:53] "GET /notifications HTTP/1.1" 200 -
+2026-07-27 23:07:54,665 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:07:54] "GET /admin HTTP/1.1" 200 -
+2026-07-27 23:07:54,695 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:07:54] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 23:07:54,695 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:07:54] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 23:07:55,249 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:07:55] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:09:58,230 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:09:58,231 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:09:58,231 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 23:09:58,231 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 23:09:58,231 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 23:09:58,231 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 23:09:58,239 INFO werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.63.85.221:5000
+2026-07-27 23:09:58,240 INFO werkzeug: [33mPress CTRL+C to quit[0m
+2026-07-27 23:09:58,240 INFO werkzeug:  * Restarting with stat
+2026-07-27 23:09:59,242 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:09:59,242 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:09:59,242 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 23:09:59,242 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 23:09:59,243 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 23:09:59,243 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 23:09:59,246 WARNING werkzeug:  * Debugger is active!
+2026-07-27 23:09:59,247 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-27 23:09:59,785 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:09:59] "GET /admin HTTP/1.1" 200 -
+2026-07-27 23:09:59,883 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:09:59] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 23:09:59,885 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:09:59] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 23:10:00,016 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:10:00] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-27 23:10:00,243 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:10:00] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:10:06,241 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:10:06] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:10:06,449 INFO tartine.scheduler: Starting async catalog/discount matching for 2026-07-23
+2026-07-27 23:10:06,450 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:10:06] "POST /admin/match-catalog HTTP/1.1" 200 -
+2026-07-27 23:10:33,665 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:10:33] "GET /dashboard HTTP/1.1" 200 -
+2026-07-27 23:10:33,715 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:10:33] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 23:10:33,715 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:10:33] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 23:10:34,094 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:10:34] "GET /notifications HTTP/1.1" 200 -
+2026-07-27 23:10:35,669 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:10:35] "GET /admin HTTP/1.1" 200 -
+2026-07-27 23:10:35,697 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:10:35] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 23:10:35,700 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:10:35] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 23:10:36,018 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:10:36] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:11:00,753 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:11:00] "GET /dashboard HTTP/1.1" 200 -
+2026-07-27 23:11:00,788 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:11:00] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 23:11:00,788 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:11:00] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 23:11:01,120 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:11:01] "GET /notifications HTTP/1.1" 200 -
+2026-07-27 23:11:03,256 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:11:03] "GET /admin HTTP/1.1" 200 -
+2026-07-27 23:11:03,289 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:11:03] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 23:11:03,290 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:11:03] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 23:11:03,610 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:11:03] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:15:07,113 INFO tartine.scheduler: Async catalog/discount matching completed for 2026-07-23
+2026-07-27 23:15:44,067 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\ingredients.py', reloading
+2026-07-27 23:15:46,424 INFO werkzeug:  * Restarting with stat
+2026-07-27 23:15:47,650 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:15:47,651 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:15:47,651 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 23:15:47,651 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 23:15:47,651 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 23:15:47,651 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 23:15:47,655 WARNING werkzeug:  * Debugger is active!
+2026-07-27 23:15:47,657 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-27 23:16:14,728 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\ingredients.py', reloading
+2026-07-27 23:16:14,999 INFO werkzeug:  * Restarting with stat
+2026-07-27 23:16:16,097 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:16:16,097 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:16:16,097 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 23:16:16,097 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 23:16:16,097 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 23:16:16,097 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 23:16:16,101 WARNING werkzeug:  * Debugger is active!
+2026-07-27 23:16:16,103 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-27 23:17:03,000 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:17:03] "GET /dashboard HTTP/1.1" 200 -
+2026-07-27 23:17:03,049 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:17:03] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 23:17:03,050 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:17:03] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 23:17:03,402 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:17:03] "GET /notifications HTTP/1.1" 200 -
+2026-07-27 23:17:05,395 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:17:05] "GET /admin HTTP/1.1" 200 -
+2026-07-27 23:17:05,431 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:17:05] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 23:17:05,432 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:17:05] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 23:17:06,054 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:17:06] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:17:29,287 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\ingredients.py', reloading
+2026-07-27 23:17:29,590 INFO werkzeug:  * Restarting with stat
+2026-07-27 23:17:31,049 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:17:31,050 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:17:31,050 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 23:17:31,050 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 23:17:31,050 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 23:17:31,050 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 23:17:31,054 WARNING werkzeug:  * Debugger is active!
+2026-07-27 23:17:31,056 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-27 23:17:58,132 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\app.py', reloading
+2026-07-27 23:17:58,454 INFO werkzeug:  * Restarting with stat
+2026-07-27 23:17:59,549 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:17:59,549 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:17:59,550 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 23:17:59,550 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 23:17:59,550 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 23:17:59,550 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 23:17:59,554 WARNING werkzeug:  * Debugger is active!
+2026-07-27 23:17:59,555 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-27 23:18:12,591 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\ingredients.py', reloading
+2026-07-27 23:18:12,868 INFO werkzeug:  * Restarting with stat
+2026-07-27 23:18:13,997 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:18:13,998 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:18:13,998 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 23:18:13,998 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 23:18:13,998 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 23:18:13,998 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 23:18:14,002 WARNING werkzeug:  * Debugger is active!
+2026-07-27 23:18:14,003 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-27 23:19:35,640 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:19:35] "GET /flyers HTTP/1.1" 200 -
+2026-07-27 23:19:35,700 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:19:35] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 23:19:35,701 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:19:35] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 23:19:35,703 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:19:35] "[36mGET /static/logos-epiceries/maxi.png HTTP/1.1[0m" 304 -
+2026-07-27 23:19:35,704 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:19:35] "[36mGET /static/logos-epiceries/metro.png HTTP/1.1[0m" 304 -
+2026-07-27 23:19:35,705 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:19:35] "[36mGET /static/logos-epiceries/iga.png HTTP/1.1[0m" 304 -
+2026-07-27 23:19:35,706 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:19:35] "[36mGET /static/logos-epiceries/superc.png HTTP/1.1[0m" 304 -
+2026-07-27 23:19:35,711 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:19:35] "[36mGET /static/logos-epiceries/provigo.png HTTP/1.1[0m" 304 -
+2026-07-27 23:19:36,275 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:19:36] "GET /flyers/status HTTP/1.1" 200 -
+2026-07-27 23:19:42,070 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:19:42] "GET /recipes HTTP/1.1" 200 -
+2026-07-27 23:19:42,100 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:19:42] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 23:19:42,105 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:19:42] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 23:20:05,275 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\ingredients.py', reloading
+2026-07-27 23:20:05,578 INFO werkzeug:  * Restarting with stat
+2026-07-27 23:20:06,724 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:20:06,725 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:20:06,725 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 23:20:06,725 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 23:20:06,725 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 23:20:06,725 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 23:20:06,729 WARNING werkzeug:  * Debugger is active!
+2026-07-27 23:20:06,731 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-27 23:20:13,755 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\app.py', reloading
+2026-07-27 23:20:14,019 INFO werkzeug:  * Restarting with stat
+2026-07-27 23:20:15,068 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:20:15,068 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:20:15,068 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 23:20:15,068 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 23:20:15,069 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 23:20:15,069 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 23:20:15,072 WARNING werkzeug:  * Debugger is active!
+2026-07-27 23:20:15,074 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-27 23:21:19,196 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:21:19] "GET /dashboard HTTP/1.1" 200 -
+2026-07-27 23:21:19,238 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:21:19] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 23:21:19,238 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:21:19] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 23:21:19,658 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:21:19] "GET /notifications HTTP/1.1" 200 -
+2026-07-27 23:21:21,032 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:21:21] "GET /admin HTTP/1.1" 200 -
+2026-07-27 23:21:21,065 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:21:21] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 23:21:21,065 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:21:21] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 23:21:21,393 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:21:21] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:21:29,214 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:21:29] "POST /admin/test-gemini-prompt HTTP/1.1" 200 -
+2026-07-27 23:23:42,568 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\app.py', reloading
+2026-07-27 23:23:45,007 INFO werkzeug:  * Restarting with stat
+2026-07-27 23:23:46,381 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:23:46,382 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:23:46,382 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 23:23:46,382 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 23:23:46,382 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 23:23:46,383 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 23:23:46,386 WARNING werkzeug:  * Debugger is active!
+2026-07-27 23:23:46,387 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-27 23:23:53,410 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\ingredients.py', reloading
+2026-07-27 23:23:53,644 INFO werkzeug:  * Restarting with stat
+2026-07-27 23:23:54,683 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:23:54,683 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:23:54,683 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 23:23:54,683 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 23:23:54,683 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 23:23:54,684 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 23:23:54,687 WARNING werkzeug:  * Debugger is active!
+2026-07-27 23:23:54,688 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-27 23:24:19,588 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:24:19] "GET /admin HTTP/1.1" 200 -
+2026-07-27 23:24:19,621 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:24:19] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 23:24:19,621 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:24:19] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 23:24:19,685 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:24:19] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-27 23:24:19,977 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:24:19] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:24:25,699 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:24:25] "POST /admin/test-gemini-prompt HTTP/1.1" 200 -
+2026-07-27 23:25:33,378 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:25:33] "GET /admin HTTP/1.1" 200 -
+2026-07-27 23:25:33,411 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:25:33] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 23:25:33,411 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:25:33] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 23:25:33,478 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:25:33] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-27 23:25:33,796 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:25:33] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:25:43,132 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:25:43] "GET /dashboard HTTP/1.1" 200 -
+2026-07-27 23:25:43,163 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:25:43] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 23:25:43,164 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:25:43] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 23:25:43,551 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:25:43] "GET /notifications HTTP/1.1" 200 -
+2026-07-27 23:25:45,521 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:25:45] "GET /admin HTTP/1.1" 200 -
+2026-07-27 23:25:45,544 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:25:45] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 23:25:45,545 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:25:45] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 23:25:45,873 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:25:45] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:25:56,169 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:25:56] "POST /admin/test-gemini-prompt HTTP/1.1" 200 -
+2026-07-27 23:26:53,113 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\ingredients.py', reloading
+2026-07-27 23:26:55,473 INFO werkzeug:  * Restarting with stat
+2026-07-27 23:26:56,591 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:26:56,591 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:26:56,591 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 23:26:56,591 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 23:26:56,592 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 23:26:56,592 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 23:26:56,595 WARNING werkzeug:  * Debugger is active!
+2026-07-27 23:26:56,596 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-27 23:27:21,661 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\ingredients.py', reloading
+2026-07-27 23:27:21,950 INFO werkzeug:  * Restarting with stat
+2026-07-27 23:27:22,967 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:27:22,968 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:27:22,968 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 23:27:22,968 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 23:27:22,968 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 23:27:22,968 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 23:27:22,972 WARNING werkzeug:  * Debugger is active!
+2026-07-27 23:27:22,973 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-27 23:27:42,584 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:27:42] "GET /admin HTTP/1.1" 200 -
+2026-07-27 23:27:42,617 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:27:42] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 23:27:42,617 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:27:42] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 23:27:42,685 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:27:42] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-27 23:27:42,947 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:27:42] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:27:45,909 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:27:45] "[35m[1mPOST /admin/test-gemini-prompt HTTP/1.1[0m" 500 -
+2026-07-27 23:30:12,247 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:30:12,248 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:30:12,248 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 23:30:12,248 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 23:30:12,248 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 23:30:12,248 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 23:30:12,255 INFO werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.63.85.221:5000
+2026-07-27 23:30:12,255 INFO werkzeug: [33mPress CTRL+C to quit[0m
+2026-07-27 23:30:12,256 INFO werkzeug:  * Restarting with stat
+2026-07-27 23:30:13,271 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:30:13,272 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:30:13,272 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 23:30:13,272 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 23:30:13,272 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 23:30:13,272 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 23:30:13,275 WARNING werkzeug:  * Debugger is active!
+2026-07-27 23:30:13,277 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-27 23:30:16,642 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:30:16] "GET /admin HTTP/1.1" 200 -
+2026-07-27 23:30:16,675 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:30:16] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 23:30:16,675 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:30:16] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 23:30:16,736 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:30:16] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-27 23:30:17,013 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:30:17] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:30:18,617 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:30:18] "[35m[1mPOST /admin/test-gemini-prompt HTTP/1.1[0m" 500 -
+2026-07-27 23:30:18,626 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:30:18] "GET /admin?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2026-07-27 23:33:03,677 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\ingredients.py', reloading
+2026-07-27 23:33:03,922 INFO werkzeug:  * Restarting with stat
+2026-07-27 23:33:05,021 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:33:05,022 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:33:05,022 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 23:33:05,022 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 23:33:05,022 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 23:33:05,022 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 23:33:05,025 WARNING werkzeug:  * Debugger is active!
+2026-07-27 23:33:05,027 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-27 23:33:25,218 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:33:25] "GET / HTTP/1.1" 200 -
+2026-07-27 23:33:25,315 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:33:25] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 23:33:25,316 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:33:25] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 23:33:30,566 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:33:30] "GET /dashboard HTTP/1.1" 200 -
+2026-07-27 23:33:30,590 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:33:30] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 23:33:30,590 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:33:30] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 23:33:31,195 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:33:31] "GET /notifications HTTP/1.1" 200 -
+2026-07-27 23:33:32,072 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:33:32] "GET /admin HTTP/1.1" 200 -
+2026-07-27 23:33:32,097 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:33:32] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 23:33:32,098 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:33:32] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 23:33:32,415 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:33:32] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:33:39,010 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:33:39] "POST /admin/test-gemini-prompt HTTP/1.1" 200 -
+2026-07-27 23:35:09,331 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\ingredients.py', reloading
+2026-07-27 23:35:11,652 INFO werkzeug:  * Restarting with stat
+2026-07-27 23:35:12,687 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:35:12,687 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:35:12,687 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 23:35:12,688 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 23:35:12,688 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 23:35:12,688 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 23:35:12,691 WARNING werkzeug:  * Debugger is active!
+2026-07-27 23:35:12,693 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-27 23:35:31,155 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:35:31] "GET /admin HTTP/1.1" 200 -
+2026-07-27 23:35:31,190 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:35:31] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 23:35:31,191 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:35:31] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 23:35:31,249 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:35:31] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-27 23:35:31,517 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:35:31] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:35:41,050 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:35:41,051 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:35:41,051 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 23:35:41,051 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 23:35:41,051 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 23:35:41,051 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 23:35:41,058 INFO werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.63.85.221:5000
+2026-07-27 23:35:41,058 INFO werkzeug: [33mPress CTRL+C to quit[0m
+2026-07-27 23:35:41,058 INFO werkzeug:  * Restarting with stat
+2026-07-27 23:35:42,000 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:35:42,001 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:35:42,001 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 23:35:42,001 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 23:35:42,001 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 23:35:42,002 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 23:35:42,005 WARNING werkzeug:  * Debugger is active!
+2026-07-27 23:35:42,006 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-27 23:35:45,530 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:35:45] "GET /admin HTTP/1.1" 200 -
+2026-07-27 23:35:45,555 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:35:45] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 23:35:45,556 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:35:45] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 23:35:45,588 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:35:45] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-27 23:35:46,117 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:35:46] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:35:52,154 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:35:52] "POST /admin/test-gemini-prompt HTTP/1.1" 200 -
+2026-07-27 23:37:30,270 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\ingredients.py', reloading
+2026-07-27 23:37:32,509 INFO werkzeug:  * Restarting with stat
+2026-07-27 23:37:33,597 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:37:33,598 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:37:33,598 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 23:37:33,598 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 23:37:33,598 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 23:37:33,598 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 23:37:33,602 WARNING werkzeug:  * Debugger is active!
+2026-07-27 23:37:33,603 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-27 23:37:45,407 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:37:45] "GET /admin HTTP/1.1" 200 -
+2026-07-27 23:37:45,442 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:37:45] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 23:37:45,443 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:37:45] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 23:37:45,508 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:37:45] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-27 23:37:45,776 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:37:45] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:37:53,830 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:37:53] "POST /admin/test-gemini-prompt HTTP/1.1" 200 -
+2026-07-27 23:40:23,999 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:40:23] "GET /admin HTTP/1.1" 200 -
+2026-07-27 23:40:24,038 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:40:24] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 23:40:24,039 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:40:24] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 23:40:24,106 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:40:24] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-27 23:40:24,382 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:40:24] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:40:26,189 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:40:26] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:40:26,452 INFO tartine.scheduler: Starting async catalog/discount matching for 2026-07-23
+2026-07-27 23:40:26,452 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:40:26] "POST /admin/match-catalog HTTP/1.1" 200 -
+2026-07-27 23:40:47,535 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:40:47] "GET /dashboard HTTP/1.1" 200 -
+2026-07-27 23:40:47,568 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:40:47] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 23:40:47,568 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:40:47] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 23:40:47,952 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:40:47] "GET /notifications HTTP/1.1" 200 -
+2026-07-27 23:40:49,717 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:40:49] "GET /admin HTTP/1.1" 200 -
+2026-07-27 23:40:49,738 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:40:49] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 23:40:49,739 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:40:49] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 23:40:50,060 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:40:50] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:42:49,467 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:42:49] "GET /dashboard HTTP/1.1" 200 -
+2026-07-27 23:42:49,497 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:42:49] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 23:42:49,498 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:42:49] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 23:42:49,881 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:42:49] "GET /notifications HTTP/1.1" 200 -
+2026-07-27 23:42:51,020 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:42:51] "GET /admin HTTP/1.1" 200 -
+2026-07-27 23:42:51,049 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:42:51] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 23:42:51,049 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:42:51] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 23:42:51,847 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:42:51] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:45:28,931 INFO tartine.scheduler: Async catalog/discount matching completed for 2026-07-23
+2026-07-27 23:46:00,613 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:46:00] "GET /dashboard HTTP/1.1" 200 -
+2026-07-27 23:46:00,654 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:46:00] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 23:46:00,654 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:46:00] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 23:46:01,006 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:46:01] "GET /notifications HTTP/1.1" 200 -
+2026-07-27 23:46:05,539 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:46:05] "GET /admin HTTP/1.1" 200 -
+2026-07-27 23:46:05,573 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:46:05] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 23:46:05,573 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:46:05] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 23:46:05,904 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:46:05] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:48:50,562 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\ingredients.py', reloading
+2026-07-27 23:48:52,861 INFO werkzeug:  * Restarting with stat
+2026-07-27 23:48:53,958 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:48:53,959 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:48:53,959 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 23:48:53,959 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 23:48:53,960 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 23:48:53,960 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 23:48:53,963 WARNING werkzeug:  * Debugger is active!
+2026-07-27 23:48:53,964 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-27 23:50:35,206 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\ingredients.py', reloading
+2026-07-27 23:50:35,424 INFO werkzeug:  * Restarting with stat
+2026-07-27 23:50:36,474 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:50:36,474 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-27 23:50:36,474 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-27 23:50:36,474 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-27 23:50:36,475 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-27 23:50:36,475 INFO apscheduler.scheduler: Scheduler started
+2026-07-27 23:50:36,478 WARNING werkzeug:  * Debugger is active!
+2026-07-27 23:50:36,480 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-27 23:50:50,716 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:50:50] "GET /dashboard HTTP/1.1" 200 -
+2026-07-27 23:50:50,754 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:50:50] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 23:50:50,755 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:50:50] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 23:50:51,131 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:50:51] "GET /notifications HTTP/1.1" 200 -
+2026-07-27 23:50:52,858 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:50:52] "GET /admin HTTP/1.1" 200 -
+2026-07-27 23:50:52,886 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:50:52] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 23:50:52,887 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:50:52] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 23:50:53,217 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:50:53] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:50:58,053 INFO tartine.scheduler: Starting async catalog/discount matching for 2026-07-23
+2026-07-27 23:50:58,053 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:50:58] "POST /admin/match-catalog HTTP/1.1" 200 -
+2026-07-27 23:50:58,347 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:50:58] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:50:59,583 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:50:59] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:51:01,063 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:51:01] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:51:02,557 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:51:02] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:51:04,069 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:51:04] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:51:05,819 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:51:05] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:51:07,059 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:51:07] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:51:08,567 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:51:08] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:51:10,063 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:51:10] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:51:11,563 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:51:11] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:51:13,323 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:51:13] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:51:14,828 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:51:14] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:51:16,077 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:51:16] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:51:17,841 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:51:17] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:51:19,075 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:51:19] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:51:20,563 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:51:20] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:51:22,111 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:51:22] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:51:23,563 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:51:23] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:51:25,067 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:51:25] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:51:26,569 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:51:26] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:51:28,073 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:51:28] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:51:29,563 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:51:29] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:51:31,077 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:51:31] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:51:32,583 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:51:32] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:51:34,071 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:51:34] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:51:35,815 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:51:35] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:51:37,082 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:51:37] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:51:38,807 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:51:38] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:51:40,056 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:51:40] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:51:41,586 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:51:41] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:51:43,070 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:51:43] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:51:44,574 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:51:44] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:51:46,073 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:51:46] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:51:47,565 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:51:47] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:51:49,068 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:51:49] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:51:50,566 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:51:50] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:51:52,065 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:51:52] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:51:53,821 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:51:53] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:51:55,069 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:51:55] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:51:56,577 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:51:56] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:51:58,094 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:51:58] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:51:59,815 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:51:59] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:52:01,064 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:52:01] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:52:02,578 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:52:02] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:52:04,060 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:52:04] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:52:05,562 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:52:05] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:52:07,250 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:52:07] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:52:08,556 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:52:08] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:52:10,061 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:52:10] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:52:11,646 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:52:11] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:52:13,187 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:52:13] "GET /dashboard HTTP/1.1" 200 -
+2026-07-27 23:52:13,228 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:52:13] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 23:52:13,229 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:52:13] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 23:52:13,270 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:52:13] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:52:13,589 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:52:13] "GET /notifications HTTP/1.1" 200 -
+2026-07-27 23:52:15,270 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:52:15] "GET /admin HTTP/1.1" 200 -
+2026-07-27 23:52:15,306 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:52:15] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 23:52:15,306 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:52:15] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 23:52:15,639 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:52:15] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:53:58,630 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:53:58] "GET /dashboard HTTP/1.1" 200 -
+2026-07-27 23:53:58,667 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:53:58] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 23:53:58,667 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:53:58] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 23:53:59,026 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:53:59] "GET /notifications HTTP/1.1" 200 -
+2026-07-27 23:54:00,854 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:54:00] "GET /admin HTTP/1.1" 200 -
+2026-07-27 23:54:00,886 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:54:00] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 23:54:00,886 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:54:00] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 23:54:01,235 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:54:01] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:55:39,701 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:55:39] "GET /dashboard HTTP/1.1" 200 -
+2026-07-27 23:55:39,741 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:55:39] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 23:55:39,741 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:55:39] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 23:55:40,091 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:55:40] "GET /notifications HTTP/1.1" 200 -
+2026-07-27 23:55:41,604 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:55:41] "GET /admin HTTP/1.1" 200 -
+2026-07-27 23:55:41,635 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:55:41] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 23:55:41,636 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:55:41] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 23:55:41,960 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:55:41] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:56:03,955 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:56:03] "GET /admin HTTP/1.1" 200 -
+2026-07-27 23:56:03,981 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:56:03] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 23:56:03,982 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:56:03] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 23:56:04,014 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:56:04] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-27 23:56:04,318 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:56:04] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:56:52,395 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:56:52] "GET /admin HTTP/1.1" 200 -
+2026-07-27 23:56:52,431 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:56:52] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 23:56:52,431 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:56:52] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 23:56:52,492 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:56:52] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-27 23:56:52,775 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:56:52] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:57:07,561 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:57:07] "GET /admin HTTP/1.1" 200 -
+2026-07-27 23:57:07,587 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:57:07] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 23:57:07,588 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:57:07] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 23:57:07,619 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:57:07] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-27 23:57:07,911 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:57:07] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:57:57,009 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:57:57] "GET /admin HTTP/1.1" 200 -
+2026-07-27 23:57:57,041 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:57:57] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 23:57:57,042 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:57:57] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 23:57:57,102 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:57:57] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-27 23:57:57,654 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:57:57] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:59:32,035 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:59:32] "GET /admin HTTP/1.1" 200 -
+2026-07-27 23:59:32,068 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:59:32] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-27 23:59:32,068 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:59:32] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-27 23:59:32,129 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:59:32] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-27 23:59:32,410 INFO werkzeug: 127.0.0.1 - - [27/Jul/2026 23:59:32] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-27 23:59:44,816 INFO tartine.scheduler: Async catalog/discount matching completed for 2026-07-23
+2026-07-28 00:02:05,116 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\app.py', reloading
+2026-07-28 00:02:07,398 INFO werkzeug:  * Restarting with stat
+2026-07-28 00:02:08,493 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-28 00:02:08,494 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-28 00:02:08,494 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-28 00:02:08,494 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-28 00:02:08,494 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-28 00:02:08,495 INFO apscheduler.scheduler: Scheduler started
+2026-07-28 00:02:08,498 WARNING werkzeug:  * Debugger is active!
+2026-07-28 00:02:08,499 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-28 00:02:18,529 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\database.py', reloading
+2026-07-28 00:02:18,761 INFO werkzeug:  * Restarting with stat
+2026-07-28 00:02:19,798 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-28 00:02:19,799 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-28 00:02:19,799 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-28 00:02:19,799 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-28 00:02:19,799 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-28 00:02:19,799 INFO apscheduler.scheduler: Scheduler started
+2026-07-28 00:02:19,803 WARNING werkzeug:  * Debugger is active!
+2026-07-28 00:02:19,804 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-28 00:02:51,241 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:02:51] "GET /admin HTTP/1.1" 200 -
+2026-07-28 00:02:51,283 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:02:51] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-28 00:02:51,283 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:02:51] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-28 00:02:51,344 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:02:51] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-28 00:02:51,634 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:02:51] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:02:59,009 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:02:59] "GET /admin/review-matches HTTP/1.1" 200 -
+2026-07-28 00:02:59,035 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:02:59] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-28 00:02:59,036 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:02:59] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-28 00:03:20,731 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:03:20] "GET /admin/review-matches HTTP/1.1" 200 -
+2026-07-28 00:03:20,756 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:03:20] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-28 00:03:20,756 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:03:20] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-28 00:03:20,776 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:03:20] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-28 00:09:44,792 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:09:44] "GET /dashboard HTTP/1.1" 200 -
+2026-07-28 00:09:44,833 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:09:44] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-28 00:09:44,833 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:09:44] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-28 00:09:45,222 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:09:45] "GET /notifications HTTP/1.1" 200 -
+2026-07-28 00:10:52,028 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\ingredients.py', reloading
+2026-07-28 00:10:52,299 INFO werkzeug:  * Restarting with stat

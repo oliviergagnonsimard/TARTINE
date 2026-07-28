@@ -508,13 +508,22 @@ def saveCatalogDiscountMatches(matches, week_start):
         with conn.cursor() as curs:
             # Vide les anciens matches de la semaine avant de réinssérer
             curs.execute('DELETE FROM catalog_discount WHERE week_start = %s', (week_start,))
-            
+
+            curs.execute('SELECT "idIngredient" FROM catalog')
+            valid_catalog_ids = {row[0] for row in curs.fetchall()}
+
             for m in matches:
+                catalog_id = m.get("catalog_id")
+                discount_id = m.get("discount_id")
+
+                if catalog_id not in valid_catalog_ids:
+                    continue
+
                 curs.execute("""
                     INSERT INTO catalog_discount ("idCatalog", "idDiscount", week_start)
                     VALUES (%s, %s, %s)
                     ON CONFLICT DO NOTHING
-                """, (m["catalog_id"], m["discount_id"], week_start))
+                """, (catalog_id, discount_id, week_start))
         conn.commit()
     except Exception as e:
         conn.rollback()
@@ -679,6 +688,31 @@ def searchIngredients(query):
                 LIMIT 8
             """, (f'%{query}%',))
             return curs.fetchall()
+    finally:
+        releaseConn(conn)
+
+def getIngredientDiscounts(idRecette):
+    conn = connectToDB()
+    try:
+        with conn.cursor() as curs:
+            curs.execute("""
+                SELECT DISTINCT ON (ri."idCatalog")
+                    ri."idCatalog",
+                    d.discount_pct,
+                    d.original_price,
+                    d.discounted_price,
+                    s.nom AS store
+                FROM recipe_ingredient ri
+                JOIN catalog_discount cd ON cd."idCatalog" = ri."idCatalog"
+                JOIN discount d ON d.id = cd."idDiscount"
+                JOIN stores s ON s."idEpicerie" = d."idEpicerie"
+                WHERE ri."idRecette" = %s
+                ORDER BY ri."idCatalog", d.discount_pct DESC NULLS LAST
+            """, (idRecette,))
+            return curs.fetchall()
+    except Exception as e:
+        print(f"SQL ERROR (getIngredientDiscounts): {e}")
+        return []
     finally:
         releaseConn(conn)
 
@@ -889,6 +923,28 @@ def countDiscountsAdmin(search='', invalid_units_only=False):
     except Exception as e:
         print(f"SQL ERROR (countDiscountsAdmin): {e}")
         return 0
+    finally:
+        releaseConn(conn)
+
+def getCatalogDiscountMatchSample(week_start, limit=30):
+    conn = connectToDB()
+    try:
+        with conn.cursor() as curs:
+            curs.execute("""
+                SELECT cat.nom AS catalog_nom, d.product_name AS discount_nom,
+                       s.nom AS store, d.discount_pct, d.original_price, d.discounted_price
+                FROM catalog_discount cd
+                JOIN catalog cat ON cat."idIngredient" = cd."idCatalog"
+                JOIN discount d ON d.id = cd."idDiscount"
+                JOIN stores s ON s."idEpicerie" = d."idEpicerie"
+                WHERE cd.week_start = %s
+                ORDER BY RANDOM()
+                LIMIT %s
+            """, (week_start, limit))
+            return curs.fetchall()
+    except Exception as e:
+        print(f"SQL ERROR (getCatalogDiscountMatchSample): {e}")
+        return []
     finally:
         releaseConn(conn)
 
