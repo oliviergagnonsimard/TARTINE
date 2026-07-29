@@ -96,17 +96,28 @@
 .filters-wrap {
   display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
 }
-.store-select {
-  appearance: none;
-  -webkit-appearance: none;
-  background: #0a0a0a url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 14px center;
-  border: 0.5px solid #2a2a2a; border-radius: 10px;
-  padding: 10px 34px 10px 14px; font-size: 13px; color: #fff;
-  outline: none; cursor: pointer; transition: border-color 0.2s;
+/* ── Dropdown filtre épicerie (custom) ── */
+.filter-select-wrapper { position: relative; min-width: 190px; }
+.filter-select-selected {
+  background: #0a0a0a; border: 0.5px solid #2a2a2a; color: #fff;
+  border-radius: 10px; padding: 10px 14px; font-size: 13px;
+  cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+  gap: 10px; transition: border-color 0.2s; user-select: none;
 }
-.store-select:hover { border-color: #444; }
-.store-select:focus { border-color: #e91e8c; }
-.store-select option { background: #111; color: #fff; }
+.filter-select-selected:hover { border-color: #444; }
+.filter-select-selected.open { border-color: #e91e8c; }
+.filter-select-dropdown {
+  position: absolute; top: 100%; left: 0; right: 0; z-index: 50;
+  background: #111; border: 0.5px solid #333; border-radius: 10px;
+  margin-top: 4px; overflow-y: auto; max-height: 260px; display: none;
+}
+.filter-select-dropdown.open { display: block; }
+.filter-select-option {
+  padding: 9px 14px; font-size: 13px; color: #ccc; cursor: pointer;
+  transition: background 0.15s;
+}
+.filter-select-option:hover { background: #1a1a1a; color: #fff; }
+.filter-select-option.active { color: #e91e8c; }
 
 /* ── Pagination ── */
 .pagination {
@@ -244,18 +255,25 @@
       <i class="bi bi-search"></i>
       <input type="text" id="item-search" placeholder="Rechercher un article ou une épicerie…">
     </div>
-    <select id="store-filter" class="store-select">
-      <option value="all">Toutes les épiceries</option>
-      {% for epicerie in epiceries %}
-      <option value="{{ epicerie|lower }}">{{ epicerie }}</option>
-      {% endfor %}
-    </select>
+    <div class="filter-select-wrapper">
+      <div class="filter-select-selected" id="store-filter-selected">
+        <span id="store-filter-label">Toutes les épiceries</span>
+        <i class="bi bi-chevron-down" style="font-size:10px;"></i>
+      </div>
+      <div class="filter-select-dropdown" id="store-filter-dropdown">
+        <div class="filter-select-option active" data-value="all">Toutes les épiceries</div>
+        {% for epicerie in epiceries %}
+        <div class="filter-select-option" data-value="{{ epicerie|lower }}">{{ epicerie|capitalize }}</div>
+        {% endfor %}
+      </div>
+      <input type="hidden" id="store-filter" value="all">
+    </div>
   </div>
 </div>
   <div class="items-list" id="items-list">
     {% for d in discounts %}
     <div class="item-row" data-search="{{ (d[0] ~ ' ' ~ d[1])|lower }}" data-store="{{ d[0]|lower }}">
-      <span class="item-store">{{ d[0] }}</span>
+      <span class="item-store">{{ d[0]|capitalize }}</span>
       <span class="item-name">{{ d[1] }}</span>
       <span class="item-qty">
         {% if d[2] %}{{ d[2] }}{% endif %}
@@ -436,7 +454,37 @@ function renderPaginationControls(totalPages) {
 }
 
 if (searchInput2) searchInput2.addEventListener('input', () => { currentPage = 1; renderPage(); });
-if (storeFilter)  storeFilter.addEventListener('change', () => { currentPage = 1; renderPage(); });
+function setupStoreFilterDropdown() {
+  const selected = document.getElementById('store-filter-selected');
+  const dropdown = document.getElementById('store-filter-dropdown');
+  const label    = document.getElementById('store-filter-label');
+  const hidden   = document.getElementById('store-filter');
+
+  selected.addEventListener('click', (e) => {
+    e.stopPropagation();
+    selected.classList.toggle('open');
+    dropdown.classList.toggle('open');
+  });
+
+  dropdown.querySelectorAll('.filter-select-option').forEach(opt => {
+    opt.addEventListener('click', () => {
+      label.textContent = opt.textContent;
+      hidden.value = opt.dataset.value;
+      dropdown.querySelectorAll('.filter-select-option').forEach(o => o.classList.remove('active'));
+      opt.classList.add('active');
+      selected.classList.remove('open');
+      dropdown.classList.remove('open');
+      currentPage = 1;
+      renderPage();
+    });
+  });
+
+  document.addEventListener('click', () => {
+    selected.classList.remove('open');
+    dropdown.classList.remove('open');
+  });
+}
+setupStoreFilterDropdown();
 
 renderPage();
 </script>

@@ -2312,3 +2312,202 @@
 2026-07-28 00:09:45,222 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:09:45] "GET /notifications HTTP/1.1" 200 -
 2026-07-28 00:10:52,028 INFO werkzeug:  * Detected change in 'c:\\Users\\Olivier\\Code\\TARTINE\\app\\ingredients.py', reloading
 2026-07-28 00:10:52,299 INFO werkzeug:  * Restarting with stat
+2026-07-28 00:10:53,420 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-28 00:10:53,421 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-28 00:10:53,421 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-28 00:10:53,421 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-28 00:10:53,421 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-28 00:10:53,421 INFO apscheduler.scheduler: Scheduler started
+2026-07-28 00:10:53,427 WARNING werkzeug:  * Debugger is active!
+2026-07-28 00:10:53,429 INFO werkzeug:  * Debugger PIN: 876-490-579
+2026-07-28 00:11:17,972 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:11:17] "GET /admin HTTP/1.1" 200 -
+2026-07-28 00:11:18,012 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:11:18] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-28 00:11:18,013 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:11:18] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-28 00:11:18,604 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:11:18] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:11:20,714 INFO tartine.scheduler: Starting async catalog/discount matching for 2026-07-23
+2026-07-28 00:11:20,715 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:11:20] "POST /admin/match-catalog HTTP/1.1" 200 -
+2026-07-28 00:11:20,949 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:11:20] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:11:22,725 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:11:22] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:11:23,744 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:11:23] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:11:25,479 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:11:25] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:11:26,721 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:11:26] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:11:28,479 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:11:28] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:11:29,734 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:11:29] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:11:31,231 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:11:31] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:11:32,728 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:11:32] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:11:34,239 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:11:34] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:11:35,727 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:11:35] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:11:37,487 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:11:37] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:11:39,238 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:11:39] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:11:40,446 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:11:40] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:11:41,718 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:11:41] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:11:43,716 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:11:43] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:11:44,735 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:11:44] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:11:46,210 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:11:46] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:11:47,969 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:11:47] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:11:49,231 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:11:49] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:11:50,723 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:11:50] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:11:52,226 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:11:52] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:11:53,728 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:11:53] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:11:55,241 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:11:55] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:11:56,732 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:11:56] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:11:58,462 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:11:58] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:11:59,734 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:11:59] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:12:01,233 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:12:01] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:12:02,984 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:12:02] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:12:04,242 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:12:04] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:12:05,739 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:12:05] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:12:07,216 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:12:07] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:12:08,736 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:12:08] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:12:10,228 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:12:10] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:12:11,964 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:12:11] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:12:13,243 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:12:13] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:12:15,219 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:12:15] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:12:16,225 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:12:16] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:12:18,251 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:12:18] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:12:19,234 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:12:19] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:12:20,735 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:12:20] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:12:22,226 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:12:22] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:12:23,727 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:12:23] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:12:25,251 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:12:25] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:12:26,978 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:12:26] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:12:28,478 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:12:28] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:12:29,736 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:12:29] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:12:31,228 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:12:31] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:12:33,221 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:12:33] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:12:34,235 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:12:34] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:12:35,737 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:12:35] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:12:37,226 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:12:37] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:12:38,738 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:12:38] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:12:40,228 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:12:40] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:12:42,212 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:12:42] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:12:43,497 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:12:43] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:12:44,949 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:12:44] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:12:46,233 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:12:46] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:12:47,959 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:12:47] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:12:49,484 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:12:49] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:12:50,725 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:12:50] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:12:52,212 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:12:52] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:12:53,967 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:12:53] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:12:55,234 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:12:55] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:12:56,971 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:12:56] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:12:58,729 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:12:58] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:12:59,537 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:12:59] "GET /dashboard HTTP/1.1" 200 -
+2026-07-28 00:12:59,580 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:12:59] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-28 00:12:59,580 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:12:59] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-28 00:12:59,953 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:12:59] "GET /notifications HTTP/1.1" 200 -
+2026-07-28 00:13:00,169 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:13:00] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:13:01,586 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:13:01] "GET /admin HTTP/1.1" 200 -
+2026-07-28 00:13:01,616 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:13:01] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-28 00:13:01,617 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:13:01] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-28 00:13:01,936 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:13:01] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:14:58,714 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:14:58] "GET /admin HTTP/1.1" 200 -
+2026-07-28 00:14:58,753 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:14:58] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-28 00:14:58,755 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:14:58] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-28 00:14:58,837 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:14:58] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-28 00:14:59,370 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:14:59] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:15:51,423 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:15:51] "GET /admin HTTP/1.1" 200 -
+2026-07-28 00:15:51,463 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:15:51] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-28 00:15:51,464 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:15:51] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-28 00:15:51,529 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:15:51] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-28 00:15:51,794 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:15:51] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:17:09,135 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:17:09] "GET /admin HTTP/1.1" 200 -
+2026-07-28 00:17:09,176 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:17:09] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-28 00:17:09,186 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:17:09] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-28 00:17:09,249 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:17:09] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-28 00:17:09,506 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:17:09] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:17:51,847 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:17:51] "GET /admin HTTP/1.1" 200 -
+2026-07-28 00:17:51,881 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:17:51] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-28 00:17:51,885 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:17:51] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-28 00:17:51,944 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:17:51] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-28 00:17:52,215 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:17:52] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:18:31,943 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:18:31] "GET /admin HTTP/1.1" 200 -
+2026-07-28 00:18:31,985 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:18:31] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-28 00:18:31,986 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:18:31] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-28 00:18:32,054 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:18:32] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-28 00:18:32,339 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:18:32] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:19:16,584 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:19:16] "GET /dashboard HTTP/1.1" 200 -
+2026-07-28 00:19:16,618 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:19:16] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-28 00:19:16,619 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:19:16] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-28 00:19:16,962 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:19:16] "GET /notifications HTTP/1.1" 200 -
+2026-07-28 00:19:18,917 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:19:18] "GET /admin HTTP/1.1" 200 -
+2026-07-28 00:19:18,944 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:19:18] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-28 00:19:18,944 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:19:18] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-28 00:19:19,258 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:19:19] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:21:51,007 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:21:51] "GET /admin HTTP/1.1" 200 -
+2026-07-28 00:21:51,048 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:21:51] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-28 00:21:51,049 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:21:51] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-28 00:21:51,110 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:21:51] "[36mGET /static/favicon.ico HTTP/1.1[0m" 304 -
+2026-07-28 00:21:51,390 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:21:51] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:22:09,994 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:22:09] "GET /dashboard HTTP/1.1" 200 -
+2026-07-28 00:22:10,033 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:22:10] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-28 00:22:10,033 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:22:10] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-28 00:22:10,414 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:22:10] "GET /notifications HTTP/1.1" 200 -
+2026-07-28 00:22:16,425 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:22:16] "GET /recipes HTTP/1.1" 200 -
+2026-07-28 00:22:16,453 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:22:16] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-28 00:22:16,454 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:22:16] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-28 00:22:21,835 INFO tartine.scheduler: Async catalog/discount matching completed for 2026-07-23
+2026-07-28 00:22:23,982 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:22:23] "GET /recipes/13 HTTP/1.1" 200 -
+2026-07-28 00:22:24,008 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:22:24] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-28 00:22:24,009 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:22:24] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-28 00:22:38,408 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:22:38] "GET /recipes HTTP/1.1" 200 -
+2026-07-28 00:22:38,433 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:22:38] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-28 00:22:38,434 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:22:38] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-28 00:22:42,770 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:22:42] "GET /recipes/12 HTTP/1.1" 200 -
+2026-07-28 00:22:42,801 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:22:42] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-28 00:22:42,801 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:22:42] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-28 00:22:48,168 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:22:48] "GET /recipes HTTP/1.1" 200 -
+2026-07-28 00:22:48,199 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:22:48] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-28 00:22:48,199 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:22:48] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-28 00:23:14,489 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:23:14] "GET /admin/review-matches HTTP/1.1" 200 -
+2026-07-28 00:23:14,524 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:23:14] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-28 00:23:14,524 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:23:14] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-28 00:23:22,595 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:23:22] "[32mGET /logout HTTP/1.1[0m" 302 -
+2026-07-28 00:23:22,602 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:23:22] "GET /login HTTP/1.1" 200 -
+2026-07-28 00:23:22,629 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:23:22] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-28 00:23:22,630 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:23:22] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-28 00:23:26,864 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:23:26] "[32mGET /admin HTTP/1.1[0m" 302 -
+2026-07-28 00:23:26,871 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:23:26] "GET /login HTTP/1.1" 200 -
+2026-07-28 00:23:26,904 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:23:26] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-28 00:23:26,905 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:23:26] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-28 00:23:43,102 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:23:43] "[33mGET /admin/ HTTP/1.1[0m" 404 -
+2026-07-28 00:23:43,250 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:23:43] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-07-28 00:23:50,177 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:23:50] "[32mGET /admin/review-matches HTTP/1.1[0m" 302 -
+2026-07-28 00:23:50,183 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:23:50] "GET /login HTTP/1.1" 200 -
+2026-07-28 00:23:50,220 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:23:50] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-28 00:23:50,221 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:23:50] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-28 00:24:38,081 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:24:38] "[32mPOST /login HTTP/1.1[0m" 302 -
+2026-07-28 00:24:39,666 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:24:39] "GET /dashboard HTTP/1.1" 200 -
+2026-07-28 00:24:39,703 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:24:39] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-28 00:24:39,704 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:24:39] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-28 00:24:40,349 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:24:40] "GET /notifications HTTP/1.1" 200 -
+2026-07-28 00:24:41,465 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:24:41] "GET /admin HTTP/1.1" 200 -
+2026-07-28 00:24:41,492 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:24:41] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-28 00:24:41,493 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:24:41] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-28 00:24:41,837 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:24:41] "GET /admin/match-status HTTP/1.1" 200 -
+2026-07-28 00:25:05,518 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:25:05] "GET /recipes HTTP/1.1" 200 -
+2026-07-28 00:25:05,548 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:25:05] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-28 00:25:05,551 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:25:05] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-28 00:25:14,398 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:25:14] "GET /admin/review-matches HTTP/1.1" 200 -
+2026-07-28 00:25:14,426 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:25:14] "[36mGET /static/styles/about.css HTTP/1.1[0m" 304 -
+2026-07-28 00:25:14,427 INFO werkzeug: 127.0.0.1 - - [28/Jul/2026 00:25:14] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2026-07-29 14:05:20,046 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-29 14:05:20,048 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-29 14:05:20,048 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-29 14:05:20,048 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-29 14:05:20,049 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-29 14:05:20,049 INFO apscheduler.scheduler: Scheduler started
+2026-07-29 14:05:20,061 INFO werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.0.0.194:5000
+2026-07-29 14:05:20,062 INFO werkzeug: [33mPress CTRL+C to quit[0m
+2026-07-29 14:05:20,063 INFO werkzeug:  * Restarting with stat
+2026-07-29 14:05:21,100 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-29 14:05:21,101 INFO apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-29 14:05:21,101 INFO tartine.scheduler: Scheduler configured, logs -> c:\Users\Olivier\Code\TARTINE\app\logs\scheduler.log
+2026-07-29 14:05:21,101 INFO apscheduler.scheduler: Added job "downloadFlyersJob" to job store "default"
+2026-07-29 14:05:21,101 INFO apscheduler.scheduler: Added job "deleteUnverifiedAccounts" to job store "default"
+2026-07-29 14:05:21,101 INFO apscheduler.scheduler: Scheduler started
+2026-07-29 14:05:21,105 WARNING werkzeug:  * Debugger is active!
+2026-07-29 14:05:21,107 INFO werkzeug:  * Debugger PIN: 876-490-579
