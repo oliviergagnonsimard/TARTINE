@@ -746,6 +746,18 @@ def clearDiscounts():
     cursor.close()
     releaseConn(conn)
 
+def clearDiscountsForWeek(week_start):
+    conn = connectToDB()
+    try:
+        with conn.cursor() as curs:
+            curs.execute("DELETE FROM discount WHERE week_start = %s", (week_start,))
+        conn.commit()
+    except Exception as e:
+        conn.rollback()
+        print(f"SQL ERROR (clearDiscountsForWeek): {e}")
+    finally:
+        releaseConn(conn)
+
 def getDiscountsForWeek(week_start):
     conn = connectToDB()
     try:
@@ -800,8 +812,8 @@ def getWeeklyDiscounts(limit=5):
     releaseConn(conn)
     return rows
 
-@cache.cached(timeout=5)
-def checkIfFlyersAlreadyDownloaded():
+@cache.memoize(timeout=5)
+def flyersAlreadyDownloaded():
     epiceries = getAllEpiceries()
     weekStr = getFlyerStartWeekStr()
 

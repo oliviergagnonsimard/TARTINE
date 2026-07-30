@@ -131,7 +131,7 @@ def resetSessionData(userID):
 
 def triggerDownloadFlyers():
     cache.delete_memoized(getWeeklyDiscounts)
-    if checkIfFlyersAlreadyDownloaded():
+    if flyersAlreadyDownloaded():
         print("Flyers already downloaded.")
         return
     downloadFlyersJob()
@@ -386,7 +386,7 @@ def dashboard():
 @limiter.limit("30 per minute", override_defaults=True)
 def flyers():
     discounts = getWeeklyDiscounts(0)
-    areFlyersDownloaded = checkIfFlyersAlreadyDownloaded()
+    areFlyersDownloaded = flyersAlreadyDownloaded()
     if not areFlyersDownloaded:
         threading.Thread(target=triggerDownloadFlyers).start()
     epiceries = getAllEpiceries()
@@ -396,7 +396,7 @@ def flyers():
 @app.route('/flyers/status')
 @limiter.limit("1 per second")
 def flyers_status():
-    downloading = checkIfFlyersAlreadyDownloaded()
+    downloading = flyersAlreadyDownloaded()
     return {"downloading": not downloading}
 
 from r2 import imageExists, getImageUrl
@@ -845,7 +845,7 @@ scheduler.add_job(
 scheduler.add_job(
     deleteUnverifiedAccounts,
     'interval',
-    hours=1,
+    hours=24,
     timezone='America/Montreal'
 )
 
@@ -869,3 +869,4 @@ if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     debug = os.environ.get("FLASK_ENV") == "development"
     app.run(host='0.0.0.0', port=port, debug=debug)
+

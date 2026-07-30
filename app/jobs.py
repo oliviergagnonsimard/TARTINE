@@ -4,7 +4,7 @@ from download import DownloadAllCirculaires
 from r2 import deleteFolderFromR2
 from main import getFlyerStartWeekStr, getPrevWeekStart
 from ingredients import matchCatalogWithDiscounts
-from database import clearDiscounts, getIdEpicerie, notifyAllUsers, checkIfFlyersAlreadyDownloaded
+from database import clearDiscountsForWeek, getIdEpicerie, notifyAllUsers, flyersAlreadyDownloaded
 from scrapper import scrapeStoreFlyer
 
 # STORES list centralized for scheduler
@@ -36,13 +36,24 @@ def downloadFlyersJob():
         prev_week = getPrevWeekStart(week_start)
         logger.info("Last week: %s", prev_week)
 
-        if checkIfFlyersAlreadyDownloaded():
-            logger.info("✅ Circulaires déjà à jour pour la semaine en cours.")
+        if not flyersAlreadyDownloaded():
+            # 1. Supprimer les anciens circulaires dans R2
+            logger.info("☁️  Suppression des anciens circulaires R2...")
+            for store in STORES:
+                prefix = f"circulaires/{store}_{prev_week}/"
+                logger.info("  - %s", prefix)
+                deleteFolderFromR2(prefix)
+
+            # 2 Télécharger les nouveaux circulaires
+            DownloadAllCirculaires()
+            logger.info("✅ Circulaires téléchargées!")
             return
+        else:
+            logger.info("✅ Circulaires déjà à jour pour la semaine en cours.")
 
         # 1. Vider la table discounts
         logger.info("🧹 Suppression des anciens rabais en base...")
-        clearDiscounts()
+        clearDiscountsForWeek(week_start)
 
         # 2. Supprimer les anciens circulaires dans R2
         logger.info("☁️  Suppression des anciens circulaires R2...")
@@ -51,11 +62,7 @@ def downloadFlyersJob():
             logger.info("  - %s", prefix)
             deleteFolderFromR2(prefix)
 
-        # 3. Télécharger les nouveaux circulaires
-        DownloadAllCirculaires()
-        logger.info("✅ Circulaires téléchargées!")
-
-        # 4. Scraper chaque store
+        # 3. Scraper chaque store
         for store in STORES:
             idEpicerie = getIdEpicerie(store)
             if idEpicerie is None:
@@ -64,10 +71,10 @@ def downloadFlyersJob():
             print(f"Scrapping for {store} | week: {week_start} | idEpicerie: {idEpicerie}")
             scrapeStoreFlyer(store, idEpicerie, week_start)
 
-        # 5. Matcher catalog avec discounts
+        # 4. Matcher catalog avec discounts
         matchCatalogWithDiscounts(week_start)
 
-        # 6. Notifier les users
+        # 5. Notifier les users
         notifyAllUsers("Nouveaux circulaires!", "Les circulaires de la semaine sont disponibles!")
         logger.info("downloadFlyersJob terminé avec succès")
     except Exception:
